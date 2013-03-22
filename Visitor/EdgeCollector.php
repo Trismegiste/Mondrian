@@ -19,6 +19,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
     protected $currentClassVertex = null;
     protected $currentMethod = false;
     protected $currentMethodNode = null;
+    protected $currentMethodParamOrder;
     protected $graph;
     protected $vertex;
     protected $inheritanceMap;
@@ -95,8 +96,11 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
 
     protected function findParamVertex($className, $methodName, $paramName)
     {
-        $order = $this->currentMethodParamOrder[$paramName];
-        return $this->findVertex('param', $className . '::' . $methodName . '/' . $order);
+        if (array_key_exists($paramName, $this->currentMethodParamOrder)) {
+            $order = $this->currentMethodParamOrder[$paramName];
+            return $this->findVertex('param', $className . '::' . $methodName . '/' . $order);
+        }
+        return null;
     }
 
     protected function getDeclaringClass($cls, $meth)
