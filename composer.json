@@ -1,8 +1,8 @@
 {
-    "name": "trismegiste/kandinsky",
-    "description": "KandinskyBundle is a set of refactoring tools for more abstraction",
-    "type": "symfony-bundle",
-    "keywords": ["refactoring", "symfony2", "abstract"],
+    "name": "trismegiste/mondrian",
+    "description": "Mondrian is a set of static analysis and refactoring tools for more abstraction",
+    "type": "CLI",
+    "keywords": ["refactoring", "abstract"],
     "authors": [
     {
         "name": "Trismegiste",
@@ -18,10 +18,10 @@
     },
     "autoload": {
         "psr-0": {
-            "Trismegiste\\KandinskyBundle": ""
+            "Trismegiste\\Mondrian": ""
         }
     },
-    "target-dir": "Trismegiste/KandinskyBundle",
+    "target-dir": "Trismegiste/Mondrian",
     "license": "CC-BY-SA-3.0",
-    "version": "0.2"
+    "version": "0.3"
 }
