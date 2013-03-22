@@ -20,11 +20,13 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver
     protected $currentMethod = false;
     protected $graph;
     protected $vertex;
+    protected $inheritanceMap;
 
-    public function __construct(Graph\Graph $g, array &$v)
+    public function __construct(Graph\Graph $g, array &$v, array &$map)
     {
         $this->graph = $g;
         $this->vertex = &$v;
+        $this->inheritanceMap = &$map;
     }
 
     public function enterNode(\PHPParser_Node $node)
@@ -47,15 +49,14 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver
                 if ($node->isPublic()) {
                     $this->currentMethod = $node->name;
                     // only if this method is declared in this class
-                    $refl = new ReflectionTree($this->currentClass);
-                    $declaringClass = $refl->findFirstDeclaration($this->currentMethod);
+                    $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
                     // we add the vertex. If not, it will be a higher class/interface
                     // in the inheritance hierarchy which add it.
-                    if ($this->currentClass == $declaringClass->name) {
+                    if ($this->currentClass == $declaringClass) {
                         $this->pushMethod($node);
                     }
                     // if not abstract we add the vertex containing the implementation
-                    if (!$refl->isInterface() && !$node->isAbstract()) {
+                    if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
                         $this->pushImplementation($node);
                     }
                 }
@@ -71,6 +72,16 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver
         if ($node->getType() == 'Stmt_ClassMethod') {
             $this->currentMethod = false;
         }
+    }
+
+    protected function getDeclaringClass($cls, $meth)
+    {
+        return $this->inheritanceMap[$cls]['method'][$meth];
+    }
+
+    protected function isInterface($cls)
+    {
+        return $this->inheritanceMap[$cls]['interface'];
     }
 
     protected function pushClass(\PHPParser_Node_Stmt_Class $node)

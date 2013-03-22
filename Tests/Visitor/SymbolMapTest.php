@@ -14,11 +14,12 @@ use Trismegiste\Mondrian\Visitor\SymbolMap;
 class SymbolMapTest extends \PHPUnit_Framework_TestCase
 {
 
-    protected $symbol;
+    protected $symbol = array();
+    protected $visitor;
 
     public function setUp()
     {
-        $this->visitor = new SymbolMap();
+        $this->visitor = new SymbolMap($this->symbol);
     }
 
     public function testExternalInterfaceInheritance()
@@ -28,7 +29,7 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
         $traverser = new \PHPParser_NodeTraverser();
         $traverser->addVisitor($this->visitor);
 
-        $iter = array(__DIR__ . '/../Fixtures/Graph/InheritExtra.php');
+        $iter = array(__DIR__ . '/../Fixtures/Project/InheritExtra.php');
         foreach ($iter as $fch) {
             $code = file_get_contents($fch);
             $stmts = $parser->parse($code);

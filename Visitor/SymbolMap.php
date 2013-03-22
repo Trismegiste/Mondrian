@@ -13,8 +13,13 @@ namespace Trismegiste\Mondrian\Visitor;
 class SymbolMap extends \PHPParser_NodeVisitor_NameResolver
 {
 
-    protected $symbol = array();
+    protected $symbol;
     protected $currentClass = false;
+
+    public function __construct(array &$map)
+    {
+        $this->symbol = &$map;
+    }
 
     public function enterNode(\PHPParser_Node $node)
     {
@@ -84,8 +89,6 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver
                 }
             }
         }
-
-        print_r($this->symbol);
     }
 
     private function recursivDeclaration($current, $m)

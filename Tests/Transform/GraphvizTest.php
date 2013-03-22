@@ -23,9 +23,9 @@ class GraphvizTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerate()
     {
-        $fqcnClass = 'Trismegiste\Mondrian\Tests\Fixtures\Project\NotConcreteTypedParam';
-        $fqcnInterface = 'Trismegiste\Mondrian\Tests\Fixtures\Project\ContractTypedParam';
-        $fqcnOtherInterface = 'Trismegiste\Mondrian\Tests\Fixtures\Project\Contract';
+        $fqcnClass = 'Project\NotConcreteTypedParam';
+        $fqcnInterface = 'Project\ContractTypedParam';
+        $fqcnOtherInterface = 'Project\Contract';
         $iter = array(
             __DIR__ . '/../Fixtures/Project/NotConcreteTypedParam.php',
             __DIR__ . '/../Fixtures/Project/ContractTypedParam.php',

@@ -16,7 +16,7 @@ class Grapher
 
     public function __construct(/* Finder */)
     {
-        
+
     }
 
     public function parse($iter)
@@ -27,10 +27,13 @@ class Grapher
             'method' => array(), 'impl' => array(),
             'param' => array()
         );
+        $inheritanceMap = array();
+        // 0th pass
+        $pass[0] = new Visitor\SymbolMap($inheritanceMap);
         // 1st pass
-        $pass[0] = new Visitor\VertexCollector($graph, $vertex);
+        $pass[1] = new Visitor\VertexCollector($graph, $vertex, $inheritanceMap);
         // 2nd pass
-        $pass[1] = new Visitor\EdgeCollector($graph, $vertex);
+        $pass[2] = new Visitor\EdgeCollector($graph, $vertex);
 
         foreach ($pass as $collector) {
             $traverser = new \PHPParser_NodeTraverser();

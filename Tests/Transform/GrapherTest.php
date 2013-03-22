@@ -30,7 +30,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $result = $this->grapher->parse($iter);
         $v = $result->getVertexSet();
         $this->assertCount(1, $v);
-        $this->assertEquals('Trismegiste\Mondrian\Tests\Fixtures\Graph\OneClass', $v[0]->getName());
+        $this->assertEquals('Project\OneClass', $v[0]->getName());
         $this->assertCount(0, $result->getEdgeSet());
     }
 
@@ -69,8 +69,8 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testDecoupleMethodParam()
     {
-        $fqcnClass = 'Trismegiste\Mondrian\Tests\Fixtures\Graph\NotConcreteParam';
-        $fqcnInterface = 'Trismegiste\Mondrian\Tests\Fixtures\Graph\ContractParam';
+        $fqcnClass = 'Project\NotConcreteParam';
+        $fqcnInterface = 'Project\ContractParam';
         $iter = array(__DIR__ . '/../Fixtures/Project/NotConcreteParam.php',
             __DIR__ . '/../Fixtures/Project/ContractParam.php');
         $result = $this->grapher->parse($iter);
@@ -137,18 +137,18 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $result->getVertexSet());
         $this->assertNotNull(
                 $this->findVertex(
-                        $result, $nsVertex . "ClassVertex", 'Trismegiste\Mondrian\Tests\Fixtures\Graph\InheritExtra'));
+                        $result, $nsVertex . "ClassVertex", 'Project\InheritExtra'));
         $this->assertNotNull(
                 $this->findVertex(
-                        $result, $nsVertex . "ImplVertex", 'Trismegiste\Mondrian\Tests\Fixtures\Graph\InheritExtra::getIterator'));
+                        $result, $nsVertex . "ImplVertex", 'Project\InheritExtra::getIterator'));
         $this->assertCount(2, $result->getEdgeSet());
     }
 
     public function testDecoupledMethodWithTypedParam()
     {
-        $fqcnClass = 'Trismegiste\Mondrian\Tests\Fixtures\Graph\NotConcreteTypedParam';
-        $fqcnInterface = 'Trismegiste\Mondrian\Tests\Fixtures\Graph\ContractTypedParam';
-        $fqcnOtherInterface = 'Trismegiste\Mondrian\Tests\Fixtures\Graph\Contract';
+        $fqcnClass = 'Project\NotConcreteTypedParam';
+        $fqcnInterface = 'Project\ContractTypedParam';
+        $fqcnOtherInterface = 'Project\Contract';
         $iter = array(
             __DIR__ . '/../Fixtures/Project/NotConcreteTypedParam.php',
             __DIR__ . '/../Fixtures/Project/ContractTypedParam.php',
