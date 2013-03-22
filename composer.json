@@ -1,0 +1,27 @@
+{
+    "name": "trismegiste/kandinsky",
+    "description": "KandinskyBundle is a set of refactoring tools for more abstraction",
+    "type": "symfony-bundle",
+    "keywords": ["refactoring", "symfony2", "abstract"],
+    "authors": [
+    {
+        "name": "Trismegiste",
+        "email": "florent.g@allopneus.com"
+    }
+    ],
+   "require": {
+        "php": ">=5.3.8",
+        "nikic/php-parser": "dev-master",
+        "symfony/console": "2.2.*",
+        "alom/graphviz": "dev-master",
+        "symfony/finder": "2.2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Trismegiste\\KandinskyBundle": ""
+        }
+    },
+    "target-dir": "Trismegiste/KandinskyBundle",
+    "license": "CC-BY-SA-3.0",
+    "version": "0.2"
+}

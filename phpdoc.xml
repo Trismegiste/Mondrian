@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title><![CDATA[Mondrian]]></title>
+    <parser>
+        <target>Resources/doc/tech</target>
+    </parser>
+    <transformer>
+        <target>Resources/doc/tech</target>
+    </transformer>
+    <files>
+        <directory>.</directory>
+        <ignore>Tests/</ignore>
+        <ignore>vendor/</ignore>
+    </files>
+</phpdoc>
