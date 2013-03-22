@@ -1,8 +1,8 @@
 <?php
 
-namespace Trismegiste\Mondrian\Tests\Fixtures\Graph;
+namespace Project;
 
-class Concrete
+class NotConcrete implements Contract
 {
 
     public function simple()

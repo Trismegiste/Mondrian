@@ -1,6 +1,6 @@
 <?php
 
-namespace Trismegiste\Mondrian\Tests\Fixtures\Graph;
+namespace Project;
 
 interface Contract
 {

@@ -26,7 +26,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testOneClass()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Graph/OneClass.php');
+        $iter = array(__DIR__ . '/../Fixtures/Project/OneClass.php');
         $result = $this->grapher->parse($iter);
         $v = $result->getVertexSet();
         $this->assertCount(1, $v);
@@ -36,7 +36,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testInheritance()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Graph/Inheritance.php');
+        $iter = array(__DIR__ . '/../Fixtures/Project/Inheritance.php');
         $result = $this->grapher->parse($iter);
         $this->assertCount(4, $result->getVertexSet());
         $this->assertCount(3, $result->getEdgeSet());
@@ -44,7 +44,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testInterfaceInheritance()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Graph/Interface.php');
+        $iter = array(__DIR__ . '/../Fixtures/Project/Interface.php');
         $result = $this->grapher->parse($iter);
         $this->assertCount(4, $result->getVertexSet());
         $this->assertCount(3, $result->getEdgeSet());
@@ -52,7 +52,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testEmbedMethod()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Graph/Concrete.php');
+        $iter = array(__DIR__ . '/../Fixtures/Project/Concrete.php');
         $result = $this->grapher->parse($iter);
         $this->assertCount(3, $result->getVertexSet());
         $this->assertCount(3, $result->getEdgeSet());
@@ -60,8 +60,8 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testDecoupleMethod()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Graph/NotConcrete.php',
-            __DIR__ . '/../Fixtures/Graph/Contract.php');
+        $iter = array(__DIR__ . '/../Fixtures/Project/NotConcrete.php',
+            __DIR__ . '/../Fixtures/Project/Contract.php');
         $result = $this->grapher->parse($iter);
         $this->assertCount(4, $result->getVertexSet());
         $this->assertCount(4, $result->getEdgeSet());
@@ -71,8 +71,8 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     {
         $fqcnClass = 'Trismegiste\Mondrian\Tests\Fixtures\Graph\NotConcreteParam';
         $fqcnInterface = 'Trismegiste\Mondrian\Tests\Fixtures\Graph\ContractParam';
-        $iter = array(__DIR__ . '/../Fixtures/Graph/NotConcreteParam.php',
-            __DIR__ . '/../Fixtures/Graph/ContractParam.php');
+        $iter = array(__DIR__ . '/../Fixtures/Project/NotConcreteParam.php',
+            __DIR__ . '/../Fixtures/Project/ContractParam.php');
         $result = $this->grapher->parse($iter);
         $this->assertCount(5, $result->getVertexSet());
         $this->assertEdges(array(
@@ -132,7 +132,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     public function testExternalInterfaceInheritance()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = array(__DIR__ . '/../Fixtures/Graph/InheritExtra.php');
+        $iter = array(__DIR__ . '/../Fixtures/Project/InheritExtra.php');
         $result = $this->grapher->parse($iter);
         $this->assertCount(2, $result->getVertexSet());
         $this->assertNotNull(
@@ -150,9 +150,9 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $fqcnInterface = 'Trismegiste\Mondrian\Tests\Fixtures\Graph\ContractTypedParam';
         $fqcnOtherInterface = 'Trismegiste\Mondrian\Tests\Fixtures\Graph\Contract';
         $iter = array(
-            __DIR__ . '/../Fixtures/Graph/NotConcreteTypedParam.php',
-            __DIR__ . '/../Fixtures/Graph/ContractTypedParam.php',
-            __DIR__ . '/../Fixtures/Graph/Contract.php'
+            __DIR__ . '/../Fixtures/Project/NotConcreteTypedParam.php',
+            __DIR__ . '/../Fixtures/Project/ContractTypedParam.php',
+            __DIR__ . '/../Fixtures/Project/Contract.php'
         );
         $result = $this->grapher->parse($iter);
         $this->assertCount(7, $result->getVertexSet());
@@ -195,14 +195,14 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testOutsideInheritance()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Graph/OutsideEdge.php');
+        $iter = array(__DIR__ . '/../Fixtures/Project/OutsideEdge.php');
         $result = $this->grapher->parse($iter);
         $this->assertCount(4, $result->getVertexSet());
     }
 
     public function testOutsideSignature()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Graph/OutsideSignature.php');
+        $iter = array(__DIR__ . '/../Fixtures/Project/OutsideSignature.php');
         $result = $this->grapher->parse($iter);
         $this->assertCount(2, $result->getVertexSet());
     }

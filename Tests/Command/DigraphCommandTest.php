@@ -31,7 +31,7 @@ class DigraphCommandTest extends \PHPUnit_Framework_TestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command' => $command->getName(),
-            'dir' => __DIR__ . '/../Fixtures/Coupled',
+            'dir' => __DIR__ . '/../Fixtures/Project',
             'report' => $fch
         ));
 
