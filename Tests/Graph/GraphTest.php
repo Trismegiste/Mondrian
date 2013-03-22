@@ -48,6 +48,15 @@ abstract class GraphTest extends \PHPUnit_Framework_TestCase
         $this->checkSimpleGraph(2, 1);
     }
 
+    public function testSearchEdge()
+    {
+        $v1 = new Vertex('A');
+        $v2 = new Vertex('B');
+        $this->graph->addEdge($v1, $v2);
+        $this->assertNotNull($this->graph->searchEdge($v1, $v2));
+        $this->assertNull($this->graph->searchEdge($v1, new Vertex('C')));
+    }
+
     protected function checkSimpleGraph($vCard, $eCard)
     {
         $set = $this->graph->getEdgeSet();

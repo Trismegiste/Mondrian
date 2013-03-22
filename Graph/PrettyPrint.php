@@ -16,9 +16,12 @@ class PrettyPrint extends Algorithm
 
     private function extractShortName(Vertex $v)
     {
+        $result = 'Unknown';
         if (preg_match('#([^\\\\]+)$#', get_class($v), $match)) {
-            return $match[1];
+            $result = $match[1];
         }
+
+        return $result;
     }
 
     public function __toString()
