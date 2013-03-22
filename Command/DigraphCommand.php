@@ -33,7 +33,7 @@ class DigraphCommand extends Command
     protected function configure()
     {
         $this
-                ->setName('kandinsky:digraph')
+                ->setName('mondrian:digraph')
                 ->setDescription('Transforms a bunch of php file into a digraph fo GraphViz')
                 ->addArgument('dir', InputArgument::OPTIONAL, 'The directory to explore', './src')
                 ->addArgument('report', InputArgument::OPTIONAL, 'The filename of the report', 'report.dot')

@@ -27,7 +27,7 @@ class DigraphCommandTest extends \PHPUnit_Framework_TestCase
     {
         $fch = tempnam(sys_get_temp_dir(), 'graph');
 
-        $command = $this->application->find('kandinsky:digraph');
+        $command = $this->application->find('mondrian:digraph');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command' => $command->getName(),
