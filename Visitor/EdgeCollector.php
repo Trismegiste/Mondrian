@@ -7,7 +7,6 @@
 namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Graph;
-use Trismegiste\Mondrian\Utils\ReflectionTree;
 
 /**
  * EdgeCollector is a visitor to transform code into graph edges
