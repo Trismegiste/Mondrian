@@ -33,7 +33,7 @@ class Grapher
         // 1st pass
         $pass[1] = new Visitor\VertexCollector($graph, $vertex, $inheritanceMap);
         // 2nd pass
-        $pass[2] = new Visitor\EdgeCollector($graph, $vertex);
+        $pass[2] = new Visitor\EdgeCollector($graph, $vertex, $inheritanceMap);
 
         foreach ($pass as $collector) {
             $traverser = new \PHPParser_NodeTraverser();

@@ -21,11 +21,13 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
     protected $currentMethodNode = null;
     protected $graph;
     protected $vertex;
+    protected $inheritanceMap;
 
-    public function __construct(Graph\Graph $g, array &$v)
+    public function __construct(Graph\Graph $g, array &$v, array &$map)
     {
         $this->graph = $g;
         $this->vertex = &$v;
+        $this->inheritanceMap = &$map;
     }
 
     public function enterNode(\PHPParser_Node $node)
@@ -97,18 +99,27 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
         return $this->findVertex('param', $className . '::' . $methodName . '/' . $order);
     }
 
+    protected function getDeclaringClass($cls, $meth)
+    {
+        return $this->inheritanceMap[$cls]['method'][$meth];
+    }
+
+    protected function isInterface($cls)
+    {
+        return $this->inheritanceMap[$cls]['interface'];
+    }
+
     protected function enterParamNode(\PHPParser_Node_Param $node)
     {
         // one link from the method if we are in the declaring class
         // and one link if the type (class/interface) exists in the graph
-        $refl = new ReflectionTree($this->currentClass);
-        $declaringClass = $refl->findFirstDeclaration($this->currentMethod);
-        $paramVertex = $this->findParamVertex($declaringClass->name, $this->currentMethod, $node->name);
+        $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
+        $paramVertex = $this->findParamVertex($declaringClass, $this->currentMethod, $node->name);
         if (!is_null($paramVertex)) {
-            if ($this->currentClass == $declaringClass->name) {
+            if ($this->currentClass == $declaringClass) {
                 // we are in the declaring class of this method for this param
                 // we search the vertex of the method signature
-                $signatureVertex = $this->findVertex('method', $declaringClass->name . '::' . $this->currentMethod);
+                $signatureVertex = $this->findVertex('method', $declaringClass . '::' . $this->currentMethod);
                 $this->graph->addEdge($signatureVertex, $paramVertex);
                 // now the type of the param
                 $paramType = (string) $node->type;
@@ -127,7 +138,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
                 }
             }
             // one link from the impl to the param
-            if (!$refl->isInterface() && !$this->currentMethodNode->isAbstract()) {
+            if (!$this->isInterface($this->currentClass) && !$this->currentMethodNode->isAbstract()) {
                 $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
                 $this->graph->addEdge($impl, $paramVertex);
             }
@@ -144,22 +155,21 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
             $this->currentMethodParamOrder[$aParam->name] = $order;
         }
         // search for the declaring class of this method
-        $refl = new ReflectionTree($this->currentClass);
-        $declaringClass = $refl->findFirstDeclaration($this->currentMethod);
-        $signature = $this->findVertex('method', $declaringClass->name . '::' . $node->name);
+        $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
+        $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
         $src = $this->currentClassVertex;
         // if current class == declaring class, we add the edge
-        if ($declaringClass->name == $this->currentClass) {
+        if ($declaringClass == $this->currentClass) {
             $this->graph->addEdge($src, $signature);
         }
         // if not abstract, the implementation depends on the class
         // for odd reason, a method in an interface is not abstract
         // that's why, there is a double check
-        if (!$refl->isInterface() && !$node->isAbstract()) {
+        if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
             $impl = $this->findVertex('impl', $this->currentClass . '::' . $node->name);
             $this->graph->addEdge($impl, $src);
             // who is embedding the impl ?
-            if ($declaringClass->name == $this->currentClass) {
+            if ($declaringClass == $this->currentClass) {
                 $this->graph->addEdge($signature, $impl);
             } else {
                 $this->graph->addEdge($src, $impl);
