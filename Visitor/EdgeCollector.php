@@ -18,7 +18,6 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
     protected $currentClassVertex = null;
     protected $currentMethod = false;
     protected $currentMethodNode = null;
-    protected $currentMethodParamOrder;
     protected $graph;
     protected $vertex;
     protected $inheritanceMap;
@@ -50,12 +49,6 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
                 }
                 break;
 
-            case 'Param' :
-                if ($this->currentMethod && $this->currentMethodNode->isPublic()) {
-                    $this->enterParamNode($node);
-                }
-                break;
-
             case 'Expr_MethodCall' :
                 /* if (false !== array_search($node->name, $this->callFilter)) {
                   $this->analyze[$this->currentClass]['calling'][] =
@@ -71,17 +64,18 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
 
     public function leaveNode(\PHPParser_Node $node)
     {
-        if ($node->getType() == 'Stmt_Class') {
-            $this->currentClass = false;
-            $this->currentClassVertex = null;
-        }
-        if ($node->getType() == 'Stmt_Interface') {
-            $this->currentClass = false;
-            $this->currentClassVertex = null;
-        }
-        if ($node->getType() == 'Stmt_ClassMethod') {
-            $this->currentMethod = false;
-            $this->currentMethodNode = null;
+        switch ($node->getType()) {
+            
+            case 'Stmt_Class':
+            case 'Stmt_Interface';
+                $this->currentClass = false;
+                $this->currentClassVertex = null;
+                break;
+            
+            case 'Stmt_ClassMethod' :
+                $this->currentMethod = false;
+                $this->currentMethodNode = null;
+                break;
         }
     }
 
@@ -93,13 +87,9 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
         return null;
     }
 
-    protected function findParamVertex($className, $methodName, $paramName)
+    protected function findParamVertexIdx($className, $methodName, $idx)
     {
-        if (array_key_exists($paramName, $this->currentMethodParamOrder)) {
-            $order = $this->currentMethodParamOrder[$paramName];
-            return $this->findVertex('param', $className . '::' . $methodName . '/' . $order);
-        }
-        return null;
+        return $this->findVertex('param', $className . '::' . $methodName . '/' . $idx);
     }
 
     protected function getDeclaringClass($cls, $meth)
@@ -112,51 +102,10 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
         return $this->inheritanceMap[$cls]['interface'];
     }
 
-    protected function enterParamNode(\PHPParser_Node_Param $node)
-    {
-        // one link from the method if we are in the declaring class
-        // and one link if the type (class/interface) exists in the graph
-        $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
-        $paramVertex = $this->findParamVertex($declaringClass, $this->currentMethod, $node->name);
-        if (!is_null($paramVertex)) {
-            if ($this->currentClass == $declaringClass) {
-                // we are in the declaring class of this method for this param
-                // we search the vertex of the method signature
-                $signatureVertex = $this->findVertex('method', $declaringClass . '::' . $this->currentMethod);
-                $this->graph->addEdge($signatureVertex, $paramVertex);
-                // now the type of the param
-                $paramType = (string) $node->type;
-                if (strlen($paramType) > 0) {
-                    // there is a type, we add a link to the type, if it is found
-                    // first we search in class
-                    $typeVertex = $this->findVertex('class', $paramType);
-                    if (is_null($typeVertex)) {
-                        // if not, in interface
-                        $typeVertex = $this->findVertex('interface', $paramType);
-                        if (!is_null($typeVertex)) {
-                            // we add the edge
-                            $this->graph->addEdge($paramVertex, $typeVertex);
-                        }
-                    }
-                }
-            }
-            // one link from the impl to the param
-            if (!$this->isInterface($this->currentClass) && !$this->currentMethodNode->isAbstract()) {
-                $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
-                $this->graph->addEdge($impl, $paramVertex);
-            }
-        }
-    }
-
     protected function enterMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $this->currentMethod = $node->name;
         $this->currentMethodNode = $node;
-        // we store the param order of the current method
-        $this->currentMethodParamOrder = array();
-        foreach ($node->params as $order => $aParam) {
-            $this->currentMethodParamOrder[$aParam->name] = $order;
-        }
         // search for the declaring class of this method
         $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
         $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
@@ -164,6 +113,27 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
         // if current class == declaring class, we add the edge
         if ($declaringClass == $this->currentClass) {
             $this->graph->addEdge($src, $signature);
+            // managing params of the signature :
+            foreach ($node->params as $idx => $param) {
+                // adding edge from signature to param :
+                $paramVertex = $this->findParamVertexIdx($this->currentClass, $this->currentMethod, $idx);
+                $this->graph->addEdge($signature, $paramVertex);
+                // now the type of the param :
+                if (!is_null($param->type)) {
+                    $paramType = (string) $this->resolveClassName($param->type);
+                    // there is a type, we add a link to the type, if it is found
+                    // first we search in class
+                    $typeVertex = $this->findVertex('class', $paramType);
+                    if (is_null($typeVertex)) {
+                        // if not, in interface
+                        $typeVertex = $this->findVertex('interface', $paramType);
+                    }
+                    if (!is_null($typeVertex)) {
+                        // we add the edge
+                        $this->graph->addEdge($paramVertex, $typeVertex);
+                    }
+                }
+            }
         }
         // if not abstract, the implementation depends on the class
         // for odd reason, a method in an interface is not abstract
@@ -176,6 +146,16 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
                 $this->graph->addEdge($signature, $impl);
             } else {
                 $this->graph->addEdge($src, $impl);
+            }
+            // in any case, we link the implementation to the params
+            foreach ($node->params as $idx => $param) {
+                // adding edge from signature to param :
+                $paramVertex = $this->findParamVertexIdx($declaringClass, $this->currentMethod, $idx);
+                // it is possible to not find the param because the signature
+                // is external to the source code :
+                if (!is_null($paramVertex)) {
+                    $this->graph->addEdge($impl, $paramVertex);
+                }
             }
         }
     }
