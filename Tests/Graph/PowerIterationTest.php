@@ -43,8 +43,8 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
 
         $matrix = $this->graph->getAdjacencyMatrix();
         $eigen = $this->graph->getEigenVector(30);
-        print_r($matrix);
-        print_r($eigen);
+//        print_r($matrix);
+//        print_r($eigen);
 
         $result = array();
         foreach ($matrix as $x => $col) {
@@ -56,7 +56,7 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
         }
 
         for ($k = 0; $k < 6; $k++) {
-            printf("%f\n", $result[$k] / $eigen[$k]);
+//            printf("%f\n", $result[$k] / $eigen[$k]);
         }
     }
 
