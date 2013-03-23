@@ -65,13 +65,13 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
     public function leaveNode(\PHPParser_Node $node)
     {
         switch ($node->getType()) {
-            
+
             case 'Stmt_Class':
             case 'Stmt_Interface';
                 $this->currentClass = false;
                 $this->currentClassVertex = null;
                 break;
-            
+
             case 'Stmt_ClassMethod' :
                 $this->currentMethod = false;
                 $this->currentMethodNode = null;
@@ -90,6 +90,24 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
     protected function findParamVertexIdx($className, $methodName, $idx)
     {
         return $this->findVertex('param', $className . '::' . $methodName . '/' . $idx);
+    }
+
+    /**
+     * Find a class or interface
+     * 
+     * @param string $type fqcn to be found
+     * @return Vertex 
+     */
+    protected function findTypeVertex($type)
+    {
+        foreach (array('class', 'interface') as $pool) {
+            $typeVertex = $this->findVertex($pool, $type);
+            if (!is_null($typeVertex)) {
+                return $typeVertex;
+            }
+        }
+
+        return null;
     }
 
     protected function getDeclaringClass($cls, $meth)
@@ -122,12 +140,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
                 if (!is_null($param->type)) {
                     $paramType = (string) $this->resolveClassName($param->type);
                     // there is a type, we add a link to the type, if it is found
-                    // first we search in class
-                    $typeVertex = $this->findVertex('class', $paramType);
-                    if (is_null($typeVertex)) {
-                        // if not, in interface
-                        $typeVertex = $this->findVertex('interface', $paramType);
-                    }
+                    $typeVertex = $this->findTypeVertex($paramType);
                     if (!is_null($typeVertex)) {
                         // we add the edge
                         $this->graph->addEdge($paramVertex, $typeVertex);
