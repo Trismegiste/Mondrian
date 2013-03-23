@@ -137,7 +137,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
                 $paramVertex = $this->findParamVertexIdx($this->currentClass, $this->currentMethod, $idx);
                 $this->graph->addEdge($signature, $paramVertex);
                 // now the type of the param :
-                if (!is_null($param->type)) {
+                if ($param->type instanceof \PHPParser_Node_Name) {
                     $paramType = (string) $this->resolveClassName($param->type);
                     // there is a type, we add a link to the type, if it is found
                     $typeVertex = $this->findTypeVertex($paramType);
