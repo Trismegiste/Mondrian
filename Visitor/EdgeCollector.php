@@ -97,9 +97,14 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
     {
         if (array_key_exists($paramName, $this->currentMethodParamOrder)) {
             $order = $this->currentMethodParamOrder[$paramName];
-            return $this->findVertex('param', $className . '::' . $methodName . '/' . $order);
+            return $this->findParamVertexIdx($className, $methodName, $order);
         }
         return null;
+    }
+
+    protected function findParamVertexIdx($className, $methodName, $idx)
+    {
+        return $this->findVertex('param', $className . '::' . $methodName . '/' . $idx);
     }
 
     protected function getDeclaringClass($cls, $meth)
