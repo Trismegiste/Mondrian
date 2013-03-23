@@ -18,7 +18,6 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
     protected $currentClassVertex = null;
     protected $currentMethod = false;
     protected $currentMethodNode = null;
-    protected $currentMethodParamOrder;
     protected $graph;
     protected $vertex;
     protected $inheritanceMap;
@@ -107,11 +106,6 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
     {
         $this->currentMethod = $node->name;
         $this->currentMethodNode = $node;
-        // we store the param order of the current method
-        $this->currentMethodParamOrder = array();
-        foreach ($node->params as $order => $aParam) {
-            $this->currentMethodParamOrder[$aParam->name] = $order;
-        }
         // search for the declaring class of this method
         $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
         $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
