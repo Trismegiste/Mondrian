@@ -34,7 +34,7 @@ class Digraph implements Graph
         // if the vetex is already in the the adjacencies list, there is no
         // need to add it.
         if (!$this->adjacency->contains($v)) {
-            // if it is not found, we add it (without edge list)
+            // if it is not found, we add it (with empty edge list)
             $this->adjacency[$v] = new \SplObjectStorage();
         }
     }

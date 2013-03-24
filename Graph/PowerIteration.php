@@ -56,4 +56,36 @@ class PowerIteration extends Algorithm
         return $approx;
     }
 
+    public function getEigenVectorSparse($iter)
+    {
+        $vertex = $this->getVertexSet();
+        $approx = new \SplObjectStorage();
+        foreach ($vertex as $v) {
+            $approx[$v] = 1;
+        }
+        for ($k = 0; $k < $iter; $k++) {
+            // result = M . approx
+            $result = new \SplObjectStorage();
+            foreach ($vertex as $v) {
+                $result[$v] = 0;
+            }
+            foreach ($vertex as $v) {
+                foreach ($this->graph->getSuccessor($v) as $succ) {
+                    $result[$v] += $approx[$succ];
+                }
+            }
+            // normalize
+            $sum = 0;
+            foreach ($result as $val) {
+                $sum += $result->getInfo() * $result->getInfo();
+            }
+            $norm = sqrt($sum);
+            foreach ($result as $v) {
+                $approx[$v] = $result[$v] / $norm;
+            }
+        }
+
+        return $approx;
+    }
+
 }

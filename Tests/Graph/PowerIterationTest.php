@@ -21,6 +21,18 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->graph = new PowerIteration(new Digraph());
+
+        $dim = 9;
+        for ($k = 0; $k < $dim; $k++) {
+            $this->graph->addVertex(new Vertex($k));
+        }
+
+        $axis = $this->graph->getVertexSet();
+        foreach ($axis as $v) {
+            for ($j = 0; $j < (2 * $dim / 3); $j++) {
+                $this->graph->addEdge($v, $axis[rand(0, $dim - 1)]);
+            }
+        }
     }
 
     protected function tearDown()
@@ -28,25 +40,15 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
         unset($this->graph);
     }
 
-    public function testDiagonal()
+    public function testEigen()
     {
-        for ($k = 0; $k < 6; $k++) {
-            $this->graph->addVertex(new Vertex($k));
-        }
-
-        $axis = $this->graph->getVertexSet();
-        foreach ($axis as $v) {
-            for ($j = 0; $j < 4; $j++) {
-                $this->graph->addEdge($v, $axis[rand(0, 5)]);
-            }
-        }
-
-        $matrix = $this->graph->getAdjacencyMatrix();
+        $stopWatch = time();
+        $mem = memory_get_usage();
         $eigen = $this->graph->getEigenVector(30);
-//        print_r($matrix);
-//        print_r($eigen);
+        printf("%d sec\n%d bytes\n", time() - $stopWatch, memory_get_usage() - $mem);
 
         $result = array();
+        $matrix = $this->graph->getAdjacencyMatrix();
         foreach ($matrix as $x => $col) {
             $sum = 0;
             foreach ($col as $y => $coeff) {
@@ -55,8 +57,29 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
             $result[] = $sum;
         }
 
-        for ($k = 0; $k < 6; $k++) {
-//            printf("%f\n", $result[$k] / $eigen[$k]);
+        foreach ($eigen as $k => $val) {
+            //     printf("%f\n", $result[$k] / $val);
+        }
+    }
+
+    public function testEigenSparse()
+    {
+        $stopWatch = time();
+        $mem = memory_get_usage();
+        $eigen = $this->graph->getEigenVectorSparse(30);
+        printf("%d sec\n%d bytes\n", time() - $stopWatch, memory_get_usage() - $mem);
+
+        $result = new \SplObjectStorage();
+        foreach ($eigen as $vx) {
+            $sum = 0;
+            foreach ($this->graph->getSuccessor($vx) as $vy) {
+                $sum += $eigen[$vy];
+            }
+            $result[$vx] = $sum;
+        }
+
+        foreach ($eigen as $vx) {
+            //   printf("%f\n", $result[$vx] / $eigen[$vx]);
         }
     }
 
