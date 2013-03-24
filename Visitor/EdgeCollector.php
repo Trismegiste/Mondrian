@@ -8,11 +8,12 @@ namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Graph;
 use Trismegiste\Mondrian\Transform\Context;
+use Trismegiste\Mondrian\Transform\CompilerPass;
 
 /**
  * EdgeCollector is a visitor to transform code into graph edges
  */
-class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
+class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
 {
 
     protected $currentClass = false;
@@ -206,6 +207,11 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver
                 $this->graph->addEdge($src, $dst);
             }
         }
+    }
+
+    public function compile()
+    {
+        
     }
 
 }

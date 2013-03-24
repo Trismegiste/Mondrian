@@ -7,19 +7,22 @@
 namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Transform\Context;
+use Trismegiste\Mondrian\Transform\CompilerPass;
 
 /**
  * SymbolMap is a class to collect list of class/interface/method name
  *
  */
-class SymbolMap extends \PHPParser_NodeVisitor_NameResolver
+class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
 {
 
     protected $symbol;
     protected $currentClass = false;
+    protected $context;
 
     public function __construct(Context $ctx)
     {
+        $this->context = $ctx;
         $this->symbol = &$ctx->inheritanceMap;
     }
 
@@ -78,6 +81,11 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver
             $this->symbol[$name]['parent'] = array();
             $this->symbol[$name]['method'] = array();
         }
+    }
+
+    public function compile()
+    {
+        $this->context->resolveSymbol();
     }
 
 }

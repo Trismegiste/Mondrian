@@ -10,11 +10,12 @@ use Trismegiste\Mondrian\Graph;
 use Trismegiste\Mondrian\Utils\ReflectionTree;
 use Trismegiste\Mondrian\Transform\Vertex;
 use Trismegiste\Mondrian\Transform\Context;
+use Trismegiste\Mondrian\Transform\CompilerPass;
 
 /**
  * VertexCollector is a visitor to transform code into graph vertices
  */
-class VertexCollector extends \PHPParser_NodeVisitor_NameResolver
+class VertexCollector extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
 {
 
     protected $currentClass = false;
@@ -141,6 +142,11 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver
             $this->graph->addVertex($v);
             $this->vertex['param'][$index] = $v;
         }
+    }
+
+    public function compile()
+    {
+        
     }
 
 }

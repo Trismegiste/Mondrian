@@ -44,9 +44,7 @@ class Grapher
                 $traverser->traverse($stmts);
             }
 
-            if ($collector instanceof Visitor\SymbolMap) {
-                $context->resolveSymbol();
-            }
+            $collector->compile();
             //   printf("Pass in %d sec\n", time() - $stopWatch);
         }
 
