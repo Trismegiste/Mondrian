@@ -15,55 +15,23 @@ namespace Trismegiste\Mondrian\Graph;
 class PowerIteration extends Algorithm
 {
 
-    public function getAdjacencyMatrix()
-    {
-        $matrix = array();
-        $axis = $this->graph->getVertexSet();
-
-        foreach ($axis as $x => $vx) {
-            foreach ($axis as $y => $vy) {
-                $matrix[$x][$y] = is_null($this->graph->searchEdge($vx, $vy)) ? 0 : 1;
-            }
-        }
-
-        return $matrix;
-    }
-
-    public function getEigenVector($iter)
-    {
-        $matrix = $this->getAdjacencyMatrix();
-        $dimension = count($matrix);
-        $approx = array_fill(0, $dimension, 1);
-        for ($k = 0; $k < $iter; $k++) {
-            // result = M . approx
-            $result = array_fill(0, $dimension, 0);
-            for ($x = 0; $x < $dimension; $x++) {
-                for ($y = 0; $y < $dimension; $y++) {
-                    $result[$x] += $matrix[$x][$y] * $approx[$y];
-                }
-            }
-            // normalize
-            $sum = 0;
-            foreach ($result as $val) {
-                $sum += $val * $val;
-            }
-            $approx = array_map(
-                    function($x) use ($sum) {
-                        return $x / sqrt($sum);
-                    }, $result);
-        }
-
-        return $approx;
-    }
-
-    public function getEigenVectorSparse($iter)
+    /**
+     * Return the dominate eigenvector of the adjacency matrix of
+     * this graph
+     * 
+     * @param float $precision
+     * @return \SplObjectStorage 
+     */
+    public function getEigenVectorSparse($precision=0.001)
     {
         $vertex = $this->getVertexSet();
+        $dimension = count($vertex);
         $approx = new \SplObjectStorage();
         foreach ($vertex as $v) {
-            $approx[$v] = 1;
+            $approx[$v] = 1 / sqrt($dimension);
         }
-        for ($k = 0; $k < $iter; $k++) {
+        $iter = 0;
+        do {
             // result = M . approx
             $result = new \SplObjectStorage();
             foreach ($vertex as $v) {
@@ -76,14 +44,18 @@ class PowerIteration extends Algorithm
             }
             // normalize
             $sum = 0;
-            foreach ($result as $val) {
+            foreach ($result as $v) {
                 $sum += $result->getInfo() * $result->getInfo();
             }
             $norm = sqrt($sum);
+            $delta = 0;
             foreach ($result as $v) {
-                $approx[$v] = $result[$v] / $norm;
+                $newApproxForV = $result->getInfo() / $norm;
+                $delta += abs($approx[$v] - $newApproxForV);
+                $approx[$v] = $newApproxForV;
             }
-        }
+            $iter++;
+        } while ($delta > $precision);
 
         return $approx;
     }

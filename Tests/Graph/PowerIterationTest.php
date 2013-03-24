@@ -22,15 +22,17 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
     {
         $this->graph = new PowerIteration(new Digraph());
 
-        $dim = 9;
+        $dim = 20;
         for ($k = 0; $k < $dim; $k++) {
             $this->graph->addVertex(new Vertex($k));
         }
 
         $axis = $this->graph->getVertexSet();
         foreach ($axis as $v) {
-            for ($j = 0; $j < (2 * $dim / 3); $j++) {
-                $this->graph->addEdge($v, $axis[rand(0, $dim - 1)]);
+            foreach ($axis as $w) {
+                if (($v != $w) && (rand(0, 9) >= 7)) {
+                    $this->graph->addEdge($v, $w);
+                }
             }
         }
     }
@@ -40,47 +42,27 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
         unset($this->graph);
     }
 
-    public function testEigen()
-    {
-        $stopWatch = time();
-        $mem = memory_get_usage();
-        $eigen = $this->graph->getEigenVector(30);
-//        printf("%d sec\n%d bytes\n", time() - $stopWatch, memory_get_usage() - $mem);
-
-        $result = array();
-        $matrix = $this->graph->getAdjacencyMatrix();
-        foreach ($matrix as $x => $col) {
-            $sum = 0;
-            foreach ($col as $y => $coeff) {
-                $sum += $coeff * $eigen[$y];
-            }
-            $result[] = $sum;
-        }
-
-        foreach ($eigen as $k => $val) {
-            //     printf("%f\n", $result[$k] / $val);
-        }
-    }
-
     public function testEigenSparse()
     {
-        $stopWatch = time();
-        $mem = memory_get_usage();
-        $eigen = $this->graph->getEigenVectorSparse(30);
-//        printf("%d sec\n%d bytes\n", time() - $stopWatch, memory_get_usage() - $mem);
+        $eigenVector = $this->graph->getEigenVectorSparse();
 
         $result = new \SplObjectStorage();
-        foreach ($eigen as $vx) {
+        $eigenValue = 0;
+        foreach ($eigenVector as $vx) {
             $sum = 0;
             foreach ($this->graph->getSuccessor($vx) as $vy) {
-                $sum += $eigen[$vy];
+                $sum += $eigenVector[$vy];
             }
             $result[$vx] = $sum;
+            $eigenValue += $sum / $eigenVector[$vx];
         }
+        $eigenValue /= count($eigenVector);
 
-        foreach ($eigen as $vx) {
-            //   printf("%f\n", $result[$vx] / $eigen[$vx]);
+        $delta = 0;
+        foreach ($eigenVector as $vx) {
+            $delta += abs($result[$vx] / $eigenVector[$vx] / $eigenValue - 1);
         }
+        $this->assertLessThan(0.002, $delta);
     }
 
 }
