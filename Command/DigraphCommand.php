@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Trismegiste\Mondrian\Transform\Grapher;
-use Trismegiste\Mondrian\Transform\Format\Graphviz;
+use Trismegiste\Mondrian\Transform\Format\Factory;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -36,7 +36,7 @@ class DigraphCommand extends Command
                 ->setName('mondrian:digraph')
                 ->setDescription('Transforms a bunch of php file into a digraph')
                 ->addArgument('dir', InputArgument::OPTIONAL, 'The directory to explore', './src')
-                ->addArgument('report', InputArgument::OPTIONAL, 'The filename of the report', 'report.dot')
+                ->addArgument('report', InputArgument::OPTIONAL, 'The filename of the report', 'report')
                 ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests'))
                 ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Format of export', 'dot');
     }
@@ -46,6 +46,7 @@ class DigraphCommand extends Command
         $directory = $input->getArgument('dir');
         $reportName = $input->getArgument('report');
         $ignoreDir = $input->getOption('ignore');
+        $ext = $input->getOption('format');
 
         $listing = array();
         $scan = new Finder();
@@ -57,10 +58,9 @@ class DigraphCommand extends Command
         $transformer = new Grapher();
         $graph = $transformer->parse($listing);
 
-        $dumper = new Graphviz($graph);
-        file_put_contents($reportName, $dumper->export());
-        $dumper = new \Trismegiste\Mondrian\Transform\Format\Json($graph);
-        file_put_contents('graph.json', $dumper->export());
+        $ff = new Factory();
+        $dumper = $ff->create($graph, $ext);
+        file_put_contents("$reportName.$ext", $dumper->export());
     }
 
 }

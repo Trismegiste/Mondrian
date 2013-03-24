@@ -35,7 +35,7 @@ class DigraphCommandTest extends \PHPUnit_Framework_TestCase
             'report' => $fch
         ));
 
-        $ptr = fopen($fch, 'r');
+        $ptr = fopen($fch . '.dot', 'r');
         $heading = fgets($ptr);
         $this->assertStringStartsWith('digraph', $heading);
         fclose($ptr);
