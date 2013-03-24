@@ -223,4 +223,20 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($link);
     }
 
+    public function testNewInstance()
+    {
+        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
+        $iter = array(__DIR__ . '/../Fixtures/Project/NewInstance.php',
+            __DIR__ . '/../Fixtures/Project/Concrete.php');
+        $result = $this->grapher->parse($iter);
+        $this->assertCount(8, $result->getVertexSet());
+        $this->assertCount(10, $result->getEdgeSet());
+        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\NewInstance::simpleNew');
+        $this->assertNotNull($impl);
+        $classVertex = $this->findVertex($result, $nsVertex . 'ClassVertex', 'Project\Concrete');
+        $this->assertNotNull($classVertex);
+        $link = $result->searchEdge($impl, $classVertex);
+        $this->assertNotNull($link);
+    }
+
 }

@@ -56,6 +56,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
                 break;
 
             case 'Expr_New':
+                $this->enterNewInstance($node);
                 break;
         }
     }
@@ -210,6 +211,13 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         // nothing to do
     }
 
+    /**
+     * link the current implementation vertex to all method with the same
+     * name
+     * 
+     * @param \PHPParser_Node_Expr_MethodCall $node
+     * @return void
+     */
     protected function enterMethodCall(\PHPParser_Node_Expr_MethodCall $node)
     {
         $method = $node->name;
@@ -220,6 +228,23 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
                     });
             foreach ($candidate as $methodVertex) {
                 $this->graph->addEdge($impl, $methodVertex);
+            }
+        }
+    }
+
+    /**
+     * Add an edge from current implementation to the class which a new instance
+     * is created
+     * 
+     * @param \PHPParser_Node_Expr_New $node 
+     */
+    protected function enterNewInstance(\PHPParser_Node_Expr_New $node)
+    {
+        if ($node->class instanceof \PHPParser_Node_Name_FullyQualified) {
+            $classVertex = $this->findVertex('class', (string) $node->class);
+            if (!is_null($classVertex)) {
+                $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
+                $this->graph->addEdge($impl, $classVertex);
             }
         }
     }
