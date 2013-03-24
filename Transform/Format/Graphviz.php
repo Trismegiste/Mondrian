@@ -4,17 +4,16 @@
  * Mondrian
  */
 
-namespace Trismegiste\Mondrian\Transform;
+namespace Trismegiste\Mondrian\Transform\Format;
 
 use Alom\Graphviz\Digraph;
-use Trismegiste\Mondrian\Graph\Algorithm;
 use Trismegiste\Mondrian\Graph\Vertex;
 
 /**
  * Graphviz is a decorator for GraphViz output
  *
  */
-class Graphviz extends Algorithm
+class Graphviz extends GraphExporter
 {
 
     private function getIndex(Vertex $vertex)
@@ -25,7 +24,7 @@ class Graphviz extends Algorithm
         return $type . $filtered;
     }
 
-    public function getDot()
+    public function export()
     {
         $default = array('fixedsize' => true, 'width' => 2, 'height' => 2);
         $dot = new Digraph('G');

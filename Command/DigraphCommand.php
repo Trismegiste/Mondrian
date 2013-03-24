@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Trismegiste\Mondrian\Transform\Grapher;
-use Trismegiste\Mondrian\Transform\Graphviz;
+use Trismegiste\Mondrian\Transform\Format\Graphviz;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -34,10 +34,11 @@ class DigraphCommand extends Command
     {
         $this
                 ->setName('mondrian:digraph')
-                ->setDescription('Transforms a bunch of php file into a digraph fo GraphViz')
+                ->setDescription('Transforms a bunch of php file into a digraph')
                 ->addArgument('dir', InputArgument::OPTIONAL, 'The directory to explore', './src')
                 ->addArgument('report', InputArgument::OPTIONAL, 'The filename of the report', 'report.dot')
-                ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests'));
+                ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests'))
+                ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Format of export', 'dot');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -57,7 +58,9 @@ class DigraphCommand extends Command
         $graph = $transformer->parse($listing);
 
         $dumper = new Graphviz($graph);
-        file_put_contents($reportName, $dumper->getDot());
+        file_put_contents($reportName, $dumper->export());
+        $dumper = new \Trismegiste\Mondrian\Transform\Format\Json($graph);
+        file_put_contents('graph.json', $dumper->export());
     }
 
 }
