@@ -207,4 +207,20 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $result->getVertexSet());
     }
 
+    public function testCalling()
+    {
+        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
+        $iter = array(__DIR__ . '/../Fixtures/Project/Calling.php',
+            __DIR__ . '/../Fixtures/Project/Concrete.php');
+        $result = $this->grapher->parse($iter);
+        $this->assertCount(8, $result->getVertexSet());
+        $this->assertCount(10, $result->getEdgeSet());
+        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\Calling::simpleCall');
+        $this->assertNotNull($impl);
+        $calledMethod = $this->findVertex($result, $nsVertex . 'MethodVertex', 'Project\Concrete::simple');
+        $this->assertNotNull($calledMethod);
+        $link = $result->searchEdge($impl, $calledMethod);
+        $this->assertNotNull($link);
+    }
+
 }

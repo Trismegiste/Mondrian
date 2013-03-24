@@ -52,11 +52,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
                 break;
 
             case 'Expr_MethodCall' :
-                /* if (false !== array_search($node->name, $this->callFilter)) {
-                  $this->analyze[$this->currentClass]['calling'][] =
-                  array('in' => $this->currentMethod,
-                  'method' => $node->name);
-                  } */
+                $this->enterMethodCall($node);
                 break;
 
             case 'Expr_New':
@@ -211,7 +207,21 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
     public function compile()
     {
-        
+        // nothing to do
+    }
+
+    protected function enterMethodCall(\PHPParser_Node_Expr_MethodCall $node)
+    {
+        $method = $node->name;
+        if (is_string($method)) {
+            $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
+            $candidate = array_filter($this->vertex['method'], function($val) use ($method) {
+                        return preg_match("#::$method$#", $val->getName());
+                    });
+            foreach ($candidate as $methodVertex) {
+                $this->graph->addEdge($impl, $methodVertex);
+            }
+        }
     }
 
 }
