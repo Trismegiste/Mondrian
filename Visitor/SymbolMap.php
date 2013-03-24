@@ -78,7 +78,7 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver
         }
     }
 
-    public function afterTraverse(array $nodes)
+    public function resolveSymbol()
     {
         foreach ($this->symbol as $className => $info) {
             $method = $info['method'];

@@ -16,7 +16,7 @@ class Grapher
 
     public function __construct(/* Finder */)
     {
-
+        
     }
 
     public function parse($iter)
@@ -36,6 +36,8 @@ class Grapher
         $pass[2] = new Visitor\EdgeCollector($graph, $vertex, $inheritanceMap);
 
         foreach ($pass as $collector) {
+            $stopWatch = time();
+
             $traverser = new \PHPParser_NodeTraverser();
             $traverser->addVisitor($collector);
 
@@ -44,6 +46,11 @@ class Grapher
                 $stmts = $parser->parse($code);
                 $traverser->traverse($stmts);
             }
+
+            if ($collector instanceof Visitor\SymbolMap) {
+                $collector->resolveSymbol();
+            }
+         //   printf("Pass in %d sec\n", time() - $stopWatch);
         }
 
         return $graph;

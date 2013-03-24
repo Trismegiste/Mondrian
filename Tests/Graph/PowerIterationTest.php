@@ -45,7 +45,7 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
         $stopWatch = time();
         $mem = memory_get_usage();
         $eigen = $this->graph->getEigenVector(30);
-        printf("%d sec\n%d bytes\n", time() - $stopWatch, memory_get_usage() - $mem);
+//        printf("%d sec\n%d bytes\n", time() - $stopWatch, memory_get_usage() - $mem);
 
         $result = array();
         $matrix = $this->graph->getAdjacencyMatrix();
@@ -67,7 +67,7 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
         $stopWatch = time();
         $mem = memory_get_usage();
         $eigen = $this->graph->getEigenVectorSparse(30);
-        printf("%d sec\n%d bytes\n", time() - $stopWatch, memory_get_usage() - $mem);
+//        printf("%d sec\n%d bytes\n", time() - $stopWatch, memory_get_usage() - $mem);
 
         $result = new \SplObjectStorage();
         foreach ($eigen as $vx) {
