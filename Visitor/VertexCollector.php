@@ -9,6 +9,7 @@ namespace Trismegiste\Mondrian\Visitor;
 use Trismegiste\Mondrian\Graph;
 use Trismegiste\Mondrian\Utils\ReflectionTree;
 use Trismegiste\Mondrian\Transform\Vertex;
+use Trismegiste\Mondrian\Transform\Context;
 
 /**
  * VertexCollector is a visitor to transform code into graph vertices
@@ -22,11 +23,11 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver
     protected $vertex;
     protected $inheritanceMap;
 
-    public function __construct(Graph\Graph $g, array &$v, array &$map)
+    public function __construct(Context $ctx)
     {
-        $this->graph = $g;
-        $this->vertex = &$v;
-        $this->inheritanceMap = &$map;
+        $this->graph = $ctx->graph;
+        $this->vertex = &$ctx->vertex;
+        $this->inheritanceMap = &$ctx->inheritanceMap;
     }
 
     public function enterNode(\PHPParser_Node $node)

@@ -7,7 +7,7 @@
 namespace Trismegiste\Mondrian\Tests\Visitor;
 
 use Trismegiste\Mondrian\Visitor\SymbolMap;
-
+use Trismegiste\Mondrian\Transform\Context;
 /**
  * SymbolMapTest is a test for the visitor SymbolMap
  */
@@ -19,7 +19,8 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->visitor = new SymbolMap($this->symbol);
+        $ctx = new Context($this->getMock('Trismegiste\Mondrian\Graph\Graph'));
+        $this->visitor = new SymbolMap($ctx);
     }
 
     public function testExternalInterfaceInheritance()

@@ -23,17 +23,13 @@ class Grapher
     {
         $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
         $graph = new \Trismegiste\Mondrian\Graph\Digraph();
-        $vertex = array('class' => array(), 'interface' => array(),
-            'method' => array(), 'impl' => array(),
-            'param' => array()
-        );
-        $inheritanceMap = array();
+        $context = new Context($graph);
         // 0th pass
-        $pass[0] = new Visitor\SymbolMap($inheritanceMap);
+        $pass[0] = new Visitor\SymbolMap($context);
         // 1st pass
-        $pass[1] = new Visitor\VertexCollector($graph, $vertex, $inheritanceMap);
+        $pass[1] = new Visitor\VertexCollector($context);
         // 2nd pass
-        $pass[2] = new Visitor\EdgeCollector($graph, $vertex, $inheritanceMap);
+        $pass[2] = new Visitor\EdgeCollector($context);
 
         foreach ($pass as $collector) {
             $stopWatch = time();
@@ -50,7 +46,7 @@ class Grapher
             if ($collector instanceof Visitor\SymbolMap) {
                 $collector->resolveSymbol();
             }
-         //   printf("Pass in %d sec\n", time() - $stopWatch);
+            //   printf("Pass in %d sec\n", time() - $stopWatch);
         }
 
         return $graph;
