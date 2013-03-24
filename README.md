@@ -10,7 +10,7 @@ It is a set of CLI tools to help you to analyse and refactor highly coupled clas
 As you know Law of Demeter and S.O.L.I.D guidances, you need your classes loosely
 coupled. And for this, there is one only rule : **ABSTRACTION**
 
-This app provides some helpers to add some abstraction into concrete classes
+This app provides some helpers to add abstraction into concrete classes
 with minimum pain.
 
 ## How
@@ -38,7 +38,7 @@ Ok, it's a hint but like any other statistics, it's only a general picture,
 not a way to guide you and answer to the question : 
 "Where do I begin to refactor the real shit ?"
 
-That's what I try with this app by using the fascinating graph theory. 
+That's what I try to make with this app by using the fascinating graph theory. 
 I sincerly hope it will help you.
 
 ## Where
