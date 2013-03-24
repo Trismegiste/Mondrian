@@ -37,8 +37,24 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
             $stmts = $parser->parse($code);
             $traverser->traverse($stmts);
         }
-
+        $this->visitor->compile();
         $this->assertCount(2, $this->context->inheritanceMap);
+    }
+
+    public function testSimpleCase()
+    {
+        $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
+        $traverser = new \PHPParser_NodeTraverser();
+        $traverser->addVisitor($this->visitor);
+
+        $iter = array(__DIR__ . '/../Fixtures/Project/Concrete.php');
+        foreach ($iter as $fch) {
+            $code = file_get_contents($fch);
+            $stmts = $parser->parse($code);
+            $traverser->traverse($stmts);
+        }
+        $this->visitor->compile();
+        $this->assertCount(1, $this->context->inheritanceMap);
     }
 
 }

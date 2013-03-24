@@ -62,7 +62,7 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
         foreach ($eigenVector as $vx) {
             $delta += abs($result[$vx] / $eigenVector[$vx] / $eigenValue - 1);
         }
-        $this->assertLessThan(0.002, $delta);
+        $this->assertLessThan(0.01, $delta);
     }
 
 }
