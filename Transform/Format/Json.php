@@ -62,13 +62,15 @@ class Json extends GraphExporter
         $dump = array();
         $reversed = array();
         foreach ($this->graph->getVertexSet() as $k => $vertex) {
-            $reversed[$vertex->getName()] = $k;
+            $reversed[get_class($vertex)][$vertex->getName()] = $k;
             $dump['nodes'][] = $this->exportVertex($vertex);
         }
         foreach ($this->graph->getEdgeSet() as $edge) {
+            $v = $edge->getSource();
+            $w = $edge->getTarget();
             $dump['links'][] = array(
-                'source' => $reversed[$edge->getSource()->getName()],
-                'target' => $reversed[$edge->getTarget()->getName()],
+                'source' => $reversed[get_class($v)][$v->getName()],
+                'target' => $reversed[get_class($w)][$w->getName()],
                 'value' => 1
             );
         }
