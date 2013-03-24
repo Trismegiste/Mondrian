@@ -23,6 +23,7 @@ class Grapher
     {
         $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
         $graph = new \Trismegiste\Mondrian\Graph\Digraph();
+
         $context = new Context($graph);
         // 0th pass
         $pass[0] = new Visitor\SymbolMap($context);
@@ -44,7 +45,7 @@ class Grapher
             }
 
             if ($collector instanceof Visitor\SymbolMap) {
-                $collector->resolveSymbol();
+                $context->resolveSymbol();
             }
             //   printf("Pass in %d sec\n", time() - $stopWatch);
         }
