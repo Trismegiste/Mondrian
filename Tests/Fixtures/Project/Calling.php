@@ -16,4 +16,9 @@ class Calling
         $obj->$m(42);
     }
 
+    protected function notTracked()
+    {
+        $obj->simple(42);
+    }
+
 }

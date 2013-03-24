@@ -16,4 +16,9 @@ class NewInstance
         $obj = new $cls();
     }
 
+    protected function notTracked()
+    {
+        $obj = new Concrete();
+    }
+
 }
