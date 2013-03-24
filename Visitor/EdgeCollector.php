@@ -220,14 +220,17 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
      */
     protected function enterMethodCall(\PHPParser_Node_Expr_MethodCall $node)
     {
-        $method = $node->name;
-        if (is_string($method)) {
-            $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
-            $candidate = array_filter($this->vertex['method'], function($val) use ($method) {
-                        return preg_match("#::$method$#", $val->getName());
-                    });
-            foreach ($candidate as $methodVertex) {
-                $this->graph->addEdge($impl, $methodVertex);
+        // since we only track the public method, we check we are in :
+        if ($this->currentMethod) {
+            $method = $node->name;
+            if (is_string($method)) {
+                $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
+                $candidate = array_filter($this->vertex['method'], function($val) use ($method) {
+                            return preg_match("#::$method$#", $val->getName());
+                        });
+                foreach ($candidate as $methodVertex) {
+                    $this->graph->addEdge($impl, $methodVertex);
+                }
             }
         }
     }
@@ -240,11 +243,13 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
      */
     protected function enterNewInstance(\PHPParser_Node_Expr_New $node)
     {
-        if ($node->class instanceof \PHPParser_Node_Name_FullyQualified) {
-            $classVertex = $this->findVertex('class', (string) $node->class);
-            if (!is_null($classVertex)) {
-                $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
-                $this->graph->addEdge($impl, $classVertex);
+        if ($this->currentMethod) {
+            if ($node->class instanceof \PHPParser_Node_Name_FullyQualified) {
+                $classVertex = $this->findVertex('class', (string) $node->class);
+                if (!is_null($classVertex)) {
+                    $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
+                    $this->graph->addEdge($impl, $classVertex);
+                }
             }
         }
     }
