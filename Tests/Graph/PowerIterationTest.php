@@ -42,24 +42,39 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
         unset($this->graph);
     }
 
-    public function testEigenSparse()
+    public function loop()
+    {
+        $ret = array();
+        for ($k = 0; $k < 10; $k++) {
+            $ret[] = array($k);
+        }
+        return $ret;
+    }
+
+    /**
+     * @dataProvider loop
+     * @param type $iter 
+     */
+    public function testEigenSparse($iter)
     {
         $eigen = $this->graph->getEigenVectorSparse();
         $eigenVector = $eigen['vector'];
 
-        $result = new \SplObjectStorage();
         $eigenValue = 0;
+        $nbComp = 0;
         foreach ($eigenVector as $vx) {
             $sum = 0;
             foreach ($this->graph->getSuccessor($vx) as $vy) {
                 $sum += $eigenVector[$vy];
             }
-            $result[$vx] = $sum;
-            $eigenValue += $sum / $eigenVector[$vx];
+            if ($eigenVector[$vx] != 0) {
+                $eigenValue += $sum / $eigenVector[$vx];
+                $nbComp++;
+            }
         }
-        $eigenValue /= count($eigenVector);
+        $eigenValue /= $nbComp;
 
-        $this->assertLessThan(0.01, abs($eigen['value'] - $eigenValue));
+        $this->assertLessThan(0.001, abs($eigen['value'] - $eigenValue));
     }
 
 }

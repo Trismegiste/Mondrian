@@ -46,8 +46,7 @@ class PowerIteration extends Algorithm
         foreach ($vertex as $v) {
             $approx[$v] = 1 / sqrt($dimension);
         }
-        $iter = 0;
-        $norm = 1;
+
         do {
             // result = M . approx
             $result = new \SplObjectStorage();
@@ -59,19 +58,20 @@ class PowerIteration extends Algorithm
                     $result[$v] += $approx[$succ];
                 }
             }
-            // normalize
+            // calc the norm
             $sum = 0;
             foreach ($result as $v) {
                 $sum += $result->getInfo() * $result->getInfo();
             }
-            $newNorm = sqrt($sum);
-            $delta = abs($norm - $newNorm);
-            $norm = $newNorm;
+            $norm = sqrt($sum);
 
+            $delta = 0;
+            // normalize
             foreach ($result as $v) {
-                $approx[$v] = $result->getInfo() / $norm;
+                $newVal = $result->getInfo() / $norm;
+                $delta += abs($newVal - $approx[$v]);
+                $approx[$v] = $newVal;
             }
-            $iter++;
         } while ($delta > $precision);
 
         return array('value' => $norm, 'vector' => $approx);
