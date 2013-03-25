@@ -37,7 +37,7 @@ class DigraphCommand extends Command
                 ->setDescription('Transforms a bunch of php file into a digraph')
                 ->addArgument('dir', InputArgument::OPTIONAL, 'The directory to explore', './src')
                 ->addArgument('report', InputArgument::OPTIONAL, 'The filename of the report', 'report')
-                ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests'))
+                ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests', 'vendor'))
                 ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Format of export', 'dot');
     }
 
