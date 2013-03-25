@@ -10,6 +10,8 @@ It is a set of CLI tools to help you to analyse and refactor highly coupled clas
 As you know Law of Demeter and S.O.L.I.D guidances, you need your classes loosely
 coupled. And for this, there is one only rule : **ABSTRACTION**
 
+![From Hell To Kiss](./Resources/doc/img/abstracting.png)
+
 This app provides some helpers to add abstraction into concrete classes
 with minimum pain.
 
