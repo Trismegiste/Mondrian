@@ -44,7 +44,8 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
 
     public function testEigenSparse()
     {
-        $eigenVector = $this->graph->getEigenVectorSparse();
+        $eigen = $this->graph->getEigenVectorSparse();
+        $eigenVector = $eigen['vector'];
 
         $result = new \SplObjectStorage();
         $eigenValue = 0;
@@ -58,11 +59,7 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
         }
         $eigenValue /= count($eigenVector);
 
-        $delta = 0;
-        foreach ($eigenVector as $vx) {
-            $delta += abs($result[$vx] / $eigenVector[$vx] / $eigenValue - 1);
-        }
-        $this->assertLessThan(0.01, $delta);
+        $this->assertLessThan(0.01, abs($eigen['value'] - $eigenValue));
     }
 
 }
