@@ -17,7 +17,7 @@ use Symfony\Component\Finder\Finder;
 
 /**
  * DigraphCommand transforms a bunch of php files into a digraph
- * rendered in the GraphViz format.
+ * and exports it into a report file
  *
  * Good thing to know :
  * - circumference

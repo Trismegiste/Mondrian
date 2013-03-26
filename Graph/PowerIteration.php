@@ -78,4 +78,52 @@ class PowerIteration extends Algorithm
         return array('value' => $norm, 'vector' => $approx);
     }
 
+    public function getEigenVectorSparseSpeed($precision = 0.001)
+    {
+        $vertex = $this->getVertexSet();
+        $dimension = count($vertex);
+        // reverse map
+        $reversed = new \SplObjectStorage();
+        foreach ($vertex as $idx => $v) {
+            $reversed[$v] = $idx;
+        }
+        // adjacencies list
+        $adjacency = array();
+        foreach ($vertex as $idx => $v) {
+            $adjacency[$idx] = array();
+            foreach ($this->graph->getSuccessor($v) as $w) {
+                $adjacency[$idx][] = $reversed[$w];
+            }
+        }
+
+        $approx = array_fill(0, $dimension, 1 / sqrt($dimension));
+        do {
+            // result = M . approx
+            $result = array_fill(0, $dimension, 0);
+
+            foreach ($adjacency as $v => $successor) {
+                foreach ($successor as $succ) {
+                    $result[$v] += $approx[$succ]; // very suspicious
+                    // what if we invert $v and $succ, isn't the reversed digraph ?
+                }
+            }
+            // calc the norm
+            $sum = 0;
+            foreach ($result as $v) {
+                $sum += $v * $v;
+            }
+            $norm = sqrt($sum);
+
+            $delta = 0;
+            // normalize
+            foreach ($result as $v => $val) {
+                $newVal = $val / $norm;
+                $delta += abs($newVal - $approx[$v]);
+                $approx[$v] = $newVal;
+            }
+        } while ($delta > $precision);
+
+        return array('value' => $norm, 'vector' => $approx);
+    }
+
 }
