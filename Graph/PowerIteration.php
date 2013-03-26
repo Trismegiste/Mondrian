@@ -55,7 +55,8 @@ class PowerIteration extends Algorithm
             }
             foreach ($vertex as $v) {
                 foreach ($this->graph->getSuccessor($v) as $succ) {
-                    $result[$v] += $approx[$succ];
+                    $result[$v] += $approx[$succ]; // very suspicious
+                    // what if we invert $v and $succ, isn't the reversed digraph ?
                 }
             }
             // calc the norm
