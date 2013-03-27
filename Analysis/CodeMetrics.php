@@ -58,7 +58,7 @@ class CodeMetrics extends Algorithm
     public function getMostDepending()
     {
         $power = new \Trismegiste\Mondrian\Graph\PowerIteration($this->graph);
-        $eigen = $power->getEigenVectorSparseSpeed(0.01);
+        $eigen = $power->getEigenVectorSparse();
 
         $eigenVector = $eigen['vector'];
         $max = 0;
