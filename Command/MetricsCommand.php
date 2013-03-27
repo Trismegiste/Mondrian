@@ -52,6 +52,9 @@ class MetricsCommand extends Command
 
         $most = $stat->getMostDepending();
         print_r($most);
+
+        $most = $stat->getMostDepended();
+        print_r($most);
     }
 
 }

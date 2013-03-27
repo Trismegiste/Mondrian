@@ -78,4 +78,29 @@ class CodeMetrics extends Algorithm
         return $mostDependencies;
     }
 
+    public function getMostDepended()
+    {
+        $reversed = new \Trismegiste\Mondrian\Graph\ReversedDigraph($this->graph);
+        $power = new \Trismegiste\Mondrian\Graph\PowerIteration($reversed->getReversed());
+
+        $eigen = $power->getEigenVectorSparse();
+
+        $eigenVector = $eigen['vector'];
+        $eigenArray = array();
+        $vertexArray = array();
+        foreach ($eigenVector as $idx => $v) {
+            $eigenArray[$idx] = $eigenVector->getInfo();
+            $vertexArray[$idx] = $v;
+        }
+        arsort($eigenArray);
+        array_splice($eigenArray, 10);
+
+        $mostDependencies = array();
+        foreach ($eigenArray as $idx => $val) {
+            $mostDependencies[] = $vertexArray[$idx];
+        }
+
+        return $mostDependencies;
+    }
+
 }
