@@ -103,4 +103,23 @@ class CodeMetrics extends Algorithm
         return $mostDependencies;
     }
 
+    protected function addCentralityRank(Graph $g, $metaName)
+    {
+        $power = new \Trismegiste\Mondrian\Graph\PowerIteration($g);
+        $eigen = $power->getEigenVectorSparse();
+
+        $eigenVector = $eigen['vector'];
+        $eigenArray = array();
+        $vertexArray = array();
+        foreach ($eigenVector as $idx => $v) {
+            $eigenArray[$idx] = $eigenVector->getInfo();
+            $vertexArray[$idx] = $v;
+        }
+        arsort($eigenArray);
+
+        foreach ($eigenArray as $idx => $val) {
+            $vertexArray[$idx]->setMeta($metaName, $val);
+        }
+    }
+
 }
