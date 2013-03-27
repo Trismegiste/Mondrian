@@ -10,10 +10,8 @@ use Trismegiste\Mondrian\Graph\Algorithm;
 use Trismegiste\Mondrian\Graph\Vertex;
 
 /**
- * CodeMetrics analyses a graph
+ * CodeMetrics analyses a graph and counts number of vertices per type
  * Design Pattern : Decorator
- *
- * @author flo
  */
 class CodeMetrics extends Algorithm
 {
@@ -53,73 +51,6 @@ class CodeMetrics extends Algorithm
         }
 
         return $card;
-    }
-
-    public function getMostDepending()
-    {
-        $power = new \Trismegiste\Mondrian\Graph\PowerIteration($this->graph);
-        $eigen = $power->getEigenVectorSparse();
-
-        $eigenVector = $eigen['vector'];
-        $eigenArray = array();
-        $vertexArray = array();
-        foreach ($eigenVector as $idx => $v) {
-            $eigenArray[$idx] = $eigenVector->getInfo();
-            $vertexArray[$idx] = $v;
-        }
-        arsort($eigenArray);
-        array_splice($eigenArray, 10);
-
-        $mostDependencies = array();
-        foreach ($eigenArray as $idx => $val) {
-            $mostDependencies[] = $vertexArray[$idx];
-        }
-
-        return $mostDependencies;
-    }
-
-    public function getMostDepended()
-    {
-        $reversed = new \Trismegiste\Mondrian\Graph\ReversedDigraph($this->graph);
-        $power = new \Trismegiste\Mondrian\Graph\PowerIteration($reversed->getReversed());
-
-        $eigen = $power->getEigenVectorSparse();
-
-        $eigenVector = $eigen['vector'];
-        $eigenArray = array();
-        $vertexArray = array();
-        foreach ($eigenVector as $idx => $v) {
-            $eigenArray[$idx] = $eigenVector->getInfo();
-            $vertexArray[$idx] = $v;
-        }
-        arsort($eigenArray);
-        array_splice($eigenArray, 10);
-
-        $mostDependencies = array();
-        foreach ($eigenArray as $idx => $val) {
-            $mostDependencies[] = $vertexArray[$idx];
-        }
-
-        return $mostDependencies;
-    }
-
-    protected function addCentralityRank(Graph $g, $metaName)
-    {
-        $power = new \Trismegiste\Mondrian\Graph\PowerIteration($g);
-        $eigen = $power->getEigenVectorSparse();
-
-        $eigenVector = $eigen['vector'];
-        $eigenArray = array();
-        $vertexArray = array();
-        foreach ($eigenVector as $idx => $v) {
-            $eigenArray[$idx] = $eigenVector->getInfo();
-            $vertexArray[$idx] = $v;
-        }
-        arsort($eigenArray);
-
-        foreach ($eigenArray as $idx => $val) {
-            $vertexArray[$idx]->setMeta($metaName, $val);
-        }
     }
 
 }
