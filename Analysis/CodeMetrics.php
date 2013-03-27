@@ -61,16 +61,21 @@ class CodeMetrics extends Algorithm
         $eigen = $power->getEigenVectorSparse();
 
         $eigenVector = $eigen['vector'];
-        $max = 0;
-        $found = null;
-        foreach ($eigenVector as $v => $val) {
-            if ($val > $max) {
-                $max = $val;
-                $found = $v;
-            }
+        $eigenArray = array();
+        $vertexArray = array();
+        foreach ($eigenVector as $idx => $v) {
+            $eigenArray[$idx] = $eigenVector->getInfo();
+            $vertexArray[$idx] = $v;
+        }
+        arsort($eigenArray);
+        array_splice($eigenArray, 10);
+
+        $mostDependencies = array();
+        foreach ($eigenArray as $idx => $val) {
+            $mostDependencies[] = $vertexArray[$idx];
         }
 
-        return $found;
+        return $mostDependencies;
     }
 
 }

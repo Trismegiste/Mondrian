@@ -47,6 +47,7 @@ class PowerIteration extends Algorithm
             $approx[$v] = 1 / sqrt($dimension);
         }
 
+        $iter = 0;
         do {
             // result = M . approx
             $result = new \SplObjectStorage();
@@ -73,115 +74,10 @@ class PowerIteration extends Algorithm
                 $delta += abs($newVal - $approx[$v]);
                 $approx[$v] = $newVal;
             }
-        } while ($delta > $precision);
+            $iter++;
+        } while (($delta > $precision) && ($iter < (2 * $dimension)));
 
         return array('value' => $norm, 'vector' => $approx);
-    }
-
-    public function getEigenVectorSparseSpeed($precision = 0.001)
-    {
-        $vertex = $this->getVertexSet();
-        $dimension = count($vertex);
-        // reverse map
-        $reversed = new \SplObjectStorage();
-        foreach ($vertex as $idx => $v) {
-            $reversed[$v] = $idx;
-        }
-        // adjacencies list
-        $adjacency = array();
-        foreach ($vertex as $idx => $v) {
-            $adjacency[$idx] = array();
-            foreach ($this->graph->getSuccessor($v) as $w) {
-                $adjacency[$idx][] = $reversed[$w];
-            }
-        }
-
-        $approx = array_fill(0, $dimension, 1 / sqrt($dimension));
-        do {
-            // result = M . approx
-            $result = array_fill(0, $dimension, 0);
-
-            foreach ($adjacency as $v => $successor) {
-                foreach ($successor as $succ) {
-                    $result[$v] += $approx[$succ]; // very suspicious
-                    // what if we invert $v and $succ, isn't the reversed digraph ?
-                }
-            }
-            // calc the norm
-            $sum = 0;
-            foreach ($result as $v) {
-                $sum += $v * $v;
-            }
-            $norm = sqrt($sum);
-
-            $delta = 0;
-            // normalize
-            foreach ($result as $v => $val) {
-                $newVal = $val / $norm;
-                $delta += abs($newVal - $approx[$v]);
-                $approx[$v] = $newVal;
-            }
-        } while ($delta > $precision);
-
-        $reinsert = new \SplObjectStorage();
-        foreach ($vertex as $idx => $v) {
-            $reinsert[$v] = $approx[$idx];
-        }
-
-        return array('value' => $norm, 'vector' => $reinsert);
-    }
-
-    public function getEigenVectorIsolatedRemoved($precision = 0.001)
-    {
-        $vertex = $this->getVertexSet();
-        // reverse map
-        $reversed = new \SplObjectStorage();
-        foreach ($vertex as $idx => $v) {
-            $reversed[$v] = $idx;
-        }
-        // adjacencies list
-        $innerAdjacency = array();
-        foreach ($this->getEdgeSet() as $e) {
-            $x = $reversed[$e->getSource()];
-            $y = $reversed[$e->getTarget()];
-            $innerAdjacency[$x][$y] = true;
-        }
-        $dimension = count($innerAdjacency);
-        $cardV = count($vertex);
-
-        $approx = array_fill(0, $dimension, 1 / sqrt($dimension));
-        do {
-            // result = M . approx
-            $result = array_fill(0, $dimension, 0);
-
-            foreach ($adjacency as $v => $successor) {
-                foreach ($successor as $succ => $dummy) {
-                    $result[$v] += $approx[$succ]; // very suspicious
-                    // what if we invert $v and $succ, isn't the reversed digraph ?
-                }
-            }
-            // calc the norm
-            $sum = 0;
-            foreach ($result as $v) {
-                $sum += $v * $v;
-            }
-            $norm = sqrt($sum);
-
-            $delta = 0;
-            // normalize
-            foreach ($result as $v => $val) {
-                $newVal = $val / $norm;
-                $delta += abs($newVal - $approx[$v]);
-                $approx[$v] = $newVal;
-            }
-        } while ($delta > $precision);
-
-        $reinsert = new \SplObjectStorage();
-        foreach ($vertex as $idx => $v) {
-            $reinsert[$v] = $approx[$idx];
-        }
-
-        return array('value' => $norm, 'vector' => $reinsert);
     }
 
 }

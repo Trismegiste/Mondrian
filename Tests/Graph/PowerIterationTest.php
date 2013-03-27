@@ -57,7 +57,7 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
      */
     public function testEigenSparse($iter)
     {
-        $eigen = $this->graph->getEigenVectorSparse();
+        $eigen = $this->graph->getEigenVectorIsolatedRemoved();
         $eigenVector = $eigen['vector'];
 
         $eigenValue = 0;
