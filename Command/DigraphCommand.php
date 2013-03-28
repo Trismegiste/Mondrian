@@ -6,61 +6,30 @@
 
 namespace Trismegiste\Mondrian\Command;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
-use Trismegiste\Mondrian\Transform\Grapher;
-use Trismegiste\Mondrian\Transform\Format\Factory;
-use Symfony\Component\Finder\Finder;
+use Trismegiste\Mondrian\Graph\Graph;
 
 /**
  * DigraphCommand transforms a bunch of php files into a digraph
  * and exports it into a report file
  *
- * Good thing to know :
- * - circumference
- * - centrality (by Katz and by Betweeness
- * - Closeness
- * - http://en.wikipedia.org/wiki/Entanglement_(graph_measure)
- * - http://en.wikipedia.org/wiki/Cycle_rank
- *
  */
-class DigraphCommand extends Command
+class DigraphCommand extends AbstractParse
 {
 
-    protected function configure()
+    protected function getSubname()
     {
-        $this
-                ->setName('mondrian:digraph')
-                ->setDescription('Transforms a bunch of php file into a digraph')
-                ->addArgument('dir', InputArgument::OPTIONAL, 'The directory to explore', './src')
-                ->addArgument('report', InputArgument::OPTIONAL, 'The filename of the report', 'report')
-                ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests', 'vendor'))
-                ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Format of export', 'dot');
+        return 'digraph';
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function getFullDesc()
     {
-        $directory = $input->getArgument('dir');
-        $reportName = $input->getArgument('report');
-        $ignoreDir = $input->getOption('ignore');
-        $ext = $input->getOption('format');
+        return 'Transforms a bunch of php file into a digraph';
+    }
 
-        $listing = array();
-        $scan = new Finder();
-        $scan->files()->in($directory)->name('*.php')->exclude($ignoreDir);
-        foreach ($scan as $fch) {
-            $listing[] = (string) $fch->getRealPath();
-        }
-
-        $transformer = new Grapher();
-        $graph = $transformer->parse($listing);
-
-        $ff = new Factory();
-        $dumper = $ff->create($graph, $ext);
-        file_put_contents("$reportName.$ext", $dumper->export());
+    protected function processGraph(Graph $graph, OutputInterface $output)
+    {
+        return $graph;
     }
 
 }
