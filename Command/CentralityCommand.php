@@ -9,6 +9,7 @@ namespace Trismegiste\Mondrian\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Trismegiste\Mondrian\Graph\Graph;
 use Symfony\Component\Console\Input\InputOption;
+use Trismegiste\Mondrian\Analysis\Centrality;
 
 /**
  * CentralityCommand transforms a bunch of php files into a digraph
@@ -36,7 +37,7 @@ class CentralityCommand extends AbstractParse
 
     protected function processGraph(Graph $graph, OutputInterface $output)
     {
-        $algo = new \Trismegiste\Mondrian\Analysis\Centrality($graph);
+        $algo = new Centrality($graph);
         $algo->addDependRank();
 
         return $graph;

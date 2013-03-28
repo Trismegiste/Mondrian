@@ -9,6 +9,8 @@ namespace Trismegiste\Mondrian\Analysis;
 use Trismegiste\Mondrian\Graph\Algorithm;
 use Trismegiste\Mondrian\Graph\Vertex;
 use Trismegiste\Mondrian\Graph\Graph;
+use Trismegiste\Mondrian\Graph\PowerIteration;
+use Trismegiste\Mondrian\Graph\ReversedDigraph;
 
 /**
  * Centrality analyses a graph and add centrality rank to vertices
@@ -24,13 +26,13 @@ class Centrality extends Algorithm
 
     public function addUsedRank()
     {
-        $reversed = new \Trismegiste\Mondrian\Graph\ReversedDigraph($this->graph);
+        $reversed = new ReversedDigraph($this->graph);
         $this->addCentralityRank($reversed, 'used');
     }
 
     protected function addCentralityRank(Graph $g, $metaName)
     {
-        $power = new \Trismegiste\Mondrian\Graph\PowerIteration($g);
+        $power = new PowerIteration($g);
         $eigen = $power->getEigenVectorSparse();
 
         $eigenVector = $eigen['vector'];
