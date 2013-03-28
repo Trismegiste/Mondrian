@@ -8,6 +8,7 @@ namespace Trismegiste\Mondrian\Analysis;
 
 use Trismegiste\Mondrian\Graph\Algorithm;
 use Trismegiste\Mondrian\Graph\Vertex;
+use Trismegiste\Mondrian\Graph\Graph;
 
 /**
  * Centrality analyses a graph and add centrality rank to vertices
@@ -16,52 +17,15 @@ use Trismegiste\Mondrian\Graph\Vertex;
 class Centrality extends Algorithm
 {
 
-    public function getMostDepending()
+    public function addDependRank()
     {
-        $power = new \Trismegiste\Mondrian\Graph\PowerIteration($this->graph);
-        $eigen = $power->getEigenVectorSparse();
-
-        $eigenVector = $eigen['vector'];
-        $eigenArray = array();
-        $vertexArray = array();
-        foreach ($eigenVector as $idx => $v) {
-            $eigenArray[$idx] = $eigenVector->getInfo();
-            $vertexArray[$idx] = $v;
-        }
-        arsort($eigenArray);
-        array_splice($eigenArray, 10);
-
-        $mostDependencies = array();
-        foreach ($eigenArray as $idx => $val) {
-            $mostDependencies[] = $vertexArray[$idx];
-        }
-
-        return $mostDependencies;
+        $this->addCentralityRank($this->graph, 'depend');
     }
 
-    public function getMostDepended()
+    public function addUsedRank()
     {
         $reversed = new \Trismegiste\Mondrian\Graph\ReversedDigraph($this->graph);
-        $power = new \Trismegiste\Mondrian\Graph\PowerIteration($reversed->getReversed());
-
-        $eigen = $power->getEigenVectorSparse();
-
-        $eigenVector = $eigen['vector'];
-        $eigenArray = array();
-        $vertexArray = array();
-        foreach ($eigenVector as $idx => $v) {
-            $eigenArray[$idx] = $eigenVector->getInfo();
-            $vertexArray[$idx] = $v;
-        }
-        arsort($eigenArray);
-        array_splice($eigenArray, 10);
-
-        $mostDependencies = array();
-        foreach ($eigenArray as $idx => $val) {
-            $mostDependencies[] = $vertexArray[$idx];
-        }
-
-        return $mostDependencies;
+        $this->addCentralityRank($reversed, 'used');
     }
 
     protected function addCentralityRank(Graph $g, $metaName)

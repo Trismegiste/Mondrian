@@ -14,4 +14,5 @@ use Symfony\Component\Console\Application;
 $application = new Application();
 $application->add(new Command\DigraphCommand());
 $application->add(new Command\MetricsCommand());
+$application->add(new Command\CentralityCommand());
 $application->run();

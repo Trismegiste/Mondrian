@@ -39,7 +39,7 @@ class MetricsCommand extends AbstractParse
         $output->writeln('  - declared in classes:    ' . $metrics['MethodDeclaration']['Class']);
         $output->writeln('  - declared in interfaces: ' . $metrics['MethodDeclaration']['Interface']);
         $output->writeln('Implemented: ' . $metrics['Impl']);
-        
+
         return null;
     }
 
