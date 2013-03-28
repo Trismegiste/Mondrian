@@ -31,8 +31,15 @@ class MetricsCommand extends AbstractParse
     protected function processGraph(Graph $graph, OutputInterface $output)
     {
         $stat = new CodeMetrics($graph);
-        print_r($stat->getCardinal());
+        $metrics = $stat->getCardinal();
 
+        $output->writeln('Classes: ' . $metrics['Class']);
+        $output->writeln('Interfaces: ' . $metrics['Interface']);
+        $output->writeln('Methods: ' . $metrics['Method']);
+        $output->writeln('  - declared in classes:    ' . $metrics['MethodDeclaration']['Class']);
+        $output->writeln('  - declared in interfaces: ' . $metrics['MethodDeclaration']['Interface']);
+        $output->writeln('Implemented: ' . $metrics['Impl']);
+        
         return null;
     }
 
