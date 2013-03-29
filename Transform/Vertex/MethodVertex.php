@@ -18,8 +18,8 @@ class MethodVertex extends StaticAnalysis
         $default = array('shape' => 'triangle', 'style' => 'filled',
             'color' => 'yellow', 'label' => $capt[1]);
 
-        if ($this->hasMeta('depend')) {
-            $default['color'] = sprintf('/rdylgn11/%.0f', 1 + $this->getMeta('depend'));
+        if ($this->hasMeta('centrality')) {
+            $default['color'] = sprintf('/rdylgn11/%d', $this->getMeta('centrality'));
         }
 
         return $default;

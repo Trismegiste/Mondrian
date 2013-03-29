@@ -21,13 +21,13 @@ class Centrality extends Algorithm
 
     public function addDependRank()
     {
-        $this->addCentralityRank($this->graph, 'depend');
+        $this->addCentralityRank($this->graph, 'centrality');
     }
 
     public function addUsedRank()
     {
         $reversed = new ReversedDigraph($this->graph);
-        $this->addCentralityRank($reversed, 'used');
+        $this->addCentralityRank($reversed, 'centrality');
     }
 
     protected function addCentralityRank(Graph $g, $metaName)
@@ -43,10 +43,13 @@ class Centrality extends Algorithm
             $vertexArray[$idx] = $v;
         }
         arsort($eigenArray);
-        $upperBound = reset($eigenArray);
+        // only the order is interesting
+        $iter = 0;
+        $mostCentral = count($eigenVector) / 10.0;
         foreach ($eigenArray as $idx => $val) {
-             // like google page rank :
-            $vertexArray[$idx]->setMeta($metaName, 10.0 * $val / $upperBound);
+            $pseudoRank = ($iter < $mostCentral) ? 1 + (10.0 * $iter) / $mostCentral : 11;
+            $vertexArray[$idx]->setMeta($metaName, $pseudoRank);
+            $iter++;
         }
     }
 
