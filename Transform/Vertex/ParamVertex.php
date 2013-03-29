@@ -15,8 +15,14 @@ class ParamVertex extends StaticAnalysis
     public function getAttribute()
     {
         preg_match('#([^/]+)$#', $this->name, $capt);
-        return array( 'shape' => 'diamond',
+        $default = array('shape' => 'diamond',
             'style' => 'filled', 'color' => 'cyan', 'label' => $capt[1]);
+
+        if ($this->hasMeta('depend')) {
+            $default['color'] = sprintf('/rdylgn11/%.0f', 1 + $this->getMeta('depend'));
+        }
+
+        return $default;
     }
 
 }

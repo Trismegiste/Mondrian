@@ -20,7 +20,7 @@ class ClassVertex extends StaticAnalysis
             'color' => 'red', 'label' => $capt[1]);
 
         if ($this->hasMeta('depend')) {
-            $default['color'] = sprintf('/spectral11/%.0f', 1 + $this->getMeta('depend'));
+            $default['color'] = sprintf('/rdylgn11/%.0f', 1 + $this->getMeta('depend'));
         }
 
         return $default;

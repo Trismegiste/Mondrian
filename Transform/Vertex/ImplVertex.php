@@ -16,7 +16,12 @@ class ImplVertex extends StaticAnalysis
     public function getAttribute()
     {
         preg_match('#([^:]+)$#', $this->name, $capt);
-        return array('shape' => 'rectangle', 'label' => $capt[1]);
+        $default = array('shape' => 'rectangle', 'style' => 'filled', 'label' => $capt[1]);
+        if ($this->hasMeta('depend')) {
+            $default['color'] = sprintf('/rdylgn11/%.0f', 1 + $this->getMeta('depend'));
+        }
+
+        return $default;
     }
 
 }
