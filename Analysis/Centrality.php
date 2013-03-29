@@ -27,7 +27,7 @@ class Centrality extends Algorithm
     public function addUsedRank()
     {
         $reversed = new ReversedDigraph($this->graph);
-        $this->addCentralityRank($reversed, 'centrality');
+        $this->addCentralityRank($reversed->getReversed(), 'centrality');
     }
 
     protected function addCentralityRank(Graph $g, $metaName)

@@ -38,7 +38,7 @@ class CentralityCommand extends AbstractParse
     protected function processGraph(Graph $graph, OutputInterface $output)
     {
         $algo = new Centrality($graph);
-        $algo->addDependRank();
+        $algo->addUsedRank();
 
         return $graph;
     }
