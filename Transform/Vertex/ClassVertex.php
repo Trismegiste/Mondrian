@@ -16,8 +16,14 @@ class ClassVertex extends StaticAnalysis
     {
         $capt = array();
         preg_match('#([^\\\\]+)$#', $this->name, $capt);
-        return array('shape' => 'circle', 'style' => 'filled',
+        $default = array('shape' => 'circle', 'style' => 'filled',
             'color' => 'red', 'label' => $capt[1]);
+
+        if ($this->hasMeta('depend')) {
+            $default['color'] = sprintf('/spectral11/%.0f', 1 + $this->getMeta('depend'));
+        }
+
+        return $default;
     }
 
 }

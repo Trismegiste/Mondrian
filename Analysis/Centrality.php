@@ -43,11 +43,10 @@ class Centrality extends Algorithm
             $vertexArray[$idx] = $v;
         }
         arsort($eigenArray);
-        $upperBound = $eigenArray[0];
-
+        $upperBound = reset($eigenArray);
         foreach ($eigenArray as $idx => $val) {
-            // like google page rank :
-            $vertexArray[$idx]->setMeta($metaName, $val * 10 / $upperBound);
+             // like google page rank :
+            $vertexArray[$idx]->setMeta($metaName, 10.0 * $val / $upperBound);
         }
     }
 
