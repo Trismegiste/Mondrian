@@ -21,32 +21,39 @@ class BreadthFirstSearch extends Algorithm
     {
         $this->stack = array();
         $start = new \SplObjectStorage();
-        $start[$src] = $src;
-        $this->recursivSearchPath($start, $dst);
+        $step = $this->graph->getEdgeIterator($src);
+        foreach ($step as $e) {
+            $start[$step->getInfo()] = null;
+        }
+        $e = $this->recursivSearchPath($start, $dst);
+        array_unshift($this->stack, $e);
 
         return $this->stack;
     }
 
-    protected function recursivSearchPath(\SplObjectStorage $src, Vertex $dst)
+    protected function recursivSearchPath(\SplObjectStorage $step, Vertex $dst)
     {
         $nextLevel = new \SplObjectStorage();
-        foreach ($src as $v) {
-            if ($v == $dst) {
-                return $v;
+        foreach ($step as $e) {
+            if ($e->getTarget() == $dst) {
+                return $e;
             }
-            $choice = $this->graph->getEdgeIterator($v);
+            $choice = $this->graph->getEdgeIterator($e->getTarget());
             foreach ($choice as $succ) {
                 $edge = $choice->getInfo();
                 if (!isset($edge->visited)) {
-                    $nextLevel[$edge->getTarget()] = $v;
+                    $nextLevel[$edge] = $e;
                     $edge->visited = true;
                 }
             }
         }
 
-        $ret = $this->recursivSearchPath($nextLevel, $dst);
-        if (!is_null($ret)){
-            array_unshift($this->stack, $nextLevel[$ret]);
+        if (count($nextLevel)) {
+            $ret = $this->recursivSearchPath($nextLevel, $dst);
+            if (!is_null($ret)) {
+                array_unshift($this->stack, $ret);
+                return $nextLevel[$ret];
+            }
         }
     }
 
