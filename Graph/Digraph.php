@@ -47,6 +47,9 @@ class Digraph implements Graph
      */
     public function addEdge(Vertex $source, Vertex $target)
     {
+        if ($source === $target) {
+            throw new \InvalidArgumentException('No loop in digraph');
+        }
         $this->addVertex($source);
         // if there is not already a directed edge between those two vertices
         // we drop the stacking
@@ -125,6 +128,11 @@ class Digraph implements Graph
         }
 
         return $set;
+    }
+
+    public function getEdgeIterator(Vertex $v)
+    {
+        return $this->adjacency[$v];
     }
 
 }
