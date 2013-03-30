@@ -15,7 +15,6 @@ class BreadthFirstSearch extends Algorithm
 {
 
     protected $stack = array();
-    protected $excludedEdge = array();
 
     public function searchPath(Vertex $src, Vertex $dst)
     {
