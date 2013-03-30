@@ -35,7 +35,7 @@ class BreadthFirstSearch extends Algorithm
     {
         $nextLevel = new \SplObjectStorage();
         foreach ($step as $e) {
-            $edge->visited = true;
+            $e->visited = true;
             if ($e->getTarget() == $dst) {
                 return $e;
             }

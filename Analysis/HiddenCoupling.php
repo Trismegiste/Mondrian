@@ -24,11 +24,13 @@ class HiddenCoupling extends BreadthFirstSearch
         foreach ($dependency as $edge) {
             if (($edge->getSource() instanceof ImplVertex)
                     && ($edge->getTarget() instanceof MethodVertex)) {
+//                printf("checking %s -> %s = ", $edge->getSource()->getName(), $edge->getTarget()->getName());
                 $this->resetSearch();
                 $otherPath = $this->findOtherPath($edge);
+//                printf("%d\n", count($otherPath));
                 if (count($otherPath) == 0) {
                     // not found => hidden coupling
-                    print_r($edge);
+                    printf("%s -> %s \n", $edge->getSource()->getName(), $edge->getTarget()->getName());
                 }
             }
         }
@@ -48,7 +50,7 @@ class HiddenCoupling extends BreadthFirstSearch
         $start = new \SplObjectStorage();
         $step = $this->graph->getEdgeIterator($dep->getSource());
         foreach ($step as $edge) {
-            if ($edge != $dep) {
+            if ($step->getInfo() != $dep) {
                 $start[$step->getInfo()] = null;
             }
         }
