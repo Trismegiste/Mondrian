@@ -39,6 +39,8 @@ class BreadthFirstSearchTest extends \PHPUnit_Framework_TestCase
         $path = $this->graph->searchPath($v1, $v2);
         $this->assertCount(1, $path);
         $this->assertInstanceOf('Trismegiste\Mondrian\Graph\Edge', $path[0]);
+        $this->assertEquals(1, $path[0]->getSource()->getName());
+        $this->assertEquals(2, $path[0]->getTarget()->getName());
     }
 
     public function testChain()
@@ -57,7 +59,11 @@ class BreadthFirstSearchTest extends \PHPUnit_Framework_TestCase
 
         $path = $this->graph->searchPath($vSet[0], $vSet[$card - 1]);
         $this->assertCount($card - 1, $path);
-        $this->assertInstanceOf('Trismegiste\Mondrian\Graph\Edge', $path[0]);
+        foreach ($path as $idx => $step) {
+            $this->assertInstanceOf('Trismegiste\Mondrian\Graph\Edge', $step);
+            $this->assertEquals($vSet[$idx], $step->getSource());
+            $this->assertEquals($vSet[$idx + 1], $step->getTarget());
+        }
     }
 
     public function testRandom()
@@ -94,7 +100,7 @@ class BreadthFirstSearchTest extends \PHPUnit_Framework_TestCase
 
     public function testBinary()
     {
-        $level = 3;
+        $level = 6;
         $root = new Vertex('>');
         $this->recursivCreateTree($level, $root);
         $vSet = $this->graph->getVertexSet();
@@ -103,6 +109,37 @@ class BreadthFirstSearchTest extends \PHPUnit_Framework_TestCase
 
         $path = $this->graph->searchPath($root, $vSet[$vCard - 3]);
         $this->assertCount($level, $path);
+    }
+
+    public function testBinaryWithShortcut()
+    {
+        $level = 6;
+        $root = new Vertex('>');
+        $this->recursivCreateTree($level, $root);
+        $vSet = $this->graph->getVertexSet();
+        $vCard = (2 << $level) - 1;
+        $lastLeaf = $vSet[$vCard - 1];
+        // adding a shortcut
+        $this->graph->addEdge($vSet[3], $lastLeaf);
+        $this->assertCount($vCard, $vSet);
+
+        $path = $this->graph->searchPath($root, $lastLeaf);
+        $this->assertCount(3, $path);
+        // shortcut found ?
+        $this->assertEquals('>LL', $path[2]->getSource()->getName());
+        $this->assertEquals('>RRRRRR', $path[2]->getTarget()->getName());
+    }
+
+    public function testNoPath()
+    {
+        $level = 6;
+        $root = new Vertex('>');
+        $this->recursivCreateTree($level, $root);
+        $vSet = $this->graph->getVertexSet();
+        $vCard = (2 << $level) - 1;
+
+        $path = $this->graph->searchPath($vSet[1], $vSet[$vCard - 1]);
+        $this->assertCount(0, $path);
     }
 
 }

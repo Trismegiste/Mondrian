@@ -26,8 +26,9 @@ class BreadthFirstSearch extends Algorithm
             $start[$step->getInfo()] = null;
         }
         $e = $this->recursivSearchPath($start, $dst);
-        array_unshift($this->stack, $e);
-
+        if (!is_null($e)) {
+            array_unshift($this->stack, $e);
+        }
         return $this->stack;
     }
 
@@ -35,6 +36,7 @@ class BreadthFirstSearch extends Algorithm
     {
         $nextLevel = new \SplObjectStorage();
         foreach ($step as $e) {
+            $edge->visited = true;
             if ($e->getTarget() == $dst) {
                 return $e;
             }
@@ -43,7 +45,6 @@ class BreadthFirstSearch extends Algorithm
                 $edge = $choice->getInfo();
                 if (!isset($edge->visited)) {
                     $nextLevel[$edge] = $e;
-                    $edge->visited = true;
                 }
             }
         }
