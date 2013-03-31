@@ -143,7 +143,9 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
                 $this->graph->addEdge($signature, $paramVertex);
                 // now the type of the param :
                 if ($param->type instanceof \PHPParser_Node_Name) {
-                    $paramType = (string) $this->resolveClassName($param->type);
+                    // we clone because resolveClassName has edge effect
+                    $tmp = clone $param->type; 
+                    $paramType = (string) $this->resolveClassName($tmp);
                     // there is a type, we add a link to the type, if it is found
                     $typeVertex = $this->findTypeVertex($paramType);
                     if (!is_null($typeVertex)) {
@@ -153,8 +155,8 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
                 }
             }
         }
-        // if not abstract, the implementation depends on the class
-        // for odd reason, a method in an interface is not abstract
+        // if not abstract, the implementation depends on the class.
+        // For odd reason, a method in an interface is not abstract
         // that's why, there is a double check
         if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
             $impl = $this->findVertex('impl', $this->currentClass . '::' . $node->name);
@@ -223,15 +225,49 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
      * 
      * @param \PHPParser_Node_Expr_MethodCall $node
      * @return void
+     * 
+     * @todo Need for a much better filter on candidates
+     * (exclude: $this, typed param etc... )
      */
     protected function enterMethodCall(\PHPParser_Node_Expr_MethodCall $node)
     {
         $method = $node->name;
         if (is_string($method)) {
+            // skipping some obvious calls :
+            if (($node->var->getType() == 'Expr_Variable')
+                    && (is_string($node->var->name))) {
+                $called = $node->var->name;
+                // skipping $this :
+                if ($called == 'this') {
+                    return;
+                }
+                // checking if the called is a method param
+                $idx = false;
+                foreach ($this->currentMethodNode->params as $k => $paramSign) {
+                    if ($paramSign->name == $called) {
+                        $idx = $k;
+                        break;
+                    }
+                }
+                if (false !== $idx) {
+                    $param = $this->currentMethodNode->params[$idx];
+                    // is it a typed param ?
+                    if ($param->type instanceof \PHPParser_Node_Name_FullyQualified) {
+                        $paramType = (string) $param->type;
+                        $cls = $this->getDeclaringClass($paramType, $method);
+                        if (!is_null($signature = $this->findVertex('method', "$cls::$method"))) {
+                            $candidate = array($signature);
+                        }
+                    }
+                }
+            }
+            // fallback : link to every methods with the same name :
+            if (!isset($candidate)) {
+                $candidate = array_filter($this->vertex['method'], function($val) use ($method) {
+                            return preg_match("#::$method$#", $val->getName());
+                        });
+            }
             $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
-            $candidate = array_filter($this->vertex['method'], function($val) use ($method) {
-                        return preg_match("#::$method$#", $val->getName());
-                    });
             foreach ($candidate as $methodVertex) {
                 $this->graph->addEdge($impl, $methodVertex);
             }

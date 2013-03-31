@@ -239,4 +239,19 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($link);
     }
 
+    public function testFilteringObviousMethodCall()
+    {
+        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
+        $iter = array(__DIR__ . '/../Fixtures/Project/FilterCalling.php');
+        $result = $this->grapher->parse($iter);
+        $viz = new \Trismegiste\Mondrian\Transform\Format\Graphviz($result);
+        file_put_contents('test.dot', $viz->export());
+        $this->assertCount(13, $result->getVertexSet());
+        $this->assertCount(17, $result->getEdgeSet());
+        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCalling::decorate');
+        $this->assertNotNull($impl);
+        $succ = $result->getSuccessor($impl);
+        $this->assertCount(3, $succ);
+    }
+
 }
