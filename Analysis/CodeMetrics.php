@@ -40,6 +40,12 @@ use Trismegiste\Mondrian\Graph\Vertex;
 class CodeMetrics extends Algorithm
 {
 
+    /**
+     * Extract the class name of a vertex to get a printable result
+     * 
+     * @param Vertex $v
+     * @return string
+     */
     private function extractShortName(Vertex $v)
     {
         $result = 'Unknown';
@@ -50,6 +56,11 @@ class CodeMetrics extends Algorithm
         return $result;
     }
 
+    /**
+     * Makes the statistics on the code
+     * 
+     * @return array hashmap of stat
+     */
     public function getCardinal()
     {
         $card = array(

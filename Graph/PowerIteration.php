@@ -32,7 +32,7 @@ class PowerIteration extends Algorithm
 {
 
     /**
-     * Return the dominate eigenvector of the adjacency matrix of
+     * Return the dominant eigenvector of the adjacency matrix of
      * this graph
      *
      * @param float $precision

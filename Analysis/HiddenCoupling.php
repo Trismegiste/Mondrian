@@ -44,6 +44,9 @@ use Trismegiste\Mondrian\Graph\Edge;
 class HiddenCoupling extends BreadthFirstSearch
 {
 
+    /**
+     * Generate a digraph reduced to the hidden coupled vertices
+     */
     public function generateGraph()
     {
         $dependency = $this->getEdgeSet();
@@ -62,6 +65,9 @@ class HiddenCoupling extends BreadthFirstSearch
         }
     }
 
+    /**
+     * Reset the algorithm (visited edge and stack of path)
+     */
     protected function resetSearch()
     {
         $this->stack = array();
@@ -70,17 +76,29 @@ class HiddenCoupling extends BreadthFirstSearch
         }
     }
 
+    /**
+     * Get another path which starts from $dep->getSource() and ends to
+     * $dep->getTarget()
+     * 
+     * @param Edge $dep the direct directed path on which we work
+     * @return Edge[]
+     */
     protected function findOtherPath(Edge $dep)
     {
+        // set the edge as visited
         $dep->visited = true;
+        // make a set of edges to start the exploration by excluding
+        // the initial edge we already known
         $start = new \SplObjectStorage();
         $step = $this->graph->getEdgeIterator($dep->getSource());
         foreach ($step as $edge) {
+            // exclude the direct path
             if ($step->getInfo() != $dep) {
                 $start[$step->getInfo()] = null;
             }
         }
 
+        // launching the BFS algo
         $e = $this->recursivSearchPath($start, $dep->getTarget());
         if (!is_null($e)) {
             array_unshift($this->stack, $e);

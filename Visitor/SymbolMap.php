@@ -11,6 +11,8 @@ use Trismegiste\Mondrian\Transform\CompilerPass;
 
 /**
  * SymbolMap is a class to collect list of class/interface/method name
+ * 
+ * It fills the inheritance map of the context
  *
  */
 class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
@@ -74,6 +76,12 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
         }
     }
 
+    /**
+     * Initialize a new symbol
+     * 
+     * @param string $name class or interface name
+     * @param bool $isInterface is interface ?
+     */
     protected function initSymbol($name, $isInterface)
     {
         if (!array_key_exists($name, $this->symbol)) {
@@ -83,6 +91,9 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
         }
     }
 
+    /**
+     * Compiling the pass : resolving symbol in the context
+     */
     public function compile()
     {
         $this->context->resolveSymbol();

@@ -10,13 +10,21 @@ namespace Trismegiste\Mondrian\Graph;
  * Design pattern: Decorator
  * Component : Concrete Component
  *
- * Graph is a directed graph with 0 or 1 directed edge between
+ * Digraph is a directed graph with 0 or 1 directed edge between
  * two vertices. Therefore, there are at maximum two edges
  * between two vertices (the two directions)
  */
 class Digraph implements Graph
 {
 
+    /**
+     * This is a hashmap Source Vertex -> \SplObjectStorage (the adjacencies list
+     * of one vertex)
+     * 
+     * The adjacencies list of one vertex is a hashmap Target vertex -> Edge
+     * 
+     * @var \SplObjectStorage
+     */
     protected $adjacency;
 
     public function __construct()
@@ -26,6 +34,7 @@ class Digraph implements Graph
 
     /**
      * Add a vertex to the graph without edge
+     * Note : Idempotent method
      *
      * @param Vertex $v
      */
@@ -44,6 +53,8 @@ class Digraph implements Graph
      *
      * @param Vertex $source
      * @param Vertex $target
+     * 
+     * @throws \InvalidArgumentException if source and target are the same
      */
     public function addEdge(Vertex $source, Vertex $target)
     {
@@ -64,7 +75,7 @@ class Digraph implements Graph
      *
      * @param Vertex $source
      * @param Vertex $target
-     * @return Edge
+     * @return Edge the edge or null
      */
     public function searchEdge(Vertex $source, Vertex $target)
     {
@@ -80,7 +91,7 @@ class Digraph implements Graph
     /**
      * Get the vertices in the graph
      *
-     * @return array
+     * @return Vertex[]
      */
     public function getVertexSet()
     {
@@ -95,7 +106,7 @@ class Digraph implements Graph
     /**
      * Get the edges set
      *
-     * @return array
+     * @return Edge[]
      */
     public function getEdgeSet()
     {
@@ -115,7 +126,7 @@ class Digraph implements Graph
      * by edges coming from the given vertex)
      * 
      * @param Vertex $v
-     * @return array array of Vertex
+     * @return Vertex[] array of successor vertex
      */
     public function getSuccessor(Vertex $v)
     {
@@ -130,6 +141,12 @@ class Digraph implements Graph
         return $set;
     }
 
+    /**
+     * @todo Need to go in the Graph interface
+     * 
+     * @param Vertex $v
+     * @return Iterator 
+     */
     public function getEdgeIterator(Vertex $v)
     {
         return $this->adjacency[$v];

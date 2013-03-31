@@ -2,6 +2,8 @@
 
 /*
  * Standalone Console
+ * 
+ * Uses the Symfony Console Component (which is great !)
  */
 
 namespace Trismegiste\Mondrian;

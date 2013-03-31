@@ -12,6 +12,8 @@ use Trismegiste\Mondrian\Transform\CompilerPass;
 
 /**
  * EdgeCollector is a visitor to transform code into graph edges
+ * 
+ * This class is too long. I'll refactor it when I'll find what pattern is fitted
  */
 class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
 {
@@ -84,6 +86,13 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         }
     }
 
+    /**
+     * Find a vertex by its type and name
+     * 
+     * @param string $type
+     * @param string $key
+     * @return Vertex or null 
+     */
     protected function findVertex($type, $key)
     {
         if (array_key_exists($key, $this->vertex[$type])) {
@@ -92,6 +101,13 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         return null;
     }
 
+    /**
+     * Find a ParamVertex by its [classname x mehodName x position]
+     * @param string $className
+     * @param string $methodName
+     * @param int $idx
+     * @return ParamVertex 
+     */
     protected function findParamVertexIdx($className, $methodName, $idx)
     {
         return $this->findVertex('param', $className . '::' . $methodName . '/' . $idx);
@@ -115,21 +131,46 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         return null;
     }
 
+    /**
+     * Search if a type (class or interface) exists in the inheritanceMap
+     * 
+     * @param string $cls
+     * @return bool
+     */
     protected function hasDeclaringClass($cls)
     {
         return array_key_exists($cls, $this->inheritanceMap);
     }
 
+    /**
+     * Finds the FQCN of the first declaring class/interface of a method
+     * 
+     * @param string $cls subclass name
+     * @param string $meth method name
+     * @return string
+     */
     protected function getDeclaringClass($cls, $meth)
     {
         return $this->inheritanceMap[$cls]['method'][$meth];
     }
 
+    /**
+     * Is FQCN an interface ?
+     * 
+     * @param string $cls FQCN
+     * @return bool 
+     */
     protected function isInterface($cls)
     {
         return $this->inheritanceMap[$cls]['interface'];
     }
 
+    /**
+     * Visits a method node
+     * Be warned : currently a lava flow
+     * 
+     * @param \PHPParser_Node_Stmt_ClassMethod $node 
+     */
     protected function enterMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $this->currentMethod = $node->name;
@@ -185,6 +226,11 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         }
     }
 
+    /**
+     * Visits an interface node
+     * 
+     * @param \PHPParser_Node_Stmt_Interface $node 
+     */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
         $this->currentClass = (string) $node->namespacedName;
@@ -199,6 +245,11 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         }
     }
 
+    /**
+     * Visits a class node
+     * 
+     * @param \PHPParser_Node_Stmt_Class $node 
+     */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
         $this->currentClass = (string) $node->namespacedName;
@@ -225,14 +276,13 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
     }
 
     /**
-     * link the current implementation vertex to all method with the same
-     * name
+     * Links the current implementation vertex to all methods with the same
+     * name. Filters on some obvious cases.
+     * Be warned : Lava Flow
      * 
      * @param \PHPParser_Node_Expr_MethodCall $node
      * @return void
      * 
-     * @todo Need for a much better filter on candidates
-     * (exclude: $this, typed param etc... )
      */
     protected function enterMethodCall(\PHPParser_Node_Expr_MethodCall $node)
     {
@@ -283,6 +333,8 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
     }
 
     /**
+     * Visits a "new" statement node
+     * 
      * Add an edge from current implementation to the class which a new instance
      * is created
      * 

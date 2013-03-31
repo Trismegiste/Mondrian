@@ -20,7 +20,7 @@ This app does not analyse the details of implementation itself but its structure
 and particullary its dependencies between types, a.k.a the "[efferent coupling][6]".
 
 With the proprer vocabulary ("class", "interface", "method signature", "parameter" and
-"implementation") and a proper gammar ("depends on", "typed with", "inherits from"
+"implementation") and a proper grammar ("depends on", "typed with", "inherits from"
 etc...), each source code can be transformed into a [directed graph][5] (or digraph).
 
 Then, with this abstract representation, it uses some algorithms and some

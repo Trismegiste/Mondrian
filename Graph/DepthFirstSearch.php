@@ -7,16 +7,23 @@
 namespace Trismegiste\Mondrian\Graph;
 
 /**
- * DepthFirstSearch is ...
- *
- * @author flo
+ * DepthFirstSearch is a decorator for digraph to find a directed path between
+ * two vertices.
+ * 
+ * Uses the depth first search method : not always the shortest path
  */
 class DepthFirstSearch extends Algorithm
 {
 
     protected $stack = array();
-    protected $excludedEdge = array();
 
+    /**
+     * Finds a directed path from $src to $dst
+     * 
+     * @param Vertex $src starting point
+     * @param Vertex $dst ending point
+     * @return Edge[] the path or empty array
+     */
     public function searchPath(Vertex $src, Vertex $dst)
     {
         $this->stack = array();
@@ -25,6 +32,13 @@ class DepthFirstSearch extends Algorithm
         return $this->stack;
     }
 
+    /**
+     * Recursive search
+     * 
+     * @param Vertex $src
+     * @param Vertex $dst
+     * @return boolean
+     */
     protected function recursivSearchPath(Vertex $src, Vertex $dst)
     {
         $choice = $this->graph->getEdgeIterator($src);

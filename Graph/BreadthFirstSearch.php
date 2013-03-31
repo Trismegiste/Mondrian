@@ -7,9 +7,12 @@
 namespace Trismegiste\Mondrian\Graph;
 
 /**
- * BreadthFirstSearch is ...
- *
- * @author flo
+ * BreadthFirstSearch is a decorator for digraph to find a directed path between
+ * two vertices.
+ * 
+ * Uses the breadth first search method : shortest path and avoid cycle
+ * 
+ * Note : this is my own algorithm, I find it ugly and not DRY
  */
 class BreadthFirstSearch extends Algorithm
 {

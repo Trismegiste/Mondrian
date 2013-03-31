@@ -7,13 +7,12 @@
 namespace Trismegiste\Mondrian\Graph;
 
 /**
- * Vertex is a vertex
+ * Vertex is a vertex of a graph
  */
 class Vertex
 {
 
     protected $name;
-//    protected $content;
 
     /**
      * Construct the vertex with its name (preferably unique)
@@ -29,15 +28,5 @@ class Vertex
     {
         return $this->name;
     }
-
-//    public function setContent($data)
-//    {
-//        $this->content = $data;
-//    }
-//
-//    public function getContent()
-//    {
-//        return $this->content;
-//    }
 
 }

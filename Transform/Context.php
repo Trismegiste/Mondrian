@@ -9,9 +9,10 @@ namespace Trismegiste\Mondrian\Transform;
 use Trismegiste\Mondrian\Graph\Graph;
 
 /**
- * Context is a context of parser
- *
- * @author flo
+ * Context is a context of parser. 
+ * Responsible for maintaining a list of methods, classes and interfaces used
+ * for building inheritance links in a digraph
+ * 
  */
 class Context
 {
@@ -30,6 +31,12 @@ class Context
         $this->inheritanceMap = array();
     }
 
+    /**
+     * Construct the inheritanceMap by resolving which class or interface
+     * first declares a method
+     * 
+     * (not vey efficient algo, I admit)
+     */
     public function resolveSymbol()
     {
         foreach ($this->inheritanceMap as $className => $info) {

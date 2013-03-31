@@ -14,11 +14,13 @@ use Trismegiste\Mondrian\Visitor;
 class Grapher
 {
 
-    public function __construct(/* Finder */)
-    {
-        
-    }
-
+    /**
+     * Parse a set of php files and build a digraph with multiple
+     * passes by visiting the nodes in source code
+     *  
+     * @param string[] $iter list of absolute path to files to parse
+     * @return \Trismegiste\Mondrian\Graph\Digraph 
+     */
     public function parse($iter)
     {
         $parser = new \PHPParser_Parser(new \PHPParser_Lexer());

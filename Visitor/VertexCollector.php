@@ -50,14 +50,14 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver implements Com
             case 'Stmt_ClassMethod' :
                 if ($node->isPublic()) {
                     $this->currentMethod = $node->name;
-                    // only if this method is declared in this class
+                    // only if this method is first declared in this class
                     $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
                     // we add the vertex. If not, it will be a higher class/interface
                     // in the inheritance hierarchy which add it.
                     if ($this->currentClass == $declaringClass) {
                         $this->pushMethod($node);
                     }
-                    // if not abstract we add the vertex containing the implementation
+                    // if not abstract we add the vertex for the implementation
                     if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
                         $this->pushImplementation($node);
                     }
@@ -76,16 +76,32 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver implements Com
         }
     }
 
+    /**
+     * Finds the FQCN of the first declaring class/interface of a method
+     * @todo copy-paste in EdgeCollector : bad
+     * 
+     * @param string $cls subclass name
+     * @param string $meth method name
+     * @return string
+     */
     protected function getDeclaringClass($cls, $meth)
     {
         return $this->inheritanceMap[$cls]['method'][$meth];
     }
 
+    /**
+     * @todo copy-paste
+     */
     protected function isInterface($cls)
     {
         return $this->inheritanceMap[$cls]['interface'];
     }
 
+    /**
+     * add a new ClassVertex with the class node
+     * 
+     * @param \PHPParser_Node_Stmt_Class $node 
+     */
     protected function pushClass(\PHPParser_Node_Stmt_Class $node)
     {
         $index = (string) $node->namespacedName;
@@ -129,6 +145,11 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver implements Com
         }
     }
 
+    /**
+     * the vertex name for a MethodVertex
+     * 
+     * @return string
+     */
     protected function getCurrentMethodIndex()
     {
         return $this->currentClass . '::' . $this->currentMethod;

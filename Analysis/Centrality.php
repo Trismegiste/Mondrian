@@ -46,17 +46,31 @@ use Trismegiste\Mondrian\Graph\ReversedDigraph;
 class Centrality extends Algorithm
 {
 
+    /**
+     * Add dependency centrality information on each vertex
+     * (edge effect on this digraph)
+     */
     public function addDependRank()
     {
         $this->addCentralityRank($this->graph, 'centrality');
     }
 
+    /**
+     * Add used centrality information on each vertex
+     * (edge effect on this digraph)
+     */
     public function addUsedRank()
     {
         $reversed = new ReversedDigraph($this->graph);
         $this->addCentralityRank($reversed->getReversed(), 'centrality');
     }
 
+    /**
+     * General method to calculate centrality with the power iteration algo
+     * 
+     * @param Graph $g
+     * @param string $metaName the key of the matadata name to set in vertices
+     */
     protected function addCentralityRank(Graph $g, $metaName)
     {
         $power = new PowerIteration($g);
@@ -70,7 +84,7 @@ class Centrality extends Algorithm
             $vertexArray[$idx] = $v;
         }
         arsort($eigenArray);
-        // only the order is interesting
+        // only the order is interesting, I'm not Google
         $iter = 0;
         $mostCentral = count($eigenVector) / 10.0;
         foreach ($eigenArray as $idx => $val) {
