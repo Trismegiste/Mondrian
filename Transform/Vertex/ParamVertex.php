@@ -12,15 +12,11 @@ namespace Trismegiste\Mondrian\Transform\Vertex;
 class ParamVertex extends StaticAnalysis
 {
 
-    public function getAttribute()
+    protected function getSpecific()
     {
         preg_match('#([^/]+)$#', $this->name, $capt);
         $default = array('shape' => 'diamond',
             'style' => 'filled', 'color' => 'cyan', 'label' => $capt[1]);
-
-        if ($this->hasMeta('centrality')) {
-            $default['color'] = sprintf('/rdylgn11/%d', $this->getMeta('centrality'));
-        }
 
         return $default;
     }

@@ -12,15 +12,11 @@ namespace Trismegiste\Mondrian\Transform\Vertex;
 class InterfaceVertex extends StaticAnalysis
 {
 
-    public function getAttribute()
+    protected function getSpecific()
     {
         preg_match('#([^\\\\]+)$#', $this->name, $capt);
         $default = array('shape' => 'invtriangle', 'style' => 'filled',
             'color' => 'green', 'label' => $capt[1]);
-
-        if ($this->hasMeta('centrality')) {
-            $default['color'] = sprintf('/rdylgn11/%d', $this->getMeta('centrality'));
-        }
 
         return $default;
     }
