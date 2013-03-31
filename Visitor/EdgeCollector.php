@@ -115,6 +115,11 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         return null;
     }
 
+    protected function hasDeclaringClass($cls)
+    {
+        return array_key_exists($cls, $this->inheritanceMap);
+    }
+
     protected function getDeclaringClass($cls, $meth)
     {
         return $this->inheritanceMap[$cls]['method'][$meth];
@@ -144,7 +149,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
                 // now the type of the param :
                 if ($param->type instanceof \PHPParser_Node_Name) {
                     // we clone because resolveClassName has edge effect
-                    $tmp = clone $param->type; 
+                    $tmp = clone $param->type;
                     $paramType = (string) $this->resolveClassName($tmp);
                     // there is a type, we add a link to the type, if it is found
                     $typeVertex = $this->findTypeVertex($paramType);
@@ -254,9 +259,12 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
                     // is it a typed param ?
                     if ($param->type instanceof \PHPParser_Node_Name_FullyQualified) {
                         $paramType = (string) $param->type;
-                        $cls = $this->getDeclaringClass($paramType, $method);
-                        if (!is_null($signature = $this->findVertex('method', "$cls::$method"))) {
-                            $candidate = array($signature);
+                        // we check if it is an outer class or not : is it known ?
+                        if ($this->hasDeclaringClass($paramType)) {
+                            $cls = $this->getDeclaringClass($paramType, $method);
+                            if (!is_null($signature = $this->findVertex('method', "$cls::$method"))) {
+                                $candidate = array($signature);
+                            }
                         }
                     }
                 }
