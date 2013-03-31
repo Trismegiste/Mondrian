@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Graph\Vertex;
 use Trismegiste\Mondrian\Graph\Edge;
 
 /**
- * BreadthFirstSearchTest is ...
+ * BreadthFirstSearchTest is a test for BFS algo
  *
  * @author flo
  */

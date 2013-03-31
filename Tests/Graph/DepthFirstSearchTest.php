@@ -8,11 +8,9 @@ namespace Trismegiste\Mondrian\Tests\Graph;
 
 use Trismegiste\Mondrian\Graph\DepthFirstSearch;
 use Trismegiste\Mondrian\Graph\Digraph;
-use Trismegiste\Mondrian\Graph\Vertex;
-use Trismegiste\Mondrian\Graph\Edge;
 
 /**
- * DepthFirstSearchTest is ...
+ * DepthFirstSearchTest is a unit test for DFS algo
  *
  * @author flo
  */

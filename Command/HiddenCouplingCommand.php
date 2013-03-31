@@ -32,9 +32,9 @@ class HiddenCouplingCommand extends AbstractParse
     protected function processGraph(Graph $graph, OutputInterface $output)
     {
         $algo = new HiddenCoupling($graph);
-        $algo->generateGraph();
+        $result = $algo->generateGraph();
 
-        return null;
+        return $result;
     }
 
 }

@@ -9,6 +9,8 @@ namespace Trismegiste\Mondrian\Analysis;
 use Trismegiste\Mondrian\Graph\BreadthFirstSearch;
 use Trismegiste\Mondrian\Transform\Vertex\ImplVertex;
 use Trismegiste\Mondrian\Transform\Vertex\MethodVertex;
+use Trismegiste\Mondrian\Transform\Vertex\ClassVertex;
+use Trismegiste\Mondrian\Transform\Vertex\InterfaceVertex;
 use Trismegiste\Mondrian\Graph\Edge;
 
 /**
@@ -49,20 +51,30 @@ class HiddenCoupling extends BreadthFirstSearch
      */
     public function generateGraph()
     {
+        $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
         $dependency = $this->getEdgeSet();
         foreach ($dependency as $edge) {
             if (($edge->getSource() instanceof ImplVertex)
                     && ($edge->getTarget() instanceof MethodVertex)) {
-//                printf("checking %s -> %s = ", $edge->getSource()->getName(), $edge->getTarget()->getName());
+
                 $this->resetSearch();
                 $otherPath = $this->findOtherPath($edge);
-//                printf("%d\n", count($otherPath));
+
                 if (count($otherPath) == 0) {
-                    // not found => hidden coupling
-                    printf("%s -> %s \n", $edge->getSource()->getName(), $edge->getTarget()->getName());
+                    // not found => hidden coupling :
+                    // source is impl and target is method
+                    $reducedGraph->addEdge($edge->getSource(), $edge->getTarget());
+                    $reducedGraph->addEdge(
+                            $this->findOwningClassVertex(
+                                    $edge->getSource()), $edge->getSource());
+                    $reducedGraph->addEdge(
+                            $this->findDeclaringVertex(
+                                    $edge->getTarget()), $edge->getTarget());
                 }
             }
         }
+        
+        return $reducedGraph;
     }
 
     /**
@@ -105,6 +117,37 @@ class HiddenCoupling extends BreadthFirstSearch
         }
 
         return $this->stack;
+    }
+
+    protected function findOwningClassVertex(ImplVertex $impl)
+    {
+        list($className, $methodName) = explode('::', $impl->getName());
+        foreach ($this->graph->getSuccessor($impl) as $succ) {
+            if (($succ instanceof ClassVertex)
+                    && ($succ->getName() == $className)) {
+
+                return $succ;
+            }
+        }
+
+        throw new \RuntimeException("$methodName has no owning class");
+    }
+
+    protected function findDeclaringVertex(MethodVertex $meth)
+    {
+        list($className, $methodName) = explode('::', $meth->getName());
+        foreach ($this->graph->getEdgeSet() as $edge) {
+            if ($edge->getTarget() == $meth) {
+                $src = $edge->getSource();
+                if (($src instanceof ClassVertex) || ($src instanceof InterfaceVertex)) {
+                    if ($src->getName() == $className) {
+                        return $src;
+                    }
+                }
+            }
+        }
+
+        throw new \RuntimeException("$methodName has no declaring class");
     }
 
 }
