@@ -12,16 +12,18 @@ use Symfony\Component\Console\Input\InputOption;
 use Trismegiste\Mondrian\Analysis\Centrality;
 
 /**
- * CentralityCommand transforms a bunch of php files into a digraph
+ * AbstractCentrality transforms a bunch of php files into a digraph
  * and exports it into a report file with centrality informations
  *
  */
-class CentralityCommand extends AbstractParse
+abstract class AbstractCentrality extends AbstractParse
 {
+
+    abstract protected function getAlgorithm();
 
     protected function getSubname()
     {
-        return 'centrality';
+        return 'centrality:' . $this->getAlgorithm();
     }
 
     protected function getFullDesc()
@@ -29,18 +31,13 @@ class CentralityCommand extends AbstractParse
         return 'Transforms a bunch of php file into a digraph with centrality informations';
     }
 
-    protected function configure()
-    {
-        parent::configure();
-        $this->addOption('algo', null, InputOption::VALUE_REQUIRED, 'Algorithm used for centrality calculus [used|depend]', 'used');
-    }
-
     protected function processGraph(Graph $graph, OutputInterface $output)
     {
         $algo = new Centrality($graph);
-        $algo->addUsedRank();
+        $this->processCentrality($algo);
 
         return $graph;
     }
 
+    abstract protected function processCentrality(Centrality $g);
 }
