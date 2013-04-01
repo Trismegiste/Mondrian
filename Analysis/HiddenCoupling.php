@@ -29,7 +29,7 @@ use Trismegiste\Mondrian\Graph\Edge;
  * at least one another directed path between these two vertices 
  * (through the class vertex, through a parameter vertex, superclass etc...)
  * If you can't figure why, I recommand you to read the digraph language
- * I've defined with this intent.
+ * I've defined in this intent.
  * 
  * If there is none, *maybe* it means a hidden coupling. I add the "maybe"
  * because, it's hard to find the type of "$obj" in soft-typed language like
@@ -69,11 +69,9 @@ class HiddenCoupling extends BreadthFirstSearch
                     // source is impl and target is method
                     $reducedGraph->addEdge($edge->getSource(), $edge->getTarget());
                     $reducedGraph->addEdge(
-                            $this->findOwningClassVertex(
-                                    $edge->getSource()), $edge->getSource());
+                            $this->findOwningClassVertex($edge->getSource()), $edge->getSource());
                     $reducedGraph->addEdge(
-                            $this->findDeclaringVertex(
-                                    $edge->getTarget()), $edge->getTarget());
+                            $this->findDeclaringVertex($edge->getTarget()), $edge->getTarget());
                 }
             }
         }
