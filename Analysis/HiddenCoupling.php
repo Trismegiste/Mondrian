@@ -20,14 +20,16 @@ use Trismegiste\Mondrian\Graph\Edge;
  * How ? 
  * This analyser searches for method calls. Everytime there is a call of
  * a method against an object ( $obj->getThing() ), it means an edge from
- * an implementation vertex to a method signature vertex.
+ * an implementation vertex where the call is to a method signature vertex.
  * 
  * Since "$obj" does not come from nowhere, its type (class or interface)
  * must be known by the class owning the implementation vertex. 
- * That's why : 
- * If there an edge from an implementation to a method, there must be
+ * In other words : 
+ * If there is an edge from an implementation to a method, there must be
  * at least one another directed path between these two vertices 
  * (through the class vertex, through a parameter vertex, superclass etc...)
+ * If you can't figure why, I recommand you to read the digraph language
+ * I've defined with this intent.
  * 
  * If there is none, *maybe* it means a hidden coupling. I add the "maybe"
  * because, it's hard to find the type of "$obj" in soft-typed language like
@@ -37,10 +39,11 @@ use Trismegiste\Mondrian\Graph\Edge;
  * 
  * One another thing, since I cannot detect calls from "call_user_func" and
  * other magic features of PHP like "$obj->$methodName()" or "new $className"
- * there is a big limit of this analyser. 
+ * there is a big limit of this static analyser.
  * 
- * Neverthesless I pretend this tool can find about 50% of hidden coupling
- * in poorly-coded classes.
+ * Neverthesless I pretend this tool can find at least 50% of hidden coupling
+ * in poorly-coded classes and about 10% of false positive, from what I've
+ * seen.
  * 
  */
 class HiddenCoupling extends BreadthFirstSearch

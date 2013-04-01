@@ -19,4 +19,5 @@ $application->add(new Command\MetricsCommand());
 $application->add(new Command\UsedCentralityCommand());
 $application->add(new Command\DependCentralityCommand());
 $application->add(new Command\HiddenCouplingCommand());
+$application->add(new Command\SpaghettiCommand());
 $application->run();
