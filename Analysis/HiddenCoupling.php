@@ -60,7 +60,8 @@ class HiddenCoupling extends BreadthFirstSearch
             if (($edge->getSource() instanceof ImplVertex)
                     && ($edge->getTarget() instanceof MethodVertex)) {
 
-                $this->resetSearch();
+                $this->stack = array();
+                $this->resetVisited();
                 $otherPath = $this->findOtherPath($edge);
 
                 if (count($otherPath) == 0) {
@@ -76,19 +77,8 @@ class HiddenCoupling extends BreadthFirstSearch
                 }
             }
         }
-        
-        return $reducedGraph;
-    }
 
-    /**
-     * Reset the algorithm (visited edge and stack of path)
-     */
-    protected function resetSearch()
-    {
-        $this->stack = array();
-        foreach ($this->getEdgeSet() as $e) {
-            unset($e->visited);
-        }
+        return $reducedGraph;
     }
 
     /**

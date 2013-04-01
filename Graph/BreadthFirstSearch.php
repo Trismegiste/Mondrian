@@ -60,4 +60,14 @@ class BreadthFirstSearch extends Algorithm
         }
     }
 
+    /**
+     * Reset visited state of edges
+     */
+    protected function resetVisited()
+    {
+        foreach ($this->getEdgeSet() as $e) {
+            unset($e->visited);
+        }
+    }
+
 }
