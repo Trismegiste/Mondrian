@@ -70,4 +70,29 @@ class HiddenCouplingTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $result->getVertexSet());
     }
 
+    /**
+     * @dataProvider getSourceCode
+     * @expectedException RuntimeException
+     */
+    public function testBadGraph1($callingClass, $impl, $declaring, $callee)
+    {
+        $this->graph->addEdge($callingClass, $impl);
+        $this->graph->addEdge($declaring, $callee);
+        $this->graph->addEdge($impl, $callee);
+        $result = $this->graph->generateGraph();
+    }
+
+    /**
+     * @dataProvider getSourceCode
+     * @expectedException RuntimeException
+     */
+    public function testBadGraph2($callingClass, $impl, $declaring, $callee)
+    {
+        $this->graph->addEdge($callingClass, $impl);
+        $this->graph->addEdge(new Vertex\InterfaceVertex('C'), $callee);
+        $this->graph->addEdge($impl, $callingClass);
+        $this->graph->addEdge($impl, $callee);
+        $result = $this->graph->generateGraph();
+    }
+
 }
