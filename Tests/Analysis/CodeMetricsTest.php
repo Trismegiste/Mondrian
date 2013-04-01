@@ -34,17 +34,22 @@ class CodeMetricsTest extends \PHPUnit_Framework_TestCase
 
     public function testMostUsed()
     {
+        // interface A
         $center = new Vertex\InterfaceVertex('A');
         $meth = new Vertex\MethodVertex('A::some');
+        $param = new Vertex\ParamVertex('A::some/0');
+        // A has a method some
         $this->graph->addEdge($center, $meth);
-
-        for ($k = 0; $k < 20; $k++) {
-            $subclass = new Vertex\ClassVertex('B' . $k);
-            $impl = new Vertex\ImplVertex($k);
-            $this->graph->addEdge($subclass, $center);
-            $this->graph->addEdge($subclass, $impl);
-            $this->graph->addEdge($impl, $subclass);
-        }
+        $this->graph->addEdge($meth, $param);
+        // class B
+        $subclass = new Vertex\ClassVertex('B');
+        // B implements A
+        $this->graph->addEdge($subclass, $center);
+        $impl = new Vertex\ImplVertex('B::some');
+        // implementation of A::some depends on :
+        $this->graph->addEdge($subclass, $impl);
+        $this->graph->addEdge($impl, $subclass);
+        $this->graph->addEdge($impl, $param);
 
         $this->assertEquals(array('Class' => 1, 'Interface' => 1,
             'Impl' => 1, 'Method' => 1, 'Param' => 1,
