@@ -60,9 +60,9 @@ class HiddenCoupling extends BreadthFirstSearch
             if (($edge->getSource() instanceof ImplVertex)
                     && ($edge->getTarget() instanceof MethodVertex)) {
 
-                $this->stack = array();
                 $this->resetVisited();
-                $otherPath = $this->findOtherPath($edge);
+                $edge->visited = true;
+                $otherPath = $this->searchPath($edge->getSource(), $edge->getTarget());
 
                 if (count($otherPath) == 0) {
                     // not found => hidden coupling :
@@ -79,37 +79,6 @@ class HiddenCoupling extends BreadthFirstSearch
         }
 
         return $reducedGraph;
-    }
-
-    /**
-     * Get another path which starts from $dep->getSource() and ends to
-     * $dep->getTarget()
-     * 
-     * @param Edge $dep the direct directed path on which we work
-     * @return Edge[]
-     */
-    protected function findOtherPath(Edge $dep)
-    {
-        // set the edge as visited
-        $dep->visited = true;
-        // make a set of edges to start the exploration by excluding
-        // the initial edge we already known
-        $start = new \SplObjectStorage();
-        $step = $this->graph->getEdgeIterator($dep->getSource());
-        foreach ($step as $edge) {
-            // exclude the direct path
-            if ($step->getInfo() != $dep) {
-                $start[$step->getInfo()] = null;
-            }
-        }
-
-        // launching the BFS algo
-        $e = $this->recursivSearchPath($start, $dep->getTarget());
-        if (!is_null($e)) {
-            array_unshift($this->stack, $e);
-        }
-
-        return $this->stack;
     }
 
     protected function findOwningClassVertex(ImplVertex $impl)
