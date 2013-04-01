@@ -69,7 +69,7 @@ class Centrality extends Algorithm
      * General method to calculate centrality with the power iteration algo
      * 
      * @param Graph $g
-     * @param string $metaName the key of the matadata name to set in vertices
+     * @param string $metaName the key of the metadata name to set in vertices
      */
     protected function addCentralityRank(Graph $g, $metaName)
     {
