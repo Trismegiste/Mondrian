@@ -24,12 +24,15 @@ class BreadthFirstSearch extends Algorithm
         $this->stack = array();
         $start = new \SplObjectStorage();
         $step = $this->graph->getEdgeIterator($src);
-        foreach ($step as $e) {
-            $start[$step->getInfo()] = null;
+        foreach ($step as $succ) {
+            $edge = $step->getInfo();
+            if (!isset($edge->visited)) {
+                $start[$edge] = null;
+            }
         }
-        $e = $this->recursivSearchPath($start, $dst);
-        if (!is_null($e)) {
-            array_unshift($this->stack, $e);
+        $last = $this->recursivSearchPath($start, $dst);
+        if (!is_null($last)) {
+            array_unshift($this->stack, $last);
         }
         return $this->stack;
     }
