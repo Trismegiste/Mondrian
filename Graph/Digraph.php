@@ -152,4 +152,17 @@ class Digraph implements Graph
         return $this->adjacency[$v];
     }
 
+    public function getPredecessor(Vertex $v)
+    {
+        $set = array();
+        foreach ($this->adjacency as $vertex) {
+            $edgeList = $this->adjacency->getInfo();
+            if ($edgeList->contains($v)) {
+                $set[] = $vertex;
+            }
+        }
+
+        return $set;
+    }
+
 }

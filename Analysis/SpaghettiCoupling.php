@@ -32,7 +32,8 @@ use Trismegiste\Mondrian\Graph\BreadthFirstSearch;
  * from which B inherits, there is no coupling because, A::doThing() is linked 
  * to C::getThing(), therefore no directed path. Liskov principle is safe.
  * 
- * That's what I call "modern spaghetti code" : yes you haZ objects and classes
+ * The first case is what I call "modern spaghetti code" : 
+ * yes you haZ objects and classes
  * but you are not S.O.L.I.D. You rely on concrete class, not abstraction,
  * not "contract" (interface). Your classes are just a collection of functions
  * with an attached data structure, not an abstract concept.
@@ -59,14 +60,17 @@ class SpaghettiCoupling extends BreadthFirstSearch
         foreach ($eSet as $edge) {
             if (($edge->getSource() instanceof ImplVertex)
                     && ($edge->getTarget() instanceof MethodVertex)) {
-                foreach ($this->graph->getSuccessor($edge->getTarget()) as $dst) {
+                $impl = $edge->getSource();
+                $called = $edge->getTarget();
+                foreach ($this->graph->getSuccessor($called) as $dst) {
                     if ($dst instanceof ImplVertex) {
-                        $reducedGraph->addEdge($edge->getSource(), $edge->getTarget());
-                        $reducedGraph->addEdge($edge->getTarget(), $dst);
+                        $reducedGraph->addEdge($impl, $called);
+                        $reducedGraph->addEdge($called, $dst);
                     }
                 }
             }
         }
+
         return $reducedGraph;
     }
 
