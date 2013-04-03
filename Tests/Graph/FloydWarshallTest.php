@@ -33,7 +33,6 @@ class FloydWarshallTest extends \PHPUnit_Framework_TestCase
     public function testChain()
     {
         $vCard = 20;
-        $eCard = $vCard * 4;
         for ($k = 0; $k < $vCard; $k++) {
             $this->graph->addVertex(new Vertex($k));
         }
@@ -44,9 +43,9 @@ class FloydWarshallTest extends \PHPUnit_Framework_TestCase
 
         $dist = $this->graph->getDistance();
         $this->assertEquals(0, $dist->get(0, 0));
-        $this->assertEquals(19, $dist->get(0, 19));
-        $this->assertEquals(19, $dist->get(1, 0));
-        $this->assertEquals(19, $dist->get(19, 18));
+        $this->assertEquals($vCard - 1, $dist->get(0, $vCard - 1));
+        $this->assertEquals($vCard - 1, $dist->get(1, 0));
+        $this->assertEquals($vCard - 1, $dist->get($vCard - 1, $vCard - 2));
     }
 
 }
