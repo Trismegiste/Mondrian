@@ -9,9 +9,7 @@ namespace Trismegiste\Mondrian\Tests\Algebra;
 use Trismegiste\Mondrian\Algebra\ByteMatrix;
 
 /**
- * ByteMatrixTest is a ...
- *
- * @author florent
+ * ByteMatrixTest is a test of ByteMatrix
  */
 class ByteMatrixTest extends \PHPUnit_Framework_TestCase
 {

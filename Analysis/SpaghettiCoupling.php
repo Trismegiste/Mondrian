@@ -85,7 +85,7 @@ class SpaghettiCoupling extends BreadthFirstSearch
             if ($src instanceof ImplVertex) {
                 foreach ($vSet as $dst) {
                     if (($dst instanceof ImplVertex) && ($dst !== $src)) {
-                        $this->resetSearch();
+                        $this->resetVisited();
                         $path = $this->searchPath($src, $dst);
                         foreach ($path as $edge) {
                             $reducedGraph->addEdge($edge->getSource(), $edge->getTarget());
@@ -95,17 +95,6 @@ class SpaghettiCoupling extends BreadthFirstSearch
             }
         }
         return $reducedGraph;
-    }
-
-    /**
-     * Reset the algorithm (visited edge and stack of path)
-     */
-    protected function resetSearch()
-    {
-        $this->stack = array();
-        foreach ($this->getEdgeSet() as $e) {
-            unset($e->visited);
-        }
     }
 
 }
