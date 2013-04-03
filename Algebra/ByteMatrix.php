@@ -14,7 +14,7 @@ namespace Trismegiste\Mondrian\Algebra;
 class ByteMatrix
 {
 
-    const CHAR_PER_COEFF = 2;
+    const CHAR_PER_COEFF = 4;
 
     protected $dimension;
     // 8 bit each = 2 char
@@ -42,7 +42,7 @@ class ByteMatrix
     public function set($line, $column, $value)
     {
         $delta = self::CHAR_PER_COEFF * ($line * $this->dimension + $column);
-        $hex = sprintf('%02x', $value);
+        $hex = sprintf('%0' . self::CHAR_PER_COEFF . 'x', $value);
         for ($i = 0; $i < self::CHAR_PER_COEFF; $i++) {
             $this->content[$delta + $i] = $hex[$i];
         }
