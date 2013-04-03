@@ -38,14 +38,14 @@ class ByteMatrixTest extends \PHPUnit_Framework_TestCase
         $dim = $this->matrix->getSize();
         for ($y = 0; $y < $dim; $y++) {
             for ($x = 0; $x < $dim; $x++) {
-                $value = "$x$y";
+                $value = ($x + $y) % 256;
                 $this->matrix->set($y, $x, $value);
             }
         }
-        print_r($this->matrix);
+
         for ($y = 0; $y < $dim; $y++) {
             for ($x = 0; $x < $dim; $x++) {
-                $value = "$x$y";
+                $value = ($x + $y) % 256;
                 $this->assertEquals($value, $this->matrix->get($y, $x));
             }
         }
