@@ -30,7 +30,7 @@ class FloydWarshallTest extends \PHPUnit_Framework_TestCase
         $this->graph->getDistance();
     }
 
-    public function testRandom()
+    public function testChain()
     {
         $vCard = 20;
         $eCard = $vCard * 4;
@@ -38,15 +38,15 @@ class FloydWarshallTest extends \PHPUnit_Framework_TestCase
             $this->graph->addVertex(new Vertex($k));
         }
         $vSet = $this->graph->getVertexSet();
-        for ($k = 0; $k < $eCard; $k++) {
-            $src = rand(0, $vCard - 1);
-            $dst = rand(0, $vCard - 1);
-            if ($src != $dst) {
-                $this->graph->addEdge($vSet[$src], $vSet[$dst]);
-            }
+        for ($k = 0; $k < $vCard; $k++) {
+            $this->graph->addEdge($vSet[$k], $vSet[($k + 1) % $vCard]);
         }
 
-        $this->graph->getDistance();
+        $dist = $this->graph->getDistance();
+        $this->assertEquals(0, $dist->get(0, 0));
+        $this->assertEquals(19, $dist->get(0, 19));
+        $this->assertEquals(19, $dist->get(1, 0));
+        $this->assertEquals(19, $dist->get(19, 18));
     }
 
 }

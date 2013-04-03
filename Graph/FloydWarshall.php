@@ -47,12 +47,7 @@ class FloydWarshall extends Algorithm
             }
         }
 
-        for ($line = 0; $line < $dimension; $line++) {
-            for ($column = 0; $column < $dimension; $column++) {
-                echo $dist->get($line, $column) . ' ';
-            }
-            echo "\n";
-        }
+        return $dist;
     }
 
 }
