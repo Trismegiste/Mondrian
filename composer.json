@@ -2,14 +2,14 @@
     "name": "trismegiste/mondrian",
     "description": "Mondrian is a set of static analysis and refactoring tools for more abstraction",
     "type": "CLI",
-    "keywords": ["refactoring", "abstract"],
+    "keywords": ["refactoring", "abstract", "graph", "analysis", "static", "metrics"],
     "authors": [
     {
         "name": "Trismegiste",
         "email": "florent.g@allopneus.com"
     }
     ],
-   "require": {
+    "require": {
         "php": ">=5.3.8",
         "nikic/php-parser": "dev-master",
         "symfony/console": "2.2.*",
@@ -21,6 +21,10 @@
             "Trismegiste\\Mondrian": ""
         }
     },
+    "repositories": [ {
+        "type": "vcs",
+        "url": "https://github.com/Trismegiste/graphviz"
+    } ],
     "target-dir": "Trismegiste/Mondrian",
     "license": "CC-BY-SA-3.0",
     "version": "0.4"

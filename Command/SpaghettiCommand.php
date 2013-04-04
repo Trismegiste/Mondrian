@@ -30,7 +30,7 @@ class SpaghettiCommand extends AbstractParse
     protected function processGraph(Graph $graph, OutputInterface $output)
     {
         $algo = new SpaghettiCoupling($graph);
-        $result = $algo->generateGraph();
+        $result = $algo->generateCoupledClassGraph();
 
         return $result;
     }
