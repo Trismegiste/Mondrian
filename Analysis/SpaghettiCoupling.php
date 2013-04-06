@@ -77,18 +77,21 @@ class SpaghettiCoupling extends BreadthFirstSearch
     /**
      * Generate a digraph reduced to all concrete coupled methods
      */
-    public function generateCoupledImplGraph()
+    public function generateCoupledClassGraph()
     {
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
         $vSet = $this->graph->getVertexSet();
         foreach ($vSet as $src) {
-            if ($src instanceof ImplVertex) {
+            if ($src instanceof ClassVertex) {
                 foreach ($vSet as $dst) {
-                    if (($dst instanceof ImplVertex) && ($dst !== $src)) {
+                    if (($dst instanceof ClassVertex) && ($dst !== $src)) {
                         $this->resetVisited();
                         $path = $this->searchPath($src, $dst);
-                        foreach ($path as $edge) {
-                            $reducedGraph->addEdge($edge->getSource(), $edge->getTarget());
+                        foreach ($path as $step) {
+                            if ($step->getTarget() instanceof ClassVertex) {
+                                $reducedGraph->addEdge($src, $step->getTarget());
+                                break;
+                            }
                         }
                     }
                 }
@@ -97,7 +100,7 @@ class SpaghettiCoupling extends BreadthFirstSearch
         return $reducedGraph;
     }
 
-    public function generateCoupledClassGraph()
+    public function generateCoupledClassGraph2()
     {
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
         $vSet = $this->graph->getVertexSet();
