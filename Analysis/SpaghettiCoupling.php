@@ -15,11 +15,11 @@ use Trismegiste\Mondrian\Graph\BreadthFirstSearch;
 
 /**
  * SpaghettiCoupling is an analyser which finds coupling between implementations,
- * I mean between methods without abstraction.
+ * I mean between public methods without abstraction.
  *
  * How ?
- * This analyser searches path between two method implementations through
- * their calls.
+ * This analyser searches path between two classes through calls of public
+ * methods, inheritance or instanciation. 
  *
  * Example :
  * In the implementation of the method A::doThing(), there is a call to
@@ -36,7 +36,7 @@ use Trismegiste\Mondrian\Graph\BreadthFirstSearch;
  * yes you haZ objects and classes
  * but you are not S.O.L.I.D. You rely on concrete class, not abstraction,
  * not "contract" (interface). Your classes are just a collection of functions
- * with an attached data structure, not an abstract concept.
+ * with an attached data structure, not an abstract idea.
  *
  * Therefore, each time you make a modification in B::getThing(), you can
  * break its contract and break something in A::doThing(). Worst, A has
@@ -45,6 +45,26 @@ use Trismegiste\Mondrian\Graph\BreadthFirstSearch;
  *
  * The language I used for representing source code into a digraph was
  * created especially to show that.
+ * 
+ * Note 1 : This service creates a new digraph by selecting only the class
+ * vertices because with the implementations, there are too many vertices.
+ * The goal of the digraph is the "search for bridges". This is a concept
+ * in graph theory where two highly connected graphs are linked by only one
+ * edge. By cuting this edge (by adding an interface for example), you can
+ * easily break your "monolith of code" into two pieces.
+ * 
+ * Note 2 : since I only analyse public methods, I knowingly miss some 
+ * connections. I state that it is not an issue now. If there is a new
+ * instance in a protected method, this an "inner refactoring" not a refactoring
+ * of the structure of public implementations. 
+ * 
+ * In a second times, you can refactor this coupling later because you have
+ * more freedom to change that : you are in a class, there is no coupling outside,
+ * or perhaps it's ok (factory method pattern for example). Remember, the purpose
+ * of this service is to help you to "break a monolith" you barely know, 
+ * not to replace your coding skills. There is no magic for that.
+ * 
+ * There are more immportant issues with cycles of components for example. 
  *
  */
 class SpaghettiCoupling extends BreadthFirstSearch
@@ -53,7 +73,7 @@ class SpaghettiCoupling extends BreadthFirstSearch
     /**
      * Generate a digraph reduced to the concrete coupled methods
      */
-    public function generateGraph()
+    protected function generateGraph()
     {
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
         $eSet = $this->graph->getEdgeSet();
@@ -100,7 +120,7 @@ class SpaghettiCoupling extends BreadthFirstSearch
         return $reducedGraph;
     }
 
-    public function generateCoupledClassGraph2()
+    protected function generateCoupledClassGraph2()
     {
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
         $vSet = $this->graph->getVertexSet();
