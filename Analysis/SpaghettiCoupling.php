@@ -58,7 +58,7 @@ use Trismegiste\Mondrian\Graph\BreadthFirstSearch;
  * instance in a protected method, this an "inner refactoring" not a refactoring
  * of the structure of public implementations. 
  * 
- * In a second times, you can refactor this coupling later because you have
+ * In a second time, you can refactor this coupling later because you have
  * more freedom to change that : you are in a class, there is no coupling outside,
  * or perhaps it's ok (factory method pattern for example). Remember, the purpose
  * of this service is to help you to "break a monolith" you barely know, 
@@ -95,7 +95,7 @@ class SpaghettiCoupling extends BreadthFirstSearch
     }
 
     /**
-     * Generate a digraph reduced to all concrete coupled methods
+     * Generate a digraph reduced to all concrete coupled classes
      */
     public function generateCoupledClassGraph()
     {
@@ -107,6 +107,8 @@ class SpaghettiCoupling extends BreadthFirstSearch
                     if (($dst instanceof ClassVertex) && ($dst !== $src)) {
                         $this->resetVisited();
                         $path = $this->searchPath($src, $dst);
+                        // since I build an arborescence on class
+                        // vertices, I stop on the first encountered class
                         foreach ($path as $step) {
                             if ($step->getTarget() instanceof ClassVertex) {
                                 $reducedGraph->addEdge($src, $step->getTarget());
