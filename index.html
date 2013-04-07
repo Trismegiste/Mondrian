@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Mondrian by Trismegiste</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Mondrian</h1>
+          <h2>A static php code analysis tool using the Graph Theory</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Trismegiste/Mondrian/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Trismegiste/Mondrian/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Trismegiste/Mondrian" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>Mondrian</h1>
+
+<p>Ok guyz, you have a master degree in <a href="http://en.wikipedia.org/wiki/Graph_theory">Graph Theory</a>, you follow <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a>
+and you live on <a href="http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">S.O.L.I.D</a> principles ?</p>
+
+<p>Let's have some Fun ! (^ω^)</p>
+
+<h2>What</h2>
+
+<p>It is a set of CLI tools to help you to analyse and refactor highly coupled classes.
+As you know Law of Demeter and S.O.L.I.D guidances, you need your classes loosely
+coupled. And for this, there is one only rule : <strong>ABSTRACTION</strong></p>
+
+<p><img src="./Resources/doc/img/abstracting.png" alt="From Hell To Kiss"></p>
+
+<p>This app provides some helpers to add abstraction into concrete classes
+with minimum pain.</p>
+
+<h2>How</h2>
+
+<p>This app does not analyse the details of implementation itself but its structure
+and particullary its dependencies between types, a.k.a the "<a href="http://en.wikipedia.org/wiki/Efferent_coupling">efferent coupling</a>".</p>
+
+<p>With the proprer vocabulary ("class", "interface", "method signature", "parameter" and
+"implementation") and a proper grammar ("depends on", "typed with", "inherits from"
+etc...), each source code can be transformed into a <a href="http://en.wikipedia.org/wiki/Directed_graph">directed graph</a> (or digraph).</p>
+
+<p>Then, with this abstract representation, it uses some algorithms and some
+powerfull properties of the graph theory to find what's wrong with the
+source code.</p>
+
+<p>Unlike other tools like PDepend which produce code metrics (or statistics) on coupling,
+it goes into a level of atomicity to indeed infer where problems are located.</p>
+
+<h2>Why</h2>
+
+<p>To ease refactoring, the first thing is to decouple your "monolith". Yes you can
+re-code a method but the real quality of code is its conformance to the
+law of Demeter and for that, it's not about average length of methods, code
+coverage, or number of methods per class or their inheritance depth.</p>
+
+<p>Ok, it's a hint but like any other statistics, it's only a general picture,
+not a way to guide you and answer to the question :
+"Where do I begin to refactor the real shit ?"</p>
+
+<p>That's what I try to make with this app by using the fascinating graph theory.
+I sincerly hope it will help you.</p>
+
+<h2>Where</h2>
+
+<h3>Center of the universe</h3>
+
+<p>This tool find the "center of the source code". More precisely
+it calculates the <a href="http://en.wikipedia.org/wiki/Centrality">centrality</a> of the digraph with the <a href="http://en.wikipedia.org/wiki/Eigenvector">eigenvectors</a> of the
+<a href="http://en.wikipedia.org/wiki/Adjacency_matrix">adjacency matrix</a>. With this you can determinate what component is critical
+and what component could be refactored later.</p>
+
+<h3>Code metrics</h3>
+
+<p>Of course there is statistics, it is usefull to evaluates the quality of
+code. Several algorithms try to find the circumference, radius and some
+other properties of the digraph.</p>
+
+<h3>Strongly Connected Components</h3>
+
+<p>Can be renamed : How to avoid cyclic dependencies ? When yo have a cycle in
+source code, you are really screwd because it's very difficult to know where to
+break it. This tool finds <a href="http://en.wikipedia.org/wiki/Strongly_connected_component">cycles between vertices</a> in the digraph.</p>
+
+<h3>Highly coupled implementation</h3>
+
+<p>Like Tyler Durden could say :
+    The first rule of coding is "You do NOT talk about concrete class"</p>
+
+<p>This tool finds paths between two implementations represented by
+two vertices in the digraph.</p>
+
+<h3>Hidden coupling</h3>
+
+<p>Unlike strong typed language, PHP has one thing to make refactoring difficultier :
+Two poorly-coded classes could be coupled without reference in each other.
+This tool try to find hidden coupling by searching for path in the digraph.</p>
+
+<h2>TODO</h2>
+
+<p>I want to use the d3js libray to make a dynamic tool for refactoring.</p>
+        </section>
+
+        <footer>
+          Mondrian is maintained by <a href="https://github.com/Trismegiste">Trismegiste</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
