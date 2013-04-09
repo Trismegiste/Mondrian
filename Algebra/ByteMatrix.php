@@ -26,7 +26,7 @@ class ByteMatrix implements Matrix
      */
     public function __construct($dimension)
     {
-        $this->content = &str_repeat(0, self::CHAR_PER_COEFF * $dimension * $dimension);
+        $this->content = str_repeat(0, self::CHAR_PER_COEFF * $dimension * $dimension);
         $this->dimension = $dimension;
     }
 

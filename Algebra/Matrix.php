@@ -26,7 +26,7 @@ interface Matrix
      * @param int $line
      * @param int $column
      *
-     * @return short int (16 bits)
+     * @return numeric
      */
     function get($line, $column);
 
@@ -35,7 +35,7 @@ interface Matrix
      *
      * @param int $line
      * @param int $column
-     * @param int $value
+     * @param numeric $value
      */
     function set($line, $column, $value);
 }
