@@ -75,21 +75,6 @@ class EdgeCollector extends PassCollector
     }
 
     /**
-     * Find a vertex by its type and name
-     *
-     * @param string $type
-     * @param string $key
-     * @return Vertex or null
-     */
-    protected function findVertex($type, $key)
-    {
-        if (array_key_exists($key, $this->vertex[$type])) {
-            return $this->vertex[$type][$key];
-        }
-        return null;
-    }
-
-    /**
      * Find a ParamVertex by its [classname x mehodName x position]
      * @param string $className
      * @param string $methodName

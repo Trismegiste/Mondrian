@@ -60,4 +60,19 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
         return $this->inheritanceMap[$cls]['interface'];
     }
 
+    /**
+     * Find a vertex by its type and name
+     *
+     * @param string $type
+     * @param string $key
+     * @return Vertex or null
+     */
+    protected function findVertex($type, $key)
+    {
+        if (array_key_exists($key, $this->vertex[$type])) {
+            return $this->vertex[$type][$key];
+        }
+        return null;
+    }
+
 }
