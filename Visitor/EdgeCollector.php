@@ -50,7 +50,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
             case 'Stmt_ClassMethod' :
                 if ($node->isPublic()) {
-                    $this->enterMethodNode($node);
+                    $this->enterPublicMethodNode($node);
                 }
                 break;
 
@@ -168,7 +168,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
     /**
      * Process the method node and adding the vertex of the first declared method
-     * 
+     *
      * @param \PHPParser_Node_Stmt_ClassMethod $node
      * @param \Trismegiste\Mondrian\Transform\Vertex\MethodVertex $signature
      */
@@ -226,11 +226,10 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
     /**
      * Visits a method node
-     * Be warned : currently a lava flow
      *
      * @param \PHPParser_Node_Stmt_ClassMethod $node
      */
-    protected function enterMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
+    protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $this->currentMethod = $node->name;
         $this->currentMethodNode = $node;
@@ -309,49 +308,71 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
      */
     protected function enterMethodCall(\PHPParser_Node_Expr_MethodCall $node)
     {
+        if (is_string($node->name)) {
+            $this->enterNonDynamicMethodCall($node);
+        }
+    }
+
+    protected function getCalledMethodVertexOn($called, $method)
+    {
+        // skipping $this :
+        if ($called == 'this') {
+            return array();  // nothing to call
+        }
+
+        // checking if the called is a method param
+        $idx = false;
+        foreach ($this->currentMethodNode->params as $k => $paramSign) {
+            if ($paramSign->name == $called) {
+                $idx = $k;
+                break;
+            }
+        }
+        if (false !== $idx) {
+            $param = $this->currentMethodNode->params[$idx];
+            // is it a typed param ?
+            if ($param->type instanceof \PHPParser_Node_Name_FullyQualified) {
+                $paramType = (string) $param->type;
+                // we check if it is an outer class or not : is it known ?
+                if ($this->hasDeclaringClass($paramType)) {
+                    $cls = $this->getDeclaringClass($paramType, $method);
+                    if (!is_null($signature = $this->findVertex('method', "$cls::$method"))) {
+                        return array($signature);
+                    }
+                }
+            }
+        }
+
+        return null;  // don't know what to do
+    }
+
+    /**
+     * Process of simple call of a method
+     * Sample: $obj->getThing($arg);
+     * Do not process : call_user_func(array($obj, 'getThing'), $arg);
+     * Do not process : $reflectionMethod->invoke($obj, 'getThing', $arg);
+     *
+     * @param \PHPParser_Node_Expr_MethodCall $node
+     * @return void
+     */
+    protected function enterNonDynamicMethodCall(\PHPParser_Node_Expr_MethodCall $node)
+    {
         $method = $node->name;
-        if (is_string($method)) {
-            // skipping some obvious calls :
-            if (($node->var->getType() == 'Expr_Variable')
-                    && (is_string($node->var->name))) {
-                $called = $node->var->name;
-                // skipping $this :
-                if ($called == 'this') {
-                    return;
-                }
-                // checking if the called is a method param
-                $idx = false;
-                foreach ($this->currentMethodNode->params as $k => $paramSign) {
-                    if ($paramSign->name == $called) {
-                        $idx = $k;
-                        break;
-                    }
-                }
-                if (false !== $idx) {
-                    $param = $this->currentMethodNode->params[$idx];
-                    // is it a typed param ?
-                    if ($param->type instanceof \PHPParser_Node_Name_FullyQualified) {
-                        $paramType = (string) $param->type;
-                        // we check if it is an outer class or not : is it known ?
-                        if ($this->hasDeclaringClass($paramType)) {
-                            $cls = $this->getDeclaringClass($paramType, $method);
-                            if (!is_null($signature = $this->findVertex('method', "$cls::$method"))) {
-                                $candidate = array($signature);
-                            }
-                        }
-                    }
-                }
-            }
-            // fallback : link to every methods with the same name :
-            if (!isset($candidate)) {
-                $candidate = array_filter($this->vertex['method'], function($val) use ($method) {
-                            return preg_match("#::$method$#", $val->getName());
-                        });
-            }
-            $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
-            foreach ($candidate as $methodVertex) {
-                $this->graph->addEdge($impl, $methodVertex);
-            }
+        // skipping some obvious calls :
+        if (($node->var->getType() == 'Expr_Variable')
+                && (is_string($node->var->name))) {
+            // searching a candidate for $called::$method
+            $candidate = $this->getCalledMethodVertexOn($node->var->name, $method);
+        }
+        // fallback : link to every methods with the same name :
+        if (!isset($candidate) || is_null($candidate)) {
+            $candidate = array_filter($this->vertex['method'], function($val) use ($method) {
+                        return preg_match("#::$method$#", $val->getName());
+                    });
+        }
+        $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
+        foreach ($candidate as $methodVertex) {
+            $this->graph->addEdge($impl, $methodVertex);
         }
     }
 
