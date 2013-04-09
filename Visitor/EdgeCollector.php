@@ -9,10 +9,11 @@ namespace Trismegiste\Mondrian\Visitor;
 use Trismegiste\Mondrian\Graph;
 use Trismegiste\Mondrian\Transform\Context;
 use Trismegiste\Mondrian\Transform\CompilerPass;
+use Trismegiste\Mondrian\Transform\Vertex\MethodVertex;
 
 /**
  * EdgeCollector is a visitor to transform code into graph edges
- * 
+ *
  * This class is too long. I'll refactor it when I'll find what pattern is fitted
  */
 class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
@@ -61,7 +62,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
                 break;
 
             case 'Expr_New':
-                // since we only track the public method, we check we are in :                
+                // since we only track the public method, we check we are in :
                 if ($this->currentMethod) {
                     $this->enterNewInstance($node);
                 }
@@ -88,10 +89,10 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
     /**
      * Find a vertex by its type and name
-     * 
+     *
      * @param string $type
      * @param string $key
-     * @return Vertex or null 
+     * @return Vertex or null
      */
     protected function findVertex($type, $key)
     {
@@ -106,7 +107,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
      * @param string $className
      * @param string $methodName
      * @param int $idx
-     * @return ParamVertex 
+     * @return ParamVertex
      */
     protected function findParamVertexIdx($className, $methodName, $idx)
     {
@@ -115,9 +116,9 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
     /**
      * Find a class or interface
-     * 
+     *
      * @param string $type fqcn to be found
-     * @return Vertex 
+     * @return Vertex
      */
     protected function findTypeVertex($type)
     {
@@ -133,7 +134,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
     /**
      * Search if a type (class or interface) exists in the inheritanceMap
-     * 
+     *
      * @param string $cls
      * @return bool
      */
@@ -144,7 +145,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
     /**
      * Finds the FQCN of the first declaring class/interface of a method
-     * 
+     *
      * @param string $cls subclass name
      * @param string $meth method name
      * @return string
@@ -156,9 +157,9 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
     /**
      * Is FQCN an interface ?
-     * 
+     *
      * @param string $cls FQCN
-     * @return bool 
+     * @return bool
      */
     protected function isInterface($cls)
     {
@@ -166,10 +167,68 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
     }
 
     /**
+     * Process the method node and adding the vertex of the first declared method
+     * 
+     * @param \PHPParser_Node_Stmt_ClassMethod $node
+     * @param \Trismegiste\Mondrian\Transform\Vertex\MethodVertex $signature
+     */
+    protected function enterDeclaredMethodNode(\PHPParser_Node_Stmt_ClassMethod $node, MethodVertex $signature)
+    {
+        $this->graph->addEdge($this->currentClassVertex, $signature);
+        // managing params of the signature :
+        foreach ($node->params as $idx => $param) {
+            // adding edge from signature to param :
+            $paramVertex = $this->findParamVertexIdx($this->currentClass, $this->currentMethod, $idx);
+            $this->graph->addEdge($signature, $paramVertex);
+            // now the type of the param :
+            if ($param->type instanceof \PHPParser_Node_Name) {
+                // we clone because resolveClassName has edge effect
+                $tmp = clone $param->type;
+                $paramType = (string) $this->resolveClassName($tmp);
+                // there is a type, we add a link to the type, if it is found
+                $typeVertex = $this->findTypeVertex($paramType);
+                if (!is_null($typeVertex)) {
+                    // we add the edge
+                    $this->graph->addEdge($paramVertex, $typeVertex);
+                }
+            }
+        }
+    }
+
+    /**
+     * Process the implementation vertex with the method node
+     *
+     * @param \PHPParser_Node_Stmt_ClassMethod $node
+     * @param MethodVertex|null $signature the first declaring method vertex
+     * @param string $declaringClass the first declaring class of this method
+     */
+    protected function enterImplementationNode(\PHPParser_Node_Stmt_ClassMethod $node, $signature, $declaringClass)
+    {
+        $impl = $this->findVertex('impl', $this->currentClass . '::' . $node->name);
+        $this->graph->addEdge($impl, $this->currentClassVertex);
+        // who is embedding the impl ?
+        if ($declaringClass == $this->currentClass) {
+            $this->graph->addEdge($signature, $impl);
+        } else {
+            $this->graph->addEdge($this->currentClassVertex, $impl);
+        }
+        // in any case, we link the implementation to the params
+        foreach ($node->params as $idx => $param) {
+            // adding edge from signature to param :
+            $paramVertex = $this->findParamVertexIdx($declaringClass, $this->currentMethod, $idx);
+            // it is possible to not find the param because the signature
+            // is external to the source code :
+            if (!is_null($paramVertex)) {
+                $this->graph->addEdge($impl, $paramVertex);
+            }
+        }
+    }
+
+    /**
      * Visits a method node
      * Be warned : currently a lava flow
-     * 
-     * @param \PHPParser_Node_Stmt_ClassMethod $node 
+     *
+     * @param \PHPParser_Node_Stmt_ClassMethod $node
      */
     protected function enterMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
@@ -178,58 +237,22 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         // search for the declaring class of this method
         $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
         $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
-        $src = $this->currentClassVertex;
         // if current class == declaring class, we add the edge
         if ($declaringClass == $this->currentClass) {
-            $this->graph->addEdge($src, $signature);
-            // managing params of the signature :
-            foreach ($node->params as $idx => $param) {
-                // adding edge from signature to param :
-                $paramVertex = $this->findParamVertexIdx($this->currentClass, $this->currentMethod, $idx);
-                $this->graph->addEdge($signature, $paramVertex);
-                // now the type of the param :
-                if ($param->type instanceof \PHPParser_Node_Name) {
-                    // we clone because resolveClassName has edge effect
-                    $tmp = clone $param->type;
-                    $paramType = (string) $this->resolveClassName($tmp);
-                    // there is a type, we add a link to the type, if it is found
-                    $typeVertex = $this->findTypeVertex($paramType);
-                    if (!is_null($typeVertex)) {
-                        // we add the edge
-                        $this->graph->addEdge($paramVertex, $typeVertex);
-                    }
-                }
-            }
+            $this->enterDeclaredMethodNode($node, $signature);
         }
         // if not abstract, the implementation depends on the class.
         // For odd reason, a method in an interface is not abstract
         // that's why, there is a double check
         if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
-            $impl = $this->findVertex('impl', $this->currentClass . '::' . $node->name);
-            $this->graph->addEdge($impl, $src);
-            // who is embedding the impl ?
-            if ($declaringClass == $this->currentClass) {
-                $this->graph->addEdge($signature, $impl);
-            } else {
-                $this->graph->addEdge($src, $impl);
-            }
-            // in any case, we link the implementation to the params
-            foreach ($node->params as $idx => $param) {
-                // adding edge from signature to param :
-                $paramVertex = $this->findParamVertexIdx($declaringClass, $this->currentMethod, $idx);
-                // it is possible to not find the param because the signature
-                // is external to the source code :
-                if (!is_null($paramVertex)) {
-                    $this->graph->addEdge($impl, $paramVertex);
-                }
-            }
+            $this->enterImplementationNode($node, $signature, $declaringClass);
         }
     }
 
     /**
      * Visits an interface node
-     * 
-     * @param \PHPParser_Node_Stmt_Interface $node 
+     *
+     * @param \PHPParser_Node_Stmt_Interface $node
      */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
@@ -247,8 +270,8 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
     /**
      * Visits a class node
-     * 
-     * @param \PHPParser_Node_Stmt_Class $node 
+     *
+     * @param \PHPParser_Node_Stmt_Class $node
      */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
@@ -279,10 +302,10 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
      * Links the current implementation vertex to all methods with the same
      * name. Filters on some obvious cases.
      * Be warned : Lava Flow
-     * 
+     *
      * @param \PHPParser_Node_Expr_MethodCall $node
      * @return void
-     * 
+     *
      */
     protected function enterMethodCall(\PHPParser_Node_Expr_MethodCall $node)
     {
@@ -334,11 +357,11 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
 
     /**
      * Visits a "new" statement node
-     * 
+     *
      * Add an edge from current implementation to the class which a new instance
      * is created
-     * 
-     * @param \PHPParser_Node_Expr_New $node 
+     *
+     * @param \PHPParser_Node_Expr_New $node
      */
     protected function enterNewInstance(\PHPParser_Node_Expr_New $node)
     {
