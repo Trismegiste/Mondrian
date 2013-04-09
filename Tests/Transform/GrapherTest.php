@@ -274,9 +274,13 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $iter = array(__DIR__ . '/../Fixtures/Project/FilterIgnoreCallTo.php');
         $result = $this->grapher->parse($iter);
 
-        $this->assertCount(9, $result->getVertexSet());
-        $this->assertCount(10, $result->getEdgeSet());
-        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCalling::decorate');
+        $this->assertCount(11, $result->getVertexSet());
+        $this->assertCount(15, $result->getEdgeSet());
+        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCalling::decorate3');
+        $this->assertNotNull($impl);
+        $succ = $result->getSuccessor($impl);
+        $this->assertCount(3, $succ); // the class and two calls
+        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCalling::decorate2');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
         $this->assertCount(2, $succ); // the class and one call (not two)

@@ -29,12 +29,18 @@ class OtherClass
 class FilterCalling
 {
 
+    public function decorate3()
+    {
+        // must generate two edges
+        $this->obj->getTitle();
+    }
+
     /**
      * @mondrian ignoreCallTo Project\OtherClass::getTitle
      */
-    public function decorate()
+    public function decorate2()
     {
-        // must generate two edges but annotation remove ones
+        // should generate two edges but annotation remove ones
         $this->obj->getTitle();
     }
 
