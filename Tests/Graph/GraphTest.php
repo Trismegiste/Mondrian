@@ -115,4 +115,15 @@ abstract class GraphTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $set);
     }
 
+    public function testIterator()
+    {
+        $v1 = new Vertex('A');
+        $v2 = new Vertex('B');
+        $this->graph->addEdge($v1, $v2);
+        $iter = $this->graph->getEdgeIterator($v1);
+        $this->assertCount(1, $iter);
+        $iter = $this->graph->getEdgeIterator($v2);
+        $this->assertCount(0, $iter);
+    }
+
 }

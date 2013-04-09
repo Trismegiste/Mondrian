@@ -313,6 +313,13 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         }
     }
 
+    /**
+     * Try to find a signature to call with the method to call and the object against to
+     *
+     * @param string $called
+     * @param string $method
+     * @return null|array null if cannot determine vertex or an array of vertices (can be empty if no call must be made)
+     */
     protected function getCalledMethodVertexOn($called, $method)
     {
         // skipping $this :
@@ -362,6 +369,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         if (($node->var->getType() == 'Expr_Variable')
                 && (is_string($node->var->name))) {
             // searching a candidate for $called::$method
+            // I think there is a chain of responsibility beneath that :
             $candidate = $this->getCalledMethodVertexOn($node->var->name, $method);
         }
         // fallback : link to every methods with the same name :

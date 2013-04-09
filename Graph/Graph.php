@@ -52,8 +52,16 @@ interface Graph
     /**
      * Get successors of a vertex
      *
-     * @return null|array null if the vertex is not in this graph 
+     * @return null|array null if the vertex is not in this graph
      *                         or an array of vertices
      */
     function getSuccessor(Vertex $v);
+
+    /**
+     * Get an iterator on edges for one vertex
+     *
+     * @param Vertex $v
+     * @return Iterator
+     */
+    function getEdgeIterator(Vertex $v);
 }

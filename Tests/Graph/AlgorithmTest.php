@@ -10,7 +10,7 @@ use Trismegiste\Mondrian\Graph\Algorithm;
 use Trismegiste\Mondrian\Graph\Digraph;
 
 /**
- * AlgorithmTest is a test for Digraph
+ * AlgorithmTest is a test for Graph decoration
  */
 class AlgorithmTest extends GraphTest
 {
