@@ -11,16 +11,17 @@ namespace Trismegiste\Mondrian\Algebra;
  *
  * @author florent
  */
-class ByteMatrix
+class ByteMatrix implements Matrix
 {
+
     const CHAR_PER_COEFF = 4;
 
     protected $dimension;
     protected $content;
 
     /**
-     * build a square matrix 
-     * 
+     * build a square matrix
+     *
      * @param int $dimension size of matrix
      */
     public function __construct($dimension)
@@ -30,9 +31,7 @@ class ByteMatrix
     }
 
     /**
-     * get the size of this matrix
-     * 
-     * @return int
+     * {@inheritDoc}
      */
     public function getSize()
     {
@@ -40,13 +39,7 @@ class ByteMatrix
     }
 
     /**
-     * Get  coeeficient in this matrix
-     * Use the algebra order line x column
-     * 
-     * @param int $line
-     * @param int $column
-     * 
-     * @return short int (16 bits) 
+     * {@inheritDoc}
      */
     public function get($line, $column)
     {
@@ -54,11 +47,7 @@ class ByteMatrix
     }
 
     /**
-     * Set a coeeficient in this matrix
-     * 
-     * @param int $line
-     * @param int $column
-     * @param int $value 
+     * {@inheritDoc}
      */
     public function set($line, $column, $value)
     {
