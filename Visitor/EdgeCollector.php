@@ -160,6 +160,23 @@ class EdgeCollector extends PassCollector
         }
     }
 
+    protected function extractAnnotation(\PHPParser_Node_Stmt_ClassMethod $node)
+    {
+        if ($node->hasAttribute('comments')) {
+            $compil = array();
+            foreach ($node->getAttribute('comments') as $comm) {
+                preg_match_all('#^.*@mondrian\s+([\w]+)\s+([^\s]+)\s*$#m', $comm->getReformattedText(), $match);
+                foreach ($match[0] as $idx => $matchedOccur) {
+                    $compil[$match[1][$idx]][] = $match[2][$idx];
+                }
+            }
+            // if there are annotations, we add them to the node
+            foreach ($compil as $attr => $lst) {
+                $node->setAttribute($attr, $lst);
+            }
+        }
+    }
+
     /**
      * Visits a method node
      *
@@ -169,6 +186,7 @@ class EdgeCollector extends PassCollector
     {
         $this->currentMethod = $node->name;
         $this->currentMethodNode = $node;
+        $this->extractAnnotation($node);
         // search for the declaring class of this method
         $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
         $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
@@ -309,8 +327,12 @@ class EdgeCollector extends PassCollector
                     });
         }
         $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
+        // fallback or not, we exclude calls from annotations
+        $exclude = $this->currentMethodNode->getAttribute('ignoreCallTo', array());
         foreach ($candidate as $methodVertex) {
-            $this->graph->addEdge($impl, $methodVertex);
+            if (!in_array($methodVertex->getName(), $exclude)) {
+                $this->graph->addEdge($impl, $methodVertex);
+            }
         }
     }
 
