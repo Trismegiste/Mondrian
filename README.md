@@ -1,4 +1,4 @@
-# Mondrian
+# Mondrian [![Build Status](https://travis-ci.org/Trismegiste/Mondrian.png?branch=master)](https://travis-ci.org/Trismegiste/Mondrian)
 
 Ok guyz, you have a master degree in [Graph Theory][1], you follow [Law of Demeter][2]
 and you live on [S.O.L.I.D][3] principles ?
