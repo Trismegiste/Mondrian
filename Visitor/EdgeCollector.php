@@ -16,9 +16,7 @@ use Trismegiste\Mondrian\Transform\Vertex\MethodVertex;
 class EdgeCollector extends PassCollector
 {
 
-    protected $currentClass = false;
     protected $currentClassVertex = null;
-    protected $currentMethod = false;
     protected $currentMethodNode = null;
 
     public function enterNode(\PHPParser_Node $node)
@@ -228,11 +226,6 @@ class EdgeCollector extends PassCollector
                 $this->graph->addEdge($src, $dst);
             }
         }
-    }
-
-    public function compile()
-    {
-        // nothing to do
     }
 
     /**

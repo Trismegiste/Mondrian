@@ -14,9 +14,6 @@ use Trismegiste\Mondrian\Transform\Vertex;
 class VertexCollector extends PassCollector
 {
 
-    protected $currentClass = false;
-    protected $currentMethod = false;
-
     public function enterNode(\PHPParser_Node $node)
     {
         parent::enterNode($node);
@@ -110,16 +107,6 @@ class VertexCollector extends PassCollector
         }
     }
 
-    /**
-     * the vertex name for a MethodVertex
-     *
-     * @return string
-     */
-    protected function getCurrentMethodIndex()
-    {
-        return $this->currentClass . '::' . $this->currentMethod;
-    }
-
     protected function pushParameter($methodName, $order)
     {
         $index = $methodName . '/' . $order;
@@ -128,11 +115,6 @@ class VertexCollector extends PassCollector
             $this->graph->addVertex($v);
             $this->vertex['param'][$index] = $v;
         }
-    }
-
-    public function compile()
-    {
-
     }
 
 }

@@ -18,6 +18,8 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
     protected $graph;
     protected $vertex;
     protected $inheritanceMap;
+    protected $currentClass = false;
+    protected $currentMethod = false;
 
     public function __construct(Context $ctx)
     {
@@ -73,6 +75,21 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
             return $this->vertex[$type][$key];
         }
         return null;
+    }
+
+    /**
+     * the vertex name for a MethodVertex
+     *
+     * @return string
+     */
+    protected function getCurrentMethodIndex()
+    {
+        return $this->currentClass . '::' . $this->currentMethod;
+    }
+
+    public function compile()
+    {
+        // nothing to do
     }
 
 }
