@@ -1,11 +1,12 @@
 <?php
 
 /*
- * To test if same method name well filtered
+ * To test if same method name well filtered with annotations
  */
 
 namespace Project;
 
+// 3 vertices and 3 edges for this class
 class SomeService
 {
 
@@ -16,30 +17,36 @@ class SomeService
 
 }
 
+// 3 vertices and 3 edges for this class
 class OtherClass
 {
 
     public function getTitle()
     {
-        return 'Coincidental nmethod name';
+        return 'Coincidental method name';
     }
 
 }
 
+// 1 vertex for the class
 class FilterCalling
 {
 
+    // 2 vertices and 3 edges for this method
     public function decorate3()
     {
-        // must generate two edges
+        // plus 2 edges for this call
         $this->obj->getTitle();
     }
 
     /**
+     * 2 vertices and 3 edges for this method
+     * 
      * @mondrian ignoreCallTo Project\OtherClass::getTitle
      */
     public function decorate2()
     {
+        // plus 1 edge for this call
         // should generate two edges but annotation remove ones
         $this->obj->getTitle();
     }
