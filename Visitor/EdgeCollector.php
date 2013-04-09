@@ -6,9 +6,6 @@
 
 namespace Trismegiste\Mondrian\Visitor;
 
-use Trismegiste\Mondrian\Graph;
-use Trismegiste\Mondrian\Transform\Context;
-use Trismegiste\Mondrian\Transform\CompilerPass;
 use Trismegiste\Mondrian\Transform\Vertex\MethodVertex;
 
 /**
@@ -16,23 +13,13 @@ use Trismegiste\Mondrian\Transform\Vertex\MethodVertex;
  *
  * This class is too long. I'll refactor it when I'll find what pattern is fitted
  */
-class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
+class EdgeCollector extends PassCollector
 {
 
     protected $currentClass = false;
     protected $currentClassVertex = null;
     protected $currentMethod = false;
     protected $currentMethodNode = null;
-    protected $graph;
-    protected $vertex;
-    protected $inheritanceMap;
-
-    public function __construct(Context $ctx)
-    {
-        $this->graph = $ctx->graph;
-        $this->vertex = &$ctx->vertex;
-        $this->inheritanceMap = &$ctx->inheritanceMap;
-    }
 
     public function enterNode(\PHPParser_Node $node)
     {
@@ -130,40 +117,6 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
         }
 
         return null;
-    }
-
-    /**
-     * Search if a type (class or interface) exists in the inheritanceMap
-     *
-     * @param string $cls
-     * @return bool
-     */
-    protected function hasDeclaringClass($cls)
-    {
-        return array_key_exists($cls, $this->inheritanceMap);
-    }
-
-    /**
-     * Finds the FQCN of the first declaring class/interface of a method
-     *
-     * @param string $cls subclass name
-     * @param string $meth method name
-     * @return string
-     */
-    protected function getDeclaringClass($cls, $meth)
-    {
-        return $this->inheritanceMap[$cls]['method'][$meth];
-    }
-
-    /**
-     * Is FQCN an interface ?
-     *
-     * @param string $cls FQCN
-     * @return bool
-     */
-    protected function isInterface($cls)
-    {
-        return $this->inheritanceMap[$cls]['interface'];
     }
 
     /**
@@ -300,7 +253,6 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
     /**
      * Links the current implementation vertex to all methods with the same
      * name. Filters on some obvious cases.
-     * Be warned : Lava Flow
      *
      * @param \PHPParser_Node_Expr_MethodCall $node
      * @return void
@@ -314,7 +266,7 @@ class EdgeCollector extends \PHPParser_NodeVisitor_NameResolver implements Compi
     }
 
     /**
-     * Try to find a signature to call with the method to call and the object against to
+     * Try to find a signature to link with the method to call and the object against to
      *
      * @param string $called
      * @param string $method

@@ -6,30 +6,16 @@
 
 namespace Trismegiste\Mondrian\Visitor;
 
-use Trismegiste\Mondrian\Graph;
-use Trismegiste\Mondrian\Utils\ReflectionTree;
 use Trismegiste\Mondrian\Transform\Vertex;
-use Trismegiste\Mondrian\Transform\Context;
-use Trismegiste\Mondrian\Transform\CompilerPass;
 
 /**
  * VertexCollector is a visitor to transform code into graph vertices
  */
-class VertexCollector extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
+class VertexCollector extends PassCollector
 {
 
     protected $currentClass = false;
     protected $currentMethod = false;
-    protected $graph;
-    protected $vertex;
-    protected $inheritanceMap;
-
-    public function __construct(Context $ctx)
-    {
-        $this->graph = $ctx->graph;
-        $this->vertex = &$ctx->vertex;
-        $this->inheritanceMap = &$ctx->inheritanceMap;
-    }
 
     public function enterNode(\PHPParser_Node $node)
     {
@@ -77,30 +63,9 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver implements Com
     }
 
     /**
-     * Finds the FQCN of the first declaring class/interface of a method
-     * @todo copy-paste in EdgeCollector : bad
-     * 
-     * @param string $cls subclass name
-     * @param string $meth method name
-     * @return string
-     */
-    protected function getDeclaringClass($cls, $meth)
-    {
-        return $this->inheritanceMap[$cls]['method'][$meth];
-    }
-
-    /**
-     * @todo copy-paste
-     */
-    protected function isInterface($cls)
-    {
-        return $this->inheritanceMap[$cls]['interface'];
-    }
-
-    /**
      * add a new ClassVertex with the class node
-     * 
-     * @param \PHPParser_Node_Stmt_Class $node 
+     *
+     * @param \PHPParser_Node_Stmt_Class $node
      */
     protected function pushClass(\PHPParser_Node_Stmt_Class $node)
     {
@@ -147,7 +112,7 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver implements Com
 
     /**
      * the vertex name for a MethodVertex
-     * 
+     *
      * @return string
      */
     protected function getCurrentMethodIndex()
@@ -167,7 +132,7 @@ class VertexCollector extends \PHPParser_NodeVisitor_NameResolver implements Com
 
     public function compile()
     {
-        
+
     }
 
 }

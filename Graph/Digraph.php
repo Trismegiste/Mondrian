@@ -20,9 +20,9 @@ class Digraph implements Graph
     /**
      * This is a hashmap Source Vertex -> \SplObjectStorage (the adjacencies list
      * of one vertex)
-     * 
+     *
      * The adjacencies list of one vertex is a hashmap Target vertex -> Edge
-     * 
+     *
      * @var \SplObjectStorage
      */
     protected $adjacency;
@@ -53,7 +53,7 @@ class Digraph implements Graph
      *
      * @param Vertex $source
      * @param Vertex $target
-     * 
+     *
      * @throws \InvalidArgumentException if source and target are the same
      */
     public function addEdge(Vertex $source, Vertex $target)
@@ -124,7 +124,7 @@ class Digraph implements Graph
     /**
      * Returns successor(s) of a given vertex (a.k.a all vertices targeted
      * by edges coming from the given vertex)
-     * 
+     *
      * @param Vertex $v
      * @return Vertex[] array of successor vertex
      */
@@ -143,15 +143,16 @@ class Digraph implements Graph
 
     /**
      * @todo Need to go in the Graph interface
-     * 
+     *
      * @param Vertex $v
-     * @return Iterator 
+     * @return Iterator
      */
     public function getEdgeIterator(Vertex $v)
     {
         return $this->adjacency[$v];
     }
 
+    /*
     public function getPredecessor(Vertex $v)
     {
         $set = array();
@@ -164,5 +165,6 @@ class Digraph implements Graph
 
         return $set;
     }
+    */
 
 }
