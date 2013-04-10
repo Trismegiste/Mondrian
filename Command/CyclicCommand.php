@@ -44,6 +44,7 @@ class CyclicCommand extends AbstractParse
         foreach ($algo->getStronglyConnected() as $idx => $subgraph) {
             if (count($subgraph) > 2) {
                 $scc = $dot->subgraph("cluster_$idx");
+                $scc->attr('graph', array('bgcolor' => 'antiquewhite'));
                 foreach ($subgraph as $vertex) {
                     $scc->node($inverseIndex[$vertex]);
                 }
