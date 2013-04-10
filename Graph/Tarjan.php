@@ -19,25 +19,17 @@ class Tarjan extends Algorithm
 
     private $stack;
     private $index;
+    private $partition;
 
     /**
      * Get the strongly connected components of this digraph by
      * the Tarjan algorithm.
      *
-     * Note from the author : the Graph Theory is awsome (see GIT) and
-     * algorithms on graph are truly astonishing. It is full of
-     * NP-complete problems.
-     *
-     * I could not recommand you more to explore this extraordinary domain
-     * of mathematics which connects Set Theory, Geometry, Algebra, Matrices,
-     * Isomorphism and Topology. For me it is very new so be patient with
-     * this development, I have neglected efficiency in favor of simplicity :
-     * When I have started this project, I don't even know how far I could go.
-     *
-     * You start here :
+     * Starting from :
      * http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
      *
-     * Good Luck !
+     * Corrected with the help :
+     * https://code.google.com/p/jbpt/source/browse/trunk/jbpt-core/src/main/java/org/jbpt/algo/graph/StronglyConnectedComponents.java
      *
      * @return array the partition of this graph : an array of an array of vertices
      */
@@ -45,18 +37,15 @@ class Tarjan extends Algorithm
     {
         $this->stack = array();
         $this->index = 0;
+        $this->partition = array();
 
-        $partition = array();
         foreach ($this->getVertexSet() as $v) {
             if (!isset($v->index)) {
-                $ret = $this->recursivStrongConnect($v);
-                if (!empty($ret)) {
-                    $partition[] = $ret;
-                }
+                $this->recursivStrongConnect($v);
             }
         }
 
-        return $partition;
+        return $this->partition;
     }
 
     private function recursivStrongConnect(Vertex $v)
@@ -85,7 +74,9 @@ class Tarjan extends Algorithm
                 array_push($scc, $w);
             } while ($w !== $v);
 
-            return $scc;
+            if (count($scc)) {
+                $this->partition[] = $scc;
+            }
         }
     }
 

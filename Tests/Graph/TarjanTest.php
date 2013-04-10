@@ -78,8 +78,9 @@ class TarjanTest extends GraphTest
         $this->graph->addEdge($meth, $param);
 
         $ret = $this->graph->getStronglyConnected();
-        $this->assertCount(1, $ret);
-        $this->assertCount(3, $ret[0]);
+        $this->assertCount(2, $ret);
+        $this->assertCount(1, $ret[0]);
+        $this->assertCount(3, $ret[1]);
     }
 
 }

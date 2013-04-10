@@ -42,11 +42,13 @@ class CyclicCommand extends AbstractParse
 
         $algo = new Tarjan($graph);
         foreach ($algo->getStronglyConnected() as $idx => $subgraph) {
-            $scc = $dot->subgraph("cluster_$idx");
-            foreach ($subgraph as $vertex) {
-                $scc->node($inverseIndex[$vertex]);
+            if (count($subgraph) > 2) {
+                $scc = $dot->subgraph("cluster_$idx");
+                foreach ($subgraph as $vertex) {
+                    $scc->node($inverseIndex[$vertex]);
+                }
+                $scc->end();
             }
-            $scc->end();
         }
 
         file_put_contents("wesh.dot", $dot->render());
