@@ -76,17 +76,16 @@ class Tarjan extends Algorithm
                 // Successor w is in stack S and hence in the current SCC
                 $v->lowLink = min(array($v->lowLink, $w->index));
             }
+        }
+        // If v is a root node, pop the stack and generate an SCC
+        if ($v->lowLink === $v->index) {
+            $scc = array();
+            do {
+                $w = array_pop($this->stack);
+                array_push($scc, $w);
+            } while ($w !== $v);
 
-            // If v is a root node, pop the stack and generate an SCC
-            if ($v->lowLink === $v->index) {
-                $scc = array();
-                do {
-                    $w = array_pop($this->stack);
-                    array_push($scc, $w);
-                } while ($w !== $v);
-
-                return $scc;
-            }
+            return $scc;
         }
     }
 

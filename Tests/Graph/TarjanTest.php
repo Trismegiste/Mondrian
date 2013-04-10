@@ -64,4 +64,22 @@ class TarjanTest extends GraphTest
         $this->assertCount($card, $ret[0]);
     }
 
+    public function testNotObviousGraph()
+    {
+        $cls = new Vertex('class');
+        $meth = new Vertex('method');
+        $param = new Vertex('param');
+        $impl = new Vertex('impl');
+
+        $this->graph->addEdge($cls, $meth);
+        $this->graph->addEdge($meth, $impl);
+        $this->graph->addEdge($impl, $cls);
+        $this->graph->addEdge($impl, $param);
+        $this->graph->addEdge($meth, $param);
+
+        $ret = $this->graph->getStronglyConnected();
+        $this->assertCount(1, $ret);
+        $this->assertCount(3, $ret[0]);
+    }
+
 }
