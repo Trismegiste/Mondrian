@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}Mondrian by Trismegiste{% endblock %}
+
+{% block project_name %}Mondrian{% endblock %}
+
+{% block navigation_menu %}
+<li><a href="#">What</a></li>
+<li><a href="#theory">Theory</a></li>
+<li><a href="#install">Install</a></li>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Commands <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        <li><a href="#">Digraph</a></li>
+        <li><a href="#">Metrics</a></li>
+        <li><a href="#">Centrality</a></li>
+        <li><a href="#">Hidden coupling</a></li>
+        <li><a href="#">Spaghetti coupling</a></li>
+        <li><a href="#">Cyclic coupling</a></li>
+    </ul>
+</li>
+<li><a href="#doctech">Documentation</a></li>
+<li><a href="#about">About</a></li>
+{% endblock %}
+
+{% block authentication '' %}
+
+{% block content %}
+
+<div class="hero-unit">
+    <h1>Y U NO Abstract ?</h1>
+    <p>A set of CLI tools to help you to analyse and refactor highly coupled classes.</p>
+    <p><a class="btn btn-primary btn-large" href="#what">Learn more &raquo;</a></p>
+</div>
+
+<!-- Example row of columns -->
+<div class="row">
+    <div class="span4">
+        <a name="what"></a><h2>What</h2>
+        <p>
+            It is a set of CLI tools to help you to analyse and refactor highly coupled classes.
+        </p>
+        <p>
+            As you know Law of Demeter and S.O.L.I.D guidances, you need your classes loosely
+            coupled. And for this, there is one only rule : <strong>ABSTRACTION</strong>
+        </p>
+        <p>
+            This app provides some helpers to add abstraction into concrete classes
+            with minimum pain.
+        </p>
+        <p>
+            When you need abstraction, the first thing is to be able
+            to "zoom out" from the code and see the big picture. For
+            that, what's better than graphical representation ?
+        </p>
+        <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div>
+    <div class="span4">
+        <h2>How</h2>
+        <p>
+            This app does not analyse the details of implementation itself but its structure
+            and particullary its dependencies between types, a.k.a the "[efferent coupling][6]".
+        </p>
+        <p>
+            With the proprer vocabulary and a proper grammar, each 
+            source code can be transformed into a [directed graph][5] (or digraph).
+        </p>
+        <p>
+            Then, with this abstract representation, it uses some algorithms and some
+            powerfull properties of the graph theory to find what's wrong with the
+            source code.
+        </p>
+        <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div>
+    <div class="span4">
+        <h2>Why</h2>
+        <p>
+            Unlike other tools like PDepend which produce code metrics (or statistics) on coupling,
+            it goes into a level of atomicity to indeed infer where problems are located.
+        </p>
+        <p>
+            To ease refactoring, the first thing is to decouple your "monolith".
+            The real quality of code is its conformance to the
+            law of Demeter and for that, it's not about average length of methods, code
+            coverage, or number of methods per class or their inheritance depth.
+        </p>
+        <p>
+            Ok, it's a hint but like any other statistics, it's only a general picture,
+            not a way to guide you and answer to the question :
+            "Where do I begin to refactor the real shit ?"
+        </p>
+        <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div>
+</div>
+{% endblock %}
