@@ -1,4 +1,4 @@
-nbproject
-Resources/doc/coverage
-Resources/doc/tech
-vendor
+/nbproject
+/Resources/doc/coverage
+/Resources/doc/tech
+/vendor
