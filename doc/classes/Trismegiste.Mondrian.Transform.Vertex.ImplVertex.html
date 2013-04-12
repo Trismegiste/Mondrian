@@ -1,0 +1,251 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Mondrian » \Trismegiste\Mondrian\Transform\Vertex\ImplVertex</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Mondrian</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Namespaces</a></li>
+<li><a href="../namespaces/Trismegiste.html"><i class="icon-th"></i> Trismegiste</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">164</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">2</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public inherited"><a href="#__construct" title="__construct :: Construct the vertex with its name (preferably unique)"><span class="description">Construct the vertex with its name (preferably unique)</span><pre>__construct()</pre></a></li>
+<li class="method public inherited"><a href="#getAttribute" title="getAttribute :: Get an array of attributes"><span class="description">Get an array of attributes</span><pre>getAttribute()</pre></a></li>
+<li class="method public inherited"><a href="#getMeta" title="getMeta :: "><span class="description">getMeta()
+        </span><pre>getMeta()</pre></a></li>
+<li class="method public inherited"><a href="#getName" title="getName :: "><span class="description">getName()
+        </span><pre>getName()</pre></a></li>
+<li class="method public inherited"><a href="#hasMeta" title="hasMeta :: "><span class="description">hasMeta()
+        </span><pre>hasMeta()</pre></a></li>
+<li class="method public inherited"><a href="#setMeta" title="setMeta :: "><span class="description">setMeta()
+        </span><pre>setMeta()</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected "><a href="#getSpecific" title="getSpecific :: "><span class="description">getSpecific()
+        </span><pre>getSpecific()</pre></a></li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties</li>
+<li class="nav-header protected">» Protected</li>
+<li class="property protected inherited"><a href="#%24metadata" title="$metadata :: "><span class="description">$metadata</span><pre>$metadata</pre></a></li>
+<li class="property protected inherited"><a href="#%24name" title="$name :: "><span class="description">$name</span><pre>$name</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CTrismegiste%5CMondrian%5CTransform%5CVertex%5CImplVertex" id="\Trismegiste\Mondrian\Transform\Vertex\ImplVertex"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
+<span class="divider">\</span><li><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a></li>
+<span class="divider">\</span><li><a href="../namespaces/Trismegiste.Mondrian.Transform.html">Transform</a></li>
+<span class="divider">\</span><li><a href="../namespaces/Trismegiste.Mondrian.Transform.Vertex.html">Vertex</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ImplVertex.html">ImplVertex</a>
+</li>
+</ul>
+<div href="../classes/Trismegiste.Mondrian.Transform.Vertex.ImplVertex.html" class="element class">
+<p class="short_description">ImplVertex is a vertex for an implementation
+(content of a method)</p>
+<div class="details">
+<p class="long_description"></p>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
+<h2>Construct the vertex with its name (preferably unique)</h2>
+<pre>__construct(string $name) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Vertex::__construct()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis::__construct()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a name="getAttribute" id="getAttribute"></a><div class="element clickable method public getAttribute" data-toggle="collapse" data-target=".getAttribute .collapse">
+<h2>Get an array of attributes</h2>
+<pre>getAttribute() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis::getAttribute()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="getMeta" id="getMeta"></a><div class="element clickable method public getMeta" data-toggle="collapse" data-target=".getMeta .collapse">
+<h2>getMeta()
+        </h2>
+<pre>getMeta($key) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis::getMeta()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$key</h4></div>
+</div></div>
+</div>
+<a name="getName" id="getName"></a><div class="element clickable method public getName" data-toggle="collapse" data-target=".getName .collapse">
+<h2>getName()
+        </h2>
+<pre>getName() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Vertex::getName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis::getName()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="hasMeta" id="hasMeta"></a><div class="element clickable method public hasMeta" data-toggle="collapse" data-target=".hasMeta .collapse">
+<h2>hasMeta()
+        </h2>
+<pre>hasMeta($key) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis::hasMeta()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$key</h4></div>
+</div></div>
+</div>
+<a name="setMeta" id="setMeta"></a><div class="element clickable method public setMeta" data-toggle="collapse" data-target=".setMeta .collapse">
+<h2>setMeta()
+        </h2>
+<pre>setMeta($key, $val) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis::setMeta()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$key</h4></div>
+<div class="subelement argument"><h4>$val</h4></div>
+</div></div>
+</div>
+<a name="getSpecific" id="getSpecific"></a><div class="element clickable method protected getSpecific" data-toggle="collapse" data-target=".getSpecific .collapse">
+<h2>getSpecific()
+        </h2>
+<pre>getSpecific() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a name="%24metadata" id="$metadata"> </a><div class="element clickable property protected $metadata" data-toggle="collapse" data-target=".$metadata .collapse">
+<h2>$metadata</h2>
+<pre>$metadata </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis::$$metadata</td>
+</tr></table>
+</div></div>
+</div>
+<a name="%24name" id="$name"> </a><div class="element clickable property protected $name" data-toggle="collapse" data-target=".$name .collapse">
+<h2>$name</h2>
+<pre>$name </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Vertex::$$name</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis::$$name</td>
+</tr>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
+            generated on 2013-04-12T15:02:09+02:00.<br></footer></div>
+</div>
+</body>
+</html>
