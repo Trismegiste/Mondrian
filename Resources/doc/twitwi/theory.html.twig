@@ -4,15 +4,53 @@
 <div class="row">
     <div class="span6">
         <img src="https://github.com/Trismegiste/Mondrian/raw/master/Resources/doc/img/abstracting.png"/>
+        <h3>Purpose</h3>
         <p>
-
+            The idea here is simple : transforms a bunch of php files with classes and make a digraph from it.
+            With this, you can see where there is problem in your code.
+        </p>
+        <h3>What about UML ?</h3>
+        <p>
+            UML is good for creation and documentation but it does not show the coupling the way I want
+            for buildinbg an efficient digraph. So I've made a new set of rules to build this directed graph
+            with edges and vertices.
+        </p>
+        <h3>Vertices</h3>
+        <p>
+            So I have defined a new vocabulary to abstract source code :
+            <ul>
+                <li>Class : a class (also named as 'Type')</li>
+                <li>Interface : an interface (also named as 'Type')</li>
+                <li>Method : the method signature. A method is unique, even if
+                    it is overriden or redefined. The method is owned in the first 'type'
+                    which declares it.</li>
+                <li>Parameter : a parameter (or argument) from a method. Can be typed.</li>
+                <li>Implementation : the actual implementation of a method. If the method is concrete,
+                    the method owns the implementation. If the implementation is an overriden method,
+                    this is the class which owns the implementation.</li>
+            </ul>
+        </p>
+        <h3>Edges</h3>
+        <p>
+            And I have defined the appropriate grammar to abstract the coupling :
+            <ul>
+                <li>Inheritance : the daughter depends on the mother</li>
+                <li>Declaration : Class or Interface owns the method if there are
+                    the first to declare it.</li>
+                <li>Responsibility : Types or Methods own Implementations</li>
+                <li>Uses : An Implementation depends on parameters and its class</li>
+                <li>Calls : An implementation calls methods</li>
+                <li>Instantiation : An implementation creates a new object</li>
+                <li>Typing : A parameter depends on a Class or an Interface</li>
+            </ul>
         </p>
     </div>
 
     <div class="span6">
         <img src="https://github.com/Trismegiste/Mondrian/raw/master/Resources/doc/img/concrete.png"/>
         <p>
-
+            <img src="https://github.com/Trismegiste/Mondrian/raw/master/Resources/doc/img/abstract.dot.png"/>
+            <img src="https://github.com/Trismegiste/Mondrian/raw/master/Resources/doc/img/concrete.dot.png"/>
         </p>
     </div>
 
