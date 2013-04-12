@@ -1,0 +1,20 @@
+{% extends 'index.html.twig' %}
+
+{% block content %}
+<div class="row-fluid">
+    <h1>Installation</h1>
+</div>
+<div class="row">
+    <div class="span12">
+        <h2>With Composer</h2>
+        <pre>$ composer.phar create-project trismegiste/mondrian mondrian dev-master</pre>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <h2>With Archive</h2>
+        <pre>$ curl https://github.com/Trismegiste/Mondrian/archive/master.zip | unzip -d mondrian</pre>
+        <pre>$ composer.phar install</pre>
+    </div>
+</div>
+{% endblock %}
