@@ -11,12 +11,12 @@
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Commands <b class="caret"></b></a>
     <ul class="dropdown-menu">
-        <li><a href="cmd.html#digraph.html">Digraph</a></li>
-        <li><a href="cmd.html#metrics.html">Metrics</a></li>
-        <li><a href="cmd.html#central.html">Centrality</a></li>
-        <li><a href="cmd.html#hidden.html">Hidden coupling</a></li>
-        <li><a href="cmd.html#spaghe.html">Spaghetti coupling</a></li>
-        <li><a href="cmd.html#cyclic.html">Cyclic coupling</a></li>
+        <li><a href="cmd.html#digraph">Digraph</a></li>
+        <li><a href="cmd.html#metrics">Metrics</a></li>
+        <li><a href="cmd.html#central">Centrality</a></li>
+        <li><a href="cmd.html#hidden">Hidden coupling</a></li>
+        <li><a href="cmd.html#spaghet">Spaghetti coupling</a></li>
+        <li><a href="cmd.html#cyclic">Cyclic coupling</a></li>
     </ul>
 </li>
 <li><a href="doc/index.html">Documentation</a></li>
@@ -41,7 +41,10 @@
             It is a set of CLI tools to help you to analyse and refactor highly coupled classes.
         </p>
         <p>
-            As you know Law of Demeter and S.O.L.I.D guidances, you need your classes loosely
+            As you know <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a>
+            and
+            <a href="http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">S.O.L.I.D</a>
+            guidances, you need your classes loosely
             coupled. And for this, there is one only rule : <strong>ABSTRACTION</strong>
         </p>
         <p>
@@ -53,33 +56,37 @@
             to "zoom out" from the code and see the big picture. For
             that, what's better than graphical representation ?
         </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
+        <p><a class="btn" href="cmd.html">Commands &raquo;</a></p>
     </div>
     <div class="span4">
         <h2>How</h2>
         <p>
             This app does not analyse the details of implementation itself but its structure
-            and particullary its dependencies between types, a.k.a the "[efferent coupling][6]".
+            and particullary its dependencies between types, a.k.a the
+            <a href="http://en.wikipedia.org/wiki/Efferent_coupling">efferent coupling</a>.
         </p>
         <p>
             With the proprer vocabulary and a proper grammar, each
-            source code can be transformed into a [directed graph][5] (or digraph).
+            source code can be transformed into a
+            <a href="http://en.wikipedia.org/wiki/Directed_graph">directed graph</a>.
         </p>
         <p>
             Then, with this abstract representation, it uses some algorithms and some
             powerfull properties of the graph theory to find what's wrong with the
             source code.
         </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
+        <p><a class="btn" href="theory.html">View sample &raquo;</a></p>
     </div>
     <div class="span4">
         <h2>Why</h2>
         <p>
-            Unlike other tools like PDepend which produce code metrics (or statistics) on coupling,
+            Unlike other tools like <a href="http://pdepend.org/">PDepend</a>
+            which produce code metrics (or statistics) on coupling,
             it goes into a level of atomicity to indeed infer where problems are located.
         </p>
         <p>
-            To ease refactoring, the first thing is to decouple your "monolith".
+            To ease refactoring, the first thing is to decouple your
+            <a href="http://en.wikipedia.org/wiki/Monolithic_system">monolith</a>.
             The real quality of code is its conformance to the
             law of Demeter and for that, it's not about average length of methods, code
             coverage, or number of methods per class or their inheritance depth.
@@ -89,7 +96,7 @@
             not a way to guide you and answer to the question :
             "Where do I begin to refactor the real shit ?"
         </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
+        <p><a class="btn" href="install.html">Install ! &raquo;</a></p>
     </div>
 </div>
 {% endblock %}

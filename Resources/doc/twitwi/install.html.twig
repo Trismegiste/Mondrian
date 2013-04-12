@@ -2,19 +2,22 @@
 
 {% block content %}
 <div class="row-fluid">
+
     <h1>Installation</h1>
-</div>
-<div class="row">
-    <div class="span12">
-        <h2>With Composer</h2>
-        <pre>$ composer.phar create-project trismegiste/mondrian mondrian dev-master</pre>
-    </div>
-</div>
-<div class="row">
-    <div class="span12">
-        <h2>With Archive</h2>
-        <pre>$ curl https://github.com/Trismegiste/Mondrian/archive/master.zip | unzip -d mondrian</pre>
-        <pre>$ composer.phar install</pre>
-    </div>
+
+    <h2>With Composer</h2>
+    <pre>$ composer.phar create-project trismegiste/mondrian mondrian dev-master</pre>
+
+    <h2>Download</h2>
+    <pre>
+$ curl -L https://github.com/Trismegiste/Mondrian/archive/master.tar.gz | tar xvz
+$ cd Mondrian-master
+$ composer.phar install</pre>
+
+    <h2>Clone with Github</h2>
+    <pre>
+$ git clone git://github.com/Trismegiste/Mondrian.git
+$ composer.phar install</pre>
+
 </div>
 {% endblock %}
