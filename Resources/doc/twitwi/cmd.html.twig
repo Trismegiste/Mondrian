@@ -214,6 +214,12 @@
         <pre>$ php console.php mondrian:scc ~/MyProject</pre>
         <p>
             This command uses the Tarjan algorithm for finding Strongly Connected Components.
+            When a cycle is found between components, they are embedded in a cluster. With
+            this graph, you can easily spot two problems :
+            <ul>
+                <li>which components are entangled ?</li>
+                <li>where to attack you monolith at the weak point</li>
+            </ul>
         </p>
     </div>
 </div>
