@@ -28,6 +28,13 @@ class GraphvizTest extends \PHPUnit_Framework_TestCase
             $graph->addEdge($set[(2 * $k) % 5], $set[(2 * $k + 2) % 5]);
         }
         $this->graph = new Graphviz($graph);
+        $this->graph = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Format\Graphviz')
+                ->setMethods(array('createGraphVizDot'))
+                ->setConstructorArgs(array($graph))
+                ->getMock();
+        $this->graph->expects($this->once())
+                ->method('createGraphVizDot')
+                ->will($this->returnValue(new \Alom\Graphviz\Digraph('Mockuped')));
     }
 
     public function testGenerate()
