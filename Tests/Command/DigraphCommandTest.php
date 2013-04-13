@@ -34,11 +34,14 @@ class DigraphCommandTest extends \PHPUnit_Framework_TestCase
             'dir' => __DIR__ . '/../Fixtures/Project',
             'report' => $fch
         ));
-
+        // test the generated graphviz file
         $ptr = fopen($fch . '.dot', 'r');
         $heading = fgets($ptr);
         $this->assertStringStartsWith('digraph', $heading);
         fclose($ptr);
+        // test the output
+        $out = $commandTester->getDisplay();
+        $this->assertEquals(1, preg_match('#declared in interfaces#', $out));
     }
 
 }
