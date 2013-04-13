@@ -4,12 +4,30 @@
 <h1>Command line tools</h1>
 <div class="row-fluid">
     <div class="span6">
+        <a name="console"></a><h2>The console</h2>
+        <p>
+            This tool is using the Symfony/Console component, it means you have an helper 
+            when you type :
+            <pre>$ php console.php</pre>
+        </p>
+        <p>
+            <pre>$ php console.php help mondrian:digraph</pre>
+            ...and a listing of commands :
+            <pre>$ php console.php list</pre>
+        </p>
+    </div>
+    <div class="span6">
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
         <a name="digraph"></a><h2>Make the graph</h2>
         <p>Generates a digraph on the GraphViz format (only .dot, currently other formats are not tested)</p>
         <pre>$ php console.php mondrian:digraph ~/MyMessyProject</pre>
         <p>
             This digraph is a general picture of the source. If it is too heavy or too messy, you can
-            try to generate a smaller one. The same way you don't refactor all your app in one pass,
+            try to generate a smaller one on a deeper directory. The same way you 
+            don't refactor all your app in one pass,
             you start by smaller components.
         </p>
         <p>

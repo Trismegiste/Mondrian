@@ -26,7 +26,7 @@ class HiddenCouplingCommand extends AbstractParse
 
     protected function getFullDesc()
     {
-        return 'Finds hidden coupling';
+        return parent::getFullDesc() . ' with hidden coupling';
     }
 
     protected function processGraph(Graph $graph, OutputInterface $output)

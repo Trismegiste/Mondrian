@@ -18,12 +18,12 @@ class CyclicCommand extends AbstractParse
 
     protected function getSubname()
     {
-        return 'scc';
+        return 'cycle';
     }
 
     protected function getFullDesc()
     {
-        return 'Finds cyclic coupling';
+        return parent::getFullDesc() . ' with cyclic coupling';
     }
 
     protected function processGraph(Graph $graph, OutputInterface $output)

@@ -27,7 +27,7 @@ class DigraphCommand extends AbstractParse
 
     protected function getFullDesc()
     {
-        return 'Transforms a bunch of php file into a digraph and print some metrics';
+        return parent::getFullDesc() . ' and print some metrics';
     }
 
     protected function processGraph(Graph $graph, OutputInterface $output)

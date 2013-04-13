@@ -24,7 +24,7 @@ class SpaghettiCommand extends AbstractParse
 
     protected function getFullDesc()
     {
-        return 'Finds spaghetti coupling';
+        return parent::getFullDesc() . ' with spaghetti coupling';
     }
 
     protected function processGraph(Graph $graph, OutputInterface $output)
