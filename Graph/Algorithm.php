@@ -72,4 +72,12 @@ class Algorithm implements Graph
         return $this->graph->getEdgeIterator($v);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getPartition()
+    {
+        return $this->graph->getPartition();
+    }
+
 }
