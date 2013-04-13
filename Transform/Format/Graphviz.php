@@ -42,7 +42,6 @@ class Graphviz extends GraphExporter
             foreach ($subgraph as $vertex) {
                 $scc->node($inverseIndex[$vertex]);
             }
-            $scc->end();
         }
 
         return $dot->render();
