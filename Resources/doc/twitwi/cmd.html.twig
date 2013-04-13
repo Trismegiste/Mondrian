@@ -202,6 +202,8 @@
             that kind of weakness in the code.
         </p>
     </div>
+</div>
+<div class="row-fluid">
     <div class="span6">
         <a name="cyclic"></a><h2>Cyclic coupling</h2>
         <p>
@@ -211,14 +213,14 @@
             <a href="http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm">cycles between vertices</a>
             in the digraph.
         </p>
-        <pre>$ php console.php mondrian:scc ~/MyProject</pre>
+        <pre>$ php console.php mondrian:cycle ~/MyProject</pre>
         <p>
             This command uses the Tarjan algorithm for finding Strongly Connected Components.
             When a cycle is found between components, they are embedded in a cluster. With
             this graph, you can easily spot two problems :
             <ul>
                 <li>which components are entangled ?</li>
-                <li>where to attack you monolith at the weak point</li>
+                <li>where to attack your monolith at the weak point</li>
             </ul>
         </p>
     </div>
