@@ -7,7 +7,8 @@
 namespace Trismegiste\Mondrian\Tests\Transform\Format;
 
 use Trismegiste\Mondrian\Transform\Format\Graphviz;
-use Trismegiste\Mondrian\Transform\Grapher;
+use Trismegiste\Mondrian\Graph\Digraph;
+use Trismegiste\Mondrian\Transform\Vertex\ClassVertex;
 
 /**
  * GraphvizTest is a test for Graphviz decorator
@@ -15,24 +16,25 @@ use Trismegiste\Mondrian\Transform\Grapher;
 class GraphvizTest extends \PHPUnit_Framework_TestCase
 {
 
-    protected $grapher;
+    protected $graph;
 
     protected function setUp()
     {
-        $this->grapher = new Grapher();
+        $graph = new Digraph();
+        for ($k = 0; $k < 5; $k++) {
+            $set[] = new ClassVertex('Guess\What\I\Draw' . $k);
+        }
+        for ($k = 0; $k < 5; $k++) {
+            $graph->addEdge($set[(2 * $k) % 5], $set[(2 * $k + 2) % 5]);
+        }
+        $this->graph = new Graphviz($graph);
     }
 
     public function testGenerate()
     {
-        $iter = array(
-            __DIR__ . '/../../Fixtures/Project/NotConcreteTypedParam.php',
-            __DIR__ . '/../../Fixtures/Project/ContractTypedParam.php',
-            __DIR__ . '/../../Fixtures/Project/Contract.php'
-        );
-        $result = $this->grapher->parse($iter);
-        $viz = new Graphviz($result);
-
-        $this->assertStringStartsWith('digraph', $viz->export());
+        $content = $this->graph->export();
+        $this->assertStringStartsWith('digraph', $content);
+        echo $content;
     }
 
 }
