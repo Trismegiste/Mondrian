@@ -14,14 +14,13 @@ use Trismegiste\Mondrian\Graph\Edge;
 use Trismegiste\Mondrian\Graph\BreadthFirstSearch;
 
 /**
- * SpaghettiCoupling is an analyser which finds coupling between implementations,
- * I mean between public methods without abstraction.
+ * SpaghettiCoupling is an analyser which finds coupling between classes,
  *
  * How ?
  * This analyser searches path between two classes through calls of public
  * methods, inheritance or instanciation. 
  *
- * Example :
+ * Example of coupling :
  * In the implementation of the method A::doThing(), there is a call to
  * the method B::getThing().
  *
@@ -78,71 +77,6 @@ class SpaghettiCoupling extends BreadthFirstSearch
     }
 
     /**
-     * Generate a digraph reduced to the concrete coupled methods
-     */
-    protected function generateGraph()
-    {
-        $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
-        $eSet = $this->graph->getEdgeSet();
-        foreach ($eSet as $edge) {
-            if (($edge->getSource() instanceof ImplVertex)
-                    && ($edge->getTarget() instanceof MethodVertex)) {
-                $impl = $edge->getSource();
-                $called = $edge->getTarget();
-                foreach ($this->graph->getSuccessor($called) as $dst) {
-                    if ($dst instanceof ImplVertex) {
-                        $reducedGraph->addEdge($impl, $called);
-                        $reducedGraph->addEdge($called, $dst);
-                    }
-                }
-            }
-        }
-
-        return $reducedGraph;
-    }
-
-    /**
-     * Generate a digraph reduced to all concrete coupled classes
-     */
-    public function generateCoupledClassGraph_old()
-    {
-        $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
-        $vSet = $this->graph->getVertexSet();
-        foreach ($vSet as $src) {
-            if ($src instanceof ClassVertex) {
-                foreach ($vSet as $dst) {
-                    if (($dst instanceof ClassVertex) && ($dst !== $src)) {
-                        $this->resetVisited();
-                        $path = $this->searchPath($src, $dst);
-                        // checking if the path go through on implementation
-                        $implFound = false;
-                        foreach ($path as $step) {
-                            if ($step->getTarget() instanceof ClassVertex) {
-                                break;
-                            }
-                            if ($step->getTarget() instanceof ImplVertex) {
-                                $implFound = true;
-                                break;
-                            }
-                        }
-                        // since I build an arborescence on class
-                        // vertices, I stop on the first encountered class
-                        if ($implFound) {
-                            foreach ($path as $step) {
-                                if ($step->getTarget() instanceof ClassVertex) {
-                                    $reducedGraph->addEdge($src, $step->getTarget());
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return $reducedGraph;
-    }
-
-    /**
      * Generate a digraph reduced to all concrete coupled classes
      */
     public function generateCoupledClassGraph()
@@ -164,7 +98,7 @@ class SpaghettiCoupling extends BreadthFirstSearch
         }
     }
 
-    protected function generateCoupledClassGraph2()
+    private function generateCoupledClassGraph2()
     {
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
         $vSet = $this->graph->getVertexSet();

@@ -64,4 +64,13 @@ class SpaghettiCouplingTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $result->getEdgeSet());
     }
 
+    /**
+     * @expectedException \LogicException
+     */
+    public function testStrategySetted()
+    {
+        $graph = new SpaghettiCoupling(new Digraph());
+        $graph->generateCoupledClassGraph();
+    }
+
 }
