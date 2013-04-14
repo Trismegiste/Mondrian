@@ -70,6 +70,13 @@ use Trismegiste\Mondrian\Graph\BreadthFirstSearch;
 class SpaghettiCoupling extends BreadthFirstSearch
 {
 
+    protected $strategy = null;
+
+    public function setFilterPath(Strategy\Search $strategy)
+    {
+        $this->strategy = $strategy;
+    }
+
     /**
      * Generate a digraph reduced to the concrete coupled methods
      */
@@ -140,8 +147,9 @@ class SpaghettiCoupling extends BreadthFirstSearch
      */
     public function generateCoupledClassGraph()
     {
-        $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
-        $strategy = new Strategy\ByCalling($reducedGraph);
+        if (is_null($this->strategy)) {
+            throw new \LogicException('No defined strategy');
+        }
         $vSet = $this->graph->getVertexSet();
         foreach ($vSet as $src) {
             if ($src instanceof ClassVertex) {
@@ -149,12 +157,11 @@ class SpaghettiCoupling extends BreadthFirstSearch
                     if (($dst instanceof ClassVertex) && ($dst !== $src)) {
                         $this->resetVisited();
                         $path = $this->searchPath($src, $dst);
-                        $strategy->collapseEdge($src, $dst, $path);
+                        $this->strategy->collapseEdge($src, $dst, $path);
                     }
                 }
             }
         }
-        return $reducedGraph;
     }
 
     protected function generateCoupledClassGraph2()
