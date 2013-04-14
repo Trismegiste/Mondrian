@@ -60,7 +60,7 @@ class CycleTest extends \PHPUnit_Framework_TestCase
         $this->graph->addEdge($cls, $impl);
         $this->graph->addEdge($impl, $cls);
         $result = $this->graph->getPartition();
-        $this->assertCount(0, $result);
+        $this->assertCount(0, $result, "No cycle under 3 components");
     }
 
 }
