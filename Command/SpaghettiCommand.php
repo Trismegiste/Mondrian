@@ -11,7 +11,7 @@ use Trismegiste\Mondrian\Graph\Graph;
 use Symfony\Component\Console\Input\InputOption;
 use Trismegiste\Mondrian\Analysis\SpaghettiCoupling;
 use Trismegiste\Mondrian\Graph\Digraph;
-use Trismegiste\Mondrian\Analysis\Strategy\ByCalling;
+use Trismegiste\Mondrian\Analysis\Strategy;
 
 /**
  * SpaghettiCommand reduces a graph to its coupled implementation vertices
@@ -33,7 +33,7 @@ class SpaghettiCommand extends AbstractParse
     {
         $algo = new SpaghettiCoupling($graph);
         $result = new Digraph();
-        $algo->setFilterPath(new ByCalling($result));
+        $algo->setFilterPath(new Strategy\ByCalling($result));
         $algo->generateCoupledClassGraph();
 
         return $result;

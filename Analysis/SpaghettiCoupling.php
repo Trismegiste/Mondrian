@@ -20,28 +20,6 @@ use Trismegiste\Mondrian\Graph\BreadthFirstSearch;
  * This analyser searches path between two classes through calls of public
  * methods, inheritance or instanciation. 
  *
- * Example of coupling :
- * In the implementation of the method A::doThing(), there is a call to
- * the method B::getThing().
- *
- * If B::getThing() is declared in B, the two methods are coupled. One can
- * find a directed path between these implementation vertices.
- *
- * If B::getThing() is an implementation of C::getThing() declared in the C interface
- * from which B inherits, there is no coupling because, A::doThing() is linked
- * to C::getThing(), therefore no directed path. Liskov principle is safe.
- *
- * The first case is what I call "modern spaghetti code" :
- * yes you haZ objects and classes
- * but you are not S.O.L.I.D. You rely on concrete class, not abstraction,
- * not "contract" (interface). Your classes are just a collection of functions
- * with an attached data structure, not an abstract idea.
- *
- * Therefore, each time you make a modification in B::getThing(), you can
- * break its contract and break something in A::doThing(). Worst, A has
- * a link to B, therefore A can call anything in B. Classes get fat, instable,
- * and you fear each time you move a semi-colon.
- *
  * The language I used for representing source code into a digraph was
  * created especially to show that.
  * 
@@ -71,6 +49,12 @@ class SpaghettiCoupling extends BreadthFirstSearch
 
     protected $strategy = null;
 
+    /**
+     * Set the strategy to reduce the graph by shortening a path between 2
+     * components
+     * 
+     * @param Strategy\Search $strategy 
+     */
     public function setFilterPath(Strategy\Search $strategy)
     {
         $this->strategy = $strategy;

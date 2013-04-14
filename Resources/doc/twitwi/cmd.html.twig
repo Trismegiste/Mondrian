@@ -43,7 +43,7 @@
             this kind of static analysis tool has a disavantage with PHP : it is hard to
             "track" the type of a given variable. I've tried some simplistic approach
             but in the end, when you have a line like :
-            <pre>call_user_func($this->$$objName, $methodName);</pre>
+            <pre>call_user_func(array($this->$$objName, $methodName));</pre>
             You have a good chance to mistake on the type. That's why, I have add
             some annotations to put in your code to remove bad link and add some other.
         </p>
@@ -140,8 +140,8 @@
     <div class="span6">
         <a name="spaghet"></a><h2>Spaghetti coupling</h2>
         <p>
-            SpaghettiCoupling is an analyser which finds coupling between implementations,
-            I mean between public methods without abstraction.
+            SpaghettiCoupling is an analyser which finds coupling between classes
+            with theirs concrete components.
         </p>
         <pre>$ php console.php mondrian:spaghetti ~/MyProject</pre>
         <p>
