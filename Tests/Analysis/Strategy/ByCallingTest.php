@@ -51,7 +51,7 @@ class ByCallingTest extends TestTemplate
     /**
      * @dataProvider getPath
      */
-    public function testNoLinkByImpl($src, $dst)
+    public function testNoLinkByCalling($src, $dst)
     {
         $path = $this->buildPath($src, new ClassVertex('C'), new ImplVertex('impl'), $dst);
         $this->strategy->collapseEdge($src, $dst, $path);

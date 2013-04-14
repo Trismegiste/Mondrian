@@ -82,6 +82,7 @@ class SpaghettiCoupling extends BreadthFirstSearch
         }
     }
 
+    /*
     private function generateCoupledClassGraph2()
     {
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
@@ -102,6 +103,6 @@ class SpaghettiCoupling extends BreadthFirstSearch
         }
 
         return $reducedGraph;
-    }
+    }*/
 
 }
