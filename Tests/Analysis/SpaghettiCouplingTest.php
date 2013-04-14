@@ -36,7 +36,7 @@ class SpaghettiCouplingTest extends \PHPUnit_Framework_TestCase
         $impl = new Vertex\ImplVertex('A::caller');
         $dc = new Vertex\ClassVertex('B');
         $mth = new Vertex\MethodVertex('B::callee');
-        $called = new Vertex\MethodVertex('B::callee');
+        $called = new Vertex\ImplVertex('B::callee');
 
         return array(array($cc, $impl, $dc, $mth, $called));
     }

@@ -2,6 +2,6 @@
 
 ## Finalize
 
- * Recode the SCC command with a new system for 
-   graphviz generation (with cluster)
+ * test command
+ * make strategies for spaghetti
  * test other formats (json and xml)
