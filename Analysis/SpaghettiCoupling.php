@@ -97,6 +97,47 @@ class SpaghettiCoupling extends BreadthFirstSearch
     /**
      * Generate a digraph reduced to all concrete coupled classes
      */
+    public function generateCoupledClassGraph_old()
+    {
+        $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
+        $vSet = $this->graph->getVertexSet();
+        foreach ($vSet as $src) {
+            if ($src instanceof ClassVertex) {
+                foreach ($vSet as $dst) {
+                    if (($dst instanceof ClassVertex) && ($dst !== $src)) {
+                        $this->resetVisited();
+                        $path = $this->searchPath($src, $dst);
+                        // checking if the path go through on implementation
+                        $implFound = false;
+                        foreach ($path as $step) {
+                            if ($step->getTarget() instanceof ClassVertex) {
+                                break;
+                            }
+                            if ($step->getTarget() instanceof ImplVertex) {
+                                $implFound = true;
+                                break;
+                            }
+                        }
+                        // since I build an arborescence on class
+                        // vertices, I stop on the first encountered class
+                        if ($implFound) {
+                            foreach ($path as $step) {
+                                if ($step->getTarget() instanceof ClassVertex) {
+                                    $reducedGraph->addEdge($src, $step->getTarget());
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $reducedGraph;
+    }
+
+    /**
+     * Generate a digraph reduced to all concrete coupled classes
+     */
     public function generateCoupledClassGraph()
     {
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
@@ -107,12 +148,19 @@ class SpaghettiCoupling extends BreadthFirstSearch
                     if (($dst instanceof ClassVertex) && ($dst !== $src)) {
                         $this->resetVisited();
                         $path = $this->searchPath($src, $dst);
-                        // since I build an arborescence on class
-                        // vertices, I stop on the first encountered class
+                        // checking if the path go through a call before finding a class
+                        $callFound = false;
                         foreach ($path as $step) {
                             if ($step->getTarget() instanceof ClassVertex) {
-                                $reducedGraph->addEdge($src, $step->getTarget());
+                                if ($callFound) {
+                                    // since I build an arborescence on class
+                                    // vertices, I stop on the first encountered class
+                                    $reducedGraph->addEdge($src, $step->getTarget());
+                                }
                                 break;
+                            }
+                            if (($step->getSource() instanceof ImplVertex) && ($step->getTarget() instanceof MethodVertex)) {
+                                $callFound = true;
                             }
                         }
                     }
