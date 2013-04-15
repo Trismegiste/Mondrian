@@ -13,32 +13,18 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * DigraphCommandTest is a unit test for DigraphCommand
  */
-class DigraphCommandTest extends \PHPUnit_Framework_TestCase
+class DigraphCommandTest extends TestTemplate
 {
 
-    protected function setUp()
+    protected function createCommand()
     {
-        $this->application = new Application();
-        $command = new DigraphCommand();
-        $this->application->add($command);
+        return new DigraphCommand();
     }
 
-    public function testExecute()
+    public function testOutput()
     {
-        $fch = tempnam(sys_get_temp_dir(), 'graph');
-
-        $command = $this->application->find('mondrian:digraph');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute(array(
-            'command' => $command->getName(),
-            'dir' => __DIR__ . '/../Fixtures/Project',
-            'report' => $fch
-        ));
-
-        $ptr = fopen($fch . '.dot', 'r');
-        $heading = fgets($ptr);
-        $this->assertStringStartsWith('digraph', $heading);
-        fclose($ptr);
+        $out = $this->commonExecute();
+        $this->assertEquals(1, preg_match('#declared in interfaces#', $out));
     }
 
 }

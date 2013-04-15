@@ -25,7 +25,10 @@ abstract class AbstractParse extends Command
 
     abstract protected function getSubname();
 
-    abstract protected function getFullDesc();
+    protected function getFullDesc()
+    {
+        return 'Parses a directory to generate a digraph';
+    }
 
     abstract protected function processGraph(Graph $g, OutputInterface $out);
 
@@ -34,7 +37,7 @@ abstract class AbstractParse extends Command
         $this
                 ->setName('mondrian:' . $this->getSubname())
                 ->setDescription($this->getFullDesc())
-                ->addArgument('dir', InputArgument::OPTIONAL, 'The directory to explore', './src')
+                ->addArgument('dir', InputArgument::REQUIRED, 'The directory to explore')
                 ->addArgument('report', InputArgument::OPTIONAL, 'The filename of the report', 'report')
                 ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests', 'vendor'))
                 ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Format of export', 'dot');
@@ -59,11 +62,9 @@ abstract class AbstractParse extends Command
 
         $processed = $this->processGraph($graph, $output);
 
-        if (!is_null($processed)) {
-            $ff = new Factory();
-            $dumper = $ff->create($processed, $ext);
-            file_put_contents("$reportName.$ext", $dumper->export());
-        }
+        $ff = new Factory();
+        $dumper = $ff->create($processed, $ext);
+        file_put_contents("$reportName.$ext", $dumper->export());
     }
 
 }

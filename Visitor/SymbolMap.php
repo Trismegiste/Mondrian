@@ -61,7 +61,9 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
                 break;
 
             case 'Stmt_ClassMethod' :
-                $this->symbol[$this->currentClass]['method'][$node->name] = $this->currentClass;
+                if ($node->isPublic()) {
+                    $this->symbol[$this->currentClass]['method'][$node->name] = $this->currentClass;
+                }
                 break;
         }
     }

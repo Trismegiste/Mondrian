@@ -142,29 +142,19 @@ class Digraph implements Graph
     }
 
     /**
-     * @todo Need to go in the Graph interface
-     *
-     * @param Vertex $v
-     * @return Iterator
+     * {@inheritDoc}
      */
     public function getEdgeIterator(Vertex $v)
     {
         return $this->adjacency[$v];
     }
 
-    /*
-    public function getPredecessor(Vertex $v)
+    /**
+     * {@inheritDoc}
+     */
+    public function getPartition()
     {
-        $set = array();
-        foreach ($this->adjacency as $vertex) {
-            $edgeList = $this->adjacency->getInfo();
-            if ($edgeList->contains($v)) {
-                $set[] = $vertex;
-            }
-        }
-
-        return $set;
+        return array();
     }
-    */
 
 }

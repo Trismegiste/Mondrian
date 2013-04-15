@@ -28,7 +28,7 @@ abstract class AbstractCentrality extends AbstractParse
 
     protected function getFullDesc()
     {
-        return 'Transforms a bunch of php file into a digraph with centrality informations';
+        return parent::getFullDesc() . ' with centrality informations';
     }
 
     protected function processGraph(Graph $graph, OutputInterface $output)

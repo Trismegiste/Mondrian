@@ -2,7 +2,7 @@
     "name": "trismegiste/mondrian",
     "description": "Mondrian is a set of static analysis and refactoring tools for more abstraction",
     "type": "CLI",
-    "keywords": ["refactoring", "abstract", "graph", "analysis", "static", "metrics"],
+    "keywords": ["refactoring", "abstract", "graph", "analysis", "static", "code", "metrics"],
     "authors": [
     {
         "name": "Trismegiste",
@@ -27,5 +27,5 @@
     } ],
     "target-dir": "Trismegiste/Mondrian",
     "license": "CC-BY-SA-3.0",
-    "version": "0.4"
+    "version": "0.5"
 }
