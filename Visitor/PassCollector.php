@@ -20,9 +20,11 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
     protected $inheritanceMap;
     protected $currentClass = false;
     protected $currentMethod = false;
+    private $context; // perhaps I will make it protected when I'll remove inheritanceMap in the subclasses
 
     public function __construct(Context $ctx)
     {
+        $this->context = $ctx;
         $this->graph = $ctx->graph;
         $this->vertex = &$ctx->vertex;
         $this->inheritanceMap = &$ctx->inheritanceMap;
@@ -90,6 +92,14 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
     public function compile()
     {
         // nothing to do
+    }
+
+    protected function findMethodInInheritanceTree($cls, $method)
+    {
+        if ($this->hasDeclaringClass($cls)) {
+            return $this->context->findMethodInInheritanceTree($cls, $method);
+        }
+        return null;
     }
 
 }

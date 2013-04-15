@@ -289,8 +289,7 @@ class EdgeCollector extends PassCollector
             if ($param->type instanceof \PHPParser_Node_Name_FullyQualified) {
                 $paramType = (string) $param->type;
                 // we check if it is an outer class or not : is it known ?
-                if ($this->hasDeclaringClass($paramType)) {
-                    $cls = $this->getDeclaringClass($paramType, $method);
+                if (!is_null($cls = $this->findMethodInInheritanceTree($paramType, $method))) {
                     if (!is_null($signature = $this->findVertex('method', "$cls::$method"))) {
                         return array($signature);
                     }
@@ -298,7 +297,7 @@ class EdgeCollector extends PassCollector
             }
         }
 
-        return null;  // don't know what to do
+        return null;  // can't see shit captain
     }
 
     /**

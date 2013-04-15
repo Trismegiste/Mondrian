@@ -16,7 +16,7 @@ class VeryCommonSuper
 
 }
 
-class SomeService implements VeryCommonSuper
+class SomeService extends VeryCommonSuper
 {
     
 }

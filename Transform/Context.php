@@ -75,4 +75,31 @@ class Context
         return $higher;
     }
 
+    /**
+     * Find if method is declared in superclass.
+     * 
+     * Note1 : Algo is DFS
+     * 
+     * Note2: Must be called AFTER resolveSymbol
+     * 
+     * @param string $cls
+     * @param string $method
+     * @return string the class which first declare the method (or null)
+     */
+    public function findMethodInInheritanceTree($cls, $method)
+    {
+        if (array_key_exists($method, $this->inheritanceMap[$cls]['method'])) {
+            return $this->inheritanceMap[$cls]['method'][$method];
+        } else {
+            // higher parent ?
+            foreach ($this->inheritanceMap[$cls]['parent'] as $mother) {
+                if (!is_null($found = $this->findMethodInInheritanceTree($mother, $method))) {
+                    return $found;
+                }
+            }
+        }
+
+        return null;
+    }
+
 }
