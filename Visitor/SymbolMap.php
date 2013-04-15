@@ -18,14 +18,14 @@ use Trismegiste\Mondrian\Transform\CompilerPass;
 class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
 {
 
-    protected $symbol;
+    protected $symbol; // @todo replace all sets to this array by method calls of Context
     protected $currentClass = false;
     protected $context;
 
     public function __construct(Context $ctx)
     {
         $this->context = $ctx;
-        $this->symbol = &$ctx->inheritanceMap;
+        $this->symbol = &$ctx->inheritanceMap; // @todo Demeter's law is patently broken
     }
 
     public function enterNode(\PHPParser_Node $node)
@@ -79,6 +79,7 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
     }
 
     /**
+     * @todo must go to Context
      * Initialize a new symbol
      * 
      * @param string $name class or interface name

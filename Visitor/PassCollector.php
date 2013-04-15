@@ -16,8 +16,8 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
 {
 
     protected $graph;
-    protected $vertex;
-    protected $inheritanceMap;
+    protected $vertex;  // @todo must be removed
+    protected $inheritanceMap; // @todo must be removed
     protected $currentClass = false;
     protected $currentMethod = false;
     private $context; // perhaps I will make it protected when I'll remove inheritanceMap in the subclasses
@@ -31,6 +31,7 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
     }
 
     /**
+     * @todo must go to Context
      * Search if a type (class or interface) exists in the inheritanceMap
      *
      * @param string $cls
@@ -42,6 +43,7 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
     }
 
     /**
+     * @todo must go to Context
      * Finds the FQCN of the first declaring class/interface of a method
      *
      * @param string $cls subclass name
@@ -54,6 +56,7 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
     }
 
     /**
+     * @todo must go to Context
      * Is FQCN an interface ?
      *
      * @param string $cls FQCN
@@ -65,6 +68,7 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
     }
 
     /**
+     * @todo must go to Context
      * Find a vertex by its type and name
      *
      * @param string $type
