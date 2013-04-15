@@ -46,8 +46,8 @@
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Commands <b class="caret"></b></a>
     <ul class="dropdown-menu">
+        <li><a href="cmd.html">Summary</a></li>
         <li><a href="cmd.html#digraph">Digraph</a></li>
-        <li><a href="cmd.html#metrics">Metrics</a></li>
         <li><a href="cmd.html#central">Centrality</a></li>
         <li><a href="cmd.html#hidden">Hidden coupling</a></li>
         <li><a href="cmd.html#spaghet">Spaghetti coupling</a></li>
@@ -55,6 +55,7 @@
     </ul>
 </li>
 <li><a href="doc/index.html">Documentation</a></li>
+<li><a href="faq.html">FAQ</a></li>
 <li><a href="about.html">About</a></li>
                         </ul>
                                             </div><!--/.nav-collapse -->
@@ -67,38 +68,78 @@
             <h1>Command line tools</h1>
 <div class="row-fluid">
     <div class="span6">
-        <a name="digraph"></a><h2>Make the graph</h2>
-        <p>Generates a digraph on the GraphViz format (only .dot, currently other formats are not tested)</p>
-        <pre>$ php console.php mondrian:digraph ~/MyMessyProject</pre>
+        <a name="console"></a><h2>The console</h2>
         <p>
-            This digraph is a general picture of the source. If it is too heavy or too messy, you can
-            try to generate a smaller one. The same way you don't refactor all your app in one pass,
-            you start by smaller components.
+            This tool is using the Symfony/Console component, it means you have an helper
+            when you type :
+            <pre>$ php console.php</pre>
         </p>
         <p>
-            This is not the tool you are looking for. Unless you have a big printer and want to impress
-            your project manager and pin a big poster on the wall at office, it's not the
-            real shit, at least not at the first pass.
-        </p>
-        <p>
-            This tool is using the Symfony/Console component, it means you have an helper :
+            You have an helper on a command
             <pre>$ php console.php help mondrian:digraph</pre>
         </p>
         <p>
-            ...and a listing of commands :
+            And a listing of commands :
             <pre>$ php console.php list</pre>
         </p>
-    </div>
-
-    <div class="span6">
-        <a name="metrics"></a><h2>Metrics</h2>
-        <p>Generates statistics with a short report</p>
-        <pre>$ php console.php mondrian:metrics ~/MyMessyProject</pre>
         <p>
-            This command prints a short report about the code.
+            All commands which generate digraph need a mandatory argument for
+            the directory to recursively scan and parse all PHP files.
         </p>
         <p>
-            Metrics are usefull to fast evaluate what kind of project you have
+            The second argument is the basename of the generated file.<br/>
+            Default value is "report"
+        </p>
+        <p>
+            You can optionally ignore some directories with the option --ignore<br/>
+            Default values are : "Tests" and "vendor" to avoid scanning for vendor
+            and Tests.
+        </p>
+        <p>
+            The second option is the format for the generated report. Default value is "dot"
+            (GraphViz format)
+        </p>
+    </div>
+    <div class="span6">
+        <a name="soft"></a><h2>PHP has a soft touch</h2>
+        <p>
+            As you know, PHP is (very) soft-typed. I don't want to start a debate but
+            this kind of static analysis tool has a disavantage with PHP : it is hard to
+            "track" the type of a given variable. I've tried some simplistic approach
+            but in the end, when you have a line like :
+            <pre>call_user_func(array($this->$$objName, $methodName));</pre>
+            You have a good chance to mistake on the type. That's why, I have add
+            some annotations to put in your code to remove bad link and add some other.
+        </p>
+        <p>
+            Currently, there is an annotation (a comment) to put
+            in your code in the header of the method where a calling is done :
+            <pre>
+/**
+ * @mondrian ignoreCallTo MyProject\MyClass::someMethod
+ */</pre>
+            It means the current implementation will not be linked with the specified method.<br/>
+            See a sample in
+            <a href="https://github.com/Trismegiste/Mondrian/blob/master/Tests/Fixtures/Project/FilterIgnoreCallTo.php#L45">unit tests</a>
+        </p>
+
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <a name="digraph"></a><h2>Make the graph</h2>
+        <p>Generates a digraph on the
+            <a href="http://www.graphviz.org/">GraphViz</a>
+            format (only .dot, currently other formats are not tested)</p>
+        <pre>$ php console.php mondrian:digraph ~/MyMessyProject</pre>
+        <p>
+            This digraph is a general picture of the source. If it is too heavy or too messy, you can
+            try to generate a smaller one on a deeper directory. The same way you
+            don't refactor all your app in one pass, you start by smaller components.
+        </p>
+        <p>
+            After the generation, this command prints some useful metrics. They
+            are useful to fast evaluate what kind of project you have
             to refactor. But it is not a guide where you have to go. Of course
             a project with a 50/50 ratio in interfaces/classes can be a good thing
             but if classes are used in parameters of methods instead of interfaces,
@@ -124,10 +165,7 @@
             but good metrics does not means good coding practices.
             That's why I didn't push too far these statistics.
         </p>
-        <p>See the others tool to find out where the coupling is.</p>
     </div>
-</div>
-<div class="row-fluid">
     <div class="span6">
         <a name="central"></a>
         <h2>Centrality</h2>
@@ -163,11 +201,13 @@
             CoR etc... All bugs are "drown" to this component like a blackhole.
         </p>
     </div>
+</div>
+<div class="row-fluid">
     <div class="span6">
         <a name="spaghet"></a><h2>Spaghetti coupling</h2>
         <p>
-            SpaghettiCoupling is an analyser which finds coupling between implementations,
-            I mean between public methods without abstraction.
+            SpaghettiCoupling is an analyser which finds coupling between classes
+            with theirs concrete components.
         </p>
         <pre>$ php console.php mondrian:spaghetti ~/MyProject</pre>
         <p>
@@ -182,10 +222,13 @@
         <p>
             If B::getThing() is an implementation of C::getThing() declared in the C interface
             from which B inherits, there is no coupling because, A::doThing() is linked
-            to C::getThing(), therefore no directed path. Liskov principle is safe.
+            to C::getThing(), therefore no directed path.
+            <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">Liskov principle</a>
+            is safe.
         </p>
         <p>
-            The first case is what I call "modern spaghetti code" :
+            The first case is what I call
+            "modern <a href="http://en.wikipedia.org/wiki/Spaghetti_code">spaghetti code</a>" :
             yes you haZ objects and classes
             but you are not S.O.L.I.D. You rely on concrete class, not abstraction,
             not "contract" (interface). Your classes are just a collection of functions
@@ -198,8 +241,6 @@
             and you fear each time you move a semi-colon.
         </p>
     </div>
-</div>
-<div class="row-fluid">
     <div class="span6">
         <a name="hidden"></a><h2>Hidden coupling</h2>
         <p>
@@ -230,31 +271,28 @@
             that kind of weakness in the code.
         </p>
     </div>
+</div>
+<div class="row-fluid">
     <div class="span6">
         <a name="cyclic"></a><h2>Cyclic coupling</h2>
         <p>
             Can be renamed : How to avoid cyclic dependencies ? When yo have a cycle in
             source code, you are really screwd because it's very difficult to know where to
             break it. This tool finds
-            <a href="http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm">cycles between vertices</a>
+            <a href="http://en.wikipedia.org/wiki/Strongly_connected_component">cycles between vertices</a>
             in the digraph.
         </p>
-        <pre>$ php console.php mondrian:scc ~/MyProject</pre>
+        <pre>$ php console.php mondrian:cycle ~/MyProject</pre>
         <p>
-            This command uses the Tarjan algorithm for finding Strongly Connected Components.
-        </p>
-        <p>
-            This command (and the others too) needs some customization of the code. Since
-            PHP is not strongly typed, it is somewhat difficult to find which method is called
-            in an implementation. For that, there is an annotation (a comment) to put
-            in your code in the header of the method where the calling is done :
-            <pre>
-/**
- * @mondrian ignoreCallTo MyProject\MyClass::someMethod
- */</pre>
-            It means the current implementation will not be linked with the specified method.<br/>
-            See a sample in
-            <a href="https://github.com/Trismegiste/Mondrian/blob/master/Tests/Fixtures/Project/FilterIgnoreCallTo.php#L45">unit tests</a>
+            This command uses the
+            <a href="http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm">Tarjan algorithm</a>
+            for finding Strongly Connected Components.
+            When a cycle is found between components, they are embedded in a cluster. With
+            this graph, you can easily spot two problems :
+            <ul>
+                <li>which components are entangled ?</li>
+                <li>where to attack your monolith at the weak point</li>
+            </ul>
         </p>
     </div>
 </div>
