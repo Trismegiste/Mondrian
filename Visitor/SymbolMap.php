@@ -13,7 +13,7 @@ use Trismegiste\Mondrian\Transform\CompilerPass;
  * SymbolMap is a class to collect list of class/interface/method name
  * 
  * It fills the inheritance map of the context
- *
+ * @todo Need refactor for SRP : some methods are bound to Context not this visitor
  */
 class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
 {
