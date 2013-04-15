@@ -1,0 +1,24 @@
+{% extends 'index.html.twig' %}
+
+{% block content %}
+<h1>FAQ</h1>
+<h2>GraphViz ? DOT files ? WAT ?</h2>
+<p>
+    Well, I admit it's not very popular but it's the tool for managing digraph. It was build for that.
+    More than that, there are plugin for Eclipse and many converters to SVG or PDF.
+</p>
+<h2>Bitches don't know 'bout my protected</h2>
+<p>
+    That's right, I only scan public methods. Why ? Because 'inner' refactor and 'outer'
+    refactor are two different process'. This tool focuses on outer, therefore public.
+    Despite, I want to keep this tool K.I.S.S, it grows to 1k NCLOC, it's more than
+    I've expected.
+</p>
+<h2>This is damned slow !</h2>
+<p>
+    Unfortunatly yes. I thought about porting some algorithms to Java but it's
+    difficult to explain to a PHP developer he has to install a JVM for a PHP tool.
+    That's seems weird. Beside, this tool is for PHP community, and I hope maintained
+    by PHP community. If there is Java, the community becomes too narrow.
+</p>
+{% endblock %}

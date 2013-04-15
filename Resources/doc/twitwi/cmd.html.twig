@@ -6,7 +6,7 @@
     <div class="span6">
         <a name="console"></a><h2>The console</h2>
         <p>
-            This tool is using the Symfony/Console component, it means you have an helper 
+            This tool is using the Symfony/Console component, it means you have an helper
             when you type :
             <pre>$ php console.php</pre>
         </p>
@@ -32,7 +32,7 @@
             and Tests.
         </p>
         <p>
-            The second option is the format for the generated report. Default value is "dot" 
+            The second option is the format for the generated report. Default value is "dot"
             (GraphViz format)
         </p>
     </div>
@@ -64,11 +64,13 @@
 <div class="row-fluid">
     <div class="span6">
         <a name="digraph"></a><h2>Make the graph</h2>
-        <p>Generates a digraph on the GraphViz format (only .dot, currently other formats are not tested)</p>
+        <p>Generates a digraph on the
+            <a href="http://www.graphviz.org/">GraphViz</a>
+            format (only .dot, currently other formats are not tested)</p>
         <pre>$ php console.php mondrian:digraph ~/MyMessyProject</pre>
         <p>
             This digraph is a general picture of the source. If it is too heavy or too messy, you can
-            try to generate a smaller one on a deeper directory. The same way you 
+            try to generate a smaller one on a deeper directory. The same way you
             don't refactor all your app in one pass, you start by smaller components.
         </p>
         <p>
@@ -156,10 +158,13 @@
         <p>
             If B::getThing() is an implementation of C::getThing() declared in the C interface
             from which B inherits, there is no coupling because, A::doThing() is linked
-            to C::getThing(), therefore no directed path. Liskov principle is safe.
+            to C::getThing(), therefore no directed path.
+            <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">Liskov principle</a>
+            is safe.
         </p>
         <p>
-            The first case is what I call "modern spaghetti code" :
+            The first case is what I call
+            "modern <a href="http://en.wikipedia.org/wiki/Spaghetti_code">spaghetti code</a>" :
             yes you haZ objects and classes
             but you are not S.O.L.I.D. You rely on concrete class, not abstraction,
             not "contract" (interface). Your classes are just a collection of functions
@@ -210,12 +215,14 @@
             Can be renamed : How to avoid cyclic dependencies ? When yo have a cycle in
             source code, you are really screwd because it's very difficult to know where to
             break it. This tool finds
-            <a href="http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm">cycles between vertices</a>
+            <a href="http://en.wikipedia.org/wiki/Strongly_connected_component">cycles between vertices</a>
             in the digraph.
         </p>
         <pre>$ php console.php mondrian:cycle ~/MyProject</pre>
         <p>
-            This command uses the Tarjan algorithm for finding Strongly Connected Components.
+            This command uses the
+            <a href="http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm">Tarjan algorithm</a>
+            for finding Strongly Connected Components.
             When a cycle is found between components, they are embedded in a cluster. With
             this graph, you can easily spot two problems :
             <ul>
