@@ -56,13 +56,13 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
                 // extends
                 foreach ($node->extends as $interf) {
                     $this->initSymbol((string) $interf, true);
-                    $this->symbol[$this->currentClass]['parent'][] = (string) $interf;
+                    $this->context->pushParentClass($this->currentClass, (string) $interf);
                 }
                 break;
 
             case 'Stmt_ClassMethod' :
                 if ($node->isPublic()) {
-                    $this->symbol[$this->currentClass]['method'][$node->name] = $this->currentClass;
+                    $this->context->addMethodToClass($this->currentClass, $node->name);
                 }
                 break;
         }

@@ -128,6 +128,11 @@ class Context
         $this->inheritanceMap[$cls]['parent'][] = $parent;
     }
 
+    public function addMethodToClass($cls, $method)
+    {
+        $this->inheritanceMap[$cls]['method'][$method] = $cls;
+    }
+
     /**
      * Search if a type (class or interface) exists in the inheritanceMap
      *
