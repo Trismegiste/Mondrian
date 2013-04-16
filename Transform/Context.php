@@ -19,14 +19,13 @@ class Context
 {
 
     public $graph;
-    public $inheritanceMap; // @todo must go protected
-    public $vertex; // @todo must go protected
+    protected $inheritanceMap;
+    protected $vertex;
 
     /**
      * @todo Perhaps the graph has no place here, it's only easier for initializing CompilerPass
      * @param Graph $g 
      */
-
     public function __construct(Graph $g)
     {
         $this->graph = $g;
