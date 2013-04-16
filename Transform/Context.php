@@ -25,6 +25,7 @@ class Context
      * @todo Perhaps the graph has no place here, it's only easier for initializing CompilerPass
      * @param Graph $g 
      */
+
     public function __construct(Graph $g)
     {
         $this->graph = $g;
@@ -103,6 +104,55 @@ class Context
             }
         }
 
+        return null;
+    }
+
+    /**
+     * Search if a type (class or interface) exists in the inheritanceMap
+     *
+     * @param string $cls
+     * @return bool
+     */
+    public function hasDeclaringClass($cls)
+    {
+        return array_key_exists($cls, $this->inheritanceMap);
+    }
+
+    /**
+     * Finds the FQCN of the first declaring class/interface of a method
+     *
+     * @param string $cls subclass name
+     * @param string $meth method name
+     * @return string
+     */
+    public function getDeclaringClass($cls, $meth)
+    {
+        return $this->inheritanceMap[$cls]['method'][$meth];
+    }
+
+    /**
+     * Is FQCN an interface ?
+     *
+     * @param string $cls FQCN
+     * @return bool
+     */
+    public function isInterface($cls)
+    {
+        return $this->inheritanceMap[$cls]['interface'];
+    }
+
+    /**
+     * Find a vertex by its type and name
+     *
+     * @param string $type
+     * @param string $key
+     * @return Vertex or null
+     */
+    public function findVertex($type, $key)
+    {
+        if (array_key_exists($key, $this->vertex[$type])) {
+            return $this->vertex[$type][$key];
+        }
         return null;
     }
 

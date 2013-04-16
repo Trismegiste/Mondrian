@@ -17,7 +17,6 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
 
     protected $graph;
     protected $vertex;  // @todo must be removed
-    protected $inheritanceMap; // @todo must be removed
     protected $currentClass = false;
     protected $currentMethod = false;
     private $context; // perhaps I will make it protected when I'll remove inheritanceMap in the subclasses
@@ -27,11 +26,9 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
         $this->context = $ctx;
         $this->graph = $ctx->graph;
         $this->vertex = &$ctx->vertex;
-        $this->inheritanceMap = &$ctx->inheritanceMap;
     }
 
     /**
-     * @todo must go to Context
      * Search if a type (class or interface) exists in the inheritanceMap
      *
      * @param string $cls
@@ -39,11 +36,10 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
      */
     protected function hasDeclaringClass($cls)
     {
-        return array_key_exists($cls, $this->inheritanceMap);
+        return $this->context->hasDeclaringClass($cls);
     }
 
     /**
-     * @todo must go to Context
      * Finds the FQCN of the first declaring class/interface of a method
      *
      * @param string $cls subclass name
@@ -52,11 +48,10 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
      */
     protected function getDeclaringClass($cls, $meth)
     {
-        return $this->inheritanceMap[$cls]['method'][$meth];
+        return $this->context->getDeclaringClass($cls, $meth);
     }
 
     /**
-     * @todo must go to Context
      * Is FQCN an interface ?
      *
      * @param string $cls FQCN
@@ -64,11 +59,10 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
      */
     protected function isInterface($cls)
     {
-        return $this->inheritanceMap[$cls]['interface'];
+        return $this->context->isInterface($cls);
     }
 
     /**
-     * @todo must go to Context
      * Find a vertex by its type and name
      *
      * @param string $type
@@ -77,10 +71,7 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
      */
     protected function findVertex($type, $key)
     {
-        if (array_key_exists($key, $this->vertex[$type])) {
-            return $this->vertex[$type][$key];
-        }
-        return null;
+        return $this->context->findVertex($type, $key);
     }
 
     /**
@@ -100,7 +91,7 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
 
     protected function findMethodInInheritanceTree($cls, $method)
     {
-        if ($this->hasDeclaringClass($cls)) {
+        if ($this->context->hasDeclaringClass($cls)) {
             return $this->context->findMethodInInheritanceTree($cls, $method);
         }
         return null;
