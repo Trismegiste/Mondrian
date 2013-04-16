@@ -61,7 +61,7 @@ class Context
         $higher = null;
 
         if (array_key_exists($m, $this->inheritanceMap[$current]['method'])) {
-// default declarer :
+            // default declarer :
             $higher = $this->inheritanceMap[$current]['method'][$m];
         } elseif (interface_exists($current) || class_exists($current)) {
             if (method_exists($current, $m)) {
@@ -69,7 +69,7 @@ class Context
             }
         }
 
-// higher parent ?
+        // higher parent ?
         foreach ($this->inheritanceMap[$current]['parent'] as $mother) {
             $tmp = $this->recursivDeclaration($mother, $m);
             if (!is_null($tmp)) {
@@ -97,7 +97,7 @@ class Context
         if (array_key_exists($method, $this->inheritanceMap[$cls]['method'])) {
             return $this->inheritanceMap[$cls]['method'][$method];
         } else {
-// higher parent ?
+            // higher parent ?
             foreach ($this->inheritanceMap[$cls]['parent'] as $mother) {
                 if (!is_null($found = $this->findMethodInInheritanceTree($mother, $method))) {
                     return $found;
@@ -106,6 +106,21 @@ class Context
         }
 
         return null;
+    }
+
+    /**
+     * Initialize a new symbol
+     * 
+     * @param string $name class or interface name
+     * @param bool $isInterface is interface ?
+     */
+    public function initSymbol($name, $isInterface)
+    {
+        if (!array_key_exists($name, $this->inheritanceMap)) {
+            $this->inheritanceMap[$name]['interface'] = $isInterface;
+            $this->inheritanceMap[$name]['parent'] = array();
+            $this->inheritanceMap[$name]['method'] = array();
+        }
     }
 
     /**

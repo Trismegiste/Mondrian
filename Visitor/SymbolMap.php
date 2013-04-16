@@ -87,11 +87,7 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
      */
     protected function initSymbol($name, $isInterface)
     {
-        if (!array_key_exists($name, $this->symbol)) {
-            $this->symbol[$name]['interface'] = $isInterface;
-            $this->symbol[$name]['parent'] = array();
-            $this->symbol[$name]['method'] = array();
-        }
+        $this->context->initSymbol($name, $isInterface);
     }
 
     /**
