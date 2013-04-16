@@ -67,7 +67,7 @@ class VertexCollector extends PassCollector
     protected function pushClass(\PHPParser_Node_Stmt_Class $node)
     {
         $index = (string) $node->namespacedName;
-        if (!array_key_exists($index, $this->vertex['class'])) {
+        if (!$this->existsVertex('class', $index)) {
             $v = new Vertex\ClassVertex($index);
             $this->graph->addVertex($v);
             $this->vertex['class'][$index] = $v;

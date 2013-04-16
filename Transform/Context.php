@@ -156,4 +156,16 @@ class Context
         return null;
     }
 
+    public function existsVertex($type, $key)
+    {
+        return array_key_exists($key, $this->vertex[$type]);
+    }
+
+    public function findAllMethodSameName($method)
+    {
+        return array_filter($this->vertex['method'], function($val) use ($method) {
+                            return preg_match("#::$method$#", $val->getName());
+                        });
+    }
+
 }
