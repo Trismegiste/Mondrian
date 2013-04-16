@@ -210,7 +210,7 @@ class EdgeCollector extends PassCollector
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
         $this->currentClass = (string) $node->namespacedName;
-        $src = $this->vertex['interface'][$this->currentClass];
+        $src = $this->findVertex('interface', $this->currentClass);
         $this->currentClassVertex = $src;
 
         // implements
@@ -229,7 +229,7 @@ class EdgeCollector extends PassCollector
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
         $this->currentClass = (string) $node->namespacedName;
-        $src = $this->vertex['class'][$this->currentClass];
+        $src = $this->findVertex('class', $this->currentClass);
         $this->currentClassVertex = $src;
 
         // extends
@@ -321,9 +321,7 @@ class EdgeCollector extends PassCollector
         }
         // fallback : link to every methods with the same name :
         if (!isset($candidate) || is_null($candidate)) {
-            $candidate = array_filter($this->vertex['method'], function($val) use ($method) {
-                        return preg_match("#::$method$#", $val->getName());
-                    });
+            $candidate = $this->findAllMethodSameName($method);
         }
         $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
         // fallback or not, we exclude calls from annotations

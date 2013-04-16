@@ -21,7 +21,7 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->context = new Context($this->getMock('Trismegiste\Mondrian\Graph\Graph'));
+        $this->context = new Context();
         $this->visitor = new SymbolMap($this->context);
     }
 
@@ -38,7 +38,19 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
             $traverser->traverse($stmts);
         }
         $this->visitor->compile();
-        $this->assertCount(2, $this->context->inheritanceMap);
+
+        $this->assertAttributeEquals(array(
+            'Project\\InheritExtra' => array(
+                'interface' => false,
+                'parent' => array(0 => 'IteratorAggregate'),
+                'method' => array('getIterator' => 'IteratorAggregate')
+            ),
+            'IteratorAggregate' => array(
+                'interface' => true,
+                'parent' => array(),
+                'method' => array()
+            ),
+                ), 'inheritanceMap', $this->context);
     }
 
     public function testSimpleCase()
@@ -54,7 +66,14 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
             $traverser->traverse($stmts);
         }
         $this->visitor->compile();
-        $this->assertCount(1, $this->context->inheritanceMap);
+
+        $this->assertAttributeEquals(array(
+            'Project\\Concrete' => array(
+                'interface' => false,
+                'parent' => array(),
+                'method' => array('simple' => 'Project\\Concrete')
+            ),
+                ), 'inheritanceMap', $this->context);
     }
 
 }

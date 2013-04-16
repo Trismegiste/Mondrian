@@ -281,6 +281,20 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(4, $succ); // the class, the param and two call (not one)
     }
 
+    public function testTypeNotFoundFilteringOnCall()
+    {
+        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
+        $iter = array(__DIR__ . '/../Fixtures/Project/FilterCallingUnknown.php');
+        $result = $this->grapher->parse($iter);
+
+        $this->assertCount(7, $result->getVertexSet());
+        $this->assertCount(9, $result->getEdgeSet());
+        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCallingUnknown::decorate');
+        $this->assertNotNull($impl);
+        $succ = $result->getSuccessor($impl);
+        $this->assertCount(3, $succ); // the class, the param and one call (fallback)
+    }
+
     public function testNoFilteringMethodCallOnOuterClass()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';

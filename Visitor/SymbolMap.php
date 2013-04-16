@@ -18,14 +18,12 @@ use Trismegiste\Mondrian\Transform\CompilerPass;
 class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
 {
 
-    protected $symbol; // @todo replace all sets to this array by method calls of Context
     protected $currentClass = false;
     protected $context;
 
     public function __construct(Context $ctx)
     {
         $this->context = $ctx;
-        $this->symbol = &$ctx->inheritanceMap; // @todo Demeter's law is patently broken
     }
 
     public function enterNode(\PHPParser_Node $node)
@@ -41,12 +39,12 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
                 if (!is_null($node->extends)) {
                     $name = (string) $node->extends;
                     $this->initSymbol($name, false);
-                    $this->symbol[$this->currentClass]['parent'][] = $name;
+                    $this->context->pushParentClass($this->currentClass, $name);
                 }
                 // implements
                 foreach ($node->implements as $parent) {
                     $this->initSymbol((string) $parent, true);
-                    $this->symbol[$this->currentClass]['parent'][] = (string) $parent;
+                    $this->context->pushParentClass($this->currentClass, (string) $parent);
                 }
                 break;
 
@@ -56,13 +54,13 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
                 // extends
                 foreach ($node->extends as $interf) {
                     $this->initSymbol((string) $interf, true);
-                    $this->symbol[$this->currentClass]['parent'][] = (string) $interf;
+                    $this->context->pushParentClass($this->currentClass, (string) $interf);
                 }
                 break;
 
             case 'Stmt_ClassMethod' :
                 if ($node->isPublic()) {
-                    $this->symbol[$this->currentClass]['method'][$node->name] = $this->currentClass;
+                    $this->context->addMethodToClass($this->currentClass, $node->name);
                 }
                 break;
         }
@@ -79,7 +77,6 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
     }
 
     /**
-     * @todo must go to Context
      * Initialize a new symbol
      * 
      * @param string $name class or interface name
@@ -87,11 +84,7 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
      */
     protected function initSymbol($name, $isInterface)
     {
-        if (!array_key_exists($name, $this->symbol)) {
-            $this->symbol[$name]['interface'] = $isInterface;
-            $this->symbol[$name]['parent'] = array();
-            $this->symbol[$name]['method'] = array();
-        }
+        $this->context->initSymbol($name, $isInterface);
     }
 
     /**

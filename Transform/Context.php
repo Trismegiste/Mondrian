@@ -7,6 +7,7 @@
 namespace Trismegiste\Mondrian\Transform;
 
 use Trismegiste\Mondrian\Graph\Graph;
+use Trismegiste\Mondrian\Graph\Vertex;
 
 /**
  * Context is a context of parser. 
@@ -17,17 +18,15 @@ use Trismegiste\Mondrian\Graph\Graph;
 class Context
 {
 
-    public $graph;
-    public $inheritanceMap; // @todo must go protected
-    public $vertex; // @todo must go protected
+    protected $inheritanceMap;
+    protected $vertex;
 
     /**
      * @todo Perhaps the graph has no place here, it's only easier for initializing CompilerPass
      * @param Graph $g 
      */
-    public function __construct(Graph $g)
+    public function __construct()
     {
-        $this->graph = $g;
         $this->vertex = array('class' => array(), 'interface' => array(),
             'method' => array(), 'impl' => array(),
             'param' => array()
@@ -104,6 +103,97 @@ class Context
         }
 
         return null;
+    }
+
+    /**
+     * Initialize a new symbol
+     * 
+     * @param string $name class or interface name
+     * @param bool $isInterface is interface ?
+     */
+    public function initSymbol($name, $isInterface)
+    {
+        if (!array_key_exists($name, $this->inheritanceMap)) {
+            $this->inheritanceMap[$name]['interface'] = $isInterface;
+            $this->inheritanceMap[$name]['parent'] = array();
+            $this->inheritanceMap[$name]['method'] = array();
+        }
+    }
+
+    public function pushParentClass($cls, $parent)
+    {
+        $this->inheritanceMap[$cls]['parent'][] = $parent;
+    }
+
+    public function addMethodToClass($cls, $method)
+    {
+        $this->inheritanceMap[$cls]['method'][$method] = $cls;
+    }
+
+    /**
+     * Search if a type (class or interface) exists in the inheritanceMap
+     *
+     * @param string $cls
+     * @return bool
+     */
+    public function hasDeclaringClass($cls)
+    {
+        return array_key_exists($cls, $this->inheritanceMap);
+    }
+
+    /**
+     * Finds the FQCN of the first declaring class/interface of a method
+     *
+     * @param string $cls subclass name
+     * @param string $meth method name
+     * @return string
+     */
+    public function getDeclaringClass($cls, $meth)
+    {
+        return $this->inheritanceMap[$cls]['method'][$meth];
+    }
+
+    /**
+     * Is FQCN an interface ?
+     *
+     * @param string $cls FQCN
+     * @return bool
+     */
+    public function isInterface($cls)
+    {
+        return $this->inheritanceMap[$cls]['interface'];
+    }
+
+    /**
+     * Find a vertex by its type and name
+     *
+     * @param string $type
+     * @param string $key
+     * @return Vertex or null
+     */
+    public function findVertex($type, $key)
+    {
+        if (array_key_exists($key, $this->vertex[$type])) {
+            return $this->vertex[$type][$key];
+        }
+        return null;
+    }
+
+    public function existsVertex($type, $key)
+    {
+        return array_key_exists($key, $this->vertex[$type]);
+    }
+
+    public function findAllMethodSameName($method)
+    {
+        return array_filter($this->vertex['method'], function($val) use ($method) {
+                            return preg_match("#::$method$#", $val->getName());
+                        });
+    }
+
+    public function indicesVertex($type, $index, Vertex $v)
+    {
+        $this->vertex[$type][$index] = $v;
     }
 
 }
