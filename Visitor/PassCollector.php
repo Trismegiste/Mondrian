@@ -13,6 +13,11 @@ use Trismegiste\Mondrian\Graph\Graph;
 
 /**
  * PassCollector is an abstract compiler pass for visiting source code
+ * and build the graph with the help of a Context
+ * 
+ * It feels like a Mediator between Context and concrete CompilerPass
+ * (It is not because Context and concrete CompilerPass are not daughter
+ * of a common interface)
  */
 abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
 {
@@ -20,7 +25,7 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
     protected $graph;
     protected $currentClass = false;
     protected $currentMethod = false;
-    private $context; // perhaps I will make it protected when I'll remove inheritanceMap in the subclasses
+    private $context;
 
     public function __construct(Context $ctx, Graph $g)
     {

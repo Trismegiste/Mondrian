@@ -34,6 +34,8 @@ class Grapher
         // 2nd pass
         $pass[2] = new Visitor\EdgeCollector($context, $graph);
 
+        // for memory concerns, I'll re-parse files on each pass
+        // (slower but lighter) and enriching the Context
         foreach ($pass as $collector) {
             $stopWatch = time();
 
