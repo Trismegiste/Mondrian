@@ -123,6 +123,11 @@ class Context
         }
     }
 
+    public function pushParentClass($cls, $parent)
+    {
+        $this->inheritanceMap[$cls]['parent'][] = $parent;
+    }
+
     /**
      * Search if a type (class or interface) exists in the inheritanceMap
      *
