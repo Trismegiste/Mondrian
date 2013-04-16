@@ -1,0 +1,96 @@
+{% extends 'index.html.twig' %}
+
+{% block content %}
+<h1>Workflow</h1>
+<h2>Unit tests</h2>
+<p>
+    You like basejumping from buildings in China ? You like stratopheric jump ? 
+    You like refactoring without unit tests ? Well, it's your choice...
+</p>
+<h2>A quick view before madness</h2>
+<p>
+    At first, try this command :
+    <pre>$ php console.php mondrian:digraph ~/MyProject</pre>
+    As I said, check the ratio class/interface and the ratio of contract method
+    on concrete methods to evaluate the level of abstraction. The lower they are,
+    the difficultier the refactoring will be.
+</p>
+<h2>Spaghetti incident</h2>
+<p>
+    Second, try this command :
+    <pre>$ php console.php mondrian:spaghetti --cycle ~/MyProject</pre>
+    If there is no cluster (strongly connected components), you are a lucky 
+    developer. If not, I recommand you to break the circle. 
+</p>
+<p>
+    What are these classes ?
+</p>
+<h3>Model classes</h3>
+<p>
+    hmmm... you have to rethink and abstract the model, add some interfaces
+    to decouple these classes. It can be tricky and you have perhaps to 
+    talk to the business people what they really want to do ? 
+</p>
+<h3>Service classes</h3>
+<p>
+    There are good chances you need a Mediator pattern to "bind" these colleagues
+    to work together. Don't forget to make an interface for this Mediator.
+</p>
+<h2>Circles of confusion</h2>
+<p>
+    Third, try this command :
+    <pre>$ php console.php mondrian:spaghetti --strategy=concrete ~/MyProject</pre>
+    Is there one big ball of mud ? Well, you can check if there would be false edges
+    because of method name collision. You can add comment with
+    <pre>// @mondrian ignoreCallTo MyClass::notCalledMethod</pre>
+    in front of method. But wait ! This could mean there is a common contract
+    between all these classes. Try to add the --cycle option to see the most
+    intricated components but don't try to break it now.
+</p>
+<h2>Narrow the good edges</h2>
+<p>
+    Fourth, try this command :
+    <pre>$ php console.php mondrian:hidden ~/MyProject</pre>
+    It helps you to find if there is really a non-typed parameter between two
+    classes. Therefore, you start to add new dependencies, go to first stage.
+</p>
+<p>
+    Since there is no type, add new interfaces or abstract classes.
+</p>
+<h2>What is really important</h2>
+<p>
+    Fifth, now you have a better matches between source code and digraph, 
+    you could try this command :
+    <pre>$ php console.php mondrian:centrality:depend ~/MyProject</pre>
+    It tells you what is the most critical component. It is not SRP since
+    it should have too many responsibilities.
+</p>
+<p>
+    And this too :
+    <pre>$ php console.php mondrian:centrality:used ~/MyProject</pre>
+    It tells you what is "on the top" of this package and what is "under the facade".
+    This is the time to use a Facade pattern perhaps.
+</p>
+<h2>Loop over...</h2>
+<p>
+    Sixth, it's time to show all dependencies with this command :
+    <pre>$ php console.php mondrian:spaghetti --strategy=any --cycle ~/MyProject</pre>
+    Beware, Cthulhu is behind you if you have many classes in a cluster.
+</p>
+<h2>... and over</h2>
+<p>
+    Seventh, you can carefully eliminates bad edges with :
+    <pre>$ php console.php mondrian:cycle ~/MyProject</pre>
+    Check the collision, create new interfaces and go to stage two or three. 
+</p>
+<h2>May the force be with you</h2>
+<p>
+    As you can see, there is no magic behind refactoring. It is an iterative process
+    but with this tools, you can check at each step if you go in the right direction. 
+    Don't forget to branch over and over with GIT it is made for that !
+</p>
+<p>
+    It is only an example. Your process may be very different, depending of
+    what kind of source code you have.
+</p>
+{% endblock %}
