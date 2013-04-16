@@ -8,6 +8,7 @@ namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Transform\Context;
 use Trismegiste\Mondrian\Transform\CompilerPass;
+use Trismegiste\Mondrian\Graph\Vertex;
 
 /**
  * PassCollector is an abstract compiler pass for visiting source code
@@ -105,6 +106,11 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
             return $this->context->findMethodInInheritanceTree($cls, $method);
         }
         return null;
+    }
+
+    protected function indicesVertex($typ, $index, Vertex $v)
+    {
+        $this->context->indicesVertex($typ, $index, $v);
     }
 
 }

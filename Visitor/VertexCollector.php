@@ -70,27 +70,27 @@ class VertexCollector extends PassCollector
         if (!$this->existsVertex('class', $index)) {
             $v = new Vertex\ClassVertex($index);
             $this->graph->addVertex($v);
-            $this->vertex['class'][$index] = $v;
+            $this->indicesVertex('class', $index, $v);
         }
     }
 
     protected function pushInterface(\PHPParser_Node_Stmt_Interface $node)
     {
         $index = (string) $node->namespacedName;
-        if (!array_key_exists($index, $this->vertex['interface'])) {
+        if (!$this->existsVertex('interface', $index)) {
             $v = new Vertex\InterfaceVertex($index);
             $this->graph->addVertex($v);
-            $this->vertex['interface'][$index] = $v;
+            $this->indicesVertex('interface', $index, $v);
         }
     }
 
     protected function pushMethod(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $index = $this->getCurrentMethodIndex();
-        if (!array_key_exists($index, $this->vertex['method'])) {
+        if (!$this->existsVertex('method', $index)) {
             $v = new Vertex\MethodVertex($index);
             $this->graph->addVertex($v);
-            $this->vertex['method'][$index] = $v;
+            $this->indicesVertex('method', $index, $v);
             foreach ($node->params as $order => $aParam) {
                 $this->pushParameter($index, $order);
             }
