@@ -22,7 +22,8 @@ class Context
     protected $vertex;
 
     /**
-     * @todo Perhaps the graph has no place here, it's only easier for initializing CompilerPass
+     * Build the context
+     * 
      * @param Graph $g 
      */
     public function __construct()
