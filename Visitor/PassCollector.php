@@ -78,29 +78,47 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
         return $this->currentClass . '::' . $this->currentMethod;
     }
 
+    /**
+     * See Context
+     */
     protected function findAllMethodSameName($method)
     {
         return $this->context->findAllMethodSameName($method);
     }
 
+    /**
+     * See Context
+     */
     protected function existsVertex($type, $key)
     {
         return $this->context->existsVertex($type, $key);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function compile()
     {
         // nothing to do
     }
 
+    /**
+     * Check if the class exists before searching for the 
+     * declaring class of the method, because class could be unknown, outside
+     * or code could be bugged
+     */
     protected function findMethodInInheritanceTree($cls, $method)
     {
         if ($this->context->hasDeclaringClass($cls)) {
             return $this->context->findMethodInInheritanceTree($cls, $method);
         }
+
         return null;
     }
 
+    /**
+     * See Context
+     */
     protected function indicesVertex($typ, $index, Vertex $v)
     {
         $this->context->indicesVertex($typ, $index, $v);

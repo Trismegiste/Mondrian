@@ -39,7 +39,7 @@ class Context
      * Construct the inheritanceMap by resolving which class or interface
      * first declares a method
      * 
-     * (not vey efficient algo, I admit)
+     * (not vey efficient algo, I admit), it sux, it's redundent, I don't like it
      */
     public function resolveSymbol()
     {
@@ -82,12 +82,13 @@ class Context
     /**
      * Find if method is declared in superclass.
      * 
-     * Note1 : Algo is DFS
-     * 
+     * Note1: Algo is DFS
      * Note2: Must be called AFTER resolveSymbol
+     * Note3: this one is kewl, I don't now why it works at the first try
      * 
      * @param string $cls
      * @param string $method
+     * 
      * @return string the class which first declare the method (or null)
      */
     public function findMethodInInheritanceTree($cls, $method)
@@ -121,11 +122,24 @@ class Context
         }
     }
 
+    /**
+     * Stacks a parent type for a type
+     * 
+     * @param string $cls the type
+     * @param string $parent the parent type of $cls
+     */
     public function pushParentClass($cls, $parent)
     {
         $this->inheritanceMap[$cls]['parent'][] = $parent;
     }
 
+    /**
+     * Add a method to its type with the current type 
+     * for its default declaring type (after resolveSymbol, it changes)
+     * 
+     * @param string $cls
+     * @param string $method 
+     */
     public function addMethodToClass($cls, $method)
     {
         $this->inheritanceMap[$cls]['method'][$method] = $cls;
@@ -135,6 +149,7 @@ class Context
      * Search if a type (class or interface) exists in the inheritanceMap
      *
      * @param string $cls
+     * 
      * @return bool
      */
     public function hasDeclaringClass($cls)
@@ -147,6 +162,7 @@ class Context
      *
      * @param string $cls subclass name
      * @param string $meth method name
+     * 
      * @return string
      */
     public function getDeclaringClass($cls, $meth)
@@ -158,6 +174,7 @@ class Context
      * Is FQCN an interface ?
      *
      * @param string $cls FQCN
+     * 
      * @return bool
      */
     public function isInterface($cls)
@@ -170,6 +187,7 @@ class Context
      *
      * @param string $type
      * @param string $key
+     * 
      * @return Vertex or null
      */
     public function findVertex($type, $key)
@@ -180,11 +198,26 @@ class Context
         return null;
     }
 
+    /**
+     * Returns if a vertex of the type $type with the index $key exists
+     * 
+     * @param string $type
+     * @param string $key
+     * 
+     * @return bool 
+     */
     public function existsVertex($type, $key)
     {
         return array_key_exists($key, $this->vertex[$type]);
     }
 
+    /**
+     * Find all methods with the same name whatever its class
+     * 
+     * @param string $method
+     * 
+     * @return Vertex[] 
+     */
     public function findAllMethodSameName($method)
     {
         return array_filter($this->vertex['method'], function($val) use ($method) {
@@ -192,6 +225,13 @@ class Context
                         });
     }
 
+    /**
+     * Maintains a hashmap : ( type , index ) => Vertex obj
+     * 
+     * @param string $type [interface|class|method|param|impl]
+     * @param string $index the unique index in this type
+     * @param Vertex $v the vertex to index
+     */
     public function indicesVertex($type, $index, Vertex $v)
     {
         $this->vertex[$type][$index] = $v;

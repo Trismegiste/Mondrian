@@ -19,6 +19,9 @@ class EdgeCollector extends PassCollector
     protected $currentClassVertex = null;
     protected $currentMethodNode = null;
 
+    /**
+     * {@inheritDoc}
+     */
     public function enterNode(\PHPParser_Node $node)
     {
         parent::enterNode($node);
@@ -55,6 +58,9 @@ class EdgeCollector extends PassCollector
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function leaveNode(\PHPParser_Node $node)
     {
         switch ($node->getType()) {
@@ -160,6 +166,12 @@ class EdgeCollector extends PassCollector
         }
     }
 
+    /**
+     * Extracts annotation in the comment of a method and injects them in
+     * attribute of the node
+     * 
+     * @param \PHPParser_Node_Stmt_ClassMethod $node 
+     */
     protected function extractAnnotation(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         if ($node->hasAttribute('comments')) {
@@ -178,7 +190,7 @@ class EdgeCollector extends PassCollector
     }
 
     /**
-     * Visits a method node
+     * Visits a public method node
      *
      * @param \PHPParser_Node_Stmt_ClassMethod $node
      */

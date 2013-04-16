@@ -14,6 +14,9 @@ use Trismegiste\Mondrian\Transform\Vertex;
 class VertexCollector extends PassCollector
 {
 
+    /**
+     * {@inheritDoc}
+     */
     public function enterNode(\PHPParser_Node $node)
     {
         parent::enterNode($node);
@@ -49,6 +52,9 @@ class VertexCollector extends PassCollector
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function leaveNode(\PHPParser_Node $node)
     {
         if ($node->getType() == 'Stmt_Class') {
@@ -74,6 +80,11 @@ class VertexCollector extends PassCollector
         }
     }
 
+    /**
+     * Adding a new vertex if the index is not already indexed
+     * 
+     * @param \PHPParser_Node_Stmt_Interface $node 
+     */
     protected function pushInterface(\PHPParser_Node_Stmt_Interface $node)
     {
         $index = (string) $node->namespacedName;
@@ -84,6 +95,12 @@ class VertexCollector extends PassCollector
         }
     }
 
+    /**
+     * Adding a new vertex if the index is not already indexed
+     * Since it is a method, I'm also adding the parameters
+     *
+     * @param \PHPParser_Node_Stmt_ClassMethod $node 
+     */
     protected function pushMethod(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $index = $this->getCurrentMethodIndex();
@@ -97,6 +114,11 @@ class VertexCollector extends PassCollector
         }
     }
 
+    /**
+     * Adding a new vertex if the index is not already indexed
+     *
+     * @param \PHPParser_Node_Stmt_ClassMethod $node 
+     */
     protected function pushImplementation(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $index = $this->getCurrentMethodIndex();
@@ -107,6 +129,15 @@ class VertexCollector extends PassCollector
         }
     }
 
+    /**
+     * Add a parameter vertex. I must point out that I storre the order 
+     * of the parameter, not its name. Why ? Because, name can change accross
+     * inheritance tree. Therefore, it could fail the refactoring of the source
+     * from the digraph.
+     * 
+     * @param string $methodName like 'FQCN::method'
+     * @param int $order 
+     */
     protected function pushParameter($methodName, $order)
     {
         $index = $methodName . '/' . $order;

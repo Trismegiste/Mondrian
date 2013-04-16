@@ -20,11 +20,19 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
     protected $currentClass = false;
     private $context;
 
+    /**
+     * Build the collector
+     * 
+     * @param Context $ctx 
+     */
     public function __construct(Context $ctx)
     {
         $this->context = $ctx;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function enterNode(\PHPParser_Node $node)
     {
         parent::enterNode($node);
@@ -65,6 +73,9 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function leaveNode(\PHPParser_Node $node)
     {
         switch ($node->getType()) {
@@ -76,7 +87,7 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
     }
 
     /**
-     * Compiling the pass : resolving symbol in the context
+     * Compiling the pass : resolving symbols in the context
      */
     public function compile()
     {
