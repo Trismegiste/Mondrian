@@ -17,7 +17,6 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
 {
 
     protected $graph;
-    protected $vertex;  // @todo must be removed
     protected $currentClass = false;
     protected $currentMethod = false;
     private $context; // perhaps I will make it protected when I'll remove inheritanceMap in the subclasses
@@ -26,7 +25,6 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
     {
         $this->context = $ctx;
         $this->graph = $ctx->graph;
-        $this->vertex = &$ctx->vertex;
     }
 
     /**
