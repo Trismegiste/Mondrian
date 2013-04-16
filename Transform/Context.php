@@ -18,7 +18,6 @@ use Trismegiste\Mondrian\Graph\Vertex;
 class Context
 {
 
-    public $graph;
     protected $inheritanceMap;
     protected $vertex;
 
@@ -26,9 +25,8 @@ class Context
      * @todo Perhaps the graph has no place here, it's only easier for initializing CompilerPass
      * @param Graph $g 
      */
-    public function __construct(Graph $g)
+    public function __construct()
     {
-        $this->graph = $g;
         $this->vertex = array('class' => array(), 'interface' => array(),
             'method' => array(), 'impl' => array(),
             'param' => array()

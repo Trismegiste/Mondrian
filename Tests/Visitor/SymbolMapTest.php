@@ -21,7 +21,7 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->context = new Context($this->getMock('Trismegiste\Mondrian\Graph\Graph'));
+        $this->context = new Context();
         $this->visitor = new SymbolMap($this->context);
     }
 

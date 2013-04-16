@@ -26,13 +26,13 @@ class Grapher
         $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
         $graph = new \Trismegiste\Mondrian\Graph\Digraph();
 
-        $context = new Context($graph);
+        $context = new Context();
         // 0th pass
         $pass[0] = new Visitor\SymbolMap($context);
         // 1st pass
-        $pass[1] = new Visitor\VertexCollector($context);
+        $pass[1] = new Visitor\VertexCollector($context, $graph);
         // 2nd pass
-        $pass[2] = new Visitor\EdgeCollector($context);
+        $pass[2] = new Visitor\EdgeCollector($context, $graph);
 
         foreach ($pass as $collector) {
             $stopWatch = time();

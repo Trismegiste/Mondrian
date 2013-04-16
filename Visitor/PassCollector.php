@@ -9,6 +9,7 @@ namespace Trismegiste\Mondrian\Visitor;
 use Trismegiste\Mondrian\Transform\Context;
 use Trismegiste\Mondrian\Transform\CompilerPass;
 use Trismegiste\Mondrian\Graph\Vertex;
+use Trismegiste\Mondrian\Graph\Graph;
 
 /**
  * PassCollector is an abstract compiler pass for visiting source code
@@ -21,21 +22,10 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
     protected $currentMethod = false;
     private $context; // perhaps I will make it protected when I'll remove inheritanceMap in the subclasses
 
-    public function __construct(Context $ctx)
+    public function __construct(Context $ctx, Graph $g)
     {
         $this->context = $ctx;
-        $this->graph = $ctx->graph;
-    }
-
-    /**
-     * Search if a type (class or interface) exists in the inheritanceMap
-     *
-     * @param string $cls
-     * @return bool
-     */
-    protected function hasDeclaringClass($cls)
-    {
-        return $this->context->hasDeclaringClass($cls);
+        $this->graph = $g;
     }
 
     /**
