@@ -100,20 +100,20 @@ class VertexCollector extends PassCollector
     protected function pushImplementation(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $index = $this->getCurrentMethodIndex();
-        if (!array_key_exists($index, $this->vertex['impl'])) {
+        if (!$this->existsVertex('impl', $index)) {
             $v = new Vertex\ImplVertex($index);
             $this->graph->addVertex($v);
-            $this->vertex['impl'][$index] = $v;
+            $this->indicesVertex('impl', $index, $v);
         }
     }
 
     protected function pushParameter($methodName, $order)
     {
         $index = $methodName . '/' . $order;
-        if (!array_key_exists($index, $this->vertex['param'])) {
+        if (!$this->existsVertex('param', $index)) {
             $v = new Vertex\ParamVertex($index);
             $this->graph->addVertex($v);
-            $this->vertex['param'][$index] = $v;
+            $this->indicesVertex('param', $index, $v);
         }
     }
 
