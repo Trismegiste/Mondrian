@@ -70,7 +70,7 @@ class PowerIteration extends Algorithm
             $delta = 0;
             // normalize
             foreach ($result as $v) {
-                $newVal = $result->getInfo() / $norm;
+                $newVal = ($norm > 0) ? $result->getInfo() / $norm : 0;
                 $delta += abs($newVal - $approx[$v]);
                 $approx[$v] = $newVal;
             }
