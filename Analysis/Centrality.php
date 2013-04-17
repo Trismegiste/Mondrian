@@ -86,7 +86,6 @@ class Centrality extends Algorithm
         arsort($eigenArray);
         // only the order is interesting, I'm not Google
         $iter = 0;
-        $mostCentral = count($eigenVector) / 10.0;
         foreach ($eigenArray as $idx => $val) {
             $pseudoRank = min(array(1 + $iter / 2, 11));
             $vertexArray[$idx]->setMeta($metaName, $pseudoRank);
