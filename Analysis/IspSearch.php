@@ -44,8 +44,8 @@ class IspSearch extends Algorithm
                                     if (($succ instanceof ClassVertex)
                                             && ($succ->getName() == $owningClass )) {
                                         // we find the owning class vertex of $impl
-                                        $reducedGraph->addEdge($cls, $methodVertex);
-                                        $reducedGraph->addEdge($methodVertex, $succ);
+                                        $reducedGraph->addEdge($methodVertex, $cls);
+                                        $reducedGraph->addEdge($succ, $methodVertex);
                                     }
                                 }
                             }
