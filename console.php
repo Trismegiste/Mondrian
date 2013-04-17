@@ -20,4 +20,5 @@ $application->add(new Command\DependCentralityCommand());
 $application->add(new Command\HiddenCouplingCommand());
 $application->add(new Command\SpaghettiCommand());
 $application->add(new Command\CyclicCommand());
+$application->add(new Command\IspCommand());
 $application->run();
