@@ -33,6 +33,8 @@ class IspCommand extends AbstractParse
     {
         $algo = new IspSearch($graph);
         $result = $algo->generateIspGraph();
+        $central = new \Trismegiste\Mondrian\Analysis\Centrality($result);
+        $central->addUsedRank();
 
         return $result;
     }
