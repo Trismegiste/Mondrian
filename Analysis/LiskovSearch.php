@@ -9,14 +9,12 @@ namespace Trismegiste\Mondrian\Analysis;
 use Trismegiste\Mondrian\Transform\Vertex\ImplVertex;
 use Trismegiste\Mondrian\Transform\Vertex\MethodVertex;
 use Trismegiste\Mondrian\Transform\Vertex\ClassVertex;
-use Trismegiste\Mondrian\Transform\Vertex\InterfaceVertex;
-use Trismegiste\Mondrian\Graph\Edge;
 use Trismegiste\Mondrian\Graph\Algorithm;
 
 /**
- * IspSearch is an analyser 
+ * LiskovSearch is an analyser
  */
-class IspSearch extends Algorithm
+class LiskovSearch extends Algorithm
 {
 
     /**
@@ -31,7 +29,7 @@ class IspSearch extends Algorithm
                 // for each class
                 foreach ($this->getEdgeIterator($cls) as $methodVertex) {
                     if ($methodVertex instanceof MethodVertex) {
-                        // we have a method first declared in a class                        
+                        // we have a method first declared in a class
                         // we search for calls to that method
                         foreach ($edgeSet as $call) {
                             if (($call->getSource() instanceof ImplVertex)

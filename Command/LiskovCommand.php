@@ -8,20 +8,19 @@ namespace Trismegiste\Mondrian\Command;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Trismegiste\Mondrian\Graph\Graph;
-use Symfony\Component\Console\Input\InputOption;
-use Trismegiste\Mondrian\Analysis\IspSearch;
+use Trismegiste\Mondrian\Analysis\LiskovSearch;
 
 /**
- * IspCommand transforms a bunch of php files into a reduced digraph
+ * LiskovCommand transforms a bunch of php files into a reduced digraph
  * to the LSP violation to refactor and achieve ISP
  *
  */
-class IspCommand extends AbstractParse
+class LiskovCommand extends AbstractParse
 {
 
     protected function getSubname()
     {
-        return 'isp';
+        return 'liskov';
     }
 
     protected function getFullDesc()
@@ -31,7 +30,7 @@ class IspCommand extends AbstractParse
 
     protected function processGraph(Graph $graph, OutputInterface $output)
     {
-        $algo = new IspSearch($graph);
+        $algo = new LiskovSearch($graph);
         $result = $algo->generateIspGraph();
         $central = new \Trismegiste\Mondrian\Analysis\Centrality($result);
         $central->addUsedRank();
