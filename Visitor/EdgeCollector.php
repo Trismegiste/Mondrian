@@ -50,7 +50,7 @@ class EdgeCollector extends PassCollector
     public function leaveNode(\PHPParser_Node $node)
     {
         parent::leaveNode($node);
-        
+
         switch ($node->getType()) {
 
             case 'Stmt_Class':
@@ -153,32 +153,7 @@ class EdgeCollector extends PassCollector
     }
 
     /**
-     * Extracts annotation in the comment of a method and injects them in
-     * attribute of the node
-     * 
-     * @param \PHPParser_Node_Stmt_ClassMethod $node 
-     */
-    protected function extractAnnotation(\PHPParser_Node_Stmt_ClassMethod $node)
-    {
-        if ($node->hasAttribute('comments')) {
-            $compil = array();
-            foreach ($node->getAttribute('comments') as $comm) {
-                preg_match_all('#^.*@mondrian\s+([\w]+)\s+([^\s]+)\s*$#m', $comm->getReformattedText(), $match);
-                foreach ($match[0] as $idx => $matchedOccur) {
-                    $compil[$match[1][$idx]][] = $match[2][$idx];
-                }
-            }
-            // if there are annotations, we add them to the node
-            foreach ($compil as $attr => $lst) {
-                $node->setAttribute($attr, $lst);
-            }
-        }
-    }
-
-    /**
-     * Visits a public method node
-     *
-     * @param \PHPParser_Node_Stmt_ClassMethod $node
+     * {@inheritDoc}
      */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
@@ -200,9 +175,7 @@ class EdgeCollector extends PassCollector
     }
 
     /**
-     * Visits an interface node
-     *
-     * @param \PHPParser_Node_Stmt_Interface $node
+     * {@inheritDoc}
      */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
@@ -218,9 +191,7 @@ class EdgeCollector extends PassCollector
     }
 
     /**
-     * Visits a class node
-     *
-     * @param \PHPParser_Node_Stmt_Class $node
+     * {@inheritDoc}
      */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {

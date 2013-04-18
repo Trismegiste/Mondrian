@@ -191,4 +191,27 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
         $this->context->indicesVertex($typ, $index, $v);
     }
 
+    /**
+     * Extracts annotation in the comment of a method and injects them in
+     * attribute of the node
+     * 
+     * @param \PHPParser_Node_Stmt_ClassMethod $node 
+     */
+    protected function extractAnnotation(\PHPParser_Node_Stmt_ClassMethod $node)
+    {
+        if ($node->hasAttribute('comments')) {
+            $compil = array();
+            foreach ($node->getAttribute('comments') as $comm) {
+                preg_match_all('#^.*@mondrian\s+([\w]+)\s+([^\s]+)\s*$#m', $comm->getReformattedText(), $match);
+                foreach ($match[0] as $idx => $matchedOccur) {
+                    $compil[$match[1][$idx]][] = $match[2][$idx];
+                }
+            }
+            // if there are annotations, we add them to the node
+            foreach ($compil as $attr => $lst) {
+                $node->setAttribute($attr, $lst);
+            }
+        }
+    }
+
 }
