@@ -28,20 +28,6 @@ class EdgeCollector extends PassCollector
 
         switch ($node->getType()) {
 
-            case 'Stmt_Class' :
-                $this->enterClassNode($node);
-                break;
-
-            case 'Stmt_Interface' :
-                $this->enterInterfaceNode($node);
-                break;
-
-            case 'Stmt_ClassMethod' :
-                if ($node->isPublic()) {
-                    $this->enterPublicMethodNode($node);
-                }
-                break;
-
             case 'Expr_MethodCall' :
                 // since we only track the public method, we check we are in :
                 if ($this->currentMethod) {
@@ -63,16 +49,16 @@ class EdgeCollector extends PassCollector
      */
     public function leaveNode(\PHPParser_Node $node)
     {
+        parent::leaveNode($node);
+        
         switch ($node->getType()) {
 
             case 'Stmt_Class':
             case 'Stmt_Interface';
-                $this->currentClass = false;
                 $this->currentClassVertex = null;
                 break;
 
             case 'Stmt_ClassMethod' :
-                $this->currentMethod = false;
                 $this->currentMethodNode = null;
                 break;
         }
@@ -196,7 +182,6 @@ class EdgeCollector extends PassCollector
      */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
-        $this->currentMethod = $node->name;
         $this->currentMethodNode = $node;
         $this->extractAnnotation($node);
         // search for the declaring class of this method
@@ -221,7 +206,6 @@ class EdgeCollector extends PassCollector
      */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-        $this->currentClass = (string) $node->namespacedName;
         $src = $this->findVertex('interface', $this->currentClass);
         $this->currentClassVertex = $src;
 
@@ -240,7 +224,6 @@ class EdgeCollector extends PassCollector
      */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
-        $this->currentClass = (string) $node->namespacedName;
         $src = $this->findVertex('class', $this->currentClass);
         $this->currentClassVertex = $src;
 
