@@ -26,7 +26,7 @@ class HiddenCouplingTest extends \PHPUnit_Framework_TestCase
 
     public function testEmptyGraph()
     {
-        $result = $this->graph->generateGraph();
+        $result = $this->graph->createReducedGraph();
         $this->assertCount(0, $result->getVertexSet());
     }
 
@@ -49,7 +49,7 @@ class HiddenCouplingTest extends \PHPUnit_Framework_TestCase
         $this->graph->addEdge($impl, $callingClass);
         $this->graph->addEdge($declaring, $callee);
         $this->graph->addEdge($impl, $callee);
-        $result = $this->graph->generateGraph();
+        $result = $this->graph->createReducedGraph();
         $this->assertCount(4, $result->getVertexSet());
         $this->assertCount(3, $result->getEdgeSet());
     }
@@ -66,7 +66,7 @@ class HiddenCouplingTest extends \PHPUnit_Framework_TestCase
         $this->graph->addEdge($impl, $callee);
         $this->graph->addEdge($param, $declaring);
         $this->graph->addEdge($impl, $param);
-        $result = $this->graph->generateGraph();
+        $result = $this->graph->createReducedGraph();
         $this->assertCount(0, $result->getVertexSet());
     }
 
@@ -79,7 +79,7 @@ class HiddenCouplingTest extends \PHPUnit_Framework_TestCase
         $this->graph->addEdge($callingClass, $impl);
         $this->graph->addEdge($declaring, $callee);
         $this->graph->addEdge($impl, $callee);
-        $result = $this->graph->generateGraph();
+        $result = $this->graph->createReducedGraph();
     }
 
     /**
@@ -92,7 +92,7 @@ class HiddenCouplingTest extends \PHPUnit_Framework_TestCase
         $this->graph->addEdge(new Vertex\InterfaceVertex('C'), $callee);
         $this->graph->addEdge($impl, $callingClass);
         $this->graph->addEdge($impl, $callee);
-        $result = $this->graph->generateGraph();
+        $result = $this->graph->createReducedGraph();
     }
 
 }

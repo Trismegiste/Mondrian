@@ -46,7 +46,7 @@ use Trismegiste\Mondrian\Graph\Edge;
  * seen.
  *
  */
-class HiddenCoupling extends BreadthFirstSearch
+class HiddenCoupling extends BreadthFirstSearch implements Generator
 {
 
     /**
@@ -57,7 +57,7 @@ class HiddenCoupling extends BreadthFirstSearch
      * in O(n³)
      *
      */
-    public function generateGraph()
+    public function createReducedGraph() 
     {
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
         $dependency = $this->getEdgeSet();
