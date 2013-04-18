@@ -8,8 +8,6 @@ namespace Trismegiste\Mondrian\Command;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Trismegiste\Mondrian\Graph\Graph;
-use Symfony\Component\Console\Input\InputOption;
-use Trismegiste\Mondrian\Analysis\Centrality;
 
 /**
  * AbstractCentrality transforms a bunch of php files into a digraph
@@ -33,11 +31,14 @@ abstract class AbstractCentrality extends AbstractParse
 
     protected function processGraph(Graph $graph, OutputInterface $output)
     {
-        $algo = new Centrality($graph);
-        $this->processCentrality($algo);
+        $algo = $this->createCentrality($graph);
+        $algo->decorate();
 
         return $graph;
     }
 
-    abstract protected function processCentrality(Centrality $g);
+    /**
+     * @return Centrality
+     */
+    abstract protected function createCentrality(Graph $g);
 }

@@ -6,27 +6,27 @@
 
 namespace Trismegiste\Mondrian\Tests\Analysis;
 
-use Trismegiste\Mondrian\Analysis\Centrality;
+use Trismegiste\Mondrian\Analysis\DependCentrality;
 use Trismegiste\Mondrian\Graph\Digraph;
 use Trismegiste\Mondrian\Transform\Vertex;
 
 /**
- * CentralityTest tests Centrality analysis
+ * DependCentralityTest tests Centrality analysis
  *
  */
-class CentralityTest extends \PHPUnit_Framework_TestCase
+class DependCentralityTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $graph;
 
     protected function setUp()
     {
-        $this->graph = new Centrality(new Digraph());
+        $this->graph = new DependCentrality(new Digraph());
     }
 
     public function testEmptyGraph()
     {
-        $this->graph->addDependRank();
+        $this->graph->decorate();
         $this->assertCount(0, $this->graph->getVertexSet());
     }
 
@@ -44,9 +44,7 @@ class CentralityTest extends \PHPUnit_Framework_TestCase
             $this->graph->addEdge($impl, $subclass);
         }
 
-        $this->graph->addUsedRank();
-        $this->assertEquals(1, $meth->getMeta('centrality'));
-        $this->graph->addDependRank();
+        $this->graph->decorate();
         $this->assertEquals(11, $meth->getMeta('centrality'));
     }
 
