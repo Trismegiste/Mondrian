@@ -31,7 +31,7 @@ class LiskovCommand extends AbstractParse
     protected function processGraph(Graph $graph, OutputInterface $output)
     {
         $algo = new LiskovSearch($graph);
-        $result = $algo->generateIspGraph();
+        $result = $algo->createReducedGraph();
         $central = new \Trismegiste\Mondrian\Analysis\Centrality($result);
         $central->addUsedRank();
 

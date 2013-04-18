@@ -27,7 +27,7 @@ class LiskovSearchTest extends \PHPUnit_Framework_TestCase
 
     public function testEmptyGraph()
     {
-        $result = $this->graph->generateIspGraph();
+        $result = $this->graph->createReducedGraph();
         $this->assertCount(0, $result->getVertexSet());
     }
 
@@ -53,10 +53,10 @@ class LiskovSearchTest extends \PHPUnit_Framework_TestCase
         $this->graph->addEdge($callee, $called);
         $this->graph->addEdge($called, $declaring);
 
-        $result = $this->graph->generateIspGraph();
+        $result = $this->graph->createReducedGraph();
         $this->assertCount(0, $result->getVertexSet());
         $this->graph->addEdge($impl, $callee);
-        $result = $this->graph->generateIspGraph();
+        $result = $this->graph->createReducedGraph();
         $this->assertCount(3, $result->getVertexSet());
         $this->assertCount(2, $result->getEdgeSet());
     }

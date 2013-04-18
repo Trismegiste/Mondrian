@@ -14,13 +14,13 @@ use Trismegiste\Mondrian\Graph\Algorithm;
 /**
  * LiskovSearch is an analyser
  */
-class LiskovSearch extends Algorithm
+class LiskovSearch extends Algorithm implements Generator
 {
 
     /**
      * Generate a digraph reduced to all calls to concrete method
      */
-    public function generateIspGraph()
+    public function createReducedGraph()
     {
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
         $edgeSet = $this->getEdgeSet();
