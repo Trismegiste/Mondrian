@@ -16,7 +16,7 @@ use Trismegiste\Mondrian\Analysis\DependCentrality;
  *
  * Higher rank means the vertex has many directed edges pointing to other
  * vertices. It means the vertex has a higher risk to be changed
- * each time there is a change accross the source code (bottleneck effect)
+ * each time there is a change somewhere in the source code (bottleneck effect)
  */
 class DependCentralityCommand extends AbstractCentrality
 {

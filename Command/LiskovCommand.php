@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Analysis\LiskovSearch;
 
 /**
  * LiskovCommand transforms a bunch of php files into a reduced digraph
- * to the LSP violation to refactor and achieve ISP
+ * to the LSP violation to refactor (and later achieve ISP)
  *
  */
 class LiskovCommand extends AbstractParse
@@ -25,15 +25,15 @@ class LiskovCommand extends AbstractParse
 
     protected function getFullDesc()
     {
-        return parent::getFullDesc() . ' with ISP violation';
+        return parent::getFullDesc() . ' with LSP violation';
     }
 
     protected function processGraph(Graph $graph, OutputInterface $output)
     {
         $algo = new LiskovSearch($graph);
         $result = $algo->createReducedGraph();
-        $central = new \Trismegiste\Mondrian\Analysis\Centrality($result);
-        $central->addUsedRank();
+        $central = new \Trismegiste\Mondrian\Analysis\UsedCentrality($result);
+        $central->decorate();
 
         return $result;
     }
