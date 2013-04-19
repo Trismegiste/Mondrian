@@ -28,20 +28,6 @@ class EdgeCollector extends PassCollector
 
         switch ($node->getType()) {
 
-            case 'Stmt_Class' :
-                $this->enterClassNode($node);
-                break;
-
-            case 'Stmt_Interface' :
-                $this->enterInterfaceNode($node);
-                break;
-
-            case 'Stmt_ClassMethod' :
-                if ($node->isPublic()) {
-                    $this->enterPublicMethodNode($node);
-                }
-                break;
-
             case 'Expr_MethodCall' :
                 // since we only track the public method, we check we are in :
                 if ($this->currentMethod) {
@@ -63,16 +49,16 @@ class EdgeCollector extends PassCollector
      */
     public function leaveNode(\PHPParser_Node $node)
     {
+        parent::leaveNode($node);
+
         switch ($node->getType()) {
 
             case 'Stmt_Class':
             case 'Stmt_Interface';
-                $this->currentClass = false;
                 $this->currentClassVertex = null;
                 break;
 
             case 'Stmt_ClassMethod' :
-                $this->currentMethod = false;
                 $this->currentMethodNode = null;
                 break;
         }
@@ -167,36 +153,10 @@ class EdgeCollector extends PassCollector
     }
 
     /**
-     * Extracts annotation in the comment of a method and injects them in
-     * attribute of the node
-     * 
-     * @param \PHPParser_Node_Stmt_ClassMethod $node 
-     */
-    protected function extractAnnotation(\PHPParser_Node_Stmt_ClassMethod $node)
-    {
-        if ($node->hasAttribute('comments')) {
-            $compil = array();
-            foreach ($node->getAttribute('comments') as $comm) {
-                preg_match_all('#^.*@mondrian\s+([\w]+)\s+([^\s]+)\s*$#m', $comm->getReformattedText(), $match);
-                foreach ($match[0] as $idx => $matchedOccur) {
-                    $compil[$match[1][$idx]][] = $match[2][$idx];
-                }
-            }
-            // if there are annotations, we add them to the node
-            foreach ($compil as $attr => $lst) {
-                $node->setAttribute($attr, $lst);
-            }
-        }
-    }
-
-    /**
-     * Visits a public method node
-     *
-     * @param \PHPParser_Node_Stmt_ClassMethod $node
+     * {@inheritDoc}
      */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
-        $this->currentMethod = $node->name;
         $this->currentMethodNode = $node;
         $this->extractAnnotation($node);
         // search for the declaring class of this method
@@ -215,13 +175,10 @@ class EdgeCollector extends PassCollector
     }
 
     /**
-     * Visits an interface node
-     *
-     * @param \PHPParser_Node_Stmt_Interface $node
+     * {@inheritDoc}
      */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-        $this->currentClass = (string) $node->namespacedName;
         $src = $this->findVertex('interface', $this->currentClass);
         $this->currentClassVertex = $src;
 
@@ -234,13 +191,10 @@ class EdgeCollector extends PassCollector
     }
 
     /**
-     * Visits a class node
-     *
-     * @param \PHPParser_Node_Stmt_Class $node
+     * {@inheritDoc}
      */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
-        $this->currentClass = (string) $node->namespacedName;
         $src = $this->findVertex('class', $this->currentClass);
         $this->currentClassVertex = $src;
 

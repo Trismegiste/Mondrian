@@ -15,64 +15,11 @@ class VertexCollector extends PassCollector
 {
 
     /**
-     * {@inheritDoc}
+     * 
      */
-    public function enterNode(\PHPParser_Node $node)
+    protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
-        parent::enterNode($node);
-
-        switch ($node->getType()) {
-
-            case 'Stmt_Class' :
-                $this->currentClass = (string) $node->namespacedName;
-                $this->pushClass($node);
-                break;
-
-            case 'Stmt_Interface' :
-                $this->currentClass = (string) $node->namespacedName;
-                $this->pushInterface($node);
-                break;
-
-            case 'Stmt_ClassMethod' :
-                if ($node->isPublic()) {
-                    $this->currentMethod = $node->name;
-                    // only if this method is first declared in this class
-                    $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
-                    // we add the vertex. If not, it will be a higher class/interface
-                    // in the inheritance hierarchy which add it.
-                    if ($this->currentClass == $declaringClass) {
-                        $this->pushMethod($node);
-                    }
-                    // if not abstract we add the vertex for the implementation
-                    if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
-                        $this->pushImplementation($node);
-                    }
-                }
-                break;
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function leaveNode(\PHPParser_Node $node)
-    {
-        if ($node->getType() == 'Stmt_Class') {
-            $this->currentClass = false;
-        }
-        if ($node->getType() == 'Stmt_ClassMethod') {
-            $this->currentMethod = false;
-        }
-    }
-
-    /**
-     * add a new ClassVertex with the class node
-     *
-     * @param \PHPParser_Node_Stmt_Class $node
-     */
-    protected function pushClass(\PHPParser_Node_Stmt_Class $node)
-    {
-        $index = (string) $node->namespacedName;
+        $index = $this->currentClass;
         if (!$this->existsVertex('class', $index)) {
             $v = new Vertex\ClassVertex($index);
             $this->graph->addVertex($v);
@@ -81,17 +28,33 @@ class VertexCollector extends PassCollector
     }
 
     /**
-     * Adding a new vertex if the index is not already indexed
      * 
-     * @param \PHPParser_Node_Stmt_Interface $node 
      */
-    protected function pushInterface(\PHPParser_Node_Stmt_Interface $node)
+    protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-        $index = (string) $node->namespacedName;
+        $index = $this->currentClass;
         if (!$this->existsVertex('interface', $index)) {
             $v = new Vertex\InterfaceVertex($index);
             $this->graph->addVertex($v);
             $this->indicesVertex('interface', $index, $v);
+        }
+    }
+
+    /**
+     * 
+     */
+    protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
+    {
+        // only if this method is first declared in this class
+        $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
+        // we add the vertex. If not, it will be a higher class/interface
+        // in the inheritance hierarchy which add it.
+        if ($this->currentClass == $declaringClass) {
+            $this->pushMethod($node);
+        }
+        // if not abstract we add the vertex for the implementation
+        if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
+            $this->pushImplementation($node);
         }
     }
 
