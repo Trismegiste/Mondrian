@@ -46,13 +46,18 @@ class SpaghettiCommand extends AbstractParse
         parent::initialize($input, $output);
         $this->showCycle = $input->hasOption('cycle');
         $strategy = $input->getOption('strategy');
+        $this->connectionStrategy = $this->getClassFor($strategy);
+    }
+
+    private function getClassFor($strategy)
+    {
         $typeList = array(
             'call' => 'Trismegiste\Mondrian\Analysis\Strategy\ByCalling',
             'concrete' => 'Trismegiste\Mondrian\Analysis\Strategy\ByImplemented',
             'any' => 'Trismegiste\Mondrian\Analysis\Strategy\ByConnection'
         );
         if (array_key_exists($strategy, $typeList)) {
-            $this->connectionStrategy = $typeList[$strategy];
+            return $typeList[$strategy];
         } else {
             throw new \RuntimeException("$strategy is not a valid strategy");
         }
