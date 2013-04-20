@@ -27,6 +27,7 @@ class Contractor
 
         // 0th pass
         $pass[0] = new Visitor\NewContractCollector();
+        $pass[1] = new Visitor\ParamRefactor();
 
         // for memory concerns, I'll re-parse files on each pass
         // (slower but lighter) and enriching the Context
