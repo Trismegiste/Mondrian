@@ -42,7 +42,8 @@ class Contractor
                 $stmts = $parser->parse($code);
                 $traverser->traverse($stmts);
                 if ($collector->isModified()) {
-                    echo $prettyPrinter->prettyPrint($stmts);
+                    copy($fch, $fch . '.bak');
+                    file_put_contents($fch, "<?php\n\n" . $prettyPrinter->prettyPrint($stmts));
                 }
             }
         }
