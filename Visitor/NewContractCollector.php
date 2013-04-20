@@ -49,4 +49,14 @@ class NewContractCollector extends PublicCollector implements RefactorPass
         return false;
     }
 
+    public function hasGenerated()
+    {
+        return false;
+    }
+
+    public function getGenerated()
+    {
+        
+    }
+
 }

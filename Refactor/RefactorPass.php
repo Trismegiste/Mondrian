@@ -18,4 +18,8 @@ interface RefactorPass
      * @return bool
      */
     function isModified();
+
+    function hasGenerated();
+
+    function getGenerated();
 }

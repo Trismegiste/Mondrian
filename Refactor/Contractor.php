@@ -45,6 +45,9 @@ class Contractor
                     copy($fch, $fch . '.bak');
                     file_put_contents($fch, "<?php\n\n" . $prettyPrinter->prettyPrint($stmts));
                 }
+                if ($collector->hasGenerated()) {
+                    print_r($collector->getGenerated());
+                }
             }
         }
     }

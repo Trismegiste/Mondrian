@@ -55,4 +55,14 @@ class ParamRefactor extends PHPParser_NodeVisitor_NameResolver implements Refact
         return $this->isDirty;
     }
 
+    public function hasGenerated()
+    {
+        return false;
+    }
+
+    public function getGenerated()
+    {
+        
+    }
+
 }
