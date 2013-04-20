@@ -278,6 +278,7 @@ class EdgeCollector extends PassCollector
     protected function enterNonDynamicMethodCall(\PHPParser_Node_Expr_MethodCall $node)
     {
         $method = $node->name;
+        $candidate = null;
         // skipping some obvious calls :
         if (($node->var->getType() == 'Expr_Variable')
                 && (is_string($node->var->name))) {
@@ -286,7 +287,7 @@ class EdgeCollector extends PassCollector
             $candidate = $this->getCalledMethodVertexOn($node->var->name, $method);
         }
         // fallback : link to every methods with the same name :
-        if (!isset($candidate) || is_null($candidate)) {
+        if (is_null($candidate)) {
             $candidate = $this->findAllMethodSameName($method);
         }
         $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
