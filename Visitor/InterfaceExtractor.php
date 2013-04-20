@@ -42,20 +42,20 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
 
     public function leaveNode(\PHPParser_Node $node)
     {
-        parent::leaveNode($node);
-
         if ($node->getType() === 'Stmt_Class') {
             $this->newContent[$this->newInterface] = $this->buildNewInterface();
             $this->newInterface = false;
         }
+
+        parent::leaveNode($node);
     }
 
     protected function buildNewInterface()
     {
-        $fqcn = new \PHPParser_Node_Name_FullyQualified($this->newInterface);
-        $interfaceShortcut = array_pop($fqcn->parts);
+        $fqcn = new \PHPParser_Node_Name_FullyQualified($this->currentClass);
+        array_pop($fqcn->parts);
         $generated[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name($fqcn->parts));
-        $generated[1] = new \PHPParser_Node_Stmt_Interface($interfaceShortcut, array('stmts' => $this->methodStack));
+        $generated[1] = new \PHPParser_Node_Stmt_Interface($this->newInterface, array('stmts' => $this->methodStack));
 
         return $generated;
     }
