@@ -52,9 +52,9 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
 
     protected function buildNewInterface()
     {
-        $fqcn = new \PHPParser_Node_Stmt_Namespace($this->newInterface);
+        $fqcn = new \PHPParser_Node_Name_FullyQualified($this->newInterface);
         $interfaceShortcut = array_pop($fqcn->parts);
-        $generated[0] = $fqcn;
+        $generated[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name($fqcn->parts));
         $generated[1] = new \PHPParser_Node_Stmt_Interface($interfaceShortcut, array('stmts' => $this->methodStack));
 
         return $generated;
@@ -79,6 +79,11 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
         $abstracted->stmts = null;
 
         $this->methodStack[] = $abstracted;
+    }
+
+    public function isModified()
+    {
+        return false;
     }
 
     public function hasGenerated()

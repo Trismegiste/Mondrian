@@ -28,7 +28,8 @@ class Contractor
         $context = new Refactored();
         // passes
         $pass[0] = new Visitor\NewContractCollector($context);
-        $pass[1] = new Visitor\ParamRefactor($context);
+        //$pass[1] = new Visitor\ParamRefactor($context);
+        $pass[2] = new Visitor\InterfaceExtractor($context);
 
         // for memory concerns, I'll re-parse files on each pass
         // (slower but lighter) and enriching the Context
@@ -46,7 +47,11 @@ class Contractor
                     file_put_contents($fch, "<?php\n\n" . $prettyPrinter->prettyPrint($stmts));
                 }
                 if ($collector->hasGenerated()) {
-                    print_r($collector->getGenerated());
+                    $lst = $collector->getGenerated();
+                    foreach ($lst as $name => $interf) {
+                        echo "\n-------\n$name\n";
+                        echo $prettyPrinter->prettyPrint($interf);
+                    }
                 }
             }
         }
