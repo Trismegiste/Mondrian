@@ -24,7 +24,6 @@ class Contractor
     public function parse($iter)
     {
         $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
-        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
         $context = new Refactored();
         // passes
         $pass[0] = new Visitor\NewContractCollector($context);
@@ -43,18 +42,32 @@ class Contractor
                 $stmts = $parser->parse($code);
                 $traverser->traverse($stmts);
                 if ($collector->isModified()) {
-                    copy($fch, $fch . '.bak');
-                    file_put_contents($fch, "<?php\n\n" . $prettyPrinter->prettyPrint($stmts));
+                    $this->writeStatement($fch, $stmts);
                 }
                 if ($collector->hasGenerated()) {
                     $lst = $collector->getGenerated();
                     foreach ($lst as $name => $interf) {
                         $interfFch = dirname($fch) . DIRECTORY_SEPARATOR . $name . '.php';
-                        file_put_contents($interfFch, "<?php\n\n" . $prettyPrinter->prettyPrint($interf));
+                        $this->writeStatement($interfFch, $interf);
                     }
                 }
             }
         }
+    }
+
+    protected function writeStatement($fch, array $stmts)
+    {
+        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
+
+        if (file_exists($fch)) {
+            $cpy = basename($fch, '.php');
+            $cpy = dirname($fch) . DIRECTORY_SEPARATOR . $cpy . '.bak.php';
+            if (!file_exists($cpy)) {
+                copy($fch, $cpy);
+            }
+        }
+
+        file_put_contents($fch, "<?php\n\n" . $prettyPrinter->prettyPrint($stmts));
     }
 
 }
