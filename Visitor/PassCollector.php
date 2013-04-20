@@ -197,7 +197,7 @@ abstract class PassCollector extends \PHPParser_NodeVisitor_NameResolver impleme
      * 
      * @param \PHPParser_Node_Stmt_ClassMethod $node 
      */
-    protected function extractAnnotation(\PHPParser_Node_Stmt_ClassMethod $node)
+    protected function extractAnnotation(\PHPParser_Node_Stmt $node)
     {
         if ($node->hasAttribute('comments')) {
             $compil = array();
