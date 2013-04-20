@@ -28,7 +28,7 @@ class Contractor
         $context = new Refactored();
         // passes
         $pass[0] = new Visitor\NewContractCollector($context);
-        //$pass[1] = new Visitor\ParamRefactor($context);
+        $pass[1] = new Visitor\ParamRefactor($context);
         $pass[2] = new Visitor\InterfaceExtractor($context);
 
         // for memory concerns, I'll re-parse files on each pass
@@ -49,8 +49,8 @@ class Contractor
                 if ($collector->hasGenerated()) {
                     $lst = $collector->getGenerated();
                     foreach ($lst as $name => $interf) {
-                        echo "\n-------\n$name\n";
-                        echo $prettyPrinter->prettyPrint($interf);
+                        $interfFch = dirname($fch) . DIRECTORY_SEPARATOR . $name . '.php';
+                        file_put_contents($interfFch, "<?php\n\n" . $prettyPrinter->prettyPrint($interf));
                     }
                 }
             }

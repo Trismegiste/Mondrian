@@ -17,10 +17,16 @@ class NewContractCollector extends PublicCollector implements RefactorPass
 {
 
     protected $context;
+    protected $isDirty = false;
 
     public function __construct(Refactored $ctx)
     {
         $this->context = $ctx;
+    }
+
+    public function beforeTraverse(array $nodes)
+    {
+        $this->isDirty = false;
     }
 
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
@@ -29,8 +35,11 @@ class NewContractCollector extends PublicCollector implements RefactorPass
         if ($node->hasAttribute('contractor')) {
             $futureContract = clone $node->namespacedName;
             $classShortcut = array_pop($futureContract->parts);
-            $futureContract->parts[] = reset($node->getAttribute('contractor'));
+            $interfaceName = reset($node->getAttribute('contractor'));
+            $futureContract->parts[] = $interfaceName;
             $this->context->newContract[(string) $node->namespacedName] = (string) $futureContract;
+            $node->implements[] = new \PHPParser_Node_Name($interfaceName);
+            $this->isDirty = true;
         }
     }
 
@@ -46,7 +55,7 @@ class NewContractCollector extends PublicCollector implements RefactorPass
 
     public function isModified()
     {
-        return false;
+        return $this->isDirty;
     }
 
     public function hasGenerated()
