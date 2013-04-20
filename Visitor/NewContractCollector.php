@@ -6,6 +6,8 @@
 
 namespace Trismegiste\Mondrian\Visitor;
 
+use Trismegiste\Mondrian\Refactor\Refactored;
+
 /**
  * NewContractCollector gather classe whcih needs to be refactor with a 
  * contract
@@ -13,7 +15,12 @@ namespace Trismegiste\Mondrian\Visitor;
 class NewContractCollector extends PublicCollector
 {
 
-    public $newContract = array();
+    protected $context;
+
+    public function __construct(Refactored $ctx)
+    {
+        $this->context = $ctx;
+    }
 
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
@@ -22,16 +29,7 @@ class NewContractCollector extends PublicCollector
             $futureContract = clone $node->namespacedName;
             $classShortcut = array_pop($futureContract->parts);
             $futureContract->parts[] = reset($node->getAttribute('contractor'));
-            $this->newContract[(string) $node->namespacedName] = (string) $futureContract;
-        }
-    }
-
-    public function leaveNode(\PHPParser_Node $node)
-    {
-        parent::leaveNode($node);
-
-        if ($node->getType() === 'Stmt_Class') {
-            $this->collectOn = false;
+            $this->context->newContract[(string) $node->namespacedName] = (string) $futureContract;
         }
     }
 

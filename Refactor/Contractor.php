@@ -24,10 +24,10 @@ class Contractor
     public function parse($iter)
     {
         $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
-
-        // 0th pass
-        $pass[0] = new Visitor\NewContractCollector();
-        $pass[1] = new Visitor\ParamRefactor();
+        $context = new Refactored();
+        // passes
+        $pass[0] = new Visitor\NewContractCollector($context);
+        $pass[1] = new Visitor\ParamRefactor($context);
 
         // for memory concerns, I'll re-parse files on each pass
         // (slower but lighter) and enriching the Context
@@ -43,7 +43,7 @@ class Contractor
             }
         }
 
-        print_r($pass[0]->newContract);
+        print_r($context);
     }
 
 }
