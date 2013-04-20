@@ -7,12 +7,13 @@
 namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Refactor\Refactored;
+use Trismegiste\Mondrian\Refactor\RefactorPass;
 
 /**
  * NewContractCollector gather classe whcih needs to be refactor with a 
  * contract
  */
-class NewContractCollector extends PublicCollector
+class NewContractCollector extends PublicCollector implements RefactorPass
 {
 
     protected $context;
@@ -41,6 +42,11 @@ class NewContractCollector extends PublicCollector
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         
+    }
+
+    public function isModified()
+    {
+        return false;
     }
 
 }

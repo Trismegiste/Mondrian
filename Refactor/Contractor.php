@@ -24,6 +24,7 @@ class Contractor
     public function parse($iter)
     {
         $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
+        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
         $context = new Refactored();
         // passes
         $pass[0] = new Visitor\NewContractCollector($context);
@@ -40,10 +41,11 @@ class Contractor
                 $code = file_get_contents($fch);
                 $stmts = $parser->parse($code);
                 $traverser->traverse($stmts);
+                if ($collector->isModified()) {
+                    echo $prettyPrinter->prettyPrint($stmts);
+                }
             }
         }
-
-        print_r($context);
     }
 
 }

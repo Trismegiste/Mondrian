@@ -8,19 +8,26 @@ namespace Trismegiste\Mondrian\Visitor;
 
 use PHPParser_NodeVisitor_NameResolver;
 use Trismegiste\Mondrian\Refactor\Refactored;
+use Trismegiste\Mondrian\Refactor\RefactorPass;
 
 /**
  * ParamRefactor replaces the class of a param by its contract
  *
  */
-class ParamRefactor extends PHPParser_NodeVisitor_NameResolver
+class ParamRefactor extends PHPParser_NodeVisitor_NameResolver implements RefactorPass
 {
 
     protected $context;
+    private $isDirty = false;
 
     public function __construct(Refactored $ctx)
     {
         $this->context = $ctx;
+    }
+
+    public function beforeTraverse(array $nodes)
+    {
+        $this->isDirty = false;
     }
 
     public function enterNode(\PHPParser_Node $node)
@@ -38,14 +45,14 @@ class ParamRefactor extends PHPParser_NodeVisitor_NameResolver
             $typeHint = (string) $node->type;
             if (array_key_exists($typeHint, $this->context->newContract)) {
                 $node->type = new \PHPParser_Node_Name_FullyQualified($this->context->newContract[$typeHint]);
+                $this->isDirty = true;
             }
         }
     }
 
-    public function afterTraverse(array $nodes)
+    public function isModified()
     {
-        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-        echo $prettyPrinter->prettyPrint($nodes);
+        return $this->isDirty;
     }
 
 }
