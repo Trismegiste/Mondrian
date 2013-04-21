@@ -29,7 +29,7 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
         return $this->storage[$fch];
     }
 
-    protected function setUp()
+    protected function initStorage()
     {
         $fileSystem = array(
             __DIR__ . '/../Fixtures/Refact/Earth.php',
@@ -39,25 +39,29 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
             $this->storage[$fch] = file_get_contents($fch);
         }
 
+        return count($fileSystem);
+    }
+
+    protected function setUp()
+    {
+        $cpt = 3 * $this->initStorage();
+
         $this->coder = $this->getMockBuilder('Trismegiste\Mondrian\Refactor\Contractor')
                 ->setMethods(array('writeStatement', 'readFile'))
                 ->getMock();
         $this->coder
-                ->expects($this->exactly(6))
+                ->expects($this->exactly($cpt))
                 ->method('writeStatement')
                 ->will($this->returnCallback(array($this, 'stubbedWrite')));
         $this->coder
-                ->expects($this->exactly(6))
+                ->expects($this->exactly($cpt))
                 ->method('readFile')
                 ->will($this->returnCallback(array($this, 'stubbedRead')));
     }
 
     public function testGeneration()
     {
-        $iter = array(
-            __DIR__ . '/../Fixtures/Refact/Earth.php',
-            __DIR__ . '/../Fixtures/Refact/Moon.php'
-        );
+        $iter = array_keys($this->storage);
         $this->coder->refactor($iter);
         $generated = '';
         foreach ($this->storage as $str) {
@@ -74,7 +78,9 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(interface_exists('Refact\MoonInterface', false));
         // testing refactored
         $earth = new \Refact\Earth();
+        $this->assertInstanceOf('Refact\EarthInterface', $earth);
         $moon = new \Refact\Moon();
+        $this->assertInstanceOf('Refact\MoonInterface', $moon);
         $this->assertEquals('Fly me to the Moon', $earth->attract($moon));
         $this->assertEquals('Circling around the Earth', $moon->orbiting($earth));
     }
