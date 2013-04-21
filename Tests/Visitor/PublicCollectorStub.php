@@ -9,7 +9,7 @@ namespace Trismegiste\Mondrian\Tests\Visitor;
 use Trismegiste\Mondrian\Visitor\PublicCollector;
 
 /**
- * PublicCollectorStub is a stub for testing PublicCollector
+ * PublicCollectorStub is a stub for inner testing PublicCollector
  */
 class PublicCollectorStub extends PublicCollector
 {
@@ -23,12 +23,15 @@ class PublicCollectorStub extends PublicCollector
 
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-        
+        $this->testCase->assertEquals('Wardenclyffe\Tower', $this->currentClass);
+        $this->extractAnnotation($node);
+        $this->testCase->assertEquals(array('Moor'), $node->getAttribute('Oneiric'));
     }
 
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
-        
+        $this->testCase->assertEquals('eidolon', $this->currentMethod);
+        $this->testCase->assertEquals('The\Sixteen\MenOfTain::eidolon', $this->getCurrentMethodIndex());
     }
 
     public function __construct(\PHPUnit_Framework_TestCase $track)

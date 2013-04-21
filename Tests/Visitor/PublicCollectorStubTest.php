@@ -24,12 +24,34 @@ class PublicCollectorStubTest extends \PHPUnit_Framework_TestCase
         $this->traverser->addVisitor($this->visitor);
     }
 
-    public function testNamespaceDecoration()
+    public function testNamespacedClass()
     {
         $node = array(
             new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('The\Sixteen')),
             new \PHPParser_Node_Stmt_Class('MenOfTain')
         );
+
+        $this->traverser->traverse($node);
+    }
+
+    public function testNamespacedInterface()
+    {
+        $node = array(
+            new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Wardenclyffe')),
+            new \PHPParser_Node_Stmt_Interface('Tower')
+        );
+        $node[1]->setAttribute('comments', array(new \PHPParser_Comment(' -noise- @mondrian Oneiric Moor  ')));
+
+        $this->traverser->traverse($node);
+    }
+
+    public function testNamespacedClassMethod()
+    {
+        $node = array(
+            new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('The\Sixteen')),
+            new \PHPParser_Node_Stmt_Class('MenOfTain')
+        );
+        $node[1]->stmts = array(new \PHPParser_Node_Stmt_ClassMethod('eidolon'));
 
         $this->traverser->traverse($node);
     }
