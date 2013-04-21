@@ -57,13 +57,17 @@ abstract class AbstractParse extends Command
                 ->exclude($ignoreDir);
 
         $transformer = new Grapher();
+        $output->writeln(sprintf("Parsing %d files...", $scan->count()));
         $graph = $transformer->parse($scan->getIterator());
 
+        $output->writeln(sprintf("Processing digraph with %d vertices and %d edges...", count($graph->getVertexSet()), count($graph->getEdgeSet())));
         $processed = $this->processGraph($graph, $output);
 
         $ff = new Factory();
         $dumper = $ff->create($processed, $ext);
-        file_put_contents("$reportName.$ext", $dumper->export());
+        $reportName = "$reportName.$ext";
+        file_put_contents($reportName, $dumper->export());
+        $output->writeln("Report $reportName created");
     }
 
 }
