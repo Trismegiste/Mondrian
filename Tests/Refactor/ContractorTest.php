@@ -18,17 +18,32 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
     protected $coder;
     protected $storage;
 
+    /**
+     * Stub for writes
+     * @param string $fch
+     * @param array $stmts 
+     */
     public function stubbedWrite($fch, array $stmts)
     {
         $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
         $this->storage[$fch] = "<?php\n\n" . $prettyPrinter->prettyPrint($stmts);
     }
 
+    /**
+     * stub for reads
+     * @param string $fch
+     * @return string 
+     */
     public function stubbedRead($fch)
     {
         return $this->storage[$fch];
     }
 
+    /**
+     * Init VFS
+     * 
+     * @return int how many files ?
+     */
     protected function initStorage()
     {
         $fileSystem = array(
@@ -44,7 +59,7 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $cpt = 3 * $this->initStorage();
+        $cpt = 3 * $this->initStorage(); // 3 passes 
 
         $this->coder = $this->getMockBuilder('Trismegiste\Mondrian\Refactor\Contractor')
                 ->setMethods(array('writeStatement', 'readFile'))
@@ -59,6 +74,9 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnCallback(array($this, 'stubbedRead')));
     }
 
+    /**
+     * Compile VFS
+     */
     protected function compileStorage()
     {
         $generated = '';
@@ -72,6 +90,9 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
         eval($generated);
     }
 
+    /**
+     * Validates the generation of refactored classes
+     */
     public function testGeneration()
     {
         $iter = array_keys($this->storage);
