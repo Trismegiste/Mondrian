@@ -17,4 +17,4 @@
 
 ## Refactoring
  * better design for refactor pass interface : too many if in Contractor
- * use vfsStream for ContractorTest (and GrapherTest ?)
+ * use MockSplFileInfo for GrapherTest

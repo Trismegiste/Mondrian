@@ -24,10 +24,18 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $this->grapher = new Grapher();
     }
 
+    protected function callParse()
+    {
+        $iter = array();
+        foreach (func_get_args() as $name) {
+            $iter[] = __DIR__ . '/../Fixtures/Project/' . $name;
+        }
+        return $this->grapher->parse($iter);
+    }
+
     public function testOneClass()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Project/OneClass.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('OneClass.php');
         $v = $result->getVertexSet();
         $this->assertCount(1, $v);
         $this->assertEquals('Project\OneClass', $v[0]->getName());
@@ -36,33 +44,28 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testInheritance()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Project/Inheritance.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('Inheritance.php');
         $this->assertCount(4, $result->getVertexSet());
         $this->assertCount(3, $result->getEdgeSet());
     }
 
     public function testInterfaceInheritance()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Project/Interface.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('Interface.php');
         $this->assertCount(4, $result->getVertexSet());
         $this->assertCount(3, $result->getEdgeSet());
     }
 
     public function testEmbedMethod()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Project/Concrete.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('Concrete.php');
         $this->assertCount(3, $result->getVertexSet());
         $this->assertCount(3, $result->getEdgeSet());
     }
 
     public function testDecoupleMethod()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Project/NotConcrete.php',
-            __DIR__ . '/../Fixtures/Project/Contract.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('NotConcrete.php', 'Contract.php');
         $this->assertCount(4, $result->getVertexSet());
         $this->assertCount(4, $result->getEdgeSet());
     }
@@ -71,9 +74,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     {
         $fqcnClass = 'Project\NotConcreteParam';
         $fqcnInterface = 'Project\ContractParam';
-        $iter = array(__DIR__ . '/../Fixtures/Project/NotConcreteParam.php',
-            __DIR__ . '/../Fixtures/Project/ContractParam.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('NotConcreteParam.php', 'ContractParam.php');
         $this->assertCount(5, $result->getVertexSet());
         $this->assertEdges(array(
             array(
@@ -132,8 +133,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     public function testExternalInterfaceInheritance()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = array(__DIR__ . '/../Fixtures/Project/InheritExtra.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('InheritExtra.php');
         $this->assertCount(2, $result->getVertexSet());
         $this->assertNotNull(
                 $this->findVertex(
@@ -149,12 +149,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $fqcnClass = 'Project\NotConcreteTypedParam';
         $fqcnInterface = 'Project\ContractTypedParam';
         $fqcnOtherInterface = 'Project\Contract';
-        $iter = array(
-            __DIR__ . '/../Fixtures/Project/NotConcreteTypedParam.php',
-            __DIR__ . '/../Fixtures/Project/ContractTypedParam.php',
-            __DIR__ . '/../Fixtures/Project/Contract.php'
-        );
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('NotConcreteTypedParam.php', 'ContractTypedParam.php', 'Contract.php');
         $this->assertCount(7, $result->getVertexSet());
         $this->assertEdges(array(
             array(
@@ -195,24 +190,20 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testOutsideInheritance()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Project/OutsideEdge.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('OutsideEdge.php');
         $this->assertCount(4, $result->getVertexSet());
     }
 
     public function testOutsideSignature()
     {
-        $iter = array(__DIR__ . '/../Fixtures/Project/OutsideSignature.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('OutsideSignature.php');
         $this->assertCount(2, $result->getVertexSet());
     }
 
     public function testCalling()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = array(__DIR__ . '/../Fixtures/Project/Calling.php',
-            __DIR__ . '/../Fixtures/Project/Concrete.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('Calling.php', 'Concrete.php');
         $this->assertCount(8, $result->getVertexSet());
         $this->assertCount(10, $result->getEdgeSet());
         $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\Calling::simpleCall');
@@ -226,9 +217,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     public function testNewInstance()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = array(__DIR__ . '/../Fixtures/Project/NewInstance.php',
-            __DIR__ . '/../Fixtures/Project/Concrete.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('NewInstance.php', 'Concrete.php');
         $this->assertCount(8, $result->getVertexSet());
         $this->assertCount(10, $result->getEdgeSet());
         $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\NewInstance::simpleNew');
@@ -242,8 +231,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     public function testFilteringObviousMethodCall()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = array(__DIR__ . '/../Fixtures/Project/FilterCalling.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('FilterCalling.php');
 
         $this->assertCount(13, $result->getVertexSet());
         $this->assertCount(17, $result->getEdgeSet());
@@ -256,8 +244,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     public function testFilteringMethodCallSuper()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = array(__DIR__ . '/../Fixtures/Project/FilterCallingSuper.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('FilterCallingSuper.php');
 
         $this->assertCount(13, $result->getVertexSet());
         $this->assertCount(17, $result->getEdgeSet());
@@ -270,8 +257,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     public function testNotFilteringOnBadMethodCall()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = array(__DIR__ . '/../Fixtures/Project/FilterCallingBad.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('FilterCallingBad.php');
 
         $this->assertCount(11, $result->getVertexSet());
         $this->assertCount(15, $result->getEdgeSet());
@@ -284,8 +270,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     public function testTypeNotFoundFilteringOnCall()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = array(__DIR__ . '/../Fixtures/Project/FilterCallingUnknown.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('FilterCallingUnknown.php');
 
         $this->assertCount(7, $result->getVertexSet());
         $this->assertCount(9, $result->getEdgeSet());
@@ -298,8 +283,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     public function testNoFilteringMethodCallOnOuterClass()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = array(__DIR__ . '/../Fixtures/Project/FilterOuterCalling.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('FilterOuterCalling.php');
 
         $this->assertCount(10, $result->getVertexSet());
         $this->assertCount(13, $result->getEdgeSet());
@@ -313,8 +297,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     public function testFilteringCallWithAnnotations()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = array(__DIR__ . '/../Fixtures/Project/FilterIgnoreCallTo.php');
-        $result = $this->grapher->parse($iter);
+        $result = $this->callParse('FilterIgnoreCallTo.php');
 
         $this->assertCount(11, $result->getVertexSet());
         $this->assertCount(15, $result->getEdgeSet());
