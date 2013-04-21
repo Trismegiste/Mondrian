@@ -33,12 +33,9 @@ class NewContractCollector extends PublicCollector implements RefactorPass
     {
         $this->extractAnnotation($node);
         if ($node->hasAttribute('contractor')) {
-            $futureContract = clone $node->namespacedName;
-            $classShortcut = array_pop($futureContract->parts);
-            $interfaceName = reset($node->getAttribute('contractor'));
-            $futureContract->parts[] = $interfaceName;
-            $this->context->newContract[(string) $node->namespacedName] = (string) $futureContract;
-            $node->implements[] = new \PHPParser_Node_Name($interfaceName);
+            $interfaceName = new \PHPParser_Node_Name(reset($node->getAttribute('contractor')));
+            $this->context->newContract[$this->getNamespacedName($node)] = (string) $this->resolveClassName($interfaceName);
+            $node->implements[] = $interfaceName;
             $this->isDirty = true;
         }
     }
