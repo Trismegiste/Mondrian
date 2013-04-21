@@ -59,10 +59,8 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnCallback(array($this, 'stubbedRead')));
     }
 
-    public function testGeneration()
+    protected function compileStorage()
     {
-        $iter = array_keys($this->storage);
-        $this->coder->refactor($iter);
         $generated = '';
         foreach ($this->storage as $str) {
             $str = preg_replace('#^<\?php#', '', $str);
@@ -72,6 +70,13 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
             $generated .= $str;
         }
         eval($generated);
+    }
+
+    public function testGeneration()
+    {
+        $iter = array_keys($this->storage);
+        $this->coder->refactor($iter);
+        $this->compileStorage();
         $this->assertTrue(class_exists('Refact\Earth', false));
         $this->assertTrue(class_exists('Refact\Moon', false));
         $this->assertTrue(interface_exists('Refact\EarthInterface', false));
