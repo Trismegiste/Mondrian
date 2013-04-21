@@ -21,7 +21,7 @@ class Grapher
      * @param string[] $iter list of absolute path to files to parse
      * @return \Trismegiste\Mondrian\Graph\Digraph 
      */
-    public function parse($iter)
+    public function parse(\Iterator $iter)
     {
         $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
         $graph = new \Trismegiste\Mondrian\Graph\Digraph();
@@ -43,7 +43,7 @@ class Grapher
             $traverser->addVisitor($collector);
 
             foreach ($iter as $fch) {
-                $code = file_get_contents($fch);
+                $code = $fch->getContents();
                 $stmts = $parser->parse($code);
                 $traverser->traverse($stmts);
             }

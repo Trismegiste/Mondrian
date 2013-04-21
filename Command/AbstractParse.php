@@ -52,13 +52,13 @@ abstract class AbstractParse extends Command
 
         $listing = array();
         $scan = new Finder();
-        $scan->files()->in($directory)->name('*.php')->exclude($ignoreDir);
-        foreach ($scan as $fch) {
-            $listing[] = (string) $fch->getRealPath();
-        }
+        $scan->files()
+                ->in($directory)
+                ->name('*.php')
+                ->exclude($ignoreDir);
 
         $transformer = new Grapher();
-        $graph = $transformer->parse($listing);
+        $graph = $transformer->parse($scan->getIterator());
 
         $processed = $this->processGraph($graph, $output);
 
