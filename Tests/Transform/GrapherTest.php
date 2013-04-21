@@ -8,6 +8,7 @@ namespace Trismegiste\Mondrian\Tests\Transform;
 
 use Trismegiste\Mondrian\Transform\Grapher;
 use Trismegiste\Mondrian\Graph\Graph;
+use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
 
 /**
  * GrapherTest tests for Grapher
@@ -28,9 +29,9 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     {
         $iter = array();
         foreach (func_get_args() as $name) {
-            $iter[] = __DIR__ . '/../Fixtures/Project/' . $name;
+            $iter[] = array('contents' => file_get_contents(__DIR__ . '/../Fixtures/Project/' . $name));
         }
-        return $this->grapher->parse($iter);
+        return $this->grapher->parse(new MockFileListIterator($iter));
     }
 
     public function testOneClass()
