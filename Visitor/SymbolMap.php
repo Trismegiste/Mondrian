@@ -14,10 +14,9 @@ use Trismegiste\Mondrian\Transform\CompilerPass;
  * 
  * It fills the Context with symbols
  */
-class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerPass
+class SymbolMap extends PublicCollector implements CompilerPass
 {
 
-    protected $currentClass = false;
     private $context;
 
     /**
@@ -33,57 +32,43 @@ class SymbolMap extends \PHPParser_NodeVisitor_NameResolver implements CompilerP
     /**
      * {@inheritDoc}
      */
-    public function enterNode(\PHPParser_Node $node)
+    protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
-        parent::enterNode($node);
-
-        switch ($node->getType()) {
-
-            case 'Stmt_Class' :
-                $this->currentClass = (string) $node->namespacedName;
-                $this->context->initSymbol($this->currentClass, false);
-                // extends
-                if (!is_null($node->extends)) {
-                    $name = (string) $node->extends;
-                    $this->context->initSymbol($name, false);
-                    $this->context->pushParentClass($this->currentClass, $name);
-                }
-                // implements
-                foreach ($node->implements as $parent) {
-                    $this->context->initSymbol((string) $parent, true);
-                    $this->context->pushParentClass($this->currentClass, (string) $parent);
-                }
-                break;
-
-            case 'Stmt_Interface' :
-                $this->currentClass = (string) $node->namespacedName;
-                $this->context->initSymbol($this->currentClass, true);
-                // extends
-                foreach ($node->extends as $interf) {
-                    $this->context->initSymbol((string) $interf, true);
-                    $this->context->pushParentClass($this->currentClass, (string) $interf);
-                }
-                break;
-
-            case 'Stmt_ClassMethod' :
-                if ($node->isPublic()) {
-                    $this->context->addMethodToClass($this->currentClass, $node->name);
-                }
-                break;
+        $this->context->initSymbol($this->currentClass, false);
+        // extends
+        if (!is_null($node->extends)) {
+            $name = (string) $this->resolveClassName($node->extends);
+            $this->context->initSymbol($name, false);
+            $this->context->pushParentClass($this->currentClass, $name);
+        }
+        // implements
+        foreach ($node->implements as $parent) {
+            $name = (string) $this->resolveClassName($parent);
+            $this->context->initSymbol($name, true);
+            $this->context->pushParentClass($this->currentClass, $name);
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public function leaveNode(\PHPParser_Node $node)
+    protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-        switch ($node->getType()) {
-            case 'Stmt_Class':
-            case 'Stmt_Interface':
-                $this->currentClass = false;
-                break;
+        $this->context->initSymbol($this->currentClass, true);
+        // extends
+        foreach ($node->extends as $interf) {
+            $name = (string) $this->resolveClassName($interf);
+            $this->context->initSymbol($name, true);
+            $this->context->pushParentClass($this->currentClass, $name);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
+    {
+        $this->context->addMethodToClass($this->currentClass, $node->name);
     }
 
     /**
