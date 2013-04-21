@@ -10,7 +10,7 @@ use Trismegiste\Mondrian\Refactor\Refactored;
 use Trismegiste\Mondrian\Refactor\RefactorPass;
 
 /**
- * NewContractCollector gather classe whcih needs to be refactor with a 
+ * NewContractCollector gather classe which needs to be refactor with a 
  * contract
  */
 class NewContractCollector extends PublicCollector implements RefactorPass
