@@ -17,4 +17,4 @@
 
 ## Refactoring
  * better design for refactor pass interface : too many if in Contractor
- * use MockSplFileInfo for GrapherTest
+ * use Iterator of Finder in Contractor

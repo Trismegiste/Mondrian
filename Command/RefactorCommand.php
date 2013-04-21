@@ -39,7 +39,10 @@ class RefactorCommand extends Command
 
         $listing = array();
         $scan = new Finder();
-        $scan->files()->in($directory)->name('*.php')->exclude($ignoreDir);
+        $scan->files()
+                ->in($directory)
+                ->name('*.php')
+                ->exclude($ignoreDir);
         foreach ($scan as $fch) {
             $listing[] = (string) $fch->getRealPath();
         }
