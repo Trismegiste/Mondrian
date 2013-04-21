@@ -66,6 +66,7 @@ class Contractor
 
         // for memory concerns, I'll re-parse files on each pass
         // (slower but lighter) and enriching the Context
+        // Beware : lava flow
         foreach ($pass as $collector) {
 
             $traverser = new \PHPParser_NodeTraverser();
@@ -113,17 +114,6 @@ class Contractor
     protected function writeStatement($fch, array $stmts)
     {
         $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-
-        // some crude backup process (for light headed)
-        if (file_exists($fch)) {
-            $cpy = basename($fch, '.php');
-            $cpy = dirname($fch) . DIRECTORY_SEPARATOR . $cpy . '.bak.php';
-            // if there is another backup, I don't overwrite it, use version control
-            if (!file_exists($cpy)) {
-                copy($fch, $cpy);
-            }
-        }
-
         file_put_contents($fch, "<?php\n\n" . $prettyPrinter->prettyPrint($stmts));
     }
 

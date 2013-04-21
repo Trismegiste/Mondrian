@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Finder\Finder;
 use Trismegiste\Mondrian\Refactor\Contractor;
 
 /**
@@ -26,13 +27,15 @@ class RefactorCommand extends Command
     {
         $this
                 ->setName('mondrian:abstract')
-                ->setDescription('scans a directory and refactors classes with annotations')
-                ->addArgument('dir', InputArgument::REQUIRED, 'The directory to explore');
+                ->setDescription('Scans a directory and refactors classes with annotations')
+                ->addArgument('dir', InputArgument::REQUIRED, 'The directory to explore')
+                ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests', 'vendor'));
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $directory = $input->getArgument('dir');
+        $ignoreDir = $input->getOption('ignore');
 
         $listing = array();
         $scan = new Finder();
@@ -41,8 +44,8 @@ class RefactorCommand extends Command
             $listing[] = (string) $fch->getRealPath();
         }
 
-        $transformer = new Contractor();
-        $graph = $transformer->refactor($listing);
+        $service = new Contractor();
+        $service->refactor($listing);
     }
 
 }
