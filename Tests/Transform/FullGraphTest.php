@@ -8,9 +8,10 @@ namespace Trismegiste\Mondrian\Tests\Transform;
 
 use Trismegiste\Mondrian\Transform\Grapher;
 use Trismegiste\Mondrian\Graph\Graph;
+use Symfony\Component\Finder\Finder;
 
 /**
- * FullGraphTest tests for Grapher
+ * FullGraphTest is functional tests for Grapher
  */
 class FullGraphTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,14 +36,10 @@ class FullGraphTest extends \PHPUnit_Framework_TestCase
     public function testSomeEdge()
     {
         $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
-        $iter = new \DirectoryIterator(__DIR__ . '/../Fixtures/Project/');
-        $batch = array();
-        foreach ($iter as $fch) {
-            if ($iter->isFile()) {
-                $batch[] = $fch->getRealPath();
-            }
-        }
-        $result = $this->grapher->parse($batch);
+        $scan = new Finder();
+        $scan->files()->in(__DIR__ . '/../Fixtures/Project/');
+
+        $result = $this->grapher->parse($scan->getIterator());
 
         $classVertex = $this->findVertex($result, $nsVertex . 'ClassVertex', 'Project\Concrete');
         $this->assertNotNull($classVertex);

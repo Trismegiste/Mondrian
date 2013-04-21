@@ -50,7 +50,6 @@ abstract class AbstractParse extends Command
         $ignoreDir = $input->getOption('ignore');
         $ext = $input->getOption('format');
 
-        $listing = array();
         $scan = new Finder();
         $scan->files()
                 ->in($directory)
