@@ -8,6 +8,7 @@
  * 3 Visitor for Contractor
  * Test contractor for bad cases (not only happy case)
  * Context
+ * CC for FqcnHelper
 
 ## Features
  * make other formats (json and xml)
@@ -17,4 +18,3 @@
 ## Refactoring
  * better design for refactor pass interface : too many if in Contractor
  * use vfsStream for ContractorTest (and GrapherTest ?)
- * remove inheritance of \PHPParser_NodeVisitor_NameResolver in SymbolMap
