@@ -110,9 +110,7 @@ class EdgeCollector extends PassCollector
             $this->graph->addEdge($signature, $paramVertex);
             // now the type of the param :
             if ($param->type instanceof \PHPParser_Node_Name) {
-                // we clone because resolveClassName has edge effect
-                $tmp = clone $param->type;
-                $paramType = (string) $this->resolveClassName($tmp);
+                $paramType = (string) $this->resolveClassName($param->type);
                 // there is a type, we add a link to the type, if it is found
                 $typeVertex = $this->findTypeVertex($paramType);
                 if (!is_null($typeVertex)) {
@@ -184,7 +182,7 @@ class EdgeCollector extends PassCollector
 
         // implements
         foreach ($node->extends as $interf) {
-            if (null !== $dst = $this->findVertex('interface', (string) $interf)) {
+            if (null !== $dst = $this->findVertex('interface', (string) $this->resolveClassName($interf))) {
                 $this->graph->addEdge($src, $dst);
             }
         }
@@ -200,13 +198,13 @@ class EdgeCollector extends PassCollector
 
         // extends
         if (!is_null($node->extends)) {
-            if (null !== $dst = $this->findVertex('class', (string) $node->extends)) {
+            if (null !== $dst = $this->findVertex('class', (string) $this->resolveClassName($node->extends))) {
                 $this->graph->addEdge($src, $dst);
             }
         }
         // implements
         foreach ($node->implements as $interf) {
-            if (null !== $dst = $this->findVertex('interface', (string) $interf)) {
+            if (null !== $dst = $this->findVertex('interface', (string) $this->resolveClassName($interf))) {
                 $this->graph->addEdge($src, $dst);
             }
         }
@@ -252,8 +250,8 @@ class EdgeCollector extends PassCollector
         if (false !== $idx) {
             $param = $this->currentMethodNode->params[$idx];
             // is it a typed param ?
-            if ($param->type instanceof \PHPParser_Node_Name_FullyQualified) {
-                $paramType = (string) $param->type;
+            if ($param->type instanceof \PHPParser_Node_Name) {
+                $paramType = (string) $this->resolveClassName($param->type);
                 // we check if it is an outer class or not : is it known ?
                 if (!is_null($cls = $this->findMethodInInheritanceTree($paramType, $method))) {
                     if (!is_null($signature = $this->findVertex('method', "$cls::$method"))) {
@@ -310,10 +308,10 @@ class EdgeCollector extends PassCollector
      */
     protected function enterNewInstance(\PHPParser_Node_Expr_New $node)
     {
-        if ($node->class instanceof \PHPParser_Node_Name_FullyQualified) {
-            $classVertex = $this->findVertex('class', (string) $node->class);
+        if ($node->class instanceof \PHPParser_Node_Name) {
+            $classVertex = $this->findVertex('class', (string) $this->resolveClassName($node->class));
             if (!is_null($classVertex)) {
-                $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
+                $impl = $this->findVertex('impl', $this->getCurrentMethodIndex());
                 $this->graph->addEdge($impl, $classVertex);
             }
         }
