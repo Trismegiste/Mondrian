@@ -21,7 +21,7 @@ class Contractor
      * @param string[] $iter list of absolute path to files to parse
      * 
      */
-    public function parse($iter)
+    public function refactor($iter)
     {
         $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
         $context = new Refactored();
