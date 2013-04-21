@@ -8,7 +8,6 @@
  * 3 Visitor for Contractor
  * Test contractor for bad cases (not only happy case)
  * Context
- * PublicCollector
 
 ## Features
  * make other formats (json and xml)
@@ -18,4 +17,4 @@
 ## Refactoring
  * better design for refactor pass interface : too many if in Contractor
  * use vfsStream for ContractorTest (and GrapherTest ?)
- * try to remove inheritance from \PHPParser_NodeVisitor_NameResolver
+ * remove inheritance of \PHPParser_NodeVisitor_NameResolver in SymbolMap

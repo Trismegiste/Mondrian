@@ -6,7 +6,6 @@
 
 namespace Trismegiste\Mondrian\Visitor;
 
-use PHPParser_NodeVisitor_NameResolver;
 use Trismegiste\Mondrian\Refactor\Refactored;
 use Trismegiste\Mondrian\Refactor\RefactorPass;
 
