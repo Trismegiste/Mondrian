@@ -10,9 +10,14 @@ namespace Refact;
 class Earth
 {
 
+    public function getName()
+    {
+        return 'Earth';
+    }
+
     public function attract(Moon $m)
     {
-        echo "I'm center of everything (from my referential)";
+        return "Fly me to the " . $m->getName();
     }
 
 }

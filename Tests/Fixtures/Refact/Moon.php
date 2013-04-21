@@ -6,9 +6,14 @@ namespace Refact;
 class Moon
 {
 
+    public function getName()
+    {
+        return 'Moon';
+    }
+
     public function orbiting(Earth $m)
     {
-        echo "I don't spin but I'm rotating";
+        return "Circling around the " . $m->getName();
     }
 
 }
