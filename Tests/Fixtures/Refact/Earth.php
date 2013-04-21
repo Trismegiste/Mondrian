@@ -4,7 +4,7 @@
  *  with Moon, two poorly coded classes
  */
 
-namespace Trismegiste\Mondrian\Tests\Fixtures\Refact;
+namespace Refact;
 
 // @mondrian contractor EarthInterface
 class Earth

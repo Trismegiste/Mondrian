@@ -47,10 +47,10 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
         foreach ($this->storage as $str) {
             eval($str);
         }
-        $this->assertTrue(class_exists('Trismegiste\Mondrian\Tests\Fixtures\Refact\Earth', false));
-        $this->assertTrue(class_exists('Trismegiste\Mondrian\Tests\Fixtures\Refact\Moon', false));
-        $this->assertTrue(interface_exists('Trismegiste\Mondrian\Tests\Fixtures\Refact\EarthInterface', false));
-        $this->assertTrue(interface_exists('Trismegiste\Mondrian\Tests\Fixtures\Refact\MoonInterface', false));
+        $this->assertTrue(class_exists('Refact\Earth', false));
+        $this->assertTrue(class_exists('Refact\Moon', false));
+        $this->assertTrue(interface_exists('Refact\EarthInterface', false));
+        $this->assertTrue(interface_exists('Refact\MoonInterface', false));
     }
 
 }

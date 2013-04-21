@@ -1,6 +1,6 @@
 <?php
 
-namespace Trismegiste\Mondrian\Tests\Fixtures\Refact;
+namespace Refact;
 
 // @mondrian contractor MoonInterface
 class Moon
