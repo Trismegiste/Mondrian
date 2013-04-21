@@ -94,7 +94,7 @@ abstract class PublicCollector extends \PHPParser_NodeVisitor_NameResolver
     }
 
     /**
-     * Extracts annotation in the comment of a method and injects them in
+     * Extracts annotations in the comment of a statement and injects them in
      * attribute of the node
      * 
      * @param \PHPParser_Node_Stmt_ClassMethod $node 
