@@ -76,4 +76,38 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
                 ), 'inheritanceMap', $this->context);
     }
 
+    public function testAliasing()
+    {
+        $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
+        $traverser = new \PHPParser_NodeTraverser();
+        $traverser->addVisitor($this->visitor);
+
+        $iter = array(__DIR__ . '/../Fixtures/Project/Alias1.php',
+            __DIR__ . '/../Fixtures/Project/Alias2.php');
+        foreach ($iter as $fch) {
+            $code = file_get_contents($fch);
+            $stmts = $parser->parse($code);
+            $traverser->traverse($stmts);
+        }
+        $this->visitor->compile();
+
+        $this->assertAttributeEquals(array(
+            'Project\\Aliasing' => array(
+                'interface' => false,
+                'parent' => array('Project\Maid', 'Project\Peril'),
+                'method' => array('spokes' => 'Project\\Aliasing')
+            ),
+            'Project\Maid' => array(
+                'interface' => false,
+                'parent' => array(),
+                'method' => array()
+            ),
+            'Project\Peril' => array(
+                'interface' => true,
+                'parent' => array(),
+                'method' => array()
+            )
+                ), 'inheritanceMap', $this->context);
+    }
+
 }
