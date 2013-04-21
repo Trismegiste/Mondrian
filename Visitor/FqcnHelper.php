@@ -77,4 +77,14 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
         return new \PHPParser_Node_Name_FullyQualified($name->parts, $name->getAttributes());
     }
 
+      protected function getNamespacedName(PHPParser_Node $node) {
+        if (null !== $this->namespace) {
+            $namespacedName = clone $this->namespace;
+            $namespacedName->append($node->name);
+        } else {
+            $namespacedName = $node->name;
+        }
+        
+        return (string) $namespacedName;
+    }
 }

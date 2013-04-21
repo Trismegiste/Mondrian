@@ -10,7 +10,7 @@ namespace Trismegiste\Mondrian\Visitor;
  * PublicCollector is an abstract node collector for public "things" of types
  *
  */
-abstract class PublicCollector extends \PHPParser_NodeVisitor_NameResolver
+abstract class PublicCollector extends FqcnHelper
 {
 
     protected $currentClass = false;
@@ -47,12 +47,12 @@ abstract class PublicCollector extends \PHPParser_NodeVisitor_NameResolver
         switch ($node->getType()) {
 
             case 'Stmt_Class' :
-                $this->currentClass = (string) $node->namespacedName;
+                $this->currentClass = $this->getNamespacedName($node);
                 $this->enterClassNode($node);
                 break;
 
             case 'Stmt_Interface' :
-                $this->currentClass = (string) $node->namespacedName;
+                $this->currentClass = $this->getNamespacedName($node);
                 $this->enterInterfaceNode($node);
                 break;
 
