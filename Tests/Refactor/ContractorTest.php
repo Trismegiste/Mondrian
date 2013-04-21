@@ -37,7 +37,7 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnCallback(array($this, 'stubbedWrite')));
     }
 
-    public function testParse()
+    public function testGeneration()
     {
         $iter = array(
             __DIR__ . '/../Fixtures/Refact/Earth.php',
@@ -47,10 +47,13 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
         foreach ($this->storage as $str) {
             eval($str);
         }
+        print_r($this->storage);
         $this->assertTrue(class_exists('Refact\Earth', false));
         $this->assertTrue(class_exists('Refact\Moon', false));
         $this->assertTrue(interface_exists('Refact\EarthInterface', false));
         $this->assertTrue(interface_exists('Refact\MoonInterface', false));
+        // note : the generation does not really works here since the class
+        // is written two times and I store it in memory
     }
 
 }

@@ -38,7 +38,7 @@ class Contractor
             $traverser->addVisitor($collector);
 
             foreach ($iter as $fch) {
-                $code = file_get_contents($fch);
+                $code = $this->readFile($fch);
                 $stmts = $parser->parse($code);
                 $traverser->traverse($stmts);
                 if ($collector->isModified()) {
@@ -53,6 +53,11 @@ class Contractor
                 }
             }
         }
+    }
+
+    protected function readFile($fch)
+    {
+        return file_get_contents($fch);
     }
 
     protected function writeStatement($fch, array $stmts)
