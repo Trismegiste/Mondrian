@@ -43,15 +43,12 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
      */
     protected function initStorage()
     {
-        $fileSystem = array(
-            '/Refact/Earth.php',
-            '/Refact/Moon.php'
-        );
+        $fileSystem = array('Earth.php', 'Moon.php');
 
         $iter = array();
         foreach ($fileSystem as $name) {
-            $absolute = __DIR__ . '/../Fixtures' . $name;
-            $iter[basename($absolute)] = array(
+            $absolute = __DIR__ . '/../Fixtures/Refact/' . $name;
+            $iter[$name] = array(
                 'name' => $absolute,
                 'contents' => file_get_contents($absolute)
             );
