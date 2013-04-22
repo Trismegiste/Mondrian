@@ -7,9 +7,7 @@
 namespace Trismegiste\Mondrian\Tests\Transform\Vertex;
 
 /**
- * StaticAnalysisTest is a ...
- *
- * @author florent
+ * StaticAnalysisTest is a test for StaticAnalysis vertex superclass
  */
 class StaticAnalysisTest extends \PHPUnit_Framework_TestCase
 {
