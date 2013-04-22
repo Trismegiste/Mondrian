@@ -7,6 +7,8 @@
 namespace Trismegiste\Mondrian\Tests\Refactor;
 
 use Trismegiste\Mondrian\Refactor\Contractor;
+use Symfony\Component\Finder\Tests\Iterator\MockSplFileInfo;
+use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
 
 /**
  * ContractorTest is an almost full functional test 
@@ -25,18 +27,14 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
      */
     public function stubbedWrite($fch, array $stmts)
     {
+        echo "wirting $fch\n";
         $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-        $this->storage[$fch] = "<?php\n\n" . $prettyPrinter->prettyPrint($stmts);
-    }
-
-    /**
-     * stub for reads
-     * @param string $fch
-     * @return string 
-     */
-    public function stubbedRead($fch)
-    {
-        return $this->storage[$fch];
+        $this->storage[$fch] = new MockSplFileInfo(
+                        array(
+                            'name' => $fch,
+                            'content' => "<?php\n\n" . $prettyPrinter->prettyPrint($stmts)
+                        )
+        );
     }
 
     /**
@@ -47,12 +45,19 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
     protected function initStorage()
     {
         $fileSystem = array(
-            __DIR__ . '/../Fixtures/Refact/Earth.php',
-            __DIR__ . '/../Fixtures/Refact/Moon.php'
+            '/Refact/Earth.php',
+            '/Refact/Moon.php'
         );
-        foreach ($fileSystem as $fch) {
-            $this->storage[$fch] = file_get_contents($fch);
+
+        $iter = array();
+        foreach ($fileSystem as $name) {
+            $absolute = __DIR__ . '/../Fixtures' . $name;
+            $iter[$absolute] = array(
+                'name' => $absolute,
+                'contents' => file_get_contents($absolute)
+            );
         }
+        $this->storage = new MockFileListIterator($iter);
 
         return count($fileSystem);
     }
@@ -68,10 +73,6 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->exactly($cpt))
                 ->method('writeStatement')
                 ->will($this->returnCallback(array($this, 'stubbedWrite')));
-        $this->coder
-                ->expects($this->exactly($cpt))
-                ->method('readFile')
-                ->will($this->returnCallback(array($this, 'stubbedRead')));
     }
 
     /**
@@ -80,8 +81,8 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
     protected function compileStorage()
     {
         $generated = '';
-        foreach ($this->storage as $str) {
-            $str = preg_replace('#^<\?php#', '', $str);
+        foreach ($this->storage as $fch) {
+            $str = preg_replace('#^<\?php#', '', $fch->getContents());
             if (!empty($generated)) {
                 $str = preg_replace('#^namespace.+$#m', '', $str);
             }
@@ -95,8 +96,7 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGeneration()
     {
-        $iter = array_keys($this->storage);
-        $this->coder->refactor($iter);
+        $this->coder->refactor($this->storage);
         $this->compileStorage();
         $this->assertTrue(class_exists('Refact\Earth', false));
         $this->assertTrue(class_exists('Refact\Moon', false));
