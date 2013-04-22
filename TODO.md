@@ -1,7 +1,6 @@
 # TODO
 
 ## Doc
- * doc for Liskov command
  * doc for Contractor
 
 ## Tests
@@ -12,7 +11,6 @@
 
 ## Features
  * make other formats (json and xml)
- * Command for Contractor
  * Command "find all interfaces with concrete classes in parameters"
 
 ## Refactoring

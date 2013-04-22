@@ -27,6 +27,7 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
 
     public function beforeTraverse(array $nodes)
     {
+        parent::beforeTraverse($nodes);
         $this->newContent = array();
     }
 

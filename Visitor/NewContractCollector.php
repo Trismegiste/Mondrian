@@ -26,6 +26,8 @@ class NewContractCollector extends PublicCollector implements RefactorPass
 
     public function beforeTraverse(array $nodes)
     {
+        parent::beforeTraverse($nodes);
+
         $this->isDirty = false;
     }
 
