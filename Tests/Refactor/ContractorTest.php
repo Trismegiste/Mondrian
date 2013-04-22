@@ -32,7 +32,7 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
         $this->storage[$fch] = new MockSplFileInfo(
                         array(
                             'name' => $fch,
-                            'content' => "<?php\n\n" . $prettyPrinter->prettyPrint($stmts)
+                            'contents' => "<?php\n\n" . $prettyPrinter->prettyPrint($stmts)
                         )
         );
     }
@@ -82,6 +82,8 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
     {
         $generated = '';
         foreach ($this->storage as $fch) {
+            echo "----" . $fch . "--\n";
+            echo $fch->getContents();
             $str = preg_replace('#^<\?php#', '', $fch->getContents());
             if (!empty($generated)) {
                 $str = preg_replace('#^namespace.+$#m', '', $str);
