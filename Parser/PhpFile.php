@@ -21,7 +21,7 @@ class PhpFile extends PHPParser_NodeAbstract
     public function __construct($path, array $stmts)
     {
         $this->absPathName = (string) $path;
-        parent::PHPParser_NodeAbstract($stmts);
+        parent::__construct($stmts);
     }
 
     public function getType()

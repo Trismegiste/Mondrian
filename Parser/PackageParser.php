@@ -32,9 +32,9 @@ class PackageParser
         return $node;
     }
 
-    protected function createPhpFileNode(SplFileInfo $fch)
+    protected function createPhpFileNode(\SplFileInfo $fch)
     {
-        return new PphFile($fch->getRealPath(), $this->fileParser->parse($fch->getContents()));
+        return new PhpFile($fch->getRealPath(), $this->fileParser->parse($fch->getContents()));
     }
 
 }
