@@ -8,8 +8,6 @@ namespace Trismegiste\Mondrian\Visitor;
 
 use PHPParser_NodeVisitorAbstract;
 use PHPParser_Node;
-use PHPParser_Node_Stmt_Namespace;
-use PHPParser_Node_Stmt_UseUse;
 use PHPParser_Error;
 
 /**
@@ -36,7 +34,14 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
 
     public function enterNode(PHPParser_Node $node)
     {
+
         switch ($node->getType()) {
+
+            case 'PhpFile' :
+                // resetting the tracking of namespace and alias if we enter in a new file
+                $this->namespace = null;
+                $this->aliases = array();
+                break;
 
             case 'Stmt_Namespace' :
                 $this->namespace = $node->name;
@@ -51,7 +56,6 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
                     ), $node->getLine()
                     );
                 }
-
                 $this->aliases[$node->alias] = $node->name;
                 break;
         }
