@@ -37,18 +37,14 @@ class RefactorCommand extends Command
         $directory = $input->getArgument('dir');
         $ignoreDir = $input->getOption('ignore');
 
-        $listing = array();
         $scan = new Finder();
         $scan->files()
                 ->in($directory)
                 ->name('*.php')
                 ->exclude($ignoreDir);
-        foreach ($scan as $fch) {
-            $listing[] = (string) $fch->getRealPath();
-        }
 
         $service = new Contractor();
-        $service->refactor($listing);
+        $service->refactor($scan->getIterator());
     }
 
 }
