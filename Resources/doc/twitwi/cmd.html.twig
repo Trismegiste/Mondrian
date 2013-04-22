@@ -231,5 +231,81 @@
             </ul>
         </p>
     </div>
+    <div class="span6">
+        <a name="liskov"></a><h2>Concreteness</h2>
+        <p>
+            This tool generates a graph reduced to all calls to concrete methods
+            to show the "lack of abstraction" in method parameters : if you have
+            a class, the client could call anything. If you have an interface, you
+            achieve the highest level of the
+            <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">Liskov substitution principle</a>
+            since the client only need to know the contract of the object, not its real type.
+        </p>
+        <p>
+            <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">LSP</a>
+            is the first requirement to achieve
+            <a href="http://en.wikipedia.org/wiki/Interface_segregation_principle">ISP</a>
+            in a second pass of refactoring.
+        </p>
+        <pre>$ php console.php mondrian:liskov ~/MyProject</pre>
+        <p>
+            After the graph is reduced, there is centrality algorithm to put colours.
+            The most used items are in red and the less are in green. With this,
+            you can visually find where refactoring is the <strong>most cost-effective</strong>
+            for abstraction and decoupling.
+        </p>
+        <p>
+            Beware : edges in this digraph are not oriented like the grammar I have defined.
+            The edges Class ⇨ Method are reversed and Implementation ⇨ Method
+            is replaced by Method (of that Implementation) ⇨ Class (of that Method).
+        </p>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <a name="refactor"></a><h2>Refactoring</h2>
+        <p>
+            This is a refactoring tool which edits and generates source code in your project.<br/>
+            The purpose :
+            <ul>
+                <li>It creates a new interface for each class with annotation
+                    like "@mondrian contractor <em>NewInterfaceName</em>".</li>
+                <li>it replaces all these classes by their new interface in
+                    methods parameters (public or not, this is important)</li>
+                <li>it adds the inheritance for <em>NewInterfaceName</em></li>
+            </ul>
+        </p>
+        <pre>$ php console.php mondrian:abstract ~/MyProject</pre>
+        <p>
+            Each interface is stored in the same namespace, neighbour of the
+            class in a directory. <em>NewInterfaceName</em> is a short name not a FQCN.
+            It is not possible to store the generated content in another directory
+            since everybody uses Git or at least SVN. Therefore you can launch the
+            test suite immediately.
+        </p>
+        <p>
+            It is a <strong>dumb refactoring</strong> but it makes the dull job to create new interfaces
+            by gathering public methods for each class in only one pass. There is no
+            name collision check or whatsoever.
+        </p>
+        <p>
+            The boring stage of sequences of ctrl-C/ctrl-V/ctrl-X is passed,
+            now it is time to use your brain and think about domain, model, business
+            and object contract :)
+        </p>
+        <p>
+            Thereafter, you need to create a tree of contracts with these
+            'not-really-abstract' interfaces. You need to put common contract in parent interface,
+            find common methods, remove unused methods, rename, move interfaces
+            in other namespace etc... The perfect time to work with the digraph on the
+            second screen.
+        </p>
+        <p>
+            <small>Note: All classnames are transformed in FQCN. It is not beautiful but
+            actually, it is more useful than I thought : since these interfaces will
+            be splitted, renamed or moved, you don't have to think about "use" statements
+            and massive "search & replace" are made easier.</small>
+        </p>
+    </div>
 </div>
 {% endblock %}
