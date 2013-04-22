@@ -27,9 +27,8 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
      */
     public function stubbedWrite($fch, array $stmts)
     {
-        echo "wirting $fch\n";
         $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-        $this->storage[$fch] = new MockSplFileInfo(
+        $this->storage[basename($fch)] = new MockSplFileInfo(
                         array(
                             'name' => $fch,
                             'contents' => "<?php\n\n" . $prettyPrinter->prettyPrint($stmts)
@@ -52,7 +51,7 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
         $iter = array();
         foreach ($fileSystem as $name) {
             $absolute = __DIR__ . '/../Fixtures' . $name;
-            $iter[$absolute] = array(
+            $iter[basename($absolute)] = array(
                 'name' => $absolute,
                 'contents' => file_get_contents($absolute)
             );
@@ -82,8 +81,6 @@ class ContractorTest extends \PHPUnit_Framework_TestCase
     {
         $generated = '';
         foreach ($this->storage as $fch) {
-            echo "----" . $fch . "--\n";
-            echo $fch->getContents();
             $str = preg_replace('#^<\?php#', '', $fch->getContents());
             if (!empty($generated)) {
                 $str = preg_replace('#^namespace.+$#m', '', $str);
