@@ -36,7 +36,11 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
 
     public function enterNode(PHPParser_Node $node)
     {
-        if ($node instanceof PHPParser_Node_Stmt_Namespace) {
+        if ($node->getType() == 'PhpFile') {
+            // resetting the tracking of namespace and alias if we enter in a new file
+            $this->namespace = null;
+            $this->aliases = array();
+        } elseif ($node instanceof PHPParser_Node_Stmt_Namespace) {
             $this->namespace = $node->name;
             $this->aliases = array();
         } elseif ($node instanceof PHPParser_Node_Stmt_UseUse) {
@@ -77,14 +81,16 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
         return new \PHPParser_Node_Name_FullyQualified($name->parts, $name->getAttributes());
     }
 
-      protected function getNamespacedName(PHPParser_Node $node) {
+    protected function getNamespacedName(PHPParser_Node $node)
+    {
         if (null !== $this->namespace) {
             $namespacedName = clone $this->namespace;
             $namespacedName->append($node->name);
         } else {
             $namespacedName = $node->name;
         }
-        
+
         return (string) $namespacedName;
     }
+
 }
