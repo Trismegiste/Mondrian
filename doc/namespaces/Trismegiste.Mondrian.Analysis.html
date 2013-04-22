@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
@@ -31,10 +31,10 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">164</span></a></li>
+                <span class="label label-info">258</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
-                <span class="label label-info">2</span>
+                <span class="label label-info">1</span>
 </li></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
                 <span class="label label-info">0</span></a></li>
@@ -58,7 +58,9 @@
 <li class="nav-header">
 <i class="icon-map-marker"></i> Namespaces</li>
 <li>
-<a href="../namespaces/Trismegiste.Mondrian.Analysis.html" title="Analysis"><i class="icon-th"></i>Analysis</a><ul class="nav nav-list nav-namespaces"></ul>
+<a href="../namespaces/Trismegiste.Mondrian.Analysis.html" title="Analysis"><i class="icon-th"></i>Analysis</a><ul class="nav nav-list nav-namespaces"><li>
+<a href="../namespaces/Trismegiste.Mondrian.Analysis.Strategy.html" title="Strategy"><i class="icon-th"></i>Strategy</a><ul class="nav nav-list nav-namespaces"></ul>
+</li></ul>
 </li>
 </ul>
 </div>
@@ -68,13 +70,31 @@
 <a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
 </li>
 <li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<span class="divider">\</span><li><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a></li>
-<span class="divider">\</span><li class="active"><a href="../namespaces/Trismegiste.Mondrian.Analysis.html">Analysis</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Analysis.html">Analysis</a>
+</li>
 </ul>
 <div class="namespace-indent">
 <h3>
 <i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<a name="Centrality" id="Centrality"></a><div class="element ajax clickable class" href="../classes/Trismegiste.Mondrian.Analysis.Centrality.html">
+<div id="Generator" class="element ajax clickable interface">
+<h1>Generator<a href="../classes/Trismegiste.Mondrian.Analysis.Generator.html">¶</a>
+</h1>
+<p class="short_description">Contract for a factory of a new reduced Graph (from a bigger graph)</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Analysis.Generator.html" class="more">« More »</a>
+</div>
+<div id="VertexDecorator" class="element ajax clickable interface">
+<h1>VertexDecorator<a href="../classes/Trismegiste.Mondrian.Analysis.VertexDecorator.html">¶</a>
+</h1>
+<p class="short_description">Contract for adding information on vertices in a Graph</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Analysis.VertexDecorator.html" class="more">« More »</a>
+</div>
+<div id="Centrality" class="element ajax clickable class">
 <h1>Centrality<a href="../classes/Trismegiste.Mondrian.Analysis.Centrality.html">¶</a>
 </h1>
 <p class="short_description">Centrality analyses a graph and add centrality rank to vertices
@@ -82,7 +102,7 @@ Design Pattern : Decorator of Graph</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Analysis.Centrality.html" class="more">« More »</a>
 </div>
-<a name="CodeMetrics" id="CodeMetrics"></a><div class="element ajax clickable class" href="../classes/Trismegiste.Mondrian.Analysis.CodeMetrics.html">
+<div id="CodeMetrics" class="element ajax clickable class">
 <h1>CodeMetrics<a href="../classes/Trismegiste.Mondrian.Analysis.CodeMetrics.html">¶</a>
 </h1>
 <p class="short_description">CodeMetrics analyses a graph and counts number of vertices per type
@@ -90,7 +110,21 @@ Design Pattern : Decorator</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Analysis.CodeMetrics.html" class="more">« More »</a>
 </div>
-<a name="HiddenCoupling" id="HiddenCoupling"></a><div class="element ajax clickable class" href="../classes/Trismegiste.Mondrian.Analysis.HiddenCoupling.html">
+<div id="Cycle" class="element ajax clickable class">
+<h1>Cycle<a href="../classes/Trismegiste.Mondrian.Analysis.Cycle.html">¶</a>
+</h1>
+<p class="short_description">Cycle analyses cycles by searching for strongly connected components</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Analysis.Cycle.html" class="more">« More »</a>
+</div>
+<div id="DependCentrality" class="element ajax clickable class">
+<h1>DependCentrality<a href="../classes/Trismegiste.Mondrian.Analysis.DependCentrality.html">¶</a>
+</h1>
+<p class="short_description">This tool helps you to find an effect on some components:</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Analysis.DependCentrality.html" class="more">« More »</a>
+</div>
+<div id="HiddenCoupling" class="element ajax clickable class">
 <h1>HiddenCoupling<a href="../classes/Trismegiste.Mondrian.Analysis.HiddenCoupling.html">¶</a>
 </h1>
 <p class="short_description">HiddenCoupling is an analyser which checks and finds hidden coupling
@@ -98,21 +132,83 @@ between types</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Analysis.HiddenCoupling.html" class="more">« More »</a>
 </div>
-<a name="SpaghettiCoupling" id="SpaghettiCoupling"></a><div class="element ajax clickable class" href="../classes/Trismegiste.Mondrian.Analysis.SpaghettiCoupling.html">
+<div id="LiskovSearch" class="element ajax clickable class">
+<h1>LiskovSearch<a href="../classes/Trismegiste.Mondrian.Analysis.LiskovSearch.html">¶</a>
+</h1>
+<p class="short_description">LiskovSearch is an analyser</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Analysis.LiskovSearch.html" class="more">« More »</a>
+</div>
+<div id="SpaghettiCoupling" class="element ajax clickable class">
 <h1>SpaghettiCoupling<a href="../classes/Trismegiste.Mondrian.Analysis.SpaghettiCoupling.html">¶</a>
 </h1>
-<p class="short_description">SpaghettiCoupling is an analyser which finds coupling between implementations,
-I mean between public methods without abstraction.</p>
+<p class="short_description">SpaghettiCoupling is an analyser which finds coupling between classes,</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Analysis.SpaghettiCoupling.html" class="more">« More »</a>
+</div>
+<div id="UsedCentrality" class="element ajax clickable class">
+<h1>UsedCentrality<a href="../classes/Trismegiste.Mondrian.Analysis.UsedCentrality.html">¶</a>
+</h1>
+<p class="short_description">This tool helps you to find an effect on some components:</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Analysis.UsedCentrality.html" class="more">« More »</a>
+</div>
+<ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Analysis.html">Analysis</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Analysis.Strategy.html">Strategy</a>
+</li>
+</ul>
+<div class="namespace-indent">
+<h3>
+<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
+<div id="Search" class="element ajax clickable interface">
+<h1>Search<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.Search.html">¶</a>
+</h1>
+<p class="short_description">Search is a contract for searching coupled component</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.Search.html" class="more">« More »</a>
+</div>
+<div id="ByCalling" class="element ajax clickable class">
+<h1>ByCalling<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByCalling.html">¶</a>
+</h1>
+<p class="short_description">ByCalling  selects path between classes if there is a call.</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByCalling.html" class="more">« More »</a>
+</div>
+<div id="ByConnection" class="element ajax clickable class">
+<h1>ByConnection<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByConnection.html">¶</a>
+</h1>
+<p class="short_description">ByConnection selects shortcut on a path at the first class
+because connect property is transitive.</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByConnection.html" class="more">« More »</a>
+</div>
+<div id="ByImplemented" class="element ajax clickable class">
+<h1>ByImplemented<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByImplemented.html">¶</a>
+</h1>
+<p class="short_description">ByImplemented selects path between classes if
+there is a use in a implementation.</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByImplemented.html" class="more">« More »</a>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
-            generated on 2013-04-12T15:02:08+02:00.<br></footer></div>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-04-22T15:32:48+02:00.<br></footer></div>
 </div>
 </body>
 </html>

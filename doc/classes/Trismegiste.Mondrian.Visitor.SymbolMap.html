@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
@@ -31,10 +31,10 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">164</span></a></li>
+                <span class="label label-info">258</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
-                <span class="label label-info">2</span>
+                <span class="label label-info">1</span>
 </li></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
                 <span class="label label-info">0</span></a></li>
@@ -56,191 +56,318 @@
 </div>
 <ul class="side-nav nav nav-list">
 <li class="nav-header">
-<i class="icon-custom icon-method"></i> Methods</li>
-<li class="method public "><a href="#__construct" title="__construct :: "><span class="description">__construct()
-        </span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#afterTraverse" title="afterTraverse :: "><span class="description">afterTraverse()
-        </span><pre>afterTraverse()</pre></a></li>
-<li class="method public "><a href="#beforeTraverse" title="beforeTraverse :: "><span class="description">beforeTraverse()
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: Build the collector"><span class="description">Build the collector</span><pre>__construct()</pre></a></li>
+<li class="method public inherited"><a href="#method_beforeTraverse" title="beforeTraverse :: "><span class="description">beforeTraverse()
         </span><pre>beforeTraverse()</pre></a></li>
-<li class="method public "><a href="#compile" title="compile :: Compiling the pass : resolving symbol in the context"><span class="description">Compiling the pass : resolving symbol in the context</span><pre>compile()</pre></a></li>
-<li class="method public "><a href="#enterNode" title="enterNode :: "><span class="description">enterNode()
-        </span><pre>enterNode()</pre></a></li>
-<li class="method public "><a href="#leaveNode" title="leaveNode :: "><span class="description">leaveNode()
-        </span><pre>leaveNode()</pre></a></li>
-<li class="nav-header protected">» Protected</li>
-<li class="method protected "><a href="#addNamespacedName" title="addNamespacedName :: "><span class="description">addNamespacedName()
-        </span><pre>addNamespacedName()</pre></a></li>
-<li class="method protected "><a href="#initSymbol" title="initSymbol :: Initialize a new symbol"><span class="description">Initialize a new symbol</span><pre>initSymbol()</pre></a></li>
-<li class="method protected "><a href="#resolveClassName" title="resolveClassName :: "><span class="description">resolveClassName()
+<li class="method public "><a href="#method_compile" title="compile :: Compiling the pass : resolving symbols in the context"><span class="description">Compiling the pass : resolving symbols in the context</span><pre>compile()</pre></a></li>
+<li class="method public inherited"><a href="#method_enterNode" title="enterNode :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>enterNode()</pre></a></li>
+<li class="method public inherited"><a href="#method_leaveNode" title="leaveNode :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>leaveNode()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected "><a href="#method_enterClassNode" title="enterClassNode :: Visits a class node"><span class="description">Visits a class node</span><pre>enterClassNode()</pre></a></li>
+<li class="method protected "><a href="#method_enterInterfaceNode" title="enterInterfaceNode :: Visits an interface node"><span class="description">Visits an interface node</span><pre>enterInterfaceNode()</pre></a></li>
+<li class="method protected "><a href="#method_enterPublicMethodNode" title="enterPublicMethodNode :: Visits a public method node"><span class="description">Visits a public method node</span><pre>enterPublicMethodNode()</pre></a></li>
+<li class="method protected inherited"><a href="#method_extractAnnotation" title="extractAnnotation :: Extracts annotations in the comment of a statement and injects them in
+attribute of the node"><span class="description">Extracts annotations in the comment of a statement and injects them in
+attribute of the node</span><pre>extractAnnotation()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getCurrentMethodIndex" title="getCurrentMethodIndex :: the vertex name for a MethodVertex"><span class="description">the vertex name for a MethodVertex</span><pre>getCurrentMethodIndex()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getNamespacedName" title="getNamespacedName :: "><span class="description">getNamespacedName()
+        </span><pre>getNamespacedName()</pre></a></li>
+<li class="method protected inherited"><a href="#method_resolveClassName" title="resolveClassName :: "><span class="description">resolveClassName()
         </span><pre>resolveClassName()</pre></a></li>
-<li class="method protected "><a href="#resolveOtherName" title="resolveOtherName :: "><span class="description">resolveOtherName()
-        </span><pre>resolveOtherName()</pre></a></li>
+</ul>
+</li>
 <li class="nav-header">
-<i class="icon-custom icon-property"></i> Properties</li>
-<li class="nav-header protected">» Protected</li>
-<li class="property protected "><a href="#%24context" title="$context :: "><span class="description">$context</span><pre>$context</pre></a></li>
-<li class="property protected "><a href="#%24currentClass" title="$currentClass :: "><span class="description">$currentClass</span><pre>$currentClass</pre></a></li>
-<li class="property protected "><a href="#%24symbol" title="$symbol :: "><span class="description">$symbol</span><pre>$symbol</pre></a></li>
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected inherited"><a href="#property_aliases" title="$aliases :: "><span class="description">Currently defined namespace and class aliases</span><pre>$aliases</pre></a></li>
+<li class="property protected inherited"><a href="#property_currentClass" title="$currentClass :: "><span class="description"></span><pre>$currentClass</pre></a></li>
+<li class="property protected inherited"><a href="#property_currentMethod" title="$currentMethod :: "><span class="description"></span><pre>$currentMethod</pre></a></li>
+<li class="property protected inherited"><a href="#property_namespace" title="$namespace :: "><span class="description">Current namespace</span><pre>$namespace</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul><li class="property private "><a href="#property_context" title="$context :: "><span class="description"></span><pre>$context</pre></a></li></ul>
+</li>
 </ul>
 </div>
 <div class="span8">
-<a name="%5CTrismegiste%5CMondrian%5CVisitor%5CSymbolMap" id="\Trismegiste\Mondrian\Visitor\SymbolMap"></a><ul class="breadcrumb">
+<a id="\Trismegiste\Mondrian\Visitor\SymbolMap"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
 <li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<span class="divider">\</span><li><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a></li>
-<span class="divider">\</span><li><a href="../namespaces/Trismegiste.Mondrian.Visitor.html">Visitor</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Visitor.html">Visitor</a>
+</li>
 <li class="active">
 <span class="divider">\</span><a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html">SymbolMap</a>
 </li>
 </ul>
-<div href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html" class="element class">
+<div class="element class">
 <p class="short_description">SymbolMap is a class to collect list of class/interface/method name</p>
 <div class="details">
-<p class="long_description"><p>It fills the inheritance map of the context</p></p>
+<div class="long_description"><p>It fills the Context with symbols</p></div>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
-<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
-<h2>__construct()
-        </h2>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>Build the collector</h2>
 <pre>__construct(\Trismegiste\Mondrian\Transform\Context $ctx) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$ctx</h4></div>
+<div class="subelement argument">
+<h4>$ctx</h4>
+<code><a href="../classes/Trismegiste.Mondrian.Transform.Context.html">\Trismegiste\Mondrian\Transform\Context</a></code>
+</div>
 </div></div>
 </div>
-<a name="afterTraverse" id="afterTraverse"></a><div class="element clickable method public afterTraverse" data-toggle="collapse" data-target=".afterTraverse .collapse">
-<h2>afterTraverse()
-        </h2>
-<pre>afterTraverse() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>PHPParser_NodeVisitorAbstract::afterTraverse()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="beforeTraverse" id="beforeTraverse"></a><div class="element clickable method public beforeTraverse" data-toggle="collapse" data-target=".beforeTraverse .collapse">
+<a id="method_beforeTraverse"></a><div class="element clickable method public method_beforeTraverse" data-toggle="collapse" data-target=".method_beforeTraverse .collapse">
 <h2>beforeTraverse()
         </h2>
-<pre>beforeTraverse() </pre>
-<div class="labels"></div>
+<pre>beforeTraverse(array $nodes) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
 <th>inherited_from</th>
-<td>PHPParser_NodeVisitor_NameResolver::beforeTraverse()</td>
-</tr></table>
+<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::beforeTraverse()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::beforeTraverse()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$nodes</h4></div>
 </div></div>
 </div>
-<a name="compile" id="compile"></a><div class="element clickable method public compile" data-toggle="collapse" data-target=".compile .collapse">
-<h2>Compiling the pass : resolving symbol in the context</h2>
+<a id="method_compile"></a><div class="element clickable method public method_compile" data-toggle="collapse" data-target=".method_compile .collapse">
+<h2>Compiling the pass : resolving symbols in the context</h2>
 <pre>compile() </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a name="enterNode" id="enterNode"></a><div class="element clickable method public enterNode" data-toggle="collapse" data-target=".enterNode .collapse">
-<h2>enterNode()
-        </h2>
+<a id="method_enterNode"></a><div class="element clickable method public method_enterNode" data-toggle="collapse" data-target=".method_enterNode .collapse">
+<h2>{@inheritDoc}</h2>
 <pre>enterNode(\PHPParser_Node $node) </pre>
-<div class="labels"></div>
+<div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$node</h4></div>
-</div></div>
-</div>
-<a name="leaveNode" id="leaveNode"></a><div class="element clickable method public leaveNode" data-toggle="collapse" data-target=".leaveNode .collapse">
-<h2>leaveNode()
-        </h2>
-<pre>leaveNode(\PHPParser_Node $node) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$node</h4></div>
-</div></div>
-</div>
-<a name="addNamespacedName" id="addNamespacedName"></a><div class="element clickable method protected addNamespacedName" data-toggle="collapse" data-target=".addNamespacedName .collapse">
-<h2>addNamespacedName()
-        </h2>
-<pre>addNamespacedName() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>inherited_from</th>
-<td>PHPParser_NodeVisitor_NameResolver::addNamespacedName()</td>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::enterNode()</td>
 </tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$node</h4></div>
 </div></div>
 </div>
-<a name="initSymbol" id="initSymbol"></a><div class="element clickable method protected initSymbol" data-toggle="collapse" data-target=".initSymbol .collapse">
-<h2>Initialize a new symbol</h2>
-<pre>initSymbol(string $name, bool $isInterface) </pre>
+<a id="method_leaveNode"></a><div class="element clickable method public method_leaveNode" data-toggle="collapse" data-target=".method_leaveNode .collapse">
+<h2>{@inheritDoc}</h2>
+<pre>leaveNode(\PHPParser_Node $node) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::leaveNode()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$node</h4></div>
+</div></div>
+</div>
+<a id="method_enterClassNode"></a><div class="element clickable method protected method_enterClassNode" data-toggle="collapse" data-target=".method_enterClassNode .collapse">
+<h2>Visits a class node</h2>
+<pre>enterClassNode(\PHPParser_Node_Stmt_Class $node) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$name</h4>
-<code>string</code><p>class or interface name</p></div>
-<div class="subelement argument">
-<h4>$isInterface</h4>
-<code>bool</code><p>is interface ?</p>
+<h4>$node</h4>
+<code>\PHPParser_Node_Stmt_Class</code>
 </div>
 </div></div>
 </div>
-<a name="resolveClassName" id="resolveClassName"></a><div class="element clickable method protected resolveClassName" data-toggle="collapse" data-target=".resolveClassName .collapse">
+<a id="method_enterInterfaceNode"></a><div class="element clickable method protected method_enterInterfaceNode" data-toggle="collapse" data-target=".method_enterInterfaceNode .collapse">
+<h2>Visits an interface node</h2>
+<pre>enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$node</h4>
+<code>\PHPParser_Node_Stmt_Interface</code>
+</div>
+</div></div>
+</div>
+<a id="method_enterPublicMethodNode"></a><div class="element clickable method protected method_enterPublicMethodNode" data-toggle="collapse" data-target=".method_enterPublicMethodNode .collapse">
+<h2>Visits a public method node</h2>
+<pre>enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$node</h4>
+<code>\PHPParser_Node_Stmt_ClassMethod</code>
+</div>
+</div></div>
+</div>
+<a id="method_extractAnnotation"></a><div class="element clickable method protected method_extractAnnotation" data-toggle="collapse" data-target=".method_extractAnnotation .collapse">
+<h2>Extracts annotations in the comment of a statement and injects them in
+attribute of the node</h2>
+<pre>extractAnnotation(\PHPParser_Node_Stmt $node) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::extractAnnotation()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$node</h4>
+<code>\PHPParser_Node_Stmt_ClassMethod</code>
+</div>
+</div></div>
+</div>
+<a id="method_getCurrentMethodIndex"></a><div class="element clickable method protected method_getCurrentMethodIndex" data-toggle="collapse" data-target=".method_getCurrentMethodIndex .collapse">
+<h2>the vertex name for a MethodVertex</h2>
+<pre>getCurrentMethodIndex() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::getCurrentMethodIndex()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_getNamespacedName"></a><div class="element clickable method protected method_getNamespacedName" data-toggle="collapse" data-target=".method_getNamespacedName .collapse">
+<h2>getNamespacedName()
+        </h2>
+<pre>getNamespacedName(\PHPParser_Node $node) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::getNamespacedName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::getNamespacedName()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$node</h4></div>
+</div></div>
+</div>
+<a id="method_resolveClassName"></a><div class="element clickable method protected method_resolveClassName" data-toggle="collapse" data-target=".method_resolveClassName .collapse">
 <h2>resolveClassName()
         </h2>
-<pre>resolveClassName() </pre>
-<div class="labels"></div>
+<pre>resolveClassName(\PHPParser_Node_Name $src) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
 <th>inherited_from</th>
-<td>PHPParser_NodeVisitor_NameResolver::resolveClassName()</td>
-</tr></table>
-</div></div>
-</div>
-<a name="resolveOtherName" id="resolveOtherName"></a><div class="element clickable method protected resolveOtherName" data-toggle="collapse" data-target=".resolveOtherName .collapse">
-<h2>resolveOtherName()
-        </h2>
-<pre>resolveOtherName() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
-<table class="table table-bordered"><tr>
+<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::resolveClassName()</td>
+</tr>
+<tr>
 <th>inherited_from</th>
-<td>PHPParser_NodeVisitor_NameResolver::resolveOtherName()</td>
-</tr></table>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::resolveClassName()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$src</h4></div>
 </div></div>
 </div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
-<a name="%24context" id="$context"> </a><div class="element clickable property protected $context" data-toggle="collapse" data-target=".$context .collapse">
-<h2>$context</h2>
+<a id="property_aliases"> </a><div class="element clickable property protected property_aliases" data-toggle="collapse" data-target=".property_aliases .collapse">
+<h2>Currently defined namespace and class aliases</h2>
+<pre>$aliases : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::$$aliases</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$aliases</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_currentClass"> </a><div class="element clickable property protected property_currentClass" data-toggle="collapse" data-target=".property_currentClass .collapse">
+<h2></h2>
+<pre>$currentClass </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$currentClass</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_currentMethod"> </a><div class="element clickable property protected property_currentMethod" data-toggle="collapse" data-target=".property_currentMethod .collapse">
+<h2></h2>
+<pre>$currentMethod </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$currentMethod</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_namespace"> </a><div class="element clickable property protected property_namespace" data-toggle="collapse" data-target=".property_namespace .collapse">
+<h2>Current namespace</h2>
+<pre>$namespace : null | \Trismegiste\Mondrian\Visitor\PHPParser_Node_Name</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::$$namespace</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$namespace</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_context"> </a><div class="element clickable property private property_context" data-toggle="collapse" data-target=".property_context .collapse">
+<h2></h2>
 <pre>$context </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="%24currentClass" id="$currentClass"> </a><div class="element clickable property protected $currentClass" data-toggle="collapse" data-target=".$currentClass .collapse">
-<h2>$currentClass</h2>
-<pre>$currentClass </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="%24symbol" id="$symbol"> </a><div class="element clickable property protected $symbol" data-toggle="collapse" data-target=".$symbol .collapse">
-<h2>$symbol</h2>
-<pre>$symbol </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
 </div>
 </div>
@@ -248,8 +375,8 @@
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
-            generated on 2013-04-12T15:02:09+02:00.<br></footer></div>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-04-22T15:32:48+02:00.<br></footer></div>
 </div>
 </body>
 </html>

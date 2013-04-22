@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
@@ -31,10 +31,10 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">164</span></a></li>
+                <span class="label label-info">258</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
-                <span class="label label-info">2</span>
+                <span class="label label-info">1</span>
 </li></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
                 <span class="label label-info">0</span></a></li>
@@ -56,50 +56,66 @@
 </div>
 <ul class="side-nav nav nav-list">
 <li class="nav-header">
-<i class="icon-custom icon-method"></i> Methods</li>
-<li class="method public inherited"><a href="#__construct" title="__construct :: Decorates the graph"><span class="description">Decorates the graph</span><pre>__construct()</pre></a></li>
-<li class="method public inherited"><a href="#addEdge" title="addEdge :: Add a (un)directed edge if it does not already exist"><span class="description">Add a (un)directed edge if it does not already exist</span><pre>addEdge()</pre></a></li>
-<li class="method public inherited"><a href="#addVertex" title="addVertex :: Add a vertex to the graph without edge"><span class="description">Add a vertex to the graph without edge</span><pre>addVertex()</pre></a></li>
-<li class="method public "><a href="#generateGraph" title="generateGraph :: Generate a digraph reduced to the hidden coupled vertices"><span class="description">Generate a digraph reduced to the hidden coupled vertices</span><pre>generateGraph()</pre></a></li>
-<li class="method public inherited"><a href="#getEdgeIterator" title="getEdgeIterator :: Get an iterator on edges for one vertex"><span class="description">Get an iterator on edges for one vertex</span><pre>getEdgeIterator()</pre></a></li>
-<li class="method public inherited"><a href="#getEdgeSet" title="getEdgeSet :: Get the edges set"><span class="description">Get the edges set</span><pre>getEdgeSet()</pre></a></li>
-<li class="method public inherited"><a href="#getSuccessor" title="getSuccessor :: Get successors of a vertex"><span class="description">Get successors of a vertex</span><pre>getSuccessor()</pre></a></li>
-<li class="method public inherited"><a href="#getVertexSet" title="getVertexSet :: Get the vertices in the graph"><span class="description">Get the vertices in the graph</span><pre>getVertexSet()</pre></a></li>
-<li class="method public inherited"><a href="#searchEdge" title="searchEdge :: Searches an existing (directed or not) edge between two vertices"><span class="description">Searches an existing (directed or not) edge between two vertices</span><pre>searchEdge()</pre></a></li>
-<li class="method public inherited"><a href="#searchPath" title="searchPath :: "><span class="description">searchPath()
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public inherited"><a href="#method___construct" title="__construct :: Decorates the graph"><span class="description">Decorates the graph</span><pre>__construct()</pre></a></li>
+<li class="method public inherited"><a href="#method_addEdge" title="addEdge :: Add a (un)directed edge if it does not already exist"><span class="description">Add a (un)directed edge if it does not already exist</span><pre>addEdge()</pre></a></li>
+<li class="method public inherited"><a href="#method_addVertex" title="addVertex :: Add a vertex to the graph without edge"><span class="description">Add a vertex to the graph without edge</span><pre>addVertex()</pre></a></li>
+<li class="method public "><a href="#method_createReducedGraph" title="createReducedGraph :: Generate a digraph reduced to the hidden coupled vertices"><span class="description">Generate a digraph reduced to the hidden coupled vertices</span><pre>createReducedGraph()</pre></a></li>
+<li class="method public inherited"><a href="#method_getEdgeIterator" title="getEdgeIterator :: Get an iterator on edges for one vertex"><span class="description">Get an iterator on edges for one vertex</span><pre>getEdgeIterator()</pre></a></li>
+<li class="method public inherited"><a href="#method_getEdgeSet" title="getEdgeSet :: Get the edges set"><span class="description">Get the edges set</span><pre>getEdgeSet()</pre></a></li>
+<li class="method public inherited"><a href="#method_getPartition" title="getPartition :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>getPartition()</pre></a></li>
+<li class="method public inherited"><a href="#method_getSuccessor" title="getSuccessor :: Get successors of a vertex"><span class="description">Get successors of a vertex</span><pre>getSuccessor()</pre></a></li>
+<li class="method public inherited"><a href="#method_getVertexSet" title="getVertexSet :: Get the vertices in the graph"><span class="description">Get the vertices in the graph</span><pre>getVertexSet()</pre></a></li>
+<li class="method public inherited"><a href="#method_searchEdge" title="searchEdge :: Searches an existing (directed or not) edge between two vertices"><span class="description">Searches an existing (directed or not) edge between two vertices</span><pre>searchEdge()</pre></a></li>
+<li class="method public inherited"><a href="#method_searchPath" title="searchPath :: "><span class="description">searchPath()
         </span><pre>searchPath()</pre></a></li>
-<li class="nav-header protected">» Protected</li>
-<li class="method protected "><a href="#findDeclaringVertex" title="findDeclaringVertex :: "><span class="description">findDeclaringVertex()
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected "><a href="#method_findDeclaringVertex" title="findDeclaringVertex :: "><span class="description">findDeclaringVertex()
         </span><pre>findDeclaringVertex()</pre></a></li>
-<li class="method protected "><a href="#findOwningClassVertex" title="findOwningClassVertex :: "><span class="description">findOwningClassVertex()
+<li class="method protected "><a href="#method_findOwningClassVertex" title="findOwningClassVertex :: "><span class="description">findOwningClassVertex()
         </span><pre>findOwningClassVertex()</pre></a></li>
-<li class="method protected inherited"><a href="#recursivSearchPath" title="recursivSearchPath :: "><span class="description">recursivSearchPath()
+<li class="method protected inherited"><a href="#method_recursivSearchPath" title="recursivSearchPath :: "><span class="description">recursivSearchPath()
         </span><pre>recursivSearchPath()</pre></a></li>
-<li class="method protected inherited"><a href="#resetVisited" title="resetVisited :: Reset visited state of edges"><span class="description">Reset visited state of edges</span><pre>resetVisited()</pre></a></li>
+<li class="method protected inherited"><a href="#method_resetVisited" title="resetVisited :: Reset visited state of edges"><span class="description">Reset visited state of edges</span><pre>resetVisited()</pre></a></li>
+</ul>
+</li>
 <li class="nav-header">
-<i class="icon-custom icon-property"></i> Properties</li>
-<li class="nav-header protected">» Protected</li>
-<li class="property protected inherited"><a href="#%24graph" title="$graph :: "><span class="description">$graph</span><pre>$graph</pre></a></li>
-<li class="property protected inherited"><a href="#%24stack" title="$stack :: "><span class="description">$stack</span><pre>$stack</pre></a></li>
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected inherited"><a href="#property_graph" title="$graph :: "><span class="description"></span><pre>$graph</pre></a></li>
+<li class="property protected inherited"><a href="#property_stack" title="$stack :: "><span class="description"></span><pre>$stack</pre></a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="span8">
-<a name="%5CTrismegiste%5CMondrian%5CAnalysis%5CHiddenCoupling" id="\Trismegiste\Mondrian\Analysis\HiddenCoupling"></a><ul class="breadcrumb">
+<a id="\Trismegiste\Mondrian\Analysis\HiddenCoupling"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
 <li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<span class="divider">\</span><li><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a></li>
-<span class="divider">\</span><li><a href="../namespaces/Trismegiste.Mondrian.Analysis.html">Analysis</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Analysis.html">Analysis</a>
+</li>
 <li class="active">
 <span class="divider">\</span><a href="../classes/Trismegiste.Mondrian.Analysis.HiddenCoupling.html">HiddenCoupling</a>
 </li>
 </ul>
-<div href="../classes/Trismegiste.Mondrian.Analysis.HiddenCoupling.html" class="element class">
+<div class="element class">
 <p class="short_description">HiddenCoupling is an analyser which checks and finds hidden coupling
 between types</p>
 <div class="details">
-<p class="long_description"><p>How ?
+<div class="long_description"><p>How ?
 This analyser searches for method calls. Everytime there is a call of
 a method against an object ( $obj->getThing() ), it means an edge from
 an implementation vertex where the call is to a method signature vertex.</p>
@@ -125,15 +141,15 @@ there is a big limit of this static analyser.</p>
 
 <p>Neverthesless I pretend this tool can find at least 50% of hidden coupling
 in poorly-coded classes and about 10% of false positive, from what I've
-seen.</p></p>
+seen.</p></div>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
-<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
 <h2>Decorates the graph</h2>
 <pre>__construct(\Trismegiste\Mondrian\Graph\Graph $g) </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>inherited_from</th>
@@ -151,12 +167,12 @@ seen.</p></p>
 </div>
 </div></div>
 </div>
-<a name="addEdge" id="addEdge"></a><div class="element clickable method public addEdge" data-toggle="collapse" data-target=".addEdge .collapse">
+<a id="method_addEdge"></a><div class="element clickable method public method_addEdge" data-toggle="collapse" data-target=".method_addEdge .collapse">
 <h2>Add a (un)directed edge if it does not already exist</h2>
 <pre>addEdge(\Trismegiste\Mondrian\Graph\Vertex $source, \Trismegiste\Mondrian\Graph\Vertex $target) </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>inherited_from</th>
@@ -178,12 +194,12 @@ seen.</p></p>
 </div>
 </div></div>
 </div>
-<a name="addVertex" id="addVertex"></a><div class="element clickable method public addVertex" data-toggle="collapse" data-target=".addVertex .collapse">
+<a id="method_addVertex"></a><div class="element clickable method public method_addVertex" data-toggle="collapse" data-target=".method_addVertex .collapse">
 <h2>Add a vertex to the graph without edge</h2>
 <pre>addVertex(\Trismegiste\Mondrian\Graph\Vertex $v) </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>inherited_from</th>
@@ -201,20 +217,24 @@ seen.</p></p>
 </div>
 </div></div>
 </div>
-<a name="generateGraph" id="generateGraph"></a><div class="element clickable method public generateGraph" data-toggle="collapse" data-target=".generateGraph .collapse">
+<a id="method_createReducedGraph"></a><div class="element clickable method public method_createReducedGraph" data-toggle="collapse" data-target=".method_createReducedGraph .collapse">
 <h2>Generate a digraph reduced to the hidden coupled vertices</h2>
-<pre>generateGraph() </pre>
+<pre>createReducedGraph() : <a href="../classes/Trismegiste.Mondrian.Graph.Graph.html">\Trismegiste\Mondrian\Graph\Graph</a></pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"><p>Since all vertices need to be scanned, go for the Floyd–Warshall algorithm
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Since all vertices need to be scanned, go for the Floyd–Warshall algorithm
 http://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
-in O(n³)</p></p></div></div>
+in O(n³)</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Trismegiste.Mondrian.Graph.Graph.html">\Trismegiste\Mondrian\Graph\Graph</a></code></div>
+</div></div>
 </div>
-<a name="getEdgeIterator" id="getEdgeIterator"></a><div class="element clickable method public getEdgeIterator" data-toggle="collapse" data-target=".getEdgeIterator .collapse">
+<a id="method_getEdgeIterator"></a><div class="element clickable method public method_getEdgeIterator" data-toggle="collapse" data-target=".method_getEdgeIterator .collapse">
 <h2>Get an iterator on edges for one vertex</h2>
 <pre>getEdgeIterator(\Trismegiste\Mondrian\Graph\Vertex $v) : \Trismegiste\Mondrian\Graph\Iterator</pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>inherited_from</th>
@@ -234,12 +254,12 @@ in O(n³)</p></p></div></div>
 <div class="subelement response"><code>\Trismegiste\Mondrian\Graph\Iterator</code></div>
 </div></div>
 </div>
-<a name="getEdgeSet" id="getEdgeSet"></a><div class="element clickable method public getEdgeSet" data-toggle="collapse" data-target=".getEdgeSet .collapse">
+<a id="method_getEdgeSet"></a><div class="element clickable method public method_getEdgeSet" data-toggle="collapse" data-target=".method_getEdgeSet .collapse">
 <h2>Get the edges set</h2>
 <pre>getEdgeSet() : array</pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>inherited_from</th>
@@ -254,12 +274,30 @@ in O(n³)</p></p></div></div>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="getSuccessor" id="getSuccessor"></a><div class="element clickable method public getSuccessor" data-toggle="collapse" data-target=".getSuccessor .collapse">
+<a id="method_getPartition"></a><div class="element clickable method public method_getPartition" data-toggle="collapse" data-target=".method_getPartition .collapse">
+<h2>{@inheritDoc}</h2>
+<pre>getPartition() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Algorithm::getPartition()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\BreadthFirstSearch::getPartition()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_getSuccessor"></a><div class="element clickable method public method_getSuccessor" data-toggle="collapse" data-target=".method_getSuccessor .collapse">
 <h2>Get successors of a vertex</h2>
 <pre>getSuccessor(\Trismegiste\Mondrian\Graph\Vertex $v) : null | array</pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>inherited_from</th>
@@ -274,15 +312,16 @@ in O(n³)</p></p></div></div>
 <div class="subelement argument"><h4>$v</h4></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>null</code><code>array</code>null if the vertex is not in this graph or an array of vertices</div>
+<code>null</code><code>array</code>null if the vertex is not in this graph
+                        or an array of vertices</div>
 </div></div>
 </div>
-<a name="getVertexSet" id="getVertexSet"></a><div class="element clickable method public getVertexSet" data-toggle="collapse" data-target=".getVertexSet .collapse">
+<a id="method_getVertexSet"></a><div class="element clickable method public method_getVertexSet" data-toggle="collapse" data-target=".method_getVertexSet .collapse">
 <h2>Get the vertices in the graph</h2>
 <pre>getVertexSet() : array</pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>inherited_from</th>
@@ -297,12 +336,12 @@ in O(n³)</p></p></div></div>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
-<a name="searchEdge" id="searchEdge"></a><div class="element clickable method public searchEdge" data-toggle="collapse" data-target=".searchEdge .collapse">
+<a id="method_searchEdge"></a><div class="element clickable method public method_searchEdge" data-toggle="collapse" data-target=".method_searchEdge .collapse">
 <h2>Searches an existing (directed or not) edge between two vertices</h2>
 <pre>searchEdge(\Trismegiste\Mondrian\Graph\Vertex $source, \Trismegiste\Mondrian\Graph\Vertex $target) : <a href="../classes/Trismegiste.Mondrian.Graph.Edge.html">\Trismegiste\Mondrian\Graph\Edge</a></pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>inherited_from</th>
@@ -326,13 +365,13 @@ in O(n³)</p></p></div></div>
 <div class="subelement response"><code><a href="../classes/Trismegiste.Mondrian.Graph.Edge.html">\Trismegiste\Mondrian\Graph\Edge</a></code></div>
 </div></div>
 </div>
-<a name="searchPath" id="searchPath"></a><div class="element clickable method public searchPath" data-toggle="collapse" data-target=".searchPath .collapse">
+<a id="method_searchPath"></a><div class="element clickable method public method_searchPath" data-toggle="collapse" data-target=".method_searchPath .collapse">
 <h2>searchPath()
         </h2>
 <pre>searchPath(\Trismegiste\Mondrian\Graph\Vertex $src, \Trismegiste\Mondrian\Graph\Vertex $dst) </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>inherited_from</th>
 <td>\Trismegiste\Mondrian\Graph\BreadthFirstSearch::searchPath()</td>
@@ -342,35 +381,35 @@ in O(n³)</p></p></div></div>
 <div class="subelement argument"><h4>$dst</h4></div>
 </div></div>
 </div>
-<a name="findDeclaringVertex" id="findDeclaringVertex"></a><div class="element clickable method protected findDeclaringVertex" data-toggle="collapse" data-target=".findDeclaringVertex .collapse">
+<a id="method_findDeclaringVertex"></a><div class="element clickable method protected method_findDeclaringVertex" data-toggle="collapse" data-target=".method_findDeclaringVertex .collapse">
 <h2>findDeclaringVertex()
         </h2>
 <pre>findDeclaringVertex(\Trismegiste\Mondrian\Transform\Vertex\MethodVertex $meth) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument"><h4>$meth</h4></div>
 </div></div>
 </div>
-<a name="findOwningClassVertex" id="findOwningClassVertex"></a><div class="element clickable method protected findOwningClassVertex" data-toggle="collapse" data-target=".findOwningClassVertex .collapse">
+<a id="method_findOwningClassVertex"></a><div class="element clickable method protected method_findOwningClassVertex" data-toggle="collapse" data-target=".method_findOwningClassVertex .collapse">
 <h2>findOwningClassVertex()
         </h2>
 <pre>findOwningClassVertex(\Trismegiste\Mondrian\Transform\Vertex\ImplVertex $impl) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument"><h4>$impl</h4></div>
 </div></div>
 </div>
-<a name="recursivSearchPath" id="recursivSearchPath"></a><div class="element clickable method protected recursivSearchPath" data-toggle="collapse" data-target=".recursivSearchPath .collapse">
+<a id="method_recursivSearchPath"></a><div class="element clickable method protected method_recursivSearchPath" data-toggle="collapse" data-target=".method_recursivSearchPath .collapse">
 <h2>recursivSearchPath()
         </h2>
 <pre>recursivSearchPath(\SplObjectStorage $step, \Trismegiste\Mondrian\Graph\Vertex $dst) </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>inherited_from</th>
 <td>\Trismegiste\Mondrian\Graph\BreadthFirstSearch::recursivSearchPath()</td>
@@ -380,12 +419,12 @@ in O(n³)</p></p></div></div>
 <div class="subelement argument"><h4>$dst</h4></div>
 </div></div>
 </div>
-<a name="resetVisited" id="resetVisited"></a><div class="element clickable method protected resetVisited" data-toggle="collapse" data-target=".resetVisited .collapse">
+<a id="method_resetVisited"></a><div class="element clickable method protected method_resetVisited" data-toggle="collapse" data-target=".method_resetVisited .collapse">
 <h2>Reset visited state of edges</h2>
 <pre>resetVisited() </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>inherited_from</th>
 <td>\Trismegiste\Mondrian\Graph\BreadthFirstSearch::resetVisited()</td>
@@ -394,12 +433,12 @@ in O(n³)</p></p></div></div>
 </div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
-<a name="%24graph" id="$graph"> </a><div class="element clickable property protected $graph" data-toggle="collapse" data-target=".$graph .collapse">
-<h2>$graph</h2>
+<a id="property_graph"> </a><div class="element clickable property protected property_graph" data-toggle="collapse" data-target=".property_graph .collapse">
+<h2></h2>
 <pre>$graph </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
 <th>inherited_from</th>
@@ -412,12 +451,12 @@ in O(n³)</p></p></div></div>
 </table>
 </div></div>
 </div>
-<a name="%24stack" id="$stack"> </a><div class="element clickable property protected $stack" data-toggle="collapse" data-target=".$stack .collapse">
-<h2>$stack</h2>
+<a id="property_stack"> </a><div class="element clickable property protected property_stack" data-toggle="collapse" data-target=".property_stack .collapse">
+<h2></h2>
 <pre>$stack </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
+<div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>inherited_from</th>
 <td>\Trismegiste\Mondrian\Graph\BreadthFirstSearch::$$stack</td>
@@ -430,8 +469,8 @@ in O(n³)</p></p></div></div>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
-            generated on 2013-04-12T15:02:09+02:00.<br></footer></div>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-04-22T15:32:49+02:00.<br></footer></div>
 </div>
 </body>
 </html>

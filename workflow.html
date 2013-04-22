@@ -52,6 +52,8 @@
         <li><a href="cmd.html#hidden">Hidden coupling</a></li>
         <li><a href="cmd.html#spaghet">Spaghetti coupling</a></li>
         <li><a href="cmd.html#cyclic">Cyclic coupling</a></li>
+        <li><a href="cmd.html#liskov">Liskov decoupling</a></li>
+        <li><a href="cmd.html#refactor">Refactoring</a></li>
     </ul>
 </li>
 <li><a href="workflow.html">Workflow</a></li>
@@ -106,7 +108,7 @@
     Third, try this command :
     <pre>$ php console.php mondrian:spaghetti --strategy=concrete ~/MyProject</pre>
     Is there one big ball of mud ? Well, you can check if there would be false edges
-    because of method name collision. You can add comment with
+    because of method name collision. You can add comment with :
     <pre>// @mondrian ignoreCallTo MyClass::notCalledMethod</pre>
     in front of method. But wait ! This could mean there is a common contract
     between all these classes. Try to add the --cycle option to see the most
@@ -114,13 +116,26 @@
 </p>
 <h2>Narrow the good edges</h2>
 <p>
-    Fourth, try this command :
+    Fourth, you could iterate these three commands :
     <pre>$ php console.php mondrian:hidden ~/MyProject</pre>
     It helps you to find if there is really a non-typed parameter between two
     classes. Therefore, you start to add new dependencies, go to first stage.
 </p>
 <p>
     Since there is no type, add new interfaces or abstract classes.
+</p>
+<p>
+    And this one :
+    <pre>$ php console.php mondrian:liskov ~/MyProject</pre>
+    It shows you (in red) which classes need to be abstracted first. The red circles
+    are the most used classes accross the source. If you abstract them with new interfaces,
+    there are good chances you'll break many cycles and dependencies.
+</p>
+<p>
+    That's why it is the perfect time to use the
+    <strong><a href="cmd.html#refactor">refactor tool</a></strong> :
+    <pre>$ php console.php mondrian:abstract ~/MyProject</pre>
+    And make many iterations in this very stage.
 </p>
 <h2>What is really important</h2>
 <p>

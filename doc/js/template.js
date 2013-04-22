@@ -10,7 +10,7 @@ function initializeContents()
     $(".element a.more").hide();
 
     $(".clickable.class,.clickable.interface").click(function() {
-        document.location = $(this).attr('href');
+        document.location = $("a.more", this).attr('href');
     });
 
     // change the cursor to a pointer to make it more explicit that this it clickable

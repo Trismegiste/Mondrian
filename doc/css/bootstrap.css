@@ -2105,6 +2105,11 @@ button.btn.small, input[type="submit"].btn.small {
   color: #999999;
   text-transform: uppercase;
 }
+
+.nav-list .nav-header * {
+    text-transform:none;
+}
+
 .nav-list > li + .nav-header {
   margin-top: 9px;
 }

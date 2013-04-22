@@ -1,0 +1,432 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Mondrian » \Trismegiste\Mondrian\Analysis\Cycle</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Mondrian</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Namespaces</a></li>
+<li><a href="../namespaces/Trismegiste.html"><i class="icon-th"></i> Trismegiste</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">258</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">1</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public inherited"><a href="#method___construct" title="__construct :: Decorates the graph"><span class="description">Decorates the graph</span><pre>__construct()</pre></a></li>
+<li class="method public inherited"><a href="#method_addEdge" title="addEdge :: Add a (un)directed edge if it does not already exist"><span class="description">Add a (un)directed edge if it does not already exist</span><pre>addEdge()</pre></a></li>
+<li class="method public inherited"><a href="#method_addVertex" title="addVertex :: Add a vertex to the graph without edge"><span class="description">Add a vertex to the graph without edge</span><pre>addVertex()</pre></a></li>
+<li class="method public inherited"><a href="#method_getEdgeIterator" title="getEdgeIterator :: Get an iterator on edges for one vertex"><span class="description">Get an iterator on edges for one vertex</span><pre>getEdgeIterator()</pre></a></li>
+<li class="method public inherited"><a href="#method_getEdgeSet" title="getEdgeSet :: Get the edges set"><span class="description">Get the edges set</span><pre>getEdgeSet()</pre></a></li>
+<li class="method public "><a href="#method_getPartition" title="getPartition :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>getPartition()</pre></a></li>
+<li class="method public inherited"><a href="#method_getStronglyConnected" title="getStronglyConnected :: Get the strongly connected components of this digraph by
+the Tarjan algorithm."><span class="description">Get the strongly connected components of this digraph by
+the Tarjan algorithm.</span><pre>getStronglyConnected()</pre></a></li>
+<li class="method public inherited"><a href="#method_getSuccessor" title="getSuccessor :: Get successors of a vertex"><span class="description">Get successors of a vertex</span><pre>getSuccessor()</pre></a></li>
+<li class="method public inherited"><a href="#method_getVertexSet" title="getVertexSet :: Get the vertices in the graph"><span class="description">Get the vertices in the graph</span><pre>getVertexSet()</pre></a></li>
+<li class="method public inherited"><a href="#method_searchEdge" title="searchEdge :: Searches an existing (directed or not) edge between two vertices"><span class="description">Searches an existing (directed or not) edge between two vertices</span><pre>searchEdge()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul><li class="method private inherited"><a href="#method_recursivStrongConnect" title="recursivStrongConnect :: "><span class="description">recursivStrongConnect()
+        </span><pre>recursivStrongConnect()</pre></a></li></ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected inherited"><a href="#property_graph" title="$graph :: "><span class="description"></span><pre>$graph</pre></a></li>
+<li class="property protected "><a href="#property_scc" title="$scc :: "><span class="description"></span><pre>$scc</pre></a></li>
+<li class="property protected "><a href="#property_threshold" title="$threshold :: "><span class="description"></span><pre>$threshold</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="property private inherited"><a href="#property_index" title="$index :: "><span class="description"></span><pre>$index</pre></a></li>
+<li class="property private inherited"><a href="#property_partition" title="$partition :: "><span class="description"></span><pre>$partition</pre></a></li>
+<li class="property private inherited"><a href="#property_stack" title="$stack :: "><span class="description"></span><pre>$stack</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\Trismegiste\Mondrian\Analysis\Cycle"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Analysis.html">Analysis</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Trismegiste.Mondrian.Analysis.Cycle.html">Cycle</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Cycle analyses cycles by searching for strongly connected components</p>
+<div class="details">
+<div class="long_description"><p>Tarjan is a decorator of Graph for finding strongly connected components
+in a directed graph (a.k.a digraph)</p></div>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>Decorates the graph</h2>
+<pre>__construct(\Trismegiste\Mondrian\Graph\Graph $g) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Algorithm::__construct()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::__construct()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$g</h4>
+<code><a href="../classes/Trismegiste.Mondrian.Graph.Graph.html">\Trismegiste\Mondrian\Graph\Graph</a></code>
+</div>
+</div></div>
+</div>
+<a id="method_addEdge"></a><div class="element clickable method public method_addEdge" data-toggle="collapse" data-target=".method_addEdge .collapse">
+<h2>Add a (un)directed edge if it does not already exist</h2>
+<pre>addEdge(\Trismegiste\Mondrian\Graph\Vertex $source, \Trismegiste\Mondrian\Graph\Vertex $target) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Algorithm::addEdge()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::addEdge()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$source</h4>
+<code><a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html">\Trismegiste\Mondrian\Graph\Vertex</a></code>
+</div>
+<div class="subelement argument">
+<h4>$target</h4>
+<code><a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html">\Trismegiste\Mondrian\Graph\Vertex</a></code>
+</div>
+</div></div>
+</div>
+<a id="method_addVertex"></a><div class="element clickable method public method_addVertex" data-toggle="collapse" data-target=".method_addVertex .collapse">
+<h2>Add a vertex to the graph without edge</h2>
+<pre>addVertex(\Trismegiste\Mondrian\Graph\Vertex $v) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Algorithm::addVertex()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::addVertex()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$v</h4>
+<code><a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html">\Trismegiste\Mondrian\Graph\Vertex</a></code>
+</div>
+</div></div>
+</div>
+<a id="method_getEdgeIterator"></a><div class="element clickable method public method_getEdgeIterator" data-toggle="collapse" data-target=".method_getEdgeIterator .collapse">
+<h2>Get an iterator on edges for one vertex</h2>
+<pre>getEdgeIterator(\Trismegiste\Mondrian\Graph\Vertex $v) : \Trismegiste\Mondrian\Graph\Iterator</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Algorithm::getEdgeIterator()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::getEdgeIterator()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$v</h4>
+<code><a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html">\Trismegiste\Mondrian\Graph\Vertex</a></code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\Trismegiste\Mondrian\Graph\Iterator</code></div>
+</div></div>
+</div>
+<a id="method_getEdgeSet"></a><div class="element clickable method public method_getEdgeSet" data-toggle="collapse" data-target=".method_getEdgeSet .collapse">
+<h2>Get the edges set</h2>
+<pre>getEdgeSet() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Algorithm::getEdgeSet()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::getEdgeSet()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getPartition"></a><div class="element clickable method public method_getPartition" data-toggle="collapse" data-target=".method_getPartition .collapse">
+<h2>{@inheritDoc}</h2>
+<pre>getPartition() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_getStronglyConnected"></a><div class="element clickable method public method_getStronglyConnected" data-toggle="collapse" data-target=".method_getStronglyConnected .collapse">
+<h2>Get the strongly connected components of this digraph by
+the Tarjan algorithm.</h2>
+<pre>getStronglyConnected() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Starting from :
+http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm</p>
+
+<p>Corrected with the help :
+https://code.google.com/p/jbpt/source/browse/trunk/jbpt-core/src/main/java/org/jbpt/algo/graph/StronglyConnectedComponents.java</p></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::getStronglyConnected()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>the partition of this graph : an array of an array of vertices</div>
+</div></div>
+</div>
+<a id="method_getSuccessor"></a><div class="element clickable method public method_getSuccessor" data-toggle="collapse" data-target=".method_getSuccessor .collapse">
+<h2>Get successors of a vertex</h2>
+<pre>getSuccessor(\Trismegiste\Mondrian\Graph\Vertex $v) : null | array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Algorithm::getSuccessor()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::getSuccessor()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$v</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>null</code><code>array</code>null if the vertex is not in this graph
+                        or an array of vertices</div>
+</div></div>
+</div>
+<a id="method_getVertexSet"></a><div class="element clickable method public method_getVertexSet" data-toggle="collapse" data-target=".method_getVertexSet .collapse">
+<h2>Get the vertices in the graph</h2>
+<pre>getVertexSet() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Algorithm::getVertexSet()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::getVertexSet()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_searchEdge"></a><div class="element clickable method public method_searchEdge" data-toggle="collapse" data-target=".method_searchEdge .collapse">
+<h2>Searches an existing (directed or not) edge between two vertices</h2>
+<pre>searchEdge(\Trismegiste\Mondrian\Graph\Vertex $source, \Trismegiste\Mondrian\Graph\Vertex $target) : <a href="../classes/Trismegiste.Mondrian.Graph.Edge.html">\Trismegiste\Mondrian\Graph\Edge</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Algorithm::searchEdge()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::searchEdge()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$source</h4>
+<code><a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html">\Trismegiste\Mondrian\Graph\Vertex</a></code>
+</div>
+<div class="subelement argument">
+<h4>$target</h4>
+<code><a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html">\Trismegiste\Mondrian\Graph\Vertex</a></code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Trismegiste.Mondrian.Graph.Edge.html">\Trismegiste\Mondrian\Graph\Edge</a></code></div>
+</div></div>
+</div>
+<a id="method_recursivStrongConnect"></a><div class="element clickable method private method_recursivStrongConnect" data-toggle="collapse" data-target=".method_recursivStrongConnect .collapse">
+<h2>recursivStrongConnect()
+        </h2>
+<pre>recursivStrongConnect(\Trismegiste\Mondrian\Graph\Vertex $v) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::recursivStrongConnect()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$v</h4></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_graph"> </a><div class="element clickable property protected property_graph" data-toggle="collapse" data-target=".property_graph .collapse">
+<h2></h2>
+<pre>$graph </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Algorithm::$$graph</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::$$graph</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_scc"> </a><div class="element clickable property protected property_scc" data-toggle="collapse" data-target=".property_scc .collapse">
+<h2></h2>
+<pre>$scc </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_threshold"> </a><div class="element clickable property protected property_threshold" data-toggle="collapse" data-target=".property_threshold .collapse">
+<h2></h2>
+<pre>$threshold </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_index"> </a><div class="element clickable property private property_index" data-toggle="collapse" data-target=".property_index .collapse">
+<h2></h2>
+<pre>$index </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::$$index</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_partition"> </a><div class="element clickable property private property_partition" data-toggle="collapse" data-target=".property_partition .collapse">
+<h2></h2>
+<pre>$partition </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::$$partition</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_stack"> </a><div class="element clickable property private property_stack" data-toggle="collapse" data-target=".property_stack .collapse">
+<h2></h2>
+<pre>$stack </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Graph\Tarjan::$$stack</td>
+</tr></table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-04-22T15:32:49+02:00.<br></footer></div>
+</div>
+</body>
+</html>

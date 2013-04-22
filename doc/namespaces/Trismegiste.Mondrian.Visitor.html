@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
@@ -31,10 +31,10 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">164</span></a></li>
+                <span class="label label-info">258</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
-                <span class="label label-info">2</span>
+                <span class="label label-info">1</span>
 </li></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
                 <span class="label label-info">0</span></a></li>
@@ -68,34 +68,75 @@
 <a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
 </li>
 <li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<span class="divider">\</span><li><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a></li>
-<span class="divider">\</span><li class="active"><a href="../namespaces/Trismegiste.Mondrian.Visitor.html">Visitor</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Visitor.html">Visitor</a>
+</li>
 </ul>
 <div class="namespace-indent">
 <h3>
 <i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<a name="EdgeCollector" id="EdgeCollector"></a><div class="element ajax clickable class" href="../classes/Trismegiste.Mondrian.Visitor.EdgeCollector.html">
+<div id="EdgeCollector" class="element ajax clickable class">
 <h1>EdgeCollector<a href="../classes/Trismegiste.Mondrian.Visitor.EdgeCollector.html">¶</a>
 </h1>
 <p class="short_description">EdgeCollector is a visitor to transform code into graph edges</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Visitor.EdgeCollector.html" class="more">« More »</a>
 </div>
-<a name="PassCollector" id="PassCollector"></a><div class="element ajax clickable class" href="../classes/Trismegiste.Mondrian.Visitor.PassCollector.html">
+<div id="FqcnHelper" class="element ajax clickable class">
+<h1>FqcnHelper<a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html">¶</a>
+</h1>
+<p class="short_description">FqcnHelper is an helper for resolving FQCN for Class/Interface/Param</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html" class="more">« More »</a>
+</div>
+<div id="InterfaceExtractor" class="element ajax clickable class">
+<h1>InterfaceExtractor<a href="../classes/Trismegiste.Mondrian.Visitor.InterfaceExtractor.html">¶</a>
+</h1>
+<p class="short_description">InterfaceExtractor builds new contracts</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Visitor.InterfaceExtractor.html" class="more">« More »</a>
+</div>
+<div id="NewContractCollector" class="element ajax clickable class">
+<h1>NewContractCollector<a href="../classes/Trismegiste.Mondrian.Visitor.NewContractCollector.html">¶</a>
+</h1>
+<p class="short_description">NewContractCollector gather classe which needs to be refactor with a
+contract</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Visitor.NewContractCollector.html" class="more">« More »</a>
+</div>
+<div id="ParamRefactor" class="element ajax clickable class">
+<h1>ParamRefactor<a href="../classes/Trismegiste.Mondrian.Visitor.ParamRefactor.html">¶</a>
+</h1>
+<p class="short_description">ParamRefactor replaces the class of a param by its contract</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Visitor.ParamRefactor.html" class="more">« More »</a>
+</div>
+<div id="PassCollector" class="element ajax clickable class">
 <h1>PassCollector<a href="../classes/Trismegiste.Mondrian.Visitor.PassCollector.html">¶</a>
 </h1>
-<p class="short_description">PassCollector is an abstract compiler pass for visiting source code</p>
+<p class="short_description">PassCollector is an abstract compiler pass for visiting source code
+and build the graph with the help of a Context</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Visitor.PassCollector.html" class="more">« More »</a>
 </div>
-<a name="SymbolMap" id="SymbolMap"></a><div class="element ajax clickable class" href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html">
+<div id="PublicCollector" class="element ajax clickable class">
+<h1>PublicCollector<a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html">¶</a>
+</h1>
+<p class="short_description">PublicCollector is an abstract node collector for public "things" of types</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html" class="more">« More »</a>
+</div>
+<div id="SymbolMap" class="element ajax clickable class">
 <h1>SymbolMap<a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html">¶</a>
 </h1>
 <p class="short_description">SymbolMap is a class to collect list of class/interface/method name</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html" class="more">« More »</a>
 </div>
-<a name="VertexCollector" id="VertexCollector"></a><div class="element ajax clickable class" href="../classes/Trismegiste.Mondrian.Visitor.VertexCollector.html">
+<div id="VertexCollector" class="element ajax clickable class">
 <h1>VertexCollector<a href="../classes/Trismegiste.Mondrian.Visitor.VertexCollector.html">¶</a>
 </h1>
 <p class="short_description">VertexCollector is a visitor to transform code into graph vertices</p>
@@ -107,8 +148,8 @@
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
-            generated on 2013-04-12T15:02:09+02:00.<br></footer></div>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-04-22T15:32:48+02:00.<br></footer></div>
 </div>
 </body>
 </html>
