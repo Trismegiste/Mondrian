@@ -7,6 +7,7 @@
 namespace Trismegiste\Mondrian\Refactor;
 
 use Trismegiste\Mondrian\Visitor;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Contractor refactors a list of classes with annotations hints.
@@ -50,9 +51,9 @@ class Contractor
     /**
      * Parse and refactor
      *  
-     * @param string[] $iter list of absolute path to files to parse
+     * @param \Iterator $iter list of absolute path to files to parse
      */
-    public function refactor($iter)
+    public function refactor(\Iterator $iter)
     {
         $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
         $context = new Refactored();
@@ -73,12 +74,12 @@ class Contractor
             $traverser->addVisitor($collector);
             // for each file
             foreach ($iter as $fch) {
-                $code = $this->readFile($fch);
+                $code = $fch->getContents();
                 $stmts = $parser->parse($code);
                 $traverser->traverse($stmts);
                 // is this file has been modified ?
                 if ($collector->isModified()) {
-                    $this->writeStatement($fch, $stmts);
+                    $this->writeStatement($fch->getRealPath(), $stmts);
                 }
                 // is this file has generated another one in the same dir ?
                 if ($collector->hasGenerated()) {
@@ -86,23 +87,12 @@ class Contractor
                     // there can be multiple if there are many classes in one file
                     // (not PSR-0 but who never knows ?)
                     foreach ($lst as $name => $interf) {
-                        $interfFch = dirname($fch) . DIRECTORY_SEPARATOR . $name . '.php';
+                        $interfFch = $fch->getPath() . DIRECTORY_SEPARATOR . $name . '.php';
                         $this->writeStatement($interfFch, $interf);
                     }
                 }
             }
         }
-    }
-
-    /**
-     * Read a file
-     * 
-     * @param string $fch absolute path
-     * @return string content
-     */
-    protected function readFile($fch)
-    {
-        return file_get_contents($fch);
     }
 
     /**
