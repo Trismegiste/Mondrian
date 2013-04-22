@@ -8,6 +8,7 @@
  * Test contractor for bad cases (not only happy case)
  * Context
  * CC for FqcnHelper
+ * test for compact label in vertex (when namespaced or not)
 
 ## Features
  * make other formats (json and xml)
