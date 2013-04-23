@@ -13,7 +13,9 @@ require_once 'vendor/autoload.php';
 use Trismegiste\Mondrian\Command;
 use Symfony\Component\Console\Application;
 
-$application = new Application();
+$info = json_decode(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'composer.json'));
+// application
+$application = new Application('Mondrian', $info->version);
 $application->add(new Command\DigraphCommand());
 $application->add(new Command\UsedCentralityCommand());
 $application->add(new Command\DependCentralityCommand());
