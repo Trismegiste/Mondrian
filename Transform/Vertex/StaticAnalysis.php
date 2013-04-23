@@ -34,7 +34,7 @@ abstract class StaticAnalysis extends Vertex implements Vizable, MetaInterface
     public function getAttribute()
     {
         $default = $this->getSpecific();
-        
+
         if ($this->hasMeta('centrality')) {
             $default['color'] = sprintf('/rdylgn11/%d', $this->getMeta('centrality'));
         }
@@ -43,4 +43,26 @@ abstract class StaticAnalysis extends Vertex implements Vizable, MetaInterface
     }
 
     abstract protected function getSpecific();
+
+    /**
+     * Compacts a FQCN by shortening the full "path"
+     * 
+     * @param string $str the FQCN
+     * @return string a compacted form of the FQCN
+     */
+    protected function compactFqcn($str)
+    {
+        $parts = explode('\\', $str);
+        $short = array_pop($parts);
+        $prefix = '';
+        foreach ($parts as $itm) {
+            $prefix .= $itm[0];
+        }
+        if (!empty($prefix)) {
+            $prefix .= "\n";
+        }
+
+        return $prefix . $short;
+    }
+
 }
