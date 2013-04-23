@@ -14,77 +14,13 @@ use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
  * ContractorTest is an almost full functional test 
  * for Contractor
  */
-class ContractorTest extends \PHPUnit_Framework_TestCase
+class ContractorTest extends ContractorTestCase
 {
-
-    protected $coder;
-    protected $storage;
-
-    /**
-     * Stub for writes
-     * @param string $fch
-     * @param array $stmts 
-     */
-    public function stubbedWrite($fch, array $stmts)
-    {
-        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-        $this->storage[basename($fch)] = new MockSplFileInfo(
-                        array(
-                            'name' => $fch,
-                            'contents' => "<?php\n\n" . $prettyPrinter->prettyPrint($stmts)
-                        )
-        );
-    }
-
-    /**
-     * Init VFS
-     * 
-     * @return int how many files ?
-     */
-    protected function initStorage()
-    {
-        $fileSystem = array('Earth.php', 'Moon.php');
-
-        $iter = array();
-        foreach ($fileSystem as $name) {
-            $absolute = __DIR__ . '/../Fixtures/Refact/' . $name;
-            $iter[$name] = array(
-                'name' => $absolute,
-                'contents' => file_get_contents($absolute)
-            );
-        }
-        $this->storage = new MockFileListIterator($iter);
-
-        return count($fileSystem);
-    }
 
     protected function setUp()
     {
-        $cpt = 3 * $this->initStorage(); // 3 passes 
-
-        $this->coder = $this->getMockBuilder('Trismegiste\Mondrian\Refactor\Contractor')
-                ->setMethods(array('writeStatement', 'readFile'))
-                ->getMock();
-        $this->coder
-                ->expects($this->exactly($cpt))
-                ->method('writeStatement')
-                ->will($this->returnCallback(array($this, 'stubbedWrite')));
-    }
-
-    /**
-     * Compile VFS
-     */
-    protected function compileStorage()
-    {
-        $generated = '';
-        foreach ($this->storage as $fch) {
-            $str = preg_replace('#^<\?php#', '', $fch->getContents());
-            if (!empty($generated)) {
-                $str = preg_replace('#^namespace.+$#m', '', $str);
-            }
-            $generated .= $str;
-        }
-        eval($generated);
+        $cpt = 3 * $this->initStorage(array('Earth.php', 'Moon.php')); // 3 passes 
+        $this->createContractorMock($cpt);
     }
 
     /**

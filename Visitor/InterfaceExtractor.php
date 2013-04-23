@@ -43,7 +43,9 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
     public function leaveNode(\PHPParser_Node $node)
     {
         if ($node->getType() === 'Stmt_Class') {
-            $this->newContent[$this->newInterface] = $this->buildNewInterface();
+            if ($this->newInterface) {
+                $this->newContent[$this->newInterface] = $this->buildNewInterface();
+            }
             $this->newInterface = false;
         }
 
