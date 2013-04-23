@@ -16,14 +16,14 @@ class ClassVertexTest extends \PHPUnit_Framework_TestCase
 
     public function testCompactLabelWithoutNS()
     {
-        $vertex = new CLassVertex('SessionHandler');
+        $vertex = new ClassVertex('SessionHandler');
         $attr = $vertex->getAttribute();
         $this->assertEquals('SessionHandler', $attr['label']);
     }
 
     public function testCompactLabelWithNS()
     {
-        $vertex = new CLassVertex('Full\Qualified\Class\Name\Sample');
+        $vertex = new ClassVertex('Full\Qualified\Class\Name\Sample');
         $attr = $vertex->getAttribute();
         $this->assertEquals("FQCN\nSample", $attr['label']);
     }
