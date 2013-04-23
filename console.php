@@ -22,4 +22,5 @@ $application->add(new Command\SpaghettiCommand());
 $application->add(new Command\CyclicCommand());
 $application->add(new Command\LiskovCommand());
 $application->add(new Command\RefactorCommand());
+$application->add(new Command\BadInterfaceCommand());
 $application->run();
