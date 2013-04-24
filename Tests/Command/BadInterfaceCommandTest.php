@@ -6,17 +6,17 @@
 
 namespace Trismegiste\Mondrian\Tests\Command;
 
-use Trismegiste\Mondrian\Command\CyclicCommand;
+use Trismegiste\Mondrian\Command\BadInterfaceCommand;
 
 /**
- * CyclicCommandTest is a unit test for CyclicCommand
+ * BadInterfaceCommandTest is a unit test for BadInterfaceCommand
  */
-class CyclicCommandTest extends TestTemplate
+class BadInterfaceCommandTest extends TestTemplate
 {
 
     protected function createCommand()
     {
-        return new CyclicCommand();
+        return new BadInterfaceCommand();
     }
 
     public function testExecute()
