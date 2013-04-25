@@ -7,9 +7,10 @@
 namespace Trismegiste\Mondrian\Tests\Transform;
 
 use Trismegiste\Mondrian\Transform\Context;
+use Trismegiste\Mondrian\Graph\Vertex;
 
 /**
- * ContextTest tests for Context
+ * ContextTest tests for vertex mapping Context
  */
 class VertexContextTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,19 +22,42 @@ class VertexContextTest extends \PHPUnit_Framework_TestCase
         $this->context = new Context();
     }
 
-    public function testEmpty()
+    public function getVertexMock()
     {
-        $this->markTestIncomplete();
+        foreach (array('class', 'interface', 'impl', 'method', 'param') as $pool) {
+            $v[] = array($pool, $this->getMockBuilder('Trismegiste\Mondrian\Graph\Vertex')
+                        ->disableOriginalConstructor()
+                        ->getMock());
+        }
+
+        return $v;
     }
 
-    public function testFindVertex()
+    /**
+     * @dataProvider getVertexMock
+     */
+    public function testEmpty($pool, Vertex $v)
     {
-        $this->markTestIncomplete();
+        $this->assertNull($this->context->findVertex($pool, 'Unknown'));
     }
 
-    public function testExistsVertex()
+    /**
+     * @dataProvider getVertexMock
+     */
+    public function testFindVertex($pool, Vertex $v)
     {
-        $this->markTestIncomplete();
+        $this->context->indicesVertex($pool, 'idx', $v);
+        $this->assertEquals($v, $this->context->findVertex($pool, 'idx'));
+    }
+
+    /**
+     * @dataProvider getVertexMock
+     */
+    public function testExistsVertex($pool, Vertex $v)
+    {
+        $this->assertNull($this->context->findVertex($pool, 'idx'));
+        $this->context->indicesVertex($pool, 'idx', $v);
+        $this->assertEquals($v, $this->context->findVertex($pool, 'idx'));
     }
 
 }
