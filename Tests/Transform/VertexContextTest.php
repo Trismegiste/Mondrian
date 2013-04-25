@@ -60,4 +60,18 @@ class VertexContextTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($v, $this->context->findVertex($pool, 'idx'));
     }
 
+    public function testFindMethodByName()
+    {
+        $v = $this->getMockBuilder('Trismegiste\Mondrian\Graph\Vertex')
+                ->setMethods('getName')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $v->expects($this->once)
+                ->method('getName')
+                ->will($this - returnValue('Some::getter'));
+
+        $this->context->indicesVertex('method', 'unused', $v);
+        $this->assertEquals(array('unused' => $v), $this->context->findAllMethodSameName('getter'));
+    }
+
 }
