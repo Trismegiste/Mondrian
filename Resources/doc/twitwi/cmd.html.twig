@@ -263,7 +263,7 @@
 </div>
 <div class="row-fluid">
     <div class="span6">
-        <a name="refactor"></a><h2>Refactoring</h2>
+        <a name="refactor"></a><h2>Refactoring : the Good</h2>
         <p>
             This is a refactoring tool which edits and generates source code in your project.<br/>
             The purpose :
@@ -302,9 +302,33 @@
         </p>
         <p>
             <small>Note: All classnames are transformed in FQCN. It is not beautiful but
-            actually, it is more useful than I thought : since these interfaces will
-            be splitted, renamed or moved, you don't have to think about "use" statements
-            and massive "search & replace" are made easier.</small>
+                actually, it is more useful than I thought : since these interfaces will
+                be splitted, renamed or moved, you don't have to think about "use" statements
+                and massive "search & replace" are made easier.</small>
+        </p>
+    </div>
+    <div class="span6">
+        <a name="badcontract"></a><h2>Refactoring : the Bad</h2>
+        <p>
+            This tool searches for interfaces with class hint for parameters.
+            This is bad because each time you inherit from these interface, you create
+            a new coupling between concrete classes and god kills a kitten.
+        </p>
+        <p>
+            That's why these interfaces are literally "coupling generators", this is
+            a seed for spaghetti coupling.
+        </p>
+        <pre>$ php console.php mondrian:badcontract ~/MyProject</pre>
+        <p>
+            This digraph is reduced to the revelant vertices : interfaces linked to methods
+            linked to classes. Parameters and implementations vertices are removed, as
+            well as useless edges.
+        </p>
+        <p>
+            This command is not really useful for existing code. It is more relevant
+            in conjunction with the command <strong>mondrian:abstract</strong>. Because
+            code generation could become messy and prone to error, you can check
+            the quality of the new generated interfaces with this tool.
         </p>
     </div>
 </div>

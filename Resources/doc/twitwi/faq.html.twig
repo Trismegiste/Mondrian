@@ -11,7 +11,7 @@
 <p>
     That's right, I only scan public methods. Why ? Because 'inner' refactor and 'outer'
     refactor are two different process'. This tool focuses on outer, therefore public.
-    Despite, I want to keep this tool K.I.S.S, it grows to 1k NCLOC, it's more than
+    Despite my willingness to keep this tool K.I.S.S, it grows above 1k NCLOC, it's more than
     I've expected.
 </p>
 <h2>This is damned slow !</h2>
@@ -20,5 +20,18 @@
     difficult to explain to a PHP developer he has to install a JVM for a PHP tool.
     That's seems weird. Beside, this tool is for PHP community, and I hope maintained
     by PHP community. If there is Java, the community becomes too narrow.
+</p>
+<h2>Y U NO use an abstract format for digraph ?</h2>
+<p>
+    This to prevent to parse over and over the same code. Yeah, that could be cool.
+    But since you have to lauch commands sequence, over and over, I try to limit this number.
+    Usually, for each digraph, you change the code and need to re-generate the graph (or
+    another), therefore : re-parsing.
+</p>
+<h2>This tool does not verify your guidances</h2>
+<p>
+    That's partly true. I try to improve it before to add new features. When it comes
+    to PHP Parsing, there could some very exotic cases. I'm not mastering the PHPParser and
+    I'm a beginner with the Graph Theory. But this project is really cool.
 </p>
 {% endblock %}
