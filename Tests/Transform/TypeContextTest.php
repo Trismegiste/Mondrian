@@ -65,6 +65,17 @@ class TypeContextTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Interface', $this->context->getDeclaringClass('Class', 'sample'));
     }
 
+    public function testOuterInheritance()
+    {
+        $this->context->initSymbol('Class', false);
+        $this->context->addMethodToClass('Class', 'getIterator');
+        $this->context->pushParentClass('Class', 'IteratorAggregate');
+        $this->context->initSymbol('IteratorAggregate', true);
+        $this->context->resolveSymbol();
+        $this->assertEquals('IteratorAggregate', $this->context->getDeclaringClass('Class', 'getIterator'));
+        $this->assertEquals('IteratorAggregate', $this->context->findMethodInInheritanceTree('Class', 'getIterator'));
+    }
+
     public function testSuperClass()
     {
         $this->context->initSymbol('Class', false);
