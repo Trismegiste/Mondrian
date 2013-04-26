@@ -85,5 +85,10 @@ class TypeContextTest extends \PHPUnit_Framework_TestCase
         $this->context->resolveSymbol();
         $this->assertEquals('Mother', $this->context->findMethodInInheritanceTree('Class', 'sample'));
     }
+    
+    public function testNotFoundMethod()
+    {
+        $this->markTestIncomplete();
+    }
 
 }
