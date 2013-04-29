@@ -7,9 +7,7 @@
 namespace Trismegiste\Mondrian\Refactor;
 
 /**
- * Refactored is ...
- *
- * @author flo
+ * Refactored is a container for refactoring changes
  */
 class Refactored
 {
