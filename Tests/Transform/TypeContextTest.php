@@ -40,7 +40,7 @@ class TypeContextTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->context->isInterface('Some'));
     }
 
-    public function testSimpleMethod()
+    public function testDeclarationSimple()
     {
         $this->context->initSymbol('Type', false);
         $this->context->addMethodToClass('Type', 'sample');
@@ -49,7 +49,7 @@ class TypeContextTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Type', $this->context->getDeclaringClass('Type', 'sample'));
     }
 
-    public function testSimpleInheritance()
+    public function testDeclarationParent()
     {
         $this->context->initSymbol('Class', false);
         $this->context->addMethodToClass('Class', 'sample');
@@ -65,6 +65,24 @@ class TypeContextTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Interface', $this->context->getDeclaringClass('Class', 'sample'));
     }
 
+    public function testNeutralItemInheritance()
+    {
+        $this->context->initSymbol('Class', false);
+        $this->context->addMethodToClass('Class', 'sample');
+        $this->context->resolveSymbol();
+        $this->assertEquals('Class', $this->context->findMethodInInheritanceTree('Class', 'sample'));
+    }
+
+    public function testSuperInheritance()
+    {
+        $this->context->initSymbol('Class', false);
+        $this->context->initSymbol('Mother', false);
+        $this->context->addMethodToClass('Mother', 'sample');
+        $this->context->pushParentClass('Class', 'Mother');
+        $this->context->resolveSymbol();
+        $this->assertEquals('Mother', $this->context->findMethodInInheritanceTree('Class', 'sample'));
+    }
+
     public function testOuterInheritance()
     {
         $this->context->initSymbol('Class', false);
@@ -76,19 +94,11 @@ class TypeContextTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('IteratorAggregate', $this->context->findMethodInInheritanceTree('Class', 'getIterator'));
     }
 
-    public function testSuperClass()
-    {
-        $this->context->initSymbol('Class', false);
-        $this->context->initSymbol('Mother', false);
-        $this->context->addMethodToClass('Mother', 'sample');
-        $this->context->pushParentClass('Class', 'Mother');
-        $this->context->resolveSymbol();
-        $this->assertEquals('Mother', $this->context->findMethodInInheritanceTree('Class', 'sample'));
-    }
-    
     public function testNotFoundMethod()
     {
-        $this->markTestIncomplete();
+        $this->context->initSymbol('Class', false);
+        $this->context->resolveSymbol();
+        $this->assertNull($this->context->findMethodInInheritanceTree('Class', 'unknown'));
     }
 
 }
