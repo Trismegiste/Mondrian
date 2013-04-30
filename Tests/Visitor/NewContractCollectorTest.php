@@ -40,6 +40,7 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
     public function testInitialization()
     {
         $this->assertFalse($this->visitor->isModified());
+        $this->assertFalse($this->visitor->hasGenerated());
     }
 
     public function testEnterClassWithoutComments()
@@ -94,6 +95,21 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
                 ->with('Glass', 'SomeNewContract');
 
         $this->visitor->enterNode($node);
+
+        $this->assertTrue($this->visitor->isModified());
+    }
+
+    public function testDoNothingForCC()
+    {
+        $this->visitor->getGenerated();
+        $node = new \PHPParser_Node_Stmt_Interface('Dummy', array(
+                    'stmts' => new \PHPParser_Node_Stmt_ClassMethod('dummy')
+                ));
+
+        $this->context->expects($this->never())
+                ->method('pushNewContract');
+        $this->visitor->enterNode($node);
+        $this->assertFalse($this->visitor->isModified());
     }
 
 }
