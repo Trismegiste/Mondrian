@@ -55,8 +55,9 @@ class VertexContextTest extends \PHPUnit_Framework_TestCase
      */
     public function testExistsVertex($pool, Vertex $v)
     {
-        $this->assertNull($this->context->findVertex($pool, 'idx'));
+        $this->assertFalse($this->context->existsVertex($pool, 'idx'));
         $this->context->indicesVertex($pool, 'idx', $v);
+        $this->assertTrue($this->context->existsVertex($pool, 'idx'));
         $this->assertEquals($v, $this->context->findVertex($pool, 'idx'));
     }
 
