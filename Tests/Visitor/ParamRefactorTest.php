@@ -81,4 +81,10 @@ class ParamRefactorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Awake', $node->type, 'Type Hint changed');
     }
 
+    public function testDoNothingForCC()
+    {
+        $this->visitor->getGenerated();
+        $this->assertFalse($this->visitor->hasGenerated());
+    }
+
 }

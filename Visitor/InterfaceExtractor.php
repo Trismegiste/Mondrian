@@ -64,7 +64,7 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
 
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-        
+
     }
 
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
@@ -90,7 +90,7 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
 
     public function hasGenerated()
     {
-        return count($this->newContent);
+        return 0 < count($this->newContent);
     }
 
     public function getGenerated()
