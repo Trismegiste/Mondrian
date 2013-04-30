@@ -10,7 +10,7 @@ use Trismegiste\Mondrian\Refactor\Refactored;
 use Trismegiste\Mondrian\Refactor\RefactorPass;
 
 /**
- * NewContractCollector gather classe which needs to be refactor with a 
+ * NewContractCollector gather classe which needs to be refactor with a
  * contract
  */
 class NewContractCollector extends PublicCollector implements RefactorPass
@@ -36,7 +36,7 @@ class NewContractCollector extends PublicCollector implements RefactorPass
         $this->extractAnnotation($node);
         if ($node->hasAttribute('contractor')) {
             $interfaceName = new \PHPParser_Node_Name(reset($node->getAttribute('contractor')));
-            $this->context->newContract[$this->getNamespacedName($node)] = (string) $this->resolveClassName($interfaceName);
+            $this->context->pushNewContract($this->getNamespacedName($node), (string) $this->resolveClassName($interfaceName));
             $node->implements[] = $interfaceName;
             $this->isDirty = true;
         }
@@ -44,12 +44,12 @@ class NewContractCollector extends PublicCollector implements RefactorPass
 
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-        
+
     }
 
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
-        
+
     }
 
     public function isModified()
@@ -64,7 +64,7 @@ class NewContractCollector extends PublicCollector implements RefactorPass
 
     public function getGenerated()
     {
-        
+
     }
 
 }

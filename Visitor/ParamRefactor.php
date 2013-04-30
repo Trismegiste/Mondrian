@@ -44,8 +44,8 @@ class ParamRefactor extends FqcnHelper implements RefactorPass
     {
         if ($node->type instanceof \PHPParser_Node_Name) {
             $typeHint = (string) $this->resolveClassName($node->type);
-            if (array_key_exists($typeHint, $this->context->newContract)) {
-                $node->type = new \PHPParser_Node_Name_FullyQualified($this->context->newContract[$typeHint]);
+            if ($this->context->hasNewContract($typeHint)) {
+                $node->type = new \PHPParser_Node_Name_FullyQualified($this->context->getNewContract($typeHint));
                 $this->isDirty = true;
             }
         }
@@ -63,7 +63,7 @@ class ParamRefactor extends FqcnHelper implements RefactorPass
 
     public function getGenerated()
     {
-        
+
     }
 
 }
