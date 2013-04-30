@@ -3,8 +3,6 @@
 ## Doc
 
 ## Tests
- * 3 Visitor for Contractor
- * Context
  * CC for FqcnHelper
 
 ## Features
