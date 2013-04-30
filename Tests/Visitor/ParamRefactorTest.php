@@ -83,6 +83,8 @@ class ParamRefactorTest extends \PHPUnit_Framework_TestCase
 
     public function testDoNothingForCC()
     {
+        $this->visitor->beforeTraverse(array());
+        $this->assertFalse($this->visitor->isModified());
         $this->visitor->getGenerated();
         $this->assertFalse($this->visitor->hasGenerated());
     }

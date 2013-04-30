@@ -73,6 +73,7 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
         $this->visitor->leaveNode($node);
         $this->assertTrue($this->visitor->hasGenerated());
         $generated = $this->visitor->getGenerated();
+        $this->assertCount(1, $generated);
         $this->assertArrayHasKey('Chaos', $generated);
         $generated = $generated['Chaos'];
         $this->assertCount(2, $generated);

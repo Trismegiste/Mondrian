@@ -39,6 +39,7 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
 
     public function testInitialization()
     {
+        $this->visitor->beforeTraverse(array());
         $this->assertFalse($this->visitor->isModified());
         $this->assertFalse($this->visitor->hasGenerated());
     }
@@ -52,7 +53,7 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnValueMap(array(
                             array('comments', false),
                             array('contractor', false)
-                        )));
+        )));
 
         $this->context->expects($this->never())
                 ->method('pushNewContract');
@@ -69,7 +70,7 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnValueMap(array(
                             array('comments', true),
                             array('contractor', false)
-                        )));
+        )));
 
         $node->expects($this->once())
                 ->method('getAttribute')
@@ -85,10 +86,10 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
     public function testEnterAnnotedClass()
     {
         $node = new \PHPParser_Node_Stmt_Class('Glass', array(), array(
-                    'comments' => array(
-                        new \PHPParser_Comment('@mondrian contractor SomeNewContract')
-                    )
-                ));
+            'comments' => array(
+                new \PHPParser_Comment('@mondrian contractor SomeNewContract')
+            )
+        ));
 
         $this->context->expects($this->once())
                 ->method('pushNewContract')
@@ -102,13 +103,14 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
     public function testDoNothingForCC()
     {
         $this->visitor->getGenerated();
-        $node = new \PHPParser_Node_Stmt_Interface('Dummy', array(
-                    'stmts' => new \PHPParser_Node_Stmt_ClassMethod('dummy')
-                ));
+        $node = new \PHPParser_Node_Stmt_Interface('Dummy');
+        $stmt =  new \PHPParser_Node_Stmt_ClassMethod('dummy');
 
-        $this->context->expects($this->never())
+        $this->context
+                ->expects($this->never())
                 ->method('pushNewContract');
         $this->visitor->enterNode($node);
+        $this->visitor->enterNode($stmt);
         $this->assertFalse($this->visitor->isModified());
     }
 
