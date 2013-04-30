@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">258</span></a></li>
+                <span class="label label-info">263</span></a></li>
 <li><a href="markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">1</span>
@@ -94,6 +94,7 @@
 <li><a href="#Analysis/Strategy/ByConnection.php"><i class="icon-file"></i>Analysis/Strategy/ByConnection.php</a></li>
 <li><a href="#Analysis/UsedCentrality.php"><i class="icon-file"></i>Analysis/UsedCentrality.php</a></li>
 <li><a href="#Analysis/Generator.php"><i class="icon-file"></i>Analysis/Generator.php</a></li>
+<li><a href="#Analysis/CouplingMaker.php"><i class="icon-file"></i>Analysis/CouplingMaker.php</a></li>
 <li><a href="#Analysis/HiddenCoupling.php"><i class="icon-file"></i>Analysis/HiddenCoupling.php</a></li>
 <li><a href="#Analysis/DependCentrality.php"><i class="icon-file"></i>Analysis/DependCentrality.php</a></li>
 <li><a href="#Analysis/SpaghettiCoupling.php"><i class="icon-file"></i>Analysis/SpaghettiCoupling.php</a></li>
@@ -122,6 +123,7 @@
 <li><a href="#Command/SpaghettiCommand.php"><i class="icon-file"></i>Command/SpaghettiCommand.php</a></li>
 <li><a href="#Command/RefactorCommand.php"><i class="icon-file"></i>Command/RefactorCommand.php</a></li>
 <li><a href="#Command/LiskovCommand.php"><i class="icon-file"></i>Command/LiskovCommand.php</a></li>
+<li><a href="#Command/BadInterfaceCommand.php"><i class="icon-file"></i>Command/BadInterfaceCommand.php</a></li>
 <li><a href="#Command/AbstractCentrality.php"><i class="icon-file"></i>Command/AbstractCentrality.php</a></li>
 </ul></div>
 <div class="span8">
@@ -195,7 +197,7 @@
 </tr>
 <tr class="error">
 <td>error</td>
-<td>17</td>
+<td>15</td>
 <td>No DocBlock was found for property $newContract</td>
 </tr>
 </tbody>
@@ -555,32 +557,32 @@
 </tr>
 <tr class="error">
 <td>error</td>
-<td>32</td>
+<td>34</td>
 <td>No DocBlock was found for method enterClassNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>43</td>
+<td>45</td>
 <td>No DocBlock was found for method enterInterfaceNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>48</td>
+<td>50</td>
 <td>No DocBlock was found for method enterPublicMethodNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>53</td>
+<td>55</td>
 <td>No DocBlock was found for method isModified()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>58</td>
+<td>60</td>
 <td>No DocBlock was found for method hasGenerated()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>63</td>
+<td>65</td>
 <td>No DocBlock was found for method getGenerated()</td>
 </tr>
 </tbody>
@@ -634,47 +636,47 @@
 </tr>
 <tr class="error">
 <td>error</td>
-<td>33</td>
+<td>34</td>
 <td>No DocBlock was found for method enterClassNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>42</td>
+<td>43</td>
 <td>No DocBlock was found for method leaveNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>52</td>
+<td>55</td>
 <td>No DocBlock was found for method buildNewInterface()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>62</td>
+<td>65</td>
 <td>No DocBlock was found for method enterInterfaceNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>67</td>
+<td>70</td>
 <td>No DocBlock was found for method enterPublicMethodNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>74</td>
+<td>77</td>
 <td>No DocBlock was found for method enterStandardMethod()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>83</td>
+<td>86</td>
 <td>No DocBlock was found for method isModified()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>88</td>
+<td>91</td>
 <td>No DocBlock was found for method hasGenerated()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>93</td>
+<td>96</td>
 <td>No DocBlock was found for method getGenerated()</td>
 </tr>
 </tbody>
@@ -1037,7 +1039,7 @@
 </div>
 <div class="package-contents">
 <a name="Transform/Grapher.php" id="Transform/Grapher.php"></a><h3>
-<i class="icon-file"></i>Transform/Grapher.php<small style="float: right;padding-right: 10px;">2</small>
+<i class="icon-file"></i>Transform/Grapher.php<small style="float: right;padding-right: 10px;">1</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -1045,18 +1047,11 @@
 <th>Line</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr class="error">
+<tbody><tr class="error">
 <td>error</td>
 <td>0</td>
 <td>No page-level DocBlock was found in file Transform/Grapher.php</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>17</td>
-<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $iter in parse()</td>
-</tr>
-</tbody>
+</tr></tbody>
 </table></div>
 </div>
 <div class="package-contents">
@@ -1440,6 +1435,30 @@
 <td>0</td>
 <td>No page-level DocBlock was found in file Analysis/Generator.php</td>
 </tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Analysis/CouplingMaker.php" id="Analysis/CouplingMaker.php"></a><h3>
+<i class="icon-file"></i>Analysis/CouplingMaker.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Analysis/CouplingMaker.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>27</td>
+<td>No DocBlock was found for method createReducedGraph()</td>
+</tr>
+</tbody>
 </table></div>
 </div>
 <div class="package-contents">
@@ -2283,6 +2302,40 @@
 </table></div>
 </div>
 <div class="package-contents">
+<a name="Command/BadInterfaceCommand.php" id="Command/BadInterfaceCommand.php"></a><h3>
+<i class="icon-file"></i>Command/BadInterfaceCommand.php<small style="float: right;padding-right: 10px;">4</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Command/BadInterfaceCommand.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>22</td>
+<td>No DocBlock was found for method getSubname()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>27</td>
+<td>No DocBlock was found for method getFullDesc()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for method processGraph()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
 <a name="Command/AbstractCentrality.php" id="Command/AbstractCentrality.php"></a><h3>
 <i class="icon-file"></i>Command/AbstractCentrality.php<small style="float: right;padding-right: 10px;">7</small>
 </h3>
@@ -2336,7 +2389,7 @@
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-04-22T15:32:49+02:00.<br></footer></div>
+            generated on 2013-04-30T14:19:27+02:00.<br></footer></div>
 </div>
 </body>
 </html>

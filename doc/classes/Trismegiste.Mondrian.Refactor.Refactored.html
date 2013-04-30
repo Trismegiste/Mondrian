@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">258</span></a></li>
+                <span class="label label-info">263</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">1</span>
@@ -54,10 +54,23 @@
 <span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
 <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
 </div>
-<ul class="side-nav nav nav-list"><li class="nav-header">
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method_getNewContract" title="getNewContract :: Get the new contract for a concrete class"><span class="description">Get the new contract for a concrete class</span><pre>getNewContract()</pre></a></li>
+<li class="method public "><a href="#method_hasNewContract" title="hasNewContract :: Is there a new contract for a concrete class ?"><span class="description">Is there a new contract for a concrete class ?</span><pre>hasNewContract()</pre></a></li>
+<li class="method public "><a href="#method_pushNewContract" title="pushNewContract :: Stack a new contract for a concrete class"><span class="description">Stack a new contract for a concrete class</span><pre>pushNewContract()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties
-                    <ul><li class="property public "><a href="#property_newContract" title="$newContract :: "><span class="description"></span><pre>$newContract</pre></a></li></ul>
-</li></ul>
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul><li class="property protected "><a href="#property_newContract" title="$newContract :: "><span class="description"></span><pre>$newContract</pre></a></li></ul>
+</li>
+</ul>
 </div>
 <div class="span8">
 <a id="\Trismegiste\Mondrian\Refactor\Refactored"></a><ul class="breadcrumb">
@@ -76,16 +89,54 @@
 </li>
 </ul>
 <div class="element class">
-<p class="short_description">Refactored is .</p>
+<p class="short_description">Refactored is a container for refactoring changes</p>
 <div class="details">
-<div class="long_description"><p>..</p></div>
-<table class="table table-bordered"><tr>
-<th>author</th>
-<td><a href="">flo</a></td>
-</tr></table>
+<div class="long_description"></div>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_getNewContract"></a><div class="element clickable method public method_getNewContract" data-toggle="collapse" data-target=".method_getNewContract .collapse">
+<h2>Get the new contract for a concrete class</h2>
+<pre>getNewContract(string $fqcn) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$fqcn</h4>
+<code>string</code><p>FQCN</p></div>
+</div></div>
+</div>
+<a id="method_hasNewContract"></a><div class="element clickable method public method_hasNewContract" data-toggle="collapse" data-target=".method_hasNewContract .collapse">
+<h2>Is there a new contract for a concrete class ?</h2>
+<pre>hasNewContract(string $fqcn) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$fqcn</h4>
+<code>string</code><p>FQCN</p></div>
+</div></div>
+</div>
+<a id="method_pushNewContract"></a><div class="element clickable method public method_pushNewContract" data-toggle="collapse" data-target=".method_pushNewContract .collapse">
+<h2>Stack a new contract for a concrete class</h2>
+<pre>pushNewContract(string $fqcn, string $interfaceName) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$fqcn</h4>
+<code>string</code><p>FQCN</p></div>
+<div class="subelement argument">
+<h4>$interfaceName</h4>
+<code>string</code><p>name of interface (fully qualified)</p>
+</div>
+</div></div>
+</div>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_newContract"> </a><div class="element clickable property public property_newContract" data-toggle="collapse" data-target=".property_newContract .collapse">
+<a id="property_newContract"> </a><div class="element clickable property protected property_newContract" data-toggle="collapse" data-target=".property_newContract .collapse">
 <h2></h2>
 <pre>$newContract </pre>
 <div class="labels"></div>
@@ -98,7 +149,7 @@
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-04-22T15:32:48+02:00.<br></footer></div>
+            generated on 2013-04-30T14:19:27+02:00.<br></footer></div>
 </div>
 </body>
 </html>
