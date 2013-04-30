@@ -21,21 +21,22 @@ class RefactoredTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->content = new Refactored();
+        $this->content->pushNewContract('Glass', 'Prison');
     }
 
     public function testPushNewContract()
     {
-        $this->markTestIncomplete();
+        $this->assertAttributeEquals(array('Glass' => 'Prison'), 'newContract', $this->content);
     }
 
     public function testHasNewContract()
     {
-        $this->markTestIncomplete();
+        $this->assertTrue($this->content->hasNewContract('Glass'));
     }
 
     public function testGetNewContract()
     {
-        $this->markTestIncomplete();
+        $this->assertEquals('Prison', $this->content->getNewContract('Glass'));
     }
 
 }
