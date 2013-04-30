@@ -27,37 +27,62 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
         $this->visitor = new VertexCollector($this->context, $this->graph);
     }
 
-    public function testNoNewClassVertex()
+    public function getTypeNodeSetting()
+    {
+        $vertexNS = 'Trismegiste\Mondrian\Transform\Vertex\\';
+        $nsNode = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Tubular'));
+        $classNode = new \PHPParser_Node_Stmt_Class('Bells');
+        $interfNode = new \PHPParser_Node_Stmt_Interface('Bells');
+        return array(
+            array('class', 'Tubular\Bells', $vertexNS . 'ClassVertex', array($nsNode, $classNode)),
+            array('interface', 'Tubular\Bells', $vertexNS . 'InterfaceVertex', array($nsNode, $interfNode))
+        );
+    }
+
+    /**
+     * @dataProvider getTypeNodeSetting
+     */
+    public function testNoNewClassVertex($type, $fqcn, $graphVertex, array $nodeList)
     {
         $this->context
                 ->expects($this->once())
                 ->method('existsVertex')
-                ->with('class', 'Tubular\Bells')
+                ->with($type, $fqcn)
                 ->will($this->returnValue(true));
 
         $this->graph
                 ->expects($this->never())
                 ->method('addVertex');
 
-        $this->visitor->enterNode(new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Tubular')));
-        $this->visitor->enterNode(new \PHPParser_Node_Stmt_Class('Bells'));
+        foreach ($nodeList as $node) {
+            $this->visitor->enterNode($node);
+        }
     }
 
-    public function testNewClassVertex()
+    /**
+     * @dataProvider getTypeNodeSetting
+     */
+    public function testNewClassVertex($type, $fqcn, $graphVertex, array $nodeList)
     {
         $this->context
                 ->expects($this->once())
                 ->method('existsVertex')
-                ->with('class', 'Tubular\Bells')
+                ->with($type, $fqcn)
                 ->will($this->returnValue(false));
+
+        $this->context
+                ->expects($this->once())
+                ->method('indicesVertex')
+                ->with($type, $fqcn);
 
         $this->graph
                 ->expects($this->once())
                 ->method('addVertex')
-                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ClassVertex'));
+                ->with($this->isInstanceOf($graphVertex));
 
-        $this->visitor->enterNode(new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Tubular')));
-        $this->visitor->enterNode(new \PHPParser_Node_Stmt_Class('Bells'));
+        foreach ($nodeList as $node) {
+            $this->visitor->enterNode($node);
+        }
     }
 
 }
