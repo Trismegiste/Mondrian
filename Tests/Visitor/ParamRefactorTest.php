@@ -62,4 +62,23 @@ class ParamRefactorTest extends \PHPUnit_Framework_TestCase
         $this->visitor->enterNode($node);
     }
 
+    public function testRefactoring()
+    {
+        $node = new \PHPParser_Node_Param('obj', null, new \PHPParser_Node_Name_FullyQualified('Pull\Me\Under'));
+
+        $this->context->expects($this->once())
+                ->method('hasNewContract')
+                ->with('Pull\Me\Under')
+                ->will($this->returnValue(true));
+
+        $this->context->expects($this->once())
+                ->method('getNewContract')
+                ->with('Pull\Me\Under')
+                ->will($this->returnValue('Awake'));
+
+        $this->visitor->enterNode($node);
+        $this->assertTrue($this->visitor->isModified());
+        $this->assertEquals('Awake', $node->type, 'Type Hint changed');
+    }
+
 }
