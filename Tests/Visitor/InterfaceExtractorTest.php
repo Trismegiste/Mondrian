@@ -24,19 +24,11 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
         $this->visitor = new InterfaceExtractor($this->context);
     }
 
-    public function testInit()
-    {
-        $this->assertFalse($this->visitor->isModified());
-        $this->assertFalse($this->visitor->hasGenerated());
-    }
-
     public function getSimpleClass()
     {
         return array(array(
                 new \PHPParser_Node_Stmt_Class('Systematic', array(), array(
-                    'comments' => array(
-                        new \PHPParser_Comment('@mondrian contractor Chaos')
-                    )
+                    'comments' => array(new \PHPParser_Comment('@mondrian contractor Chaos'))
                 ))
                 ));
     }
@@ -60,12 +52,24 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
         $this->visitor->leaveNode($node);
     }
 
+    public function testDoNothingForCC()
+    {
+        $node = new \PHPParser_Node_Stmt_Interface('Dummy', array(
+                    'stmts' => new \PHPParser_Node_Stmt_ClassMethod('dummy')
+                ));
+        $this->visitor->beforeTraverse(array($node));
+        $this->visitor->enterNode($node);
+        $this->assertFalse($this->visitor->isModified());
+        $this->assertFalse($this->visitor->hasGenerated());
+    }
+
     /**
      * @dataProvider getSimpleClass
      */
     public function testGeneration($node)
     {
         $this->visitor->enterNode($node);
+        $this->visitor->enterNode(new \PHPParser_Node_Stmt_ClassMethod('forsaken'));
         $this->visitor->leaveNode($node);
         $this->assertTrue($this->visitor->hasGenerated());
         $generated = $this->visitor->getGenerated();
@@ -74,6 +78,9 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $generated);
         $this->assertInstanceOf('\PHPParser_Node_Stmt_Namespace', $generated[0]);
         $this->assertInstanceOf('\PHPParser_Node_Stmt_Interface', $generated[1]);
+        $interf = $generated[1]->stmts;
+        $this->assertInstanceOf('\PHPParser_Node_Stmt_ClassMethod', $interf[0]);
+        $this->assertEquals('forsaken', $interf[0]->name);
     }
 
 }
