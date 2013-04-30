@@ -90,7 +90,9 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNewMethodVertex($type, $fqcn, $graphVertex, array $nodeList)
     {
-        $nodeList[] = new \PHPParser_Node_Stmt_ClassMethod('crisis');
+        $method = new \PHPParser_Node_Stmt_ClassMethod('crisis');
+        $method->params[] = new \PHPParser_Node_Param('incantations');
+        $nodeList[] = $method;
 
         $this->context
                 ->expects($this->once())
@@ -105,7 +107,7 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnValue($type == 'interface'));
 
         $this->graph
-                ->expects($this->exactly($type == 'interface' ? 2 : 3))
+                ->expects($this->exactly($type == 'interface' ? 3 : 4))
                 ->method('addVertex');
 
         $this->graph
@@ -118,9 +120,14 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
                 ->method('addVertex')
                 ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
 
+        $this->graph
+                ->expects($this->at(2))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ParamVertex'));
+
         if ($type != 'interface') {
             $this->graph
-                    ->expects($this->at(2))
+                    ->expects($this->at(3))
                     ->method('addVertex')
                     ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ImplVertex'));
         }
