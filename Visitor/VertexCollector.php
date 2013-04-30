@@ -15,7 +15,7 @@ class VertexCollector extends PassCollector
 {
 
     /**
-     * 
+     * {@inheritDoc}
      */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
@@ -28,7 +28,7 @@ class VertexCollector extends PassCollector
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
@@ -41,7 +41,7 @@ class VertexCollector extends PassCollector
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
@@ -59,7 +59,7 @@ class VertexCollector extends PassCollector
     }
 
     /**
-     * Adding a new vertex if the index is not already indexed
+     * Adding a new vertex if the method is not already indexed
      * Since it is a method, I'm also adding the parameters
      *
      * @param \PHPParser_Node_Stmt_ClassMethod $node 
@@ -78,7 +78,7 @@ class VertexCollector extends PassCollector
     }
 
     /**
-     * Adding a new vertex if the index is not already indexed
+     * Adding a new vertex if the implementation is not already indexed
      *
      * @param \PHPParser_Node_Stmt_ClassMethod $node 
      */
@@ -93,7 +93,7 @@ class VertexCollector extends PassCollector
     }
 
     /**
-     * Add a parameter vertex. I must point out that I storre the order 
+     * Add a parameter vertex. I must point out that I store the order 
      * of the parameter, not its name. Why ? Because, name can change accross
      * inheritance tree. Therefore, it could fail the refactoring of the source
      * from the digraph.
