@@ -50,6 +50,9 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                     ->getMock(),
             'S' => $this->getMockBuilder("$vertexNS\ImplVertex")
                     ->disableOriginalConstructor()
+                    ->getMock(),
+            'P' => $this->getMockBuilder("$vertexNS\ImplVertex")
+                    ->disableOriginalConstructor()
                     ->getMock()
         );
 
@@ -63,7 +66,8 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                             array('interface', 'Atavachron\Berwell', $this->vertex['I']),
                             array('method', 'Atavachron\Berwell::clown', $this->vertex['M']),
                             array('method', "Atavachron\Funnels::sand", $this->vertex['M']),
-                            array('impl', "Atavachron\Funnels::sand", $this->vertex['S'])
+                            array('impl', "Atavachron\Funnels::sand", $this->vertex['S']),
+                            array('param', 'Atavachron\Berwell::clown/0', $this->vertex['P']),
         )));
 
         $this->context
@@ -203,6 +207,35 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->once())
                 ->method('addEdge')
                 ->with($this->vertex['I'], $this->vertex['M']);
+
+        $this->visitNodeList();
+    }
+
+    /**
+     * Test for :
+     *  * M -> P
+     */
+    public function testNonTypedParameter()
+    {
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Interface('Berwell');
+        $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('clown');
+        $this->nodeList[2]->params[0] = new \PHPParser_Node_Param('obj');
+
+        $this->context
+                ->expects($this->once())
+                ->method('getDeclaringClass')
+                ->with('Atavachron\Berwell', 'clown')
+                ->will($this->returnValue('Atavachron\Berwell'));
+
+        $this->graph
+                ->expects($this->at(0))
+                ->method('addEdge')
+                ->with($this->vertex['I'], $this->vertex['M']);
+
+        $this->graph
+                ->expects($this->at(1))
+                ->method('addEdge')
+                ->with($this->vertex['M'], $this->vertex['P']);
 
         $this->visitNodeList();
     }
