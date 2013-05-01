@@ -27,6 +27,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
     protected $context;
     protected $graph;
     protected $vertex;
+    protected $nodeList;
 
     protected function setUp()
     {
@@ -63,6 +64,15 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                             array('method', "Atavachron\Funnels::sand", $this->vertex['M']),
                             array('impl', "Atavachron\Funnels::sand", $this->vertex['S'])
         )));
+
+        $this->nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
+    }
+
+    protected function visitNodeList()
+    {
+        foreach ($this->nodeList as $node) {
+            $this->visitor->enterNode($node);
+        }
     }
 
     /**
@@ -72,10 +82,9 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testClassInheritance()
     {
-        $nsNode = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
-        $classNode = new \PHPParser_Node_Stmt_Class('Funnels');
-        $classNode->extends = new \PHPParser_Node_Name('Looking');
-        $classNode->implements[] = new \PHPParser_Node_Name('Glass');
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
+        $this->nodeList[1]->extends = new \PHPParser_Node_Name('Looking');
+        $this->nodeList[1]->implements[] = new \PHPParser_Node_Name('Glass');
 
         $this->graph
                 ->expects($this->at(0))
@@ -87,8 +96,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->method('addEdge')
                 ->with($this->vertex['C'], $this->vertex['I']);
 
-        $this->visitor->enterNode($nsNode);
-        $this->visitor->enterNode($classNode);
+        $this->visitNodeList();
     }
 
     /**
@@ -97,18 +105,15 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testInterfaceInheritance()
     {
-        $node[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
-        $node[1] = new \PHPParser_Node_Stmt_Interface('Berwell');
-        $node[1]->extends[] = new \PHPParser_Node_Name('Glass');
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Interface('Berwell');
+        $this->nodeList[1]->extends[] = new \PHPParser_Node_Name('Glass');
 
         $this->graph
                 ->expects($this->once())
                 ->method('addEdge')
                 ->with($this->vertex['I'], $this->vertex['I']);
 
-        foreach ($node as $stmt) {
-            $this->visitor->enterNode($stmt);
-        }
+        $this->visitNodeList();
     }
 
     /**
@@ -119,9 +124,8 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testConcreteMethod()
     {
-        $nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
-        $nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
-        $nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
+        $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
 
         $this->context
                 ->expects($this->once())
@@ -144,9 +148,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->method('addEdge')
                 ->with($this->vertex['S'], $this->vertex['C']);
 
-        foreach ($nodeList as $node) {
-            $this->visitor->enterNode($node);
-        }
+        $this->visitNodeList();
     }
 
     /**
@@ -156,9 +158,8 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testOverridenMethod()
     {
-        $nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
-        $nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
-        $nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
+        $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
 
         $this->graph
                 ->expects($this->at(1))
@@ -170,9 +171,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->method('addEdge')
                 ->with($this->vertex['S'], $this->vertex['C']);
 
-        foreach ($nodeList as $node) {
-            $this->visitor->enterNode($node);
-        }
+        $this->visitNodeList();
     }
 
 }
