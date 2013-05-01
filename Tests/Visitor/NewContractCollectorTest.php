@@ -30,7 +30,7 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
 
-        $node->expects($this->once())
+        $node->expects($this->exactly(2))
                 ->method('getType')
                 ->will($this->returnValue('Stmt_Class'));
 

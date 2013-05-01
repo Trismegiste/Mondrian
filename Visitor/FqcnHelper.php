@@ -36,20 +36,24 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
 
     public function enterNode(PHPParser_Node $node)
     {
-        if ($node instanceof PHPParser_Node_Stmt_Namespace) {
-            $this->namespace = $node->name;
-            $this->aliases = array();
-        } elseif ($node instanceof PHPParser_Node_Stmt_UseUse) {
-            if (isset($this->aliases[$node->alias])) {
-                throw new PHPParser_Error(
-                        sprintf(
-                                'Cannot use "%s" as "%s" because the name is already in use', $node->name, $node->alias
-                        ),
-                        $node->getLine()
-                );
-            }
+        switch ($node->getType()) {
 
-            $this->aliases[$node->alias] = $node->name;
+            case 'Stmt_Namespace' :
+                $this->namespace = $node->name;
+                $this->aliases = array();
+                break;
+
+            case 'Stmt_UseUse' :
+                if (isset($this->aliases[$node->alias])) {
+                    throw new PHPParser_Error(
+                    sprintf(
+                            'Cannot use "%s" as "%s" because the name is already in use', $node->name, $node->alias
+                    ), $node->getLine()
+                    );
+                }
+
+                $this->aliases[$node->alias] = $node->name;
+                break;
         }
     }
 
