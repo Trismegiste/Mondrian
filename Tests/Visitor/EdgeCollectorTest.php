@@ -124,6 +124,8 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for :
      *  * C -> M
+     *  * M -> S
+     *  * S -> C
      */
     public function testConcreteMethod()
     {
@@ -169,6 +171,48 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
 
         $this->graph
                 ->expects($this->at(1))
+                ->method('addEdge')
+                ->with($vertex3, $vertex1);
+
+        foreach ($nodeList as $node) {
+            $this->visitor->enterNode($node);
+        }
+    }
+
+    /**
+     * Test for :
+     *  * C -> S
+     *  * S -> C
+     */
+    public function testOverridenMethod()
+    {
+        $vertex1 = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Vertex\ClassVertex')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $vertex3 = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Vertex\ImplVertex')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
+        $nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
+        $nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
+        $fqcn = 'Atavachron\Funnels';
+
+        $this->context
+                ->expects($this->any())
+                ->method('findVertex')
+                ->will($this->returnValueMap(array(
+                            array('class', $fqcn, $vertex1),
+                            array('impl', "$fqcn::sand", $vertex3)
+        )));
+
+        $this->graph
+                ->expects($this->at(1))
+                ->method('addEdge')
+                ->with($vertex1, $vertex3);
+
+        $this->graph
+                ->expects($this->at(0))
                 ->method('addEdge')
                 ->with($vertex3, $vertex1);
 
