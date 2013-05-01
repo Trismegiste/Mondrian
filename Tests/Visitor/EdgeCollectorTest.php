@@ -36,6 +36,13 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->visitor = new EdgeCollector($this->context, $this->graph);
     }
 
+    protected function getVertex()
+    {
+        return $this->getMockBuilder('Trismegiste\Mondrian\Graph\Vertex')
+                        ->disableOriginalConstructor()
+                        ->getMock();
+    }
+
     /**
      * Test for :
      *  * C -> C
@@ -43,9 +50,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testClassInheritance()
     {
-        $vertex = $this->getMockBuilder('Trismegiste\Mondrian\Graph\Vertex')
-                ->disableOriginalConstructor()
-                ->getMock();
+        $vertex = $this->getVertex();
         $nsNode = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
         $classNode = new \PHPParser_Node_Stmt_Class('Funnels');
         $classNode->extends = new \PHPParser_Node_Name('Looking');
@@ -86,12 +91,10 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testInterfaceInheritance()
     {
-        $vertex = $this->getMockBuilder('Trismegiste\Mondrian\Graph\Vertex')
-                ->disableOriginalConstructor()
-                ->getMock();
-        $nsNode = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
-        $classNode = new \PHPParser_Node_Stmt_Interface('Funnels');
-        $classNode->extends[] = new \PHPParser_Node_Name('Looking');
+        $vertex = $this->getVertex();
+        $node[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
+        $node[1] = new \PHPParser_Node_Stmt_Interface('Funnels');
+        $node[1]->extends[] = new \PHPParser_Node_Name('Looking');
 
         $this->context
                 ->expects($this->exactly(2))
@@ -109,12 +112,69 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->with('interface', 'Atavachron\Looking');
 
         $this->graph
-                ->expects($this->exactly(1))
+                ->expects($this->once())
                 ->method('addEdge')
                 ->with($vertex, $vertex);
 
-        $this->visitor->enterNode($nsNode);
-        $this->visitor->enterNode($classNode);
+        foreach ($node as $stmt) {
+            $this->visitor->enterNode($stmt);
+        }
+    }
+
+    /**
+     * Test for :
+     *  * C -> M
+     */
+    public function testConcreteMethod()
+    {
+        $vertex1 = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Vertex\ClassVertex')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $vertex2 = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Vertex\MethodVertex')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $vertex3 = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Vertex\ImplVertex')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
+        $nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
+        $nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
+        $fqcn = 'Atavachron\Funnels';
+
+        $this->context
+                ->expects($this->any())
+                ->method('findVertex')
+                ->will($this->returnValueMap(array(
+                            array('class', $fqcn, $vertex1),
+                            array('method', "$fqcn::sand", $vertex2),
+                            array('impl', "$fqcn::sand", $vertex3)
+        )));
+
+        $this->context
+                ->expects($this->once())
+                ->method('getDeclaringClass')
+                ->with($fqcn, 'sand')
+                ->will($this->returnValue($fqcn));
+
+        $this->graph
+                ->expects($this->at(0))
+                ->method('addEdge')
+                ->with($vertex1, $vertex2);
+
+        $this->graph
+                ->expects($this->at(2))
+                ->method('addEdge')
+                ->with($vertex2, $vertex3);
+
+        $this->graph
+                ->expects($this->at(1))
+                ->method('addEdge')
+                ->with($vertex3, $vertex1);
+
+        foreach ($nodeList as $node) {
+            $this->visitor->enterNode($node);
+        }
     }
 
 }
