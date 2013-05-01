@@ -61,9 +61,19 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                             array('class', 'Atavachron\Looking', $this->vertex['C']),
                             array('interface', 'Atavachron\Glass', $this->vertex['I']),
                             array('interface', 'Atavachron\Berwell', $this->vertex['I']),
+                            array('method', 'Atavachron\Berwell::clown', $this->vertex['M']),
                             array('method', "Atavachron\Funnels::sand", $this->vertex['M']),
                             array('impl', "Atavachron\Funnels::sand", $this->vertex['S'])
         )));
+
+        $this->context
+                ->expects($this->any())
+                ->method('isInterface')
+                ->will($this->returnValueMap(array(
+                            array('Atavachron\Glass', true),
+                            array('Atavachron\Berwell', true)
+        )));
+
 
         $this->nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
     }
@@ -170,6 +180,29 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->at(0))
                 ->method('addEdge')
                 ->with($this->vertex['S'], $this->vertex['C']);
+
+        $this->visitNodeList();
+    }
+
+    /**
+     * Test for :
+     *  * I -> M
+     */
+    public function testInterfaceMethod()
+    {
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Interface('Berwell');
+        $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('clown');
+
+        $this->context
+                ->expects($this->once())
+                ->method('getDeclaringClass')
+                ->with('Atavachron\Berwell', 'clown')
+                ->will($this->returnValue('Atavachron\Berwell'));
+
+        $this->graph
+                ->expects($this->once())
+                ->method('addEdge')
+                ->with($this->vertex['I'], $this->vertex['M']);
 
         $this->visitNodeList();
     }
