@@ -9,7 +9,16 @@ namespace Trismegiste\Mondrian\Tests\Visitor;
 use Trismegiste\Mondrian\Visitor\EdgeCollector;
 
 /**
- * EdgeCollectorTest is simple tests for EdgeCollector visitor
+ * EdgeCollectorTest is simple tests for EdgeCollector visitor. Tests the 
+ * grammar implementation of digraph.
+ * 
+ * Vocabulary :
+ *  * C : Class
+ *  * I : Interface
+ *  * M : Method signature
+ *  * P : Param
+ *  * S : Method Implementation
+ * 
  */
 class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,6 +36,11 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->visitor = new EdgeCollector($this->context, $this->graph);
     }
 
+    /**
+     * Test for :
+     *  * C -> C
+     *  * C -> I
+     */
     public function testClassInheritance()
     {
         $vertex = $this->getMockBuilder('Trismegiste\Mondrian\Graph\Vertex')
@@ -66,6 +80,10 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->visitor->enterNode($classNode);
     }
 
+    /**
+     * Test for :
+     *  * I -> I
+     */
     public function testInterfaceInheritance()
     {
         $vertex = $this->getMockBuilder('Trismegiste\Mondrian\Graph\Vertex')
@@ -74,10 +92,9 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $nsNode = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
         $classNode = new \PHPParser_Node_Stmt_Interface('Funnels');
         $classNode->extends[] = new \PHPParser_Node_Name('Looking');
-        $classNode->extends[] = new \PHPParser_Node_Name('Glass');
 
         $this->context
-                ->expects($this->exactly(3))
+                ->expects($this->exactly(2))
                 ->method('findVertex')
                 ->will($this->returnValue($vertex));
 
@@ -91,13 +108,8 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->method('findVertex')
                 ->with('interface', 'Atavachron\Looking');
 
-        $this->context
-                ->expects($this->at(2))
-                ->method('findVertex')
-                ->with('interface', 'Atavachron\Glass');
-
         $this->graph
-                ->expects($this->exactly(2))
+                ->expects($this->exactly(1))
                 ->method('addEdge')
                 ->with($vertex, $vertex);
 
