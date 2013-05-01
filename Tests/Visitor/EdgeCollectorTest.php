@@ -68,6 +68,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                             array('method', "Atavachron\Funnels::sand", $this->vertex['M']),
                             array('impl', "Atavachron\Funnels::sand", $this->vertex['S']),
                             array('param', 'Atavachron\Berwell::clown/0', $this->vertex['P']),
+                            array('param', 'Atavachron\Funnels::sand/0', $this->vertex['P']),
         )));
 
         $this->context
@@ -214,12 +215,13 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for :
      *  * M -> P
+     *  * P -> C
      */
-    public function testNonTypedParameter()
+    public function testTypedParameterInInterface()
     {
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Interface('Berwell');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('clown');
-        $this->nodeList[2]->params[0] = new \PHPParser_Node_Param('obj');
+        $this->nodeList[2]->params[] = new \PHPParser_Node_Param('obj', null, new \PHPParser_Node_Name('Funnels'));
 
         $this->context
                 ->expects($this->once())
@@ -236,6 +238,57 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->at(1))
                 ->method('addEdge')
                 ->with($this->vertex['M'], $this->vertex['P']);
+
+        $this->graph
+                ->expects($this->at(2))
+                ->method('addEdge')
+                ->with($this->vertex['P'], $this->vertex['C']);
+
+        $this->visitNodeList();
+    }
+
+    /**
+     * Test for :
+     *  * S -> P
+     */
+    public function testNonTypedParameterInClass()
+    {
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
+        $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
+        $this->nodeList[2]->params[] = new \PHPParser_Node_Param('obj');
+
+        // Method is owned by the class
+        $this->context
+                ->expects($this->once())
+                ->method('getDeclaringClass')
+                ->with('Atavachron\Funnels', 'sand')
+                ->will($this->returnValue('Atavachron\Funnels'));
+
+        // edges :
+        $this->graph
+                ->expects($this->at(0))
+                ->method('addEdge')
+                ->with($this->vertex['C'], $this->vertex['M']);
+
+        $this->graph
+                ->expects($this->at(1))
+                ->method('addEdge')
+                ->with($this->vertex['M'], $this->vertex['P']);
+
+        $this->graph
+                ->expects($this->at(2))
+                ->method('addEdge')
+                ->with($this->vertex['S'], $this->vertex['C']);
+
+        $this->graph
+                ->expects($this->at(3))
+                ->method('addEdge')
+                ->with($this->vertex['M'], $this->vertex['S']);
+
+        $this->graph
+                ->expects($this->at(4))
+                ->method('addEdge')
+                ->with($this->vertex['S'], $this->vertex['P']);
 
         $this->visitNodeList();
     }
