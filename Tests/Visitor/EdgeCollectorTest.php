@@ -53,13 +53,6 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getVertex()
-    {
-        return $this->getMockBuilder('Trismegiste\Mondrian\Graph\Vertex')
-                        ->disableOriginalConstructor()
-                        ->getMock();
-    }
-
     /**
      * Test for :
      *  * C -> C
@@ -67,7 +60,6 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testClassInheritance()
     {
-        $vertex = $this->getVertex();
         $nsNode = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
         $classNode = new \PHPParser_Node_Stmt_Class('Funnels');
         $classNode->extends = new \PHPParser_Node_Name('Looking');
@@ -102,30 +94,24 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testInterfaceInheritance()
     {
-        $vertex = $this->getVertex();
         $node[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
-        $node[1] = new \PHPParser_Node_Stmt_Interface('Funnels');
-        $node[1]->extends[] = new \PHPParser_Node_Name('Looking');
+        $node[1] = new \PHPParser_Node_Stmt_Interface('Berwell');
+        $node[1]->extends[] = new \PHPParser_Node_Name('Glass');
 
         $this->context
-                ->expects($this->exactly(2))
+                ->expects($this->any())
                 ->method('findVertex')
-                ->will($this->returnValue($vertex));
-
-        $this->context
-                ->expects($this->at(0))
-                ->method('findVertex')
-                ->with('interface', 'Atavachron\Funnels');
-
-        $this->context
-                ->expects($this->at(1))
-                ->method('findVertex')
-                ->with('interface', 'Atavachron\Looking');
+                ->will($this->returnValueMap(array(
+                            array('class', 'Atavachron\Funnels', $this->vertex['C']),
+                            array('class', 'Atavachron\Looking', $this->vertex['C']),
+                            array('interface', 'Atavachron\Glass', $this->vertex['I']),
+                            array('interface', 'Atavachron\Berwell', $this->vertex['I'])
+        )));
 
         $this->graph
                 ->expects($this->once())
                 ->method('addEdge')
-                ->with($vertex, $vertex);
+                ->with($this->vertex['I'], $this->vertex['I']);
 
         foreach ($node as $stmt) {
             $this->visitor->enterNode($stmt);
@@ -140,16 +126,6 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testConcreteMethod()
     {
-        $vertex1 = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Vertex\ClassVertex')
-                ->disableOriginalConstructor()
-                ->getMock();
-        $vertex2 = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Vertex\MethodVertex')
-                ->disableOriginalConstructor()
-                ->getMock();
-        $vertex3 = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Vertex\ImplVertex')
-                ->disableOriginalConstructor()
-                ->getMock();
-
         $nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
         $nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
@@ -159,9 +135,12 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->any())
                 ->method('findVertex')
                 ->will($this->returnValueMap(array(
-                            array('class', $fqcn, $vertex1),
-                            array('method', "$fqcn::sand", $vertex2),
-                            array('impl', "$fqcn::sand", $vertex3)
+                            array('class', 'Atavachron\Funnels', $this->vertex['C']),
+                            array('class', 'Atavachron\Looking', $this->vertex['C']),
+                            array('interface', 'Atavachron\Glass', $this->vertex['I']),
+                            array('interface', 'Atavachron\Berwell', $this->vertex['I']),
+                            array('method', "$fqcn::sand", $this->vertex['M']),
+                            array('impl', "$fqcn::sand", $this->vertex['S'])
         )));
 
         $this->context
@@ -173,17 +152,17 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->graph
                 ->expects($this->at(0))
                 ->method('addEdge')
-                ->with($vertex1, $vertex2);
+                ->with($this->vertex['C'], $this->vertex['M']);
 
         $this->graph
                 ->expects($this->at(2))
                 ->method('addEdge')
-                ->with($vertex2, $vertex3);
+                ->with($this->vertex['M'], $this->vertex['S']);
 
         $this->graph
                 ->expects($this->at(1))
                 ->method('addEdge')
-                ->with($vertex3, $vertex1);
+                ->with($this->vertex['S'], $this->vertex['C']);
 
         foreach ($nodeList as $node) {
             $this->visitor->enterNode($node);
@@ -197,13 +176,6 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testOverridenMethod()
     {
-        $vertex1 = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Vertex\ClassVertex')
-                ->disableOriginalConstructor()
-                ->getMock();
-        $vertex3 = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Vertex\ImplVertex')
-                ->disableOriginalConstructor()
-                ->getMock();
-
         $nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
         $nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
@@ -213,19 +185,23 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->any())
                 ->method('findVertex')
                 ->will($this->returnValueMap(array(
-                            array('class', $fqcn, $vertex1),
-                            array('impl', "$fqcn::sand", $vertex3)
+                            array('class', 'Atavachron\Funnels', $this->vertex['C']),
+                            array('class', 'Atavachron\Looking', $this->vertex['C']),
+                            array('interface', 'Atavachron\Glass', $this->vertex['I']),
+                            array('interface', 'Atavachron\Berwell', $this->vertex['I']),
+                            array('method', "$fqcn::sand", $this->vertex['M']),
+                            array('impl', "$fqcn::sand", $this->vertex['S'])
         )));
 
         $this->graph
                 ->expects($this->at(1))
                 ->method('addEdge')
-                ->with($vertex1, $vertex3);
+                ->with($this->vertex['C'], $this->vertex['S']);
 
         $this->graph
                 ->expects($this->at(0))
                 ->method('addEdge')
-                ->with($vertex3, $vertex1);
+                ->with($this->vertex['S'], $this->vertex['C']);
 
         foreach ($nodeList as $node) {
             $this->visitor->enterNode($node);
