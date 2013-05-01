@@ -316,7 +316,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
      * Test for :
      *  * S -> M
      */
-    public function testSimpleCall()
+    public function testSimpleCallFallback()
     {
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
@@ -327,6 +327,36 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->method('findAllMethodSameName')
                 ->with('clown')
                 ->will($this->returnValue(array($this->vertex['M'])));
+
+        // edges :
+        $this->graph
+                ->expects($this->at(2))
+                ->method('addEdge')
+                ->with($this->vertex['S'], $this->vertex['M']);
+
+        $this->visitNodeList();
+    }
+
+    /**
+     * Test for :
+     *  * S -> M
+     */
+    public function testTypedCall()
+    {
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
+        $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
+        $this->nodeList[2]->params[] = new \PHPParser_Node_Param('obj', null, new \PHPParser_Node_Name('Berwell'));
+        $this->nodeList[3] = new \PHPParser_Node_Expr_MethodCall(new \PHPParser_Node_Expr_Variable('obj'), 'clown');
+
+        $this->context
+                ->expects($this->once())
+                ->method('hasDeclaringClass')
+                ->will($this->returnValue(true));
+
+        $this->context
+                ->expects($this->once())
+                ->method('findMethodInInheritanceTree')
+                ->will($this->returnArgument(0));
 
         // edges :
         $this->graph

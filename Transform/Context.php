@@ -84,12 +84,12 @@ class Context
      * 
      * Note1: Algo is DFS
      * Note2: Must be called AFTER resolveSymbol
-     * Note3: this one is kewl, I don't now why it works at the first try
+     * Note3: this one is kewl, I don't know why it works at the first try
      * 
      * @param string $cls
      * @param string $method
      * 
-     * @return string the class which first declare the method (or null)
+     * @return string the class which first declares the method (or null)
      */
     public function findMethodInInheritanceTree($cls, $method)
     {
