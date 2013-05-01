@@ -51,6 +51,18 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock()
         );
+
+        $this->context
+                ->expects($this->any())
+                ->method('findVertex')
+                ->will($this->returnValueMap(array(
+                            array('class', 'Atavachron\Funnels', $this->vertex['C']),
+                            array('class', 'Atavachron\Looking', $this->vertex['C']),
+                            array('interface', 'Atavachron\Glass', $this->vertex['I']),
+                            array('interface', 'Atavachron\Berwell', $this->vertex['I']),
+                            array('method', "Atavachron\Funnels::sand", $this->vertex['M']),
+                            array('impl', "Atavachron\Funnels::sand", $this->vertex['S'])
+        )));
     }
 
     /**
@@ -64,15 +76,6 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $classNode = new \PHPParser_Node_Stmt_Class('Funnels');
         $classNode->extends = new \PHPParser_Node_Name('Looking');
         $classNode->implements[] = new \PHPParser_Node_Name('Glass');
-
-        $this->context
-                ->expects($this->any())
-                ->method('findVertex')
-                ->will($this->returnValueMap(array(
-                            array('class', 'Atavachron\Funnels', $this->vertex['C']),
-                            array('class', 'Atavachron\Looking', $this->vertex['C']),
-                            array('interface', 'Atavachron\Glass', $this->vertex['I'])
-        )));
 
         $this->graph
                 ->expects($this->at(0))
@@ -98,16 +101,6 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $node[1] = new \PHPParser_Node_Stmt_Interface('Berwell');
         $node[1]->extends[] = new \PHPParser_Node_Name('Glass');
 
-        $this->context
-                ->expects($this->any())
-                ->method('findVertex')
-                ->will($this->returnValueMap(array(
-                            array('class', 'Atavachron\Funnels', $this->vertex['C']),
-                            array('class', 'Atavachron\Looking', $this->vertex['C']),
-                            array('interface', 'Atavachron\Glass', $this->vertex['I']),
-                            array('interface', 'Atavachron\Berwell', $this->vertex['I'])
-        )));
-
         $this->graph
                 ->expects($this->once())
                 ->method('addEdge')
@@ -129,25 +122,12 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
         $nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
-        $fqcn = 'Atavachron\Funnels';
-
-        $this->context
-                ->expects($this->any())
-                ->method('findVertex')
-                ->will($this->returnValueMap(array(
-                            array('class', 'Atavachron\Funnels', $this->vertex['C']),
-                            array('class', 'Atavachron\Looking', $this->vertex['C']),
-                            array('interface', 'Atavachron\Glass', $this->vertex['I']),
-                            array('interface', 'Atavachron\Berwell', $this->vertex['I']),
-                            array('method', "$fqcn::sand", $this->vertex['M']),
-                            array('impl', "$fqcn::sand", $this->vertex['S'])
-        )));
 
         $this->context
                 ->expects($this->once())
                 ->method('getDeclaringClass')
-                ->with($fqcn, 'sand')
-                ->will($this->returnValue($fqcn));
+                ->with('Atavachron\Funnels', 'sand')
+                ->will($this->returnValue('Atavachron\Funnels'));
 
         $this->graph
                 ->expects($this->at(0))
@@ -179,19 +159,6 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
         $nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
-        $fqcn = 'Atavachron\Funnels';
-
-        $this->context
-                ->expects($this->any())
-                ->method('findVertex')
-                ->will($this->returnValueMap(array(
-                            array('class', 'Atavachron\Funnels', $this->vertex['C']),
-                            array('class', 'Atavachron\Looking', $this->vertex['C']),
-                            array('interface', 'Atavachron\Glass', $this->vertex['I']),
-                            array('interface', 'Atavachron\Berwell', $this->vertex['I']),
-                            array('method', "$fqcn::sand", $this->vertex['M']),
-                            array('impl', "$fqcn::sand", $this->vertex['S'])
-        )));
 
         $this->graph
                 ->expects($this->at(1))
