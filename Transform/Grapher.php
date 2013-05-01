@@ -36,22 +36,16 @@ class Grapher
         // 2nd pass
         $pass[2] = new Visitor\EdgeCollector($context, $graph);
 
-        echo memory_get_usage(true) . PHP_EOL;
         $stmts = $parser->parse($iter);
-        echo memory_get_usage(true) . PHP_EOL;
 
         foreach ($pass as $collector) {
-            $stopWatch = time();
 
             $traverser = new \PHPParser_NodeTraverser();
             $traverser->addVisitor($collector);
             $traverser->traverse($stmts);
 
             $collector->compile();
-            //   printf("Pass in %d sec\n", time() - $stopWatch);
-            echo memory_get_usage(true) . PHP_EOL;
         }
-        echo memory_get_peak_usage(true) . PHP_EOL;
 
         return $graph;
     }
