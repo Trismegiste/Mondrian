@@ -320,7 +320,8 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
     {
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
-        $this->nodeList[3] = new \PHPParser_Node_Expr_MethodCall(new \PHPParser_Node_Expr_Variable('obj'), 'clown');
+        $this->nodeList[3] = new \PHPParser_Node_Expr_MethodCall(
+                new \PHPParser_Node_Expr_Variable('obj'), 'clown');
 
         $this->context
                 ->expects($this->once())

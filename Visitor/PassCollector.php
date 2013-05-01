@@ -16,8 +16,8 @@ use Trismegiste\Mondrian\Graph\Graph;
  * and build the graph with the help of a Context
  * 
  * It feels like a Mediator between Context and concrete CompilerPass
- * (It is not because Context and concrete CompilerPass are not daughter
- * of a common interface)
+ * (It is not one because Context and concrete CompilerPass do not share
+ * a common interface)
  */
 abstract class PassCollector extends PublicCollector implements CompilerPass
 {
