@@ -7,6 +7,7 @@
 namespace Trismegiste\Mondrian\Transform;
 
 use Trismegiste\Mondrian\Visitor;
+use Trismegiste\Mondrian\Parser\PackageParser;
 
 /**
  * Grapher transforms source code into graph
@@ -24,7 +25,7 @@ class Grapher
      */
     public function parse(\Iterator $iter)
     {
-        $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
+        $parser = new PackageParser(new \PHPParser_Parser(new \PHPParser_Lexer()));
         $graph = new \Trismegiste\Mondrian\Graph\Digraph();
 
         $context = new Context();
@@ -35,22 +36,15 @@ class Grapher
         // 2nd pass
         $pass[2] = new Visitor\EdgeCollector($context, $graph);
 
-        // for memory concerns, I'll re-parse files on each pass
-        // (slower but lighter) and enriching the Context
+        $stmts = $parser->parse($iter);
+
         foreach ($pass as $collector) {
-            $stopWatch = time();
 
             $traverser = new \PHPParser_NodeTraverser();
             $traverser->addVisitor($collector);
-
-            foreach ($iter as $fch) {
-                $code = $fch->getContents();
-                $stmts = $parser->parse($code);
-                $traverser->traverse($stmts);
-            }
+            $traverser->traverse($stmts);
 
             $collector->compile();
-            //   printf("Pass in %d sec\n", time() - $stopWatch);
         }
 
         return $graph;
