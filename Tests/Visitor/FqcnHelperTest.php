@@ -67,6 +67,38 @@ class FqcnHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Medusa\And\Hemlock', $node[2]->getAttribute('unit-test'));
     }
 
+    public function testNamespacedTransform()
+    {
+        $node[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Wrath\Of\The'));
+        $node[1] = new \PHPParser_Node_Stmt_Interface('Norsemen');
+
+        $this->traverser->traverse($node);
+        $this->assertEquals('Wrath\Of\The\Norsemen', $node[1]->getAttribute('unit-test'));
+    }
+
+    public function testNamespacedTransformFallback()
+    {
+        $node[0] = new \PHPParser_Node_Stmt_Interface('Norsemen');
+
+        $this->traverser->traverse($node);
+        $this->assertEquals('Norsemen', $node[0]->getAttribute('unit-test'));
+    }
+
+    public function testResetAfterNewFile()
+    {
+        $this->visitor->enterNode(new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Nymphetamine')));
+        $this->assertAttributeEquals('Nymphetamine', 'namespace', $this->visitor);
+        $this->visitor->enterNode(new \Trismegiste\Mondrian\Parser\PhpFile('a', array()));
+        $this->assertAttributeEquals(null, 'namespace', $this->visitor);
+    }
+
+    public function testReservedKeyword()
+    {
+        $node = new \PHPParser_Node_Expr_StaticCall(new \PHPParser_Node_Name('parent'), 'calling');
+        $this->visitor->enterNode($node);
+        $this->assertEquals('parent', $node->getAttribute('unit-test'));
+    }
+
 }
 
 /**
@@ -81,10 +113,24 @@ class FqcnHelperStub extends FqcnHelper
     public function enterNode(\PHPParser_Node $node)
     {
         parent::enterNode($node);
-        if ($node->getType() == 'Stmt_Class') {
-            if (!is_null($node->extends)) {
-                $node->setAttribute('unit-test', (string) $this->resolveClassName($node->extends));
-            }
+
+        switch ($node->getType()) {
+
+            case 'Stmt_Class':
+                if (!is_null($node->extends)) {
+                    $node->setAttribute('unit-test', (string) $this->resolveClassName($node->extends));
+                }
+                break;
+
+            case 'Stmt_Interface':
+                if (!is_null($node->extends)) {
+                    $node->setAttribute('unit-test', $this->getNamespacedName($node));
+                }
+                break;
+
+            case 'Expr_StaticCall':
+                $node->setAttribute('unit-test', (string) $this->resolveClassName($node->class));
+                break;
         }
     }
 
