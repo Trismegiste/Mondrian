@@ -7,7 +7,7 @@
 namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Refactor\Refactored;
-use Trismegiste\Mondrian\Refactor\RefactorPass;
+use Trismegiste\Mondrian\Parser\PhpDumper;
 
 /**
  * InterfaceExtractor builds new contracts
@@ -16,12 +16,12 @@ class InterfaceExtractor extends PublicCollector
 {
 
     protected $newInterface = false;
-    protected $newContent = null; // a list of interfaceName => content
+    protected $newContent = null; // a list of PhpFile
     protected $methodStack;
     protected $context;
     protected $dumper;
 
-    public function __construct(Refactored $ctx, $callable)
+    public function __construct(Refactored $ctx, PhpDumper $callable)
     {
         $this->context = $ctx;
         $this->dumper = $callable;
@@ -101,7 +101,7 @@ class InterfaceExtractor extends PublicCollector
     {
         foreach ($fileList as $file) {
             if ($file->isModified()) {
-                call_user_func($this->dumper, $file->getRealPath(), iterator_to_array($file->getIterator()));
+                $this->dumper->write($file);
             }
         }
     }

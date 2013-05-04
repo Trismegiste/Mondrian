@@ -7,6 +7,7 @@
 namespace Trismegiste\Mondrian\Tests\Visitor;
 
 use Trismegiste\Mondrian\Visitor\InterfaceExtractor;
+use Trismegiste\Mondrian\Parser\PhpFile;
 
 /**
  * InterfaceExtractorTest tests for InterfaceExtractor
@@ -16,12 +17,16 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
 
     protected $visitor;
     protected $context;
+    protected $dumper;
 
     protected function setUp()
     {
+        $this->dumper = $this->getMockBuilder('Trismegiste\Mondrian\Parser\PhpDumper')
+                ->setMethods(array('write'))
+                ->getMock();
         $this->context = $this->getMockBuilder('Trismegiste\Mondrian\Refactor\Refactored')
                 ->getMock();
-        $this->visitor = new InterfaceExtractor($this->context, array($this, 'stubbedTestedWrite'));
+        $this->visitor = new InterfaceExtractor($this->context, $this->dumper);
     }
 
     public function getSimpleClass()
@@ -66,18 +71,23 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGeneration($node)
     {
+        $this->dumper->expects($this->once())
+                ->method('write')
+                ->will($this->returnCallback(array($this, 'stubbedTestedWrite')));
+
         $this->visitor->enterNode(new \Trismegiste\Mondrian\Parser\PhpFile('/addicted/to/Systematic.php', array()));
         $this->visitor->enterNode($node);
         $this->visitor->enterNode(new \PHPParser_Node_Stmt_ClassMethod('forsaken'));
         $this->visitor->leaveNode($node);
         $this->visitor->afterTraverse(array());
-        
+
         $this->assertAttributeNotEmpty('newContent', $this->visitor);
     }
 
-    public function stubbedTestedWrite($fch, $generated)
+    public function stubbedTestedWrite(PhpFile $file)
     {
-        $this->assertEquals('/addicted/to/Chaos.php', $fch);
+        $this->assertEquals('/addicted/to/Chaos.php', $file->getRealPath());
+        $generated = $file->getIterator();
         $this->assertCount(2, $generated);
         $this->assertInstanceOf('\PHPParser_Node_Stmt_Namespace', $generated[0]);
         $this->assertInstanceOf('\PHPParser_Node_Stmt_Interface', $generated[1]);
