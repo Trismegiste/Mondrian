@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Refactor\RefactorPass;
 /**
  * InterfaceExtractor builds new contracts
  */
-class InterfaceExtractor extends PublicCollector implements RefactorPass
+class InterfaceExtractor extends PublicCollector
 {
 
     protected $newInterface = false;
@@ -65,7 +65,7 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
 
         $dst = dirname($this->currentPhpFile->getRealPath()) . '/' . $this->newInterface . '.php';
 
-        return new \Trismegiste\Mondrian\Parser\PhpFile($dst, $generated);
+        return new \Trismegiste\Mondrian\Parser\PhpFile($dst, $generated, true);
     }
 
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
@@ -89,19 +89,23 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
         $this->methodStack[] = $abstracted;
     }
 
-    public function isModified()
+    public function afterTraverse(array $node)
     {
-        return false;
+        $this->writeUpdated($node);
+        $this->writeUpdated($this->newContent);
     }
 
-    public function hasGenerated()
+    protected function writeUpdated(array $fileList)
     {
-        return 0 < count($this->newContent);
-    }
-
-    public function getGenerated()
-    {
-        return $this->newContent;
+        foreach ($fileList as $file) {
+            if ($file->isModified()) {
+                echo "---------------------\n";
+                echo "write " . $file->getRealPath() . PHP_EOL;
+                $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
+                $tab = iterator_to_array($file->getIterator());
+                echo "<?php\n\n" . $prettyPrinter->prettyPrint($tab);
+            }
+        }
     }
 
 }

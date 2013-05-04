@@ -8,6 +8,7 @@ namespace Trismegiste\Mondrian\Refactor;
 
 use Trismegiste\Mondrian\Visitor;
 use Symfony\Component\Finder\SplFileInfo;
+use Trismegiste\Mondrian\Parser\PackageParser;
 
 /**
  * Contractor refactors a list of classes with annotations hints.
@@ -55,7 +56,7 @@ class Contractor
      */
     public function refactor(\Iterator $iter)
     {
-        $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
+        $parser = new PackageParser(new \PHPParser_Parser(new \PHPParser_Lexer()));
         $context = new Refactored();
         // passes :
         // finds which class must be refactored (and add inheritance)
@@ -65,33 +66,27 @@ class Contractor
         // creates the new interface file
         $pass[2] = new Visitor\InterfaceExtractor($context);
 
-        // for memory concerns, I'll re-parse files on each pass
-        // (slower but lighter) and enriching the Context
-        // Beware : lava flow
+        $stmts = $parser->parse($iter);
+
         foreach ($pass as $collector) {
 
             $traverser = new \PHPParser_NodeTraverser();
             $traverser->addVisitor($collector);
-            // for each file
-            foreach ($iter as $fch) {
-                $code = $fch->getContents();
-                $stmts = $parser->parse($code);
-                $traverser->traverse($stmts);
-                // is this file has been modified ?
-                if ($collector->isModified()) {
-                    $this->writeStatement($fch->getRealPath(), $stmts);
-                }
-                // is this file has generated another one in the same dir ?
-                if ($collector->hasGenerated()) {
-                    $lst = $collector->getGenerated();
-                    // there can be multiple if there are many classes in one file
-                    // (not PSR-0 but who never knows ?)
-                    foreach ($lst as $name => $interf) {
-                        $interfFch = $fch->getPath() . DIRECTORY_SEPARATOR . $name . '.php';
-                        $this->writeStatement($interfFch, $interf);
-                    }
-                }
-            }
+            $traverser->traverse($stmts);
+            // is this file has been modified ?
+            /*         if ($collector->isModified()) {
+              $this->writeStatement($fch->getRealPath(), $stmts);
+              }
+              // is this file has generated another one in the same dir ?
+              if ($collector->hasGenerated()) {
+              $lst = $collector->getGenerated();
+              // there can be multiple if there are many classes in one file
+              // (not PSR-0 but who never knows ?)
+              foreach ($lst as $name => $interf) {
+              $interfFch = $fch->getPath() . DIRECTORY_SEPARATOR . $name . '.php';
+              $this->writeStatement($interfFch, $interf);
+              }
+              } */
         }
     }
 
