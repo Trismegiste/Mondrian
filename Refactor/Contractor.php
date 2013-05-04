@@ -69,24 +69,9 @@ class Contractor
         $stmts = $parser->parse($iter);
 
         foreach ($pass as $collector) {
-
             $traverser = new \PHPParser_NodeTraverser();
             $traverser->addVisitor($collector);
             $traverser->traverse($stmts);
-            // is this file has been modified ?
-            /*         if ($collector->isModified()) {
-              $this->writeStatement($fch->getRealPath(), $stmts);
-              }
-              // is this file has generated another one in the same dir ?
-              if ($collector->hasGenerated()) {
-              $lst = $collector->getGenerated();
-              // there can be multiple if there are many classes in one file
-              // (not PSR-0 but who never knows ?)
-              foreach ($lst as $name => $interf) {
-              $interfFch = $fch->getPath() . DIRECTORY_SEPARATOR . $name . '.php';
-              $this->writeStatement($interfFch, $interf);
-              }
-              } */
         }
     }
 
