@@ -64,7 +64,7 @@ class Contractor
         // replaces the parameters types with the interface
         $pass[1] = new Visitor\ParamRefactor($context);
         // creates the new interface file
-        $pass[2] = new Visitor\InterfaceExtractor($context);
+        $pass[2] = new Visitor\InterfaceExtractor($context, array($this, 'writeStatement'));
 
         $stmts = $parser->parse($iter);
 
@@ -96,7 +96,7 @@ class Contractor
      * @param string $fch absolute path
      * @param array $stmts an array of PHPParser_Stmt
      */
-    protected function writeStatement($fch, array $stmts)
+    public function writeStatement($fch, array $stmts)
     {
         $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
         file_put_contents($fch, "<?php\n\n" . $prettyPrinter->prettyPrint($stmts));
