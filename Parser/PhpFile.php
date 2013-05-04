@@ -9,14 +9,14 @@ namespace Trismegiste\Mondrian\Parser;
 use PHPParser_NodeAbstract;
 
 /**
- * PhpFile is ...
+ * PhpFile is a node in a package repreenting a file
  *
- * @author flo
  */
 class PhpFile extends PHPParser_NodeAbstract
 {
 
     protected $absPathName;
+    protected $modified = false;
 
     public function __construct($path, array $stmts)
     {
@@ -32,6 +32,16 @@ class PhpFile extends PHPParser_NodeAbstract
     public function getRealPath()
     {
         return $this->absPathName;
+    }
+
+    public function isModified()
+    {
+        return $this->modified;
+    }
+
+    public function modified()
+    {
+        $this->modified = true;
     }
 
 }
