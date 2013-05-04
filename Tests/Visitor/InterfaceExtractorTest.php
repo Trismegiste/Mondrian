@@ -72,11 +72,16 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
         $this->visitor->enterNode($node);
         $this->visitor->enterNode(new \PHPParser_Node_Stmt_ClassMethod('forsaken'));
         $this->visitor->leaveNode($node);
+
         $this->assertTrue($this->visitor->hasGenerated());
         $generated = $this->visitor->getGenerated();
+
         $this->assertCount(1, $generated);
-        $this->assertInstanceOf('Trismegiste\Mondrian\Parser\PhpFile', $generated[0]);
-        $generated = $generated[0]->getIterator();
+        $newFile = $generated[0];
+        $this->assertInstanceOf('Trismegiste\Mondrian\Parser\PhpFile', $newFile);
+        $this->assertEquals('/addicted/to/Chaos.php', $newFile->getRealPath());
+
+        $generated = $newFile->getIterator();
         $this->assertCount(2, $generated);
         $this->assertInstanceOf('\PHPParser_Node_Stmt_Namespace', $generated[0]);
         $this->assertInstanceOf('\PHPParser_Node_Stmt_Interface', $generated[1]);

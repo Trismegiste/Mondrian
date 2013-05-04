@@ -63,14 +63,14 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
         $generated[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name($fqcn->parts));
         $generated[1] = new \PHPParser_Node_Stmt_Interface($this->newInterface, array('stmts' => $this->methodStack));
 
-        $dst = dirname($this->currentPhpFile->getRealPath()) . $this->newInterface . '.php';
+        $dst = dirname($this->currentPhpFile->getRealPath()) . '/' . $this->newInterface . '.php';
 
         return new \Trismegiste\Mondrian\Parser\PhpFile($dst, $generated);
     }
 
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-
+        
     }
 
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
