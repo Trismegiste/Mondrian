@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Finder\Finder;
 use Trismegiste\Mondrian\Refactor\Contractor;
+use Trismegiste\Mondrian\Parser\PhpDumper;
 
 /**
  * RefactorCommand recursively scans a directory and
@@ -43,7 +44,7 @@ class RefactorCommand extends Command
                 ->name('*.php')
                 ->exclude($ignoreDir);
 
-        $service = new Contractor();
+        $service = new Contractor(new PhpDumper());
         $service->refactor($scan->getIterator());
     }
 

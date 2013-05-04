@@ -96,4 +96,14 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('forsaken', $interf[0]->name);
     }
 
+    /**
+     * @dataProvider getSimpleClass
+     * @expectedException RuntimeException
+     */
+    public function testBadUseOfVisitor($node)
+    {
+        $this->visitor->enterNode($node);
+        $this->visitor->leaveNode($node);
+    }
+
 }
