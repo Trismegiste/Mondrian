@@ -29,8 +29,8 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
         return array(array(
                 new \PHPParser_Node_Stmt_Class('Systematic', array(), array(
                     'comments' => array(new \PHPParser_Comment('@mondrian contractor Chaos'))
-                ))
-                ));
+                        ))
+        ));
     }
 
     /**
@@ -55,8 +55,8 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
     public function testDoNothingForCC()
     {
         $node = new \PHPParser_Node_Stmt_Interface('Dummy', array(
-                    'stmts' => new \PHPParser_Node_Stmt_ClassMethod('dummy')
-                ));
+            'stmts' => new \PHPParser_Node_Stmt_ClassMethod('dummy')
+        ));
         $this->visitor->beforeTraverse(array($node));
         $this->visitor->enterNode($node);
         $this->assertFalse($this->visitor->isModified());
@@ -68,14 +68,15 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGeneration($node)
     {
+        $this->visitor->enterNode(new \Trismegiste\Mondrian\Parser\PhpFile('/addicted/to/Systematic.php', array()));
         $this->visitor->enterNode($node);
         $this->visitor->enterNode(new \PHPParser_Node_Stmt_ClassMethod('forsaken'));
         $this->visitor->leaveNode($node);
         $this->assertTrue($this->visitor->hasGenerated());
         $generated = $this->visitor->getGenerated();
         $this->assertCount(1, $generated);
-        $this->assertArrayHasKey('Chaos', $generated);
-        $generated = $generated['Chaos'];
+        $this->assertInstanceOf('Trismegiste\Mondrian\Parser\PhpFile', $generated[0]);
+        $generated = $generated[0]->getIterator();
         $this->assertCount(2, $generated);
         $this->assertInstanceOf('\PHPParser_Node_Stmt_Namespace', $generated[0]);
         $this->assertInstanceOf('\PHPParser_Node_Stmt_Interface', $generated[1]);

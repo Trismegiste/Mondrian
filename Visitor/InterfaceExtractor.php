@@ -44,7 +44,7 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
     {
         if ($node->getType() === 'Stmt_Class') {
             if ($this->newInterface) {
-                $this->newContent[$this->newInterface] = $this->buildNewInterface();
+                $this->newContent[] = $this->buildNewInterface();
             }
             $this->newInterface = false;
         }
@@ -54,12 +54,18 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
 
     protected function buildNewInterface()
     {
+        if (!$this->currentPhpFile) {
+            throw new \RuntimeException('Currently not in a PhpFile therefore no generation');
+        }
+
         $fqcn = new \PHPParser_Node_Name_FullyQualified($this->currentClass);
         array_pop($fqcn->parts);
         $generated[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name($fqcn->parts));
         $generated[1] = new \PHPParser_Node_Stmt_Interface($this->newInterface, array('stmts' => $this->methodStack));
 
-        return $generated;
+        $dst = dirname($this->currentPhpFile->getRealPath()) . $this->newInterface . '.php';
+
+        return new \Trismegiste\Mondrian\Parser\PhpFile($dst, $generated);
     }
 
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
