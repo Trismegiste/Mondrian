@@ -68,6 +68,12 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
         }
     }
 
+    /**
+     * resolve the Name with current namespace and alias
+     * 
+     * @param \PHPParser_Node_Name $src
+     * @return \PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
+     */
     protected function resolveClassName(\PHPParser_Node_Name $src)
     {
         $name = clone $src;
@@ -92,6 +98,12 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
         return new \PHPParser_Node_Name_FullyQualified($name->parts, $name->getAttributes());
     }
 
+    /**
+     * Helper : get the FQCN of the given $node->name
+     * 
+     * @param PHPParser_Node $node
+     * @return string
+     */
     protected function getNamespacedName(PHPParser_Node $node)
     {
         if (null !== $this->namespace) {

@@ -33,6 +33,11 @@ class Contractor
 
     protected $phpDumper;
 
+    /**
+     * Build the service with a dumper for writeing file
+     * 
+     * @param \Trismegiste\Mondrian\Parser\PhpDumper $dumper
+     */
     public function __construct(PhpDumper $dumper)
     {
         $this->phpDumper = $dumper;

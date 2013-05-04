@@ -17,7 +17,7 @@ class InterfaceExtractor extends PublicCollector
 
     protected $newInterface = false;
     protected $newContent = null; // a list of PhpFile
-    protected $methodStack;
+    protected $methodStack; // a temporary stack of methods for the currently new interface
     protected $context;
     protected $dumper;
 
@@ -27,12 +27,18 @@ class InterfaceExtractor extends PublicCollector
         $this->dumper = $callable;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function beforeTraverse(array $nodes)
     {
         parent::beforeTraverse($nodes);
         $this->newContent = array();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
         $this->extractAnnotation($node);
@@ -42,6 +48,9 @@ class InterfaceExtractor extends PublicCollector
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function leaveNode(\PHPParser_Node $node)
     {
         if ($node->getType() === 'Stmt_Class') {
@@ -54,6 +63,12 @@ class InterfaceExtractor extends PublicCollector
         parent::leaveNode($node);
     }
 
+    /**
+     * Build the new PhpFile for the new contract
+     * 
+     * @return \Trismegiste\Mondrian\Parser\PhpFile
+     * @throws \RuntimeException If no inside a PhpFile (WAT?)
+     */
     protected function buildNewInterface()
     {
         if (!$this->currentPhpFile) {
@@ -70,18 +85,30 @@ class InterfaceExtractor extends PublicCollector
         return new \Trismegiste\Mondrian\Parser\PhpFile($dst, $generated, true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
         
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
+        // I filter only good relevant methods (no __construct, __clone, __invoke ...)
         if (!preg_match('#^__.+#', $node->name) && $this->newInterface) {
             $this->enterStandardMethod($node);
         }
     }
 
+    /**
+     * Stacks the method for the new interface
+     * 
+     * @param \PHPParser_Node_Stmt_ClassMethod $node
+     */
     protected function enterStandardMethod(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $abstracted = clone $node;
@@ -91,12 +118,20 @@ class InterfaceExtractor extends PublicCollector
         $this->methodStack[] = $abstracted;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function afterTraverse(array $node)
     {
         $this->writeUpdated($node);
         $this->writeUpdated($this->newContent);
     }
 
+    /**
+     * Write a list of PhpFile
+     * 
+     * @param array $fileList
+     */
     protected function writeUpdated(array $fileList)
     {
         foreach ($fileList as $file) {

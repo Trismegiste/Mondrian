@@ -19,6 +19,11 @@ class PhpDumper
         $this->prettyPrinter = new \PHPParser_PrettyPrinter_Default();
     }
 
+    /**
+     * Write the file
+     * 
+     * @param \Trismegiste\Mondrian\Parser\PhpFile $aFile
+     */
     public function write(PhpFile $aFile)
     {
         file_put_contents($aFile->getRealPath(), "<?php\n\n"
