@@ -9,6 +9,7 @@ namespace Trismegiste\Mondrian\Refactor;
 use Trismegiste\Mondrian\Visitor;
 use Symfony\Component\Finder\SplFileInfo;
 use Trismegiste\Mondrian\Parser\PackageParser;
+use Trismegiste\Mondrian\Parser\PhpDumper;
 
 /**
  * Contractor refactors a list of classes with annotations hints.
@@ -26,28 +27,16 @@ use Trismegiste\Mondrian\Parser\PackageParser;
  * since everybody uses Git or at least SVN. Therefore you can launch the
  * test suite immediatly.
  * 
- * It is a dumb refactoring but it makes the dull job to create new interfaces
- * by gathering public methods for each class in only one pass. There is no
- * name collision check or whatsoever.
- * 
- * The boring stage of sequences of ctrl-C/ctrl-V/ctrl-X is passed, 
- * now it is time to use your brain and think about domain, model, business 
- * and object contract :)
- *
- * Thereafter, you need to create a tree of contracts with these
- * 'not-really-abstract' interfaces. You need to put common contract in parent interface,
- * find common methods, remove unused methods, rename, move interfaces 
- * in other namespace etc... The perfect time to work with the digraph on the
- * second screen.
- * 
- * Note: All classnames are transformed in FQCN. It is not beautiful but 
- * actually, it is more useful than I thought : since these interfaces will
- * be splitted, renamed or moved, you don't have to think about "use" statements
- * and massive "search & replace" are made easier.
- * 
  */
 class Contractor
 {
+
+    protected $phpDumper;
+
+    public function __construct(PhpDumper $dumper)
+    {
+        $this->phpDumper = $dumper;
+    }
 
     /**
      * Parse and refactor
@@ -64,7 +53,7 @@ class Contractor
         // replaces the parameters types with the interface
         $pass[1] = new Visitor\ParamRefactor($context);
         // creates the new interface file
-        $pass[2] = new Visitor\InterfaceExtractor($context, array($this, 'writeStatement'));
+        $pass[2] = new Visitor\InterfaceExtractor($context, $this->phpDumper);
 
         $stmts = $parser->parse($iter);
 
@@ -73,18 +62,6 @@ class Contractor
             $traverser->addVisitor($collector);
             $traverser->traverse($stmts);
         }
-    }
-
-    /**
-     * write a content to a file
-     * 
-     * @param string $fch absolute path
-     * @param array $stmts an array of PHPParser_Stmt
-     */
-    public function writeStatement($fch, array $stmts)
-    {
-        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-        file_put_contents($fch, "<?php\n\n" . $prettyPrinter->prettyPrint($stmts));
     }
 
 }

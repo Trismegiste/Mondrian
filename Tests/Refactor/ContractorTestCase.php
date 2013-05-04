@@ -9,6 +9,7 @@ namespace Trismegiste\Mondrian\Tests\Refactor;
 use Trismegiste\Mondrian\Refactor\Contractor;
 use Symfony\Component\Finder\Tests\Iterator\MockSplFileInfo;
 use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
+use Trismegiste\Mondrian\Parser\PhpFile;
 
 /**
  * ContractorTestCase is an abstract full functional test 
@@ -19,20 +20,23 @@ abstract class ContractorTestCase extends \PHPUnit_Framework_TestCase
 
     protected $coder;
     protected $storage;
+    protected $dumper;
 
     /**
      * Stub for writes
      * @param string $fch
      * @param array $stmts 
      */
-    public function stubbedWrite($fch, array $stmts)
+    public function stubbedWrite(PhpFile $file)
     {
+        $fch = $file->getRealPath();
+        $stmts = iterator_to_array($file->getIterator());
         $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
         $this->storage[basename($fch)] = new MockSplFileInfo(
-                        array(
-                            'name' => $fch,
-                            'contents' => "<?php\n\n" . $prettyPrinter->prettyPrint($stmts)
-                        )
+                array(
+            'name' => $fch,
+            'contents' => "<?php\n\n" . $prettyPrinter->prettyPrint($stmts)
+                )
         );
     }
 
@@ -58,13 +62,16 @@ abstract class ContractorTestCase extends \PHPUnit_Framework_TestCase
 
     protected function createContractorMock($cpt)
     {
-        $this->coder = $this->getMockBuilder('Trismegiste\Mondrian\Refactor\Contractor')
-                ->setMethods(array('writeStatement'))
+        $this->dumper = $this->getMockBuilder('Trismegiste\Mondrian\Parser\PhpDumper')
+                ->setMethods(array('write'))
                 ->getMock();
-        $this->coder
+
+        $this->dumper
                 ->expects($this->exactly($cpt))
-                ->method('writeStatement')
+                ->method('write')
                 ->will($this->returnCallback(array($this, 'stubbedWrite')));
+
+        $this->coder = new Contractor($this->dumper);
     }
 
     /**
