@@ -16,11 +16,12 @@ class PhpFile extends PHPParser_NodeAbstract
 {
 
     protected $absPathName;
-    protected $modified = false;
+    protected $modified;
 
-    public function __construct($path, array $stmts)
+    public function __construct($path, array $stmts, $newFile = false)
     {
         $this->absPathName = (string) $path;
+        $this->modified = $newFile;
         parent::__construct($stmts);
     }
 
