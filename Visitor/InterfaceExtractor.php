@@ -19,10 +19,12 @@ class InterfaceExtractor extends PublicCollector
     protected $newContent = null; // a list of interfaceName => content
     protected $methodStack;
     protected $context;
+    protected $dumper;
 
-    public function __construct(Refactored $ctx)
+    public function __construct(Refactored $ctx, $callable)
     {
         $this->context = $ctx;
+        $this->dumper = $callable;
     }
 
     public function beforeTraverse(array $nodes)
@@ -99,11 +101,7 @@ class InterfaceExtractor extends PublicCollector
     {
         foreach ($fileList as $file) {
             if ($file->isModified()) {
-                echo "---------------------\n";
-                echo "write " . $file->getRealPath() . PHP_EOL;
-                $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-                $tab = iterator_to_array($file->getIterator());
-                echo "<?php\n\n" . $prettyPrinter->prettyPrint($tab);
+                call_user_func($this->dumper, $file->getRealPath(), iterator_to_array($file->getIterator()));
             }
         }
     }

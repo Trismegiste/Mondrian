@@ -21,7 +21,7 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
     {
         $this->context = $this->getMockBuilder('Trismegiste\Mondrian\Refactor\Refactored')
                 ->getMock();
-        $this->visitor = new InterfaceExtractor($this->context);
+        $this->visitor = new InterfaceExtractor($this->context, array($this, 'stubbedTestedWrite'));
     }
 
     public function getSimpleClass()
@@ -59,8 +59,6 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
         ));
         $this->visitor->beforeTraverse(array($node));
         $this->visitor->enterNode($node);
-        $this->assertFalse($this->visitor->isModified());
-        $this->assertFalse($this->visitor->hasGenerated());
     }
 
     /**
@@ -72,16 +70,14 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
         $this->visitor->enterNode($node);
         $this->visitor->enterNode(new \PHPParser_Node_Stmt_ClassMethod('forsaken'));
         $this->visitor->leaveNode($node);
+        $this->visitor->afterTraverse(array());
+        
+        $this->assertAttributeNotEmpty('newContent', $this->visitor);
+    }
 
-        $this->assertTrue($this->visitor->hasGenerated());
-        $generated = $this->visitor->getGenerated();
-
-        $this->assertCount(1, $generated);
-        $newFile = $generated[0];
-        $this->assertInstanceOf('Trismegiste\Mondrian\Parser\PhpFile', $newFile);
-        $this->assertEquals('/addicted/to/Chaos.php', $newFile->getRealPath());
-
-        $generated = $newFile->getIterator();
+    public function stubbedTestedWrite($fch, $generated)
+    {
+        $this->assertEquals('/addicted/to/Chaos.php', $fch);
         $this->assertCount(2, $generated);
         $this->assertInstanceOf('\PHPParser_Node_Stmt_Namespace', $generated[0]);
         $this->assertInstanceOf('\PHPParser_Node_Stmt_Interface', $generated[1]);

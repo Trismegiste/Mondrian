@@ -19,8 +19,8 @@ class ContractorTest extends ContractorTestCase
 
     protected function setUp()
     {
-        $cpt = 3 * $this->initStorage(array('Earth.php', 'Moon.php')); // 3 passes 
-        $this->createContractorMock($cpt);
+        $this->initStorage(array('Earth.php', 'Moon.php'));
+        $this->createContractorMock(4);
     }
 
     /**
