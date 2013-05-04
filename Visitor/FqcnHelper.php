@@ -26,8 +26,14 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
      */
     protected $aliases;
 
+    /**
+     * current file
+     */
+    protected $currentPhpFile = false;
+
     public function beforeTraverse(array $nodes)
     {
+        // if the visitor is used without PhpFile nodes
         $this->namespace = null;
         $this->aliases = array();
     }
@@ -38,6 +44,7 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
         switch ($node->getType()) {
 
             case 'PhpFile' :
+                $this->currentPhpFile = $node;
                 // resetting the tracking of namespace and alias if we enter in a new file
                 $this->namespace = null;
                 $this->aliases = array();
