@@ -7,30 +7,25 @@
 namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Refactor\Refactored;
-use Trismegiste\Mondrian\Refactor\RefactorPass;
 
 /**
- * NewContractCollector gather classe which needs to be refactor with a
- * contract
+ * NewContractCollector gather classe which needs to be refactor with a contract. 
+ * 
+ * Adds the new interface so changes could be made to the current PhpFile
  */
-class NewContractCollector extends PublicCollector implements RefactorPass
+class NewContractCollector extends PublicCollector
 {
 
     protected $context;
-    protected $isDirty = false;
 
     public function __construct(Refactored $ctx)
     {
         $this->context = $ctx;
     }
 
-    public function beforeTraverse(array $nodes)
-    {
-        parent::beforeTraverse($nodes);
-
-        $this->isDirty = false;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
         $this->extractAnnotation($node);
@@ -38,33 +33,24 @@ class NewContractCollector extends PublicCollector implements RefactorPass
             $interfaceName = new \PHPParser_Node_Name(reset($node->getAttribute('contractor')));
             $this->context->pushNewContract($this->getNamespacedName($node), (string) $this->resolveClassName($interfaceName));
             $node->implements[] = $interfaceName;
-            $this->isDirty = true;
+            $this->currentPhpFile->modified();
         }
     }
 
+    /**
+     * do nothing
+     */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-
+        
     }
 
+    /**
+     * do nothing
+     */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
-
-    }
-
-    public function isModified()
-    {
-        return $this->isDirty;
-    }
-
-    public function hasGenerated()
-    {
-        return false;
-    }
-
-    public function getGenerated()
-    {
-
+        
     }
 
 }

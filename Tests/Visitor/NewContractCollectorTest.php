@@ -24,94 +24,69 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
         $this->visitor = new NewContractCollector($this->context);
     }
 
-    protected function buildClassNode()
+    protected function buildFileNode()
     {
-        $node = $this->getMockBuilder('PHPParser_Node_Stmt_Class')
-                ->disableOriginalConstructor()
-                ->getMock();
-
-        $node->expects($this->exactly(2))
-                ->method('getType')
-                ->will($this->returnValue('Stmt_Class'));
+        $node[] = new \Trismegiste\Mondrian\Parser\PhpFile('/I/Am/Victory.php', array());
+        $node[] = new \PHPParser_Node_Stmt_Class('Victory');
 
         return $node;
     }
 
-    public function testInitialization()
-    {
-        $this->visitor->beforeTraverse(array());
-        $this->assertFalse($this->visitor->isModified());
-        $this->assertFalse($this->visitor->hasGenerated());
-    }
-
     public function testEnterClassWithoutComments()
     {
-        $node = $this->buildClassNode();
-
-        $node->expects($this->exactly(2))
-                ->method('hasAttribute')
-                ->will($this->returnValueMap(array(
-                            array('comments', false),
-                            array('contractor', false)
-        )));
+        $node = $this->buildFileNode();
 
         $this->context->expects($this->never())
                 ->method('pushNewContract');
 
-        $this->visitor->enterNode($node);
+        foreach ($node as $item) {
+            $this->visitor->enterNode($item);
+        }
     }
 
     public function testEnterCommentedClassWithoutAnnotations()
     {
-        $node = $this->buildClassNode();
-
-        $node->expects($this->exactly(2))
-                ->method('hasAttribute')
-                ->will($this->returnValueMap(array(
-                            array('comments', true),
-                            array('contractor', false)
-        )));
-
-        $node->expects($this->once())
-                ->method('getAttribute')
-                ->with('comments')
-                ->will($this->returnValue(array(new \PHPParser_Comment('Some useless comments'))));
+        $node = $this->buildFileNode();
+        $node[1]->setAttribute('comments', array(
+            new \PHPParser_Comment('Some useless comments')
+        ));
 
         $this->context->expects($this->never())
                 ->method('pushNewContract');
 
-        $this->visitor->enterNode($node);
+        foreach ($node as $item) {
+            $this->visitor->enterNode($item);
+        }
     }
 
     public function testEnterAnnotedClass()
     {
-        $node = new \PHPParser_Node_Stmt_Class('Glass', array(), array(
-            'comments' => array(
-                new \PHPParser_Comment('@mondrian contractor SomeNewContract')
-            )
+        $node = $this->buildFileNode();
+        $node[1]->setAttribute('comments', array(
+            new \PHPParser_Comment('@mondrian contractor SomeNewContract')
         ));
 
         $this->context->expects($this->once())
                 ->method('pushNewContract')
-                ->with('Glass', 'SomeNewContract');
+                ->with('Victory', 'SomeNewContract');
 
-        $this->visitor->enterNode($node);
+        foreach ($node as $item) {
+            $this->visitor->enterNode($item);
+        }
 
-        $this->assertTrue($this->visitor->isModified());
+        $this->assertTrue($node[0]->isModified());
     }
 
     public function testDoNothingForCC()
     {
-        $this->visitor->getGenerated();
         $node = new \PHPParser_Node_Stmt_Interface('Dummy');
-        $stmt =  new \PHPParser_Node_Stmt_ClassMethod('dummy');
+        $stmt = new \PHPParser_Node_Stmt_ClassMethod('dummy');
 
         $this->context
                 ->expects($this->never())
                 ->method('pushNewContract');
         $this->visitor->enterNode($node);
         $this->visitor->enterNode($stmt);
-        $this->assertFalse($this->visitor->isModified());
     }
 
 }

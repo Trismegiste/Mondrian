@@ -26,8 +26,14 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
      */
     protected $aliases;
 
+    /**
+     * current file
+     */
+    protected $currentPhpFile = false;
+
     public function beforeTraverse(array $nodes)
     {
+        // if the visitor is used without PhpFile nodes
         $this->namespace = null;
         $this->aliases = array();
     }
@@ -38,6 +44,7 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
         switch ($node->getType()) {
 
             case 'PhpFile' :
+                $this->currentPhpFile = $node;
                 // resetting the tracking of namespace and alias if we enter in a new file
                 $this->namespace = null;
                 $this->aliases = array();
@@ -61,6 +68,12 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
         }
     }
 
+    /**
+     * resolve the Name with current namespace and alias
+     * 
+     * @param \PHPParser_Node_Name $src
+     * @return \PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
+     */
     protected function resolveClassName(\PHPParser_Node_Name $src)
     {
         $name = clone $src;
@@ -85,6 +98,12 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
         return new \PHPParser_Node_Name_FullyQualified($name->parts, $name->getAttributes());
     }
 
+    /**
+     * Helper : get the FQCN of the given $node->name
+     * 
+     * @param PHPParser_Node $node
+     * @return string
+     */
     protected function getNamespacedName(PHPParser_Node $node)
     {
         if (null !== $this->namespace) {

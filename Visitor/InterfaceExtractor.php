@@ -7,30 +7,38 @@
 namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Refactor\Refactored;
-use Trismegiste\Mondrian\Refactor\RefactorPass;
+use Trismegiste\Mondrian\Parser\PhpDumper;
 
 /**
  * InterfaceExtractor builds new contracts
  */
-class InterfaceExtractor extends PublicCollector implements RefactorPass
+class InterfaceExtractor extends PublicCollector
 {
 
     protected $newInterface = false;
-    protected $newContent = null; // a list of interfaceName => content
-    protected $methodStack;
+    protected $newContent = null; // a list of PhpFile
+    protected $methodStack; // a temporary stack of methods for the currently new interface
     protected $context;
+    protected $dumper;
 
-    public function __construct(Refactored $ctx)
+    public function __construct(Refactored $ctx, PhpDumper $callable)
     {
         $this->context = $ctx;
+        $this->dumper = $callable;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function beforeTraverse(array $nodes)
     {
         parent::beforeTraverse($nodes);
         $this->newContent = array();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
         $this->extractAnnotation($node);
@@ -40,11 +48,14 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function leaveNode(\PHPParser_Node $node)
     {
         if ($node->getType() === 'Stmt_Class') {
             if ($this->newInterface) {
-                $this->newContent[$this->newInterface] = $this->buildNewInterface();
+                $this->newContent[] = $this->buildNewInterface();
             }
             $this->newInterface = false;
         }
@@ -52,28 +63,52 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
         parent::leaveNode($node);
     }
 
+    /**
+     * Build the new PhpFile for the new contract
+     * 
+     * @return \Trismegiste\Mondrian\Parser\PhpFile
+     * @throws \RuntimeException If no inside a PhpFile (WAT?)
+     */
     protected function buildNewInterface()
     {
+        if (!$this->currentPhpFile) {
+            throw new \RuntimeException('Currently not in a PhpFile therefore no generation');
+        }
+
         $fqcn = new \PHPParser_Node_Name_FullyQualified($this->currentClass);
         array_pop($fqcn->parts);
         $generated[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name($fqcn->parts));
         $generated[1] = new \PHPParser_Node_Stmt_Interface($this->newInterface, array('stmts' => $this->methodStack));
 
-        return $generated;
+        $dst = dirname($this->currentPhpFile->getRealPath()) . '/' . $this->newInterface . '.php';
+
+        return new \Trismegiste\Mondrian\Parser\PhpFile($dst, $generated, true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-
+        
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
+        // I filter only good relevant methods (no __construct, __clone, __invoke ...)
         if (!preg_match('#^__.+#', $node->name) && $this->newInterface) {
             $this->enterStandardMethod($node);
         }
     }
 
+    /**
+     * Stacks the method for the new interface
+     * 
+     * @param \PHPParser_Node_Stmt_ClassMethod $node
+     */
     protected function enterStandardMethod(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $abstracted = clone $node;
@@ -83,19 +118,27 @@ class InterfaceExtractor extends PublicCollector implements RefactorPass
         $this->methodStack[] = $abstracted;
     }
 
-    public function isModified()
+    /**
+     * {@inheritDoc}
+     */
+    public function afterTraverse(array $node)
     {
-        return false;
+        $this->writeUpdated($node);
+        $this->writeUpdated($this->newContent);
     }
 
-    public function hasGenerated()
+    /**
+     * Write a list of PhpFile
+     * 
+     * @param array $fileList
+     */
+    protected function writeUpdated(array $fileList)
     {
-        return 0 < count($this->newContent);
-    }
-
-    public function getGenerated()
-    {
-        return $this->newContent;
+        foreach ($fileList as $file) {
+            if ($file->isModified()) {
+                $this->dumper->write($file);
+            }
+        }
     }
 
 }

@@ -99,6 +99,13 @@ class FqcnHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('parent', $node->getAttribute('unit-test'));
     }
 
+    public function testEnterFile()
+    {
+        $source = new \Trismegiste\Mondrian\Parser\PhpFile('a', array());
+        $this->visitor->enterNode($source);
+        $this->assertAttributeEquals($source, 'currentPhpFile', $this->visitor);
+    }
+
 }
 
 /**
@@ -107,8 +114,6 @@ class FqcnHelperTest extends \PHPUnit_Framework_TestCase
  */
 class FqcnHelperStub extends FqcnHelper
 {
-
-    private $testCase;
 
     public function enterNode(\PHPParser_Node $node)
     {

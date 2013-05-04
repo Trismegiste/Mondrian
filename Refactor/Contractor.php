@@ -8,6 +8,8 @@ namespace Trismegiste\Mondrian\Refactor;
 
 use Trismegiste\Mondrian\Visitor;
 use Symfony\Component\Finder\SplFileInfo;
+use Trismegiste\Mondrian\Parser\PackageParser;
+use Trismegiste\Mondrian\Parser\PhpDumper;
 
 /**
  * Contractor refactors a list of classes with annotations hints.
@@ -25,28 +27,21 @@ use Symfony\Component\Finder\SplFileInfo;
  * since everybody uses Git or at least SVN. Therefore you can launch the
  * test suite immediatly.
  * 
- * It is a dumb refactoring but it makes the dull job to create new interfaces
- * by gathering public methods for each class in only one pass. There is no
- * name collision check or whatsoever.
- * 
- * The boring stage of sequences of ctrl-C/ctrl-V/ctrl-X is passed, 
- * now it is time to use your brain and think about domain, model, business 
- * and object contract :)
- *
- * Thereafter, you need to create a tree of contracts with these
- * 'not-really-abstract' interfaces. You need to put common contract in parent interface,
- * find common methods, remove unused methods, rename, move interfaces 
- * in other namespace etc... The perfect time to work with the digraph on the
- * second screen.
- * 
- * Note: All classnames are transformed in FQCN. It is not beautiful but 
- * actually, it is more useful than I thought : since these interfaces will
- * be splitted, renamed or moved, you don't have to think about "use" statements
- * and massive "search & replace" are made easier.
- * 
  */
 class Contractor
 {
+
+    protected $phpDumper;
+
+    /**
+     * Build the service with a dumper for writeing file
+     * 
+     * @param \Trismegiste\Mondrian\Parser\PhpDumper $dumper
+     */
+    public function __construct(PhpDumper $dumper)
+    {
+        $this->phpDumper = $dumper;
+    }
 
     /**
      * Parse and refactor
@@ -55,7 +50,7 @@ class Contractor
      */
     public function refactor(\Iterator $iter)
     {
-        $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
+        $parser = new PackageParser(new \PHPParser_Parser(new \PHPParser_Lexer()));
         $context = new Refactored();
         // passes :
         // finds which class must be refactored (and add inheritance)
@@ -63,48 +58,15 @@ class Contractor
         // replaces the parameters types with the interface
         $pass[1] = new Visitor\ParamRefactor($context);
         // creates the new interface file
-        $pass[2] = new Visitor\InterfaceExtractor($context);
+        $pass[2] = new Visitor\InterfaceExtractor($context, $this->phpDumper);
 
-        // for memory concerns, I'll re-parse files on each pass
-        // (slower but lighter) and enriching the Context
-        // Beware : lava flow
+        $stmts = $parser->parse($iter);
+
         foreach ($pass as $collector) {
-
             $traverser = new \PHPParser_NodeTraverser();
             $traverser->addVisitor($collector);
-            // for each file
-            foreach ($iter as $fch) {
-                $code = $fch->getContents();
-                $stmts = $parser->parse($code);
-                $traverser->traverse($stmts);
-                // is this file has been modified ?
-                if ($collector->isModified()) {
-                    $this->writeStatement($fch->getRealPath(), $stmts);
-                }
-                // is this file has generated another one in the same dir ?
-                if ($collector->hasGenerated()) {
-                    $lst = $collector->getGenerated();
-                    // there can be multiple if there are many classes in one file
-                    // (not PSR-0 but who never knows ?)
-                    foreach ($lst as $name => $interf) {
-                        $interfFch = $fch->getPath() . DIRECTORY_SEPARATOR . $name . '.php';
-                        $this->writeStatement($interfFch, $interf);
-                    }
-                }
-            }
+            $traverser->traverse($stmts);
         }
-    }
-
-    /**
-     * write a content to a file
-     * 
-     * @param string $fch absolute path
-     * @param array $stmts an array of PHPParser_Stmt
-     */
-    protected function writeStatement($fch, array $stmts)
-    {
-        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-        file_put_contents($fch, "<?php\n\n" . $prettyPrinter->prettyPrint($stmts));
     }
 
 }
