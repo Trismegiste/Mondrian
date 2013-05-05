@@ -41,7 +41,8 @@ class LiskovSearch extends Algorithm implements Generator
                                 foreach ($this->getSuccessor($impl) as $succ) {
                                     if (($succ instanceof ClassVertex)
                                             && ($succ->getName() == $owningClass )) {
-                                        // we find the owning class vertex of $impl
+                                        // we found the owning class vertex of $impl
+                                        // add edges to reduced graph
                                         $reducedGraph->addEdge($methodVertex, $cls);
                                         $reducedGraph->addEdge($succ, $methodVertex);
                                     }

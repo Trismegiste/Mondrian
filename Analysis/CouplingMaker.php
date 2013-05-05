@@ -39,7 +39,7 @@ class CouplingMaker extends Algorithm implements Generator
                         foreach ($this->getEdgeIterator($param) as $typeHint) {
                             if ($typeHint instanceof ClassVertex) {
                                 // we find a typed parameter with a class : evil                                
-                                // we add the shortcut path (skip the parameter, no relevant)
+                                // we add the shortcut path (skip the parameter, not relevant)
                                 $reduced->addEdge($declaring->getSource(), $method);
                                 $reduced->addEdge($method, $typeHint);
                             }

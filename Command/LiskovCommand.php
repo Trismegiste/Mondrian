@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Analysis\LiskovSearch;
 
 /**
  * LiskovCommand transforms a bunch of php files into a reduced digraph
- * to the LSP violation to refactor (and later achieve ISP)
+ * to the LSP violation to refactor (mandatory before ISP)
  *
  */
 class LiskovCommand extends AbstractParse
