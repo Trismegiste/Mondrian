@@ -6,16 +6,22 @@
 
 namespace Trismegiste\Mondrian\Visitor;
 
+use Trismegiste\Mondrian\Parser\PhpPersistence;
+
 /**
- * NewInstanceRefactor is ...
- *
- * @author flo
+ * NewInstanceRefactor is a generator of method for each new instance
  */
 class NewInstanceRefactor extends PublicCollector
 {
 
     protected $currentMethodRelevant = false;
     protected $factoryMethodStack;
+    protected $dumper;
+
+    public function __construct(PhpPersistence $callable)
+    {
+        $this->dumper = $callable;
+    }
 
     public function enterNode(\PHPParser_Node $node)
     {
@@ -36,6 +42,9 @@ class NewInstanceRefactor extends PublicCollector
 
             case 'Stmt_Class':
                 // generate
+                if (count($this->factoryMethodStack) > 0) {
+                    $this->currentPhpFile->modified();
+                }
                 foreach ($this->factoryMethodStack as $name => $calling) {
                     $factory = new \PHPParser_Node_Stmt_ClassMethod($name);
                     $factory->type = \PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED;
@@ -63,7 +72,6 @@ class NewInstanceRefactor extends PublicCollector
             $calling = new \PHPParser_Node_Expr_MethodCall(new \PHPParser_Node_Expr_Variable('this'), $methodName);
             $calling->args = $node->args;
             $calling->setAttribute('classShortcut', $classShortcut);
-            $this->currentPhpFile->modified();
             $this->factoryMethodStack[$methodName] = $calling;
 
             return $calling;
@@ -89,18 +97,10 @@ class NewInstanceRefactor extends PublicCollector
 
     public function afterTraverse(array $nodes)
     {
-        /**
-
-          foreach ($fileList as $file) {
-          if ($file->isModified()) {
-          $this->dumper->write($file);
-          }
-          }
-         */
-        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
         foreach ($nodes as $file) {
-            $stmts = iterator_to_array($file->getIterator());
-            echo $prettyPrinter->prettyPrint($stmts);
+            if ($file->isModified()) {
+                $this->dumper->write($file);
+            }
         }
     }
 

@@ -17,7 +17,7 @@ class FactoryGenerator extends AbstractRefactoring
 
     protected function buildRefactoringPass()
     {
-        return array(new Visitor\NewInstanceRefactor());
+        return array(new Visitor\NewInstanceRefactor($this->phpDumper));
     }
 
 }

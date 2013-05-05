@@ -59,20 +59,6 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
         return count($fileSystem);
     }
 
-    protected function createContractorMock($cpt)
-    {
-        $this->dumper = $this->getMockBuilder('Trismegiste\Mondrian\Parser\PhpDumper')
-                ->setMethods(array('write'))
-                ->getMock();
-
-        $this->dumper
-                ->expects($this->exactly($cpt))
-                ->method('write')
-                ->will($this->returnCallback(array($this, 'stubbedWrite')));
-
-        $this->coder = new \Trismegiste\Mondrian\Refactor\FactoryGenerator($this->dumper);
-    }
-
     /**
      * Compile VFS
      */
@@ -92,7 +78,17 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->initStorage(array('ForFactory.php'));
-        $this->createContractorMock(0);
+
+        $this->dumper = $this->getMockBuilder('Trismegiste\Mondrian\Parser\PhpDumper')
+                ->setMethods(array('write'))
+                ->getMock();
+
+        $this->dumper
+                ->expects($this->once())
+                ->method('write')
+                ->will($this->returnCallback(array($this, 'stubbedWrite')));
+
+        $this->coder = new \Trismegiste\Mondrian\Refactor\FactoryGenerator($this->dumper);
     }
 
     /**
