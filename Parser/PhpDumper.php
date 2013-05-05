@@ -9,15 +9,8 @@ namespace Trismegiste\Mondrian\Parser;
 /**
  * PhpDumper dumps a PhpFile into a file
  */
-class PhpDumper
+class PhpDumper extends PhpPersistence
 {
-
-    protected $prettyPrinter;
-
-    public function __construct(/* logger, output ? */)
-    {
-        $this->prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-    }
 
     /**
      * Write the file
