@@ -7,7 +7,6 @@
 namespace Trismegiste\Mondrian\Tests\Command;
 
 use Trismegiste\Mondrian\Command\SpaghettiCommand;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
