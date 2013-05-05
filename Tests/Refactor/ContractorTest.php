@@ -6,10 +6,6 @@
 
 namespace Trismegiste\Mondrian\Tests\Refactor;
 
-use Trismegiste\Mondrian\Refactor\Contractor;
-use Symfony\Component\Finder\Tests\Iterator\MockSplFileInfo;
-use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
-
 /**
  * ContractorTest is an almost full functional test 
  * for Contractor

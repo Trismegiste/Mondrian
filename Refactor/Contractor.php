@@ -7,7 +7,6 @@
 namespace Trismegiste\Mondrian\Refactor;
 
 use Trismegiste\Mondrian\Visitor;
-use Symfony\Component\Finder\SplFileInfo;
 use Trismegiste\Mondrian\Parser\PackageParser;
 use Trismegiste\Mondrian\Parser\PhpPersistence;
 
