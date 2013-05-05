@@ -9,7 +9,7 @@ namespace Trismegiste\Mondrian\Refactor;
 use Trismegiste\Mondrian\Visitor;
 use Symfony\Component\Finder\SplFileInfo;
 use Trismegiste\Mondrian\Parser\PackageParser;
-use Trismegiste\Mondrian\Parser\PhpDumper;
+use Trismegiste\Mondrian\Parser\PhpPersistence;
 
 /**
  * Contractor refactors a list of classes with annotations hints.
@@ -36,9 +36,9 @@ class Contractor
     /**
      * Build the service with a dumper for writeing file
      * 
-     * @param \Trismegiste\Mondrian\Parser\PhpDumper $dumper
+     * @param \Trismegiste\Mondrian\Parser\PhpPersistence $dumper
      */
-    public function __construct(PhpDumper $dumper)
+    public function __construct(PhpPersistence $dumper)
     {
         $this->phpDumper = $dumper;
     }

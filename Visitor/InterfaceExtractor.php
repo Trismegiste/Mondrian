@@ -7,7 +7,7 @@
 namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Refactor\Refactored;
-use Trismegiste\Mondrian\Parser\PhpDumper;
+use Trismegiste\Mondrian\Parser\PhpPersistence;
 
 /**
  * InterfaceExtractor builds new contracts
@@ -21,7 +21,7 @@ class InterfaceExtractor extends PublicCollector
     protected $context;
     protected $dumper;
 
-    public function __construct(Refactored $ctx, PhpDumper $callable)
+    public function __construct(Refactored $ctx, PhpPersistence $callable)
     {
         $this->context = $ctx;
         $this->dumper = $callable;
