@@ -7,8 +7,6 @@
 namespace Trismegiste\Mondrian\Refactor;
 
 use Trismegiste\Mondrian\Visitor;
-use Trismegiste\Mondrian\Parser\PackageParser;
-use Trismegiste\Mondrian\Parser\PhpPersistence;
 
 /**
  * Contractor refactors a list of classes with annotations hints.
@@ -27,31 +25,19 @@ use Trismegiste\Mondrian\Parser\PhpPersistence;
  * test suite immediatly.
  * 
  */
-class Contractor
+class Contractor extends AbstractRefactoring
 {
 
-    protected $phpDumper;
-
     /**
-     * Build the service with a dumper for writeing file
+     * Build the refactoring passes with context
      * 
-     * @param \Trismegiste\Mondrian\Parser\PhpPersistence $dumper
+     * @return FqcnHelper[]
      */
-    public function __construct(PhpPersistence $dumper)
+    protected function buildRefactoringPass()
     {
-        $this->phpDumper = $dumper;
-    }
-
-    /**
-     * Parse and refactor
-     *  
-     * @param \Iterator $iter list of absolute path to files to parse
-     */
-    public function refactor(\Iterator $iter)
-    {
-        $parser = new PackageParser(new \PHPParser_Parser(new \PHPParser_Lexer()));
         $context = new Refactored();
-        // passes :
+
+        $pass = array();
         // finds which class must be refactored (and add inheritance)
         $pass[0] = new Visitor\NewContractCollector($context);
         // replaces the parameters types with the interface
@@ -59,13 +45,7 @@ class Contractor
         // creates the new interface file
         $pass[2] = new Visitor\InterfaceExtractor($context, $this->phpDumper);
 
-        $stmts = $parser->parse($iter);
-
-        foreach ($pass as $collector) {
-            $traverser = new \PHPParser_NodeTraverser();
-            $traverser->addVisitor($collector);
-            $traverser->traverse($stmts);
-        }
+        return $pass;
     }
 
 }
