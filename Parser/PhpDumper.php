@@ -14,7 +14,7 @@ class PhpDumper
 
     protected $prettyPrinter;
 
-    public function __construct()
+    public function __construct(/* logger, output ? */)
     {
         $this->prettyPrinter = new \PHPParser_PrettyPrinter_Default();
     }
