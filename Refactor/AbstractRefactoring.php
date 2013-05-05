@@ -6,7 +6,7 @@
 
 namespace Trismegiste\Mondrian\Refactor;
 
-use Trismegiste\Mondrian\Visitor;
+use Trismegiste\Mondrian\Visitor\FqcnHelper;
 use Trismegiste\Mondrian\Parser\PackageParser;
 use Trismegiste\Mondrian\Parser\PhpPersistence;
 

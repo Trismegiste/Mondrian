@@ -37,15 +37,14 @@ class Contractor extends AbstractRefactoring
     {
         $context = new Refactored();
 
-        $pass = array();
-        // finds which class must be refactored (and add inheritance)
-        $pass[0] = new Visitor\NewContractCollector($context);
-        // replaces the parameters types with the interface
-        $pass[1] = new Visitor\ParamRefactor($context);
-        // creates the new interface file
-        $pass[2] = new Visitor\InterfaceExtractor($context, $this->phpDumper);
-
-        return $pass;
+        return array(
+            // finds which class must be refactored (and add inheritance)
+            new Visitor\NewContractCollector($context),
+            // replaces the parameters types with the interface
+            new Visitor\ParamRefactor($context),
+            // creates the new interface file
+            new Visitor\InterfaceExtractor($context, $this->phpDumper)
+        );
     }
 
 }
