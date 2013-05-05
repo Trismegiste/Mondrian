@@ -21,9 +21,7 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->dumper = $this->getMockBuilder('Trismegiste\Mondrian\Parser\PhpDumper')
-                ->setMethods(array('write'))
-                ->getMock();
+        $this->dumper = $this->getMockForAbstractClass('Trismegiste\Mondrian\Parser\PhpPersistence');
         $this->context = $this->getMockBuilder('Trismegiste\Mondrian\Refactor\Refactored')
                 ->getMock();
         $this->visitor = new InterfaceExtractor($this->context, $this->dumper);
@@ -53,8 +51,17 @@ class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoGeneration($node)
     {
+        $this->dumper->expects($this->never())
+                ->method('write')
+                ->will($this->returnCallback(array($this, 'stubbedTestedWrite')));
+
         $this->assertAttributeEquals(false, 'newInterface', $this->visitor);
+        $this->visitor->beforeTraverse(array());
+        $this->assertAttributeEquals(array(), 'newContent', $this->visitor);
+        // start traversing but not enter in class
         $this->visitor->leaveNode($node);
+        // does not generate a write
+        $this->visitor->afterTraverse(array());
     }
 
     public function testDoNothingForCC()
