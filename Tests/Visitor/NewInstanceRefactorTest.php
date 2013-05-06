@@ -46,9 +46,6 @@ class NewInstanceRefactorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($file->isModified());
         $traverser->traverse(array($file));
         $this->assertTrue($file->isModified());
-
-        $pp = new \PHPParser_PrettyPrinter_Default();
-        echo $pp->prettyPrint(array($classNode));
         $this->assertCount(3, $classNode->stmts);
     }
 

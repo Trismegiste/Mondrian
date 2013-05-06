@@ -83,10 +83,10 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
                 ->setMethods(array('write'))
                 ->getMock();
 
-//        $this->dumper
-//                ->expects($this->once())
-//                ->method('write')
-//                ->will($this->returnCallback(array($this, 'stubbedWrite')));
+        $this->dumper
+                ->expects($this->once())
+                ->method('write')
+                ->will($this->returnCallback(array($this, 'stubbedWrite')));
 
         $this->coder = new \Trismegiste\Mondrian\Refactor\FactoryGenerator($this->dumper);
     }

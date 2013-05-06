@@ -43,9 +43,6 @@ class NewInstanceRefactor extends PublicCollector
 
             case 'Stmt_Class':
                 // generate
-                if (count($this->factoryMethodStack) > 0) {
-                    $this->currentPhpFile->modified();
-                }
                 foreach ($this->factoryMethodStack as $name => $calling) {
                     $factory = new \PHPParser_Node_Stmt_ClassMethod($name);
                     $factory->type = \PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED;
@@ -74,6 +71,7 @@ class NewInstanceRefactor extends PublicCollector
             $calling->args = $node->args;
             $calling->setAttribute('classShortcut', $classShortcut);
             $this->factoryMethodStack[$methodName] = $calling;
+            $this->currentPhpFile->modified();
 
             return $calling;
         }
