@@ -11,7 +11,7 @@ use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
 use Trismegiste\Mondrian\Parser\PhpFile;
 
 /**
- * FactoryGeneratorTest is an almost full functional test 
+ * FactoryGeneratorTest is an almost full functional test
  * for FactoryGenerator
  */
 class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
@@ -24,7 +24,7 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * Stub for writes
      * @param string $fch
-     * @param array $stmts 
+     * @param array $stmts
      */
     public function stubbedWrite(PhpFile $file)
     {
@@ -41,7 +41,7 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Init VFS
-     * 
+     *
      * @return int how many files ?
      */
     protected function initStorage($fileSystem)
@@ -83,10 +83,10 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
                 ->setMethods(array('write'))
                 ->getMock();
 
-        $this->dumper
-                ->expects($this->once())
-                ->method('write')
-                ->will($this->returnCallback(array($this, 'stubbedWrite')));
+//        $this->dumper
+//                ->expects($this->once())
+//                ->method('write')
+//                ->will($this->returnCallback(array($this, 'stubbedWrite')));
 
         $this->coder = new \Trismegiste\Mondrian\Refactor\FactoryGenerator($this->dumper);
     }
