@@ -16,13 +16,11 @@ class PhpFile extends PHPParser_NodeAbstract
 {
 
     protected $absPathName;
-    protected $modified;
 
     public function __construct($path, array $stmts, $newFile = false)
     {
         $this->absPathName = (string) $path;
-        $this->modified = $newFile;
-        parent::__construct($stmts);
+        parent::__construct($stmts, array('modified' => $newFile));
     }
 
     public function getType()
@@ -37,12 +35,12 @@ class PhpFile extends PHPParser_NodeAbstract
 
     public function isModified()
     {
-        return $this->modified;
+        return $this->getAttribute('modified');
     }
 
     public function modified()
     {
-        $this->modified = true;
+        $this->setAttribute('modified', true);
     }
 
 }
