@@ -121,6 +121,7 @@ class ParamRefactorTest extends \PHPUnit_Framework_TestCase
         $traverser = new \PHPParser_NodeTraverser();
         $traverser->addVisitor($this->visitor);
 
+        $this->assertFalse($file->isModified());
         $traverser->traverse(array($file));
         $this->assertTrue($file->isModified());
         $this->assertEquals('Awake', (string) $classNode->stmts[0]->params[0]->type);

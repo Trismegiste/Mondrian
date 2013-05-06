@@ -102,6 +102,7 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
         $traverser = new \PHPParser_NodeTraverser();
         $traverser->addVisitor($this->visitor);
 
+        $this->assertFalse($file->isModified());
         $traverser->traverse(array($file));
         $this->assertTrue($file->isModified());
     }
