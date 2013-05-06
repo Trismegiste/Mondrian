@@ -17,6 +17,7 @@ class NewInstanceRefactor extends PublicCollector
     protected $currentMethodRelevant = false;
     protected $factoryMethodStack;
     protected $dumper;
+    protected $currentClassStmts;
 
     public function __construct(PhpPersistence $callable)
     {
@@ -56,7 +57,7 @@ class NewInstanceRefactor extends PublicCollector
                         )
                     );
 
-                    $node->stmts[] = $factory;
+                    $this->currentClassStmts[] = $factory;
                 }
                 break;
         }
@@ -83,6 +84,8 @@ class NewInstanceRefactor extends PublicCollector
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
         $this->factoryMethodStack = array();
+        // to prevent cloning in Traverser (workaround) :
+        $this->currentClassStmts = &$node->stmts;
     }
 
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)

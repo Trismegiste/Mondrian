@@ -26,19 +26,19 @@ class NewInstanceRefactorTest extends \PHPUnit_Framework_TestCase
     public function testWithTraverser()
     {
         $classNode = new \PHPParser_Node_Stmt_Class('Victory', array(
+            'stmts' => array(
+                new \PHPParser_Node_Stmt_ClassMethod('holy', array(
                     'stmts' => array(
-                        new \PHPParser_Node_Stmt_ClassMethod('holy', array(
-                            'stmts' => array(
-                                new \PHPParser_Node_Expr_New(new \PHPParser_Node_Name('Holy')),
-                                new \PHPParser_Node_Expr_New(new \PHPParser_Node_Name('War'))
-                            )
-                        ))
+                        new \PHPParser_Node_Expr_New(new \PHPParser_Node_Name('Holy')),
+                        new \PHPParser_Node_Expr_New(new \PHPParser_Node_Name('War'))
                     )
-                ));
+                        ))
+            )
+        ));
 
         $file = new \Trismegiste\Mondrian\Parser\PhpFile('/I/Am/Victory.php', array(
-                    $classNode
-                ));
+            $classNode
+        ));
 
         $traverser = new \PHPParser_NodeTraverser();
         $traverser->addVisitor($this->visitor);
@@ -46,8 +46,9 @@ class NewInstanceRefactorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($file->isModified());
         $traverser->traverse(array($file));
         $this->assertTrue($file->isModified());
-        
-        print_r($classNode);
+
+        $pp = new \PHPParser_PrettyPrinter_Default();
+        echo $pp->prettyPrint(array($classNode));
         $this->assertCount(3, $classNode->stmts);
     }
 
