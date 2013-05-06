@@ -89,4 +89,21 @@ class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
         $this->visitor->enterNode($stmt);
     }
 
+    public function testWithTraverser()
+    {
+        $file = new \Trismegiste\Mondrian\Parser\PhpFile('/I/Am/Victory.php', array(
+                    new \PHPParser_Node_Stmt_Class('Victory', array(), array(
+                        'comments' => array(
+                            new \PHPParser_Comment('@mondrian contractor SomeNewContract')
+                        )
+                    ))
+                ));
+
+        $traverser = new \PHPParser_NodeTraverser();
+        $traverser->addVisitor($this->visitor);
+
+        $traverser->traverse(array($file));
+        $this->assertTrue($file->isModified());
+    }
+
 }

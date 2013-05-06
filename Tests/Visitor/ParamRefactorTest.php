@@ -92,4 +92,38 @@ class ParamRefactorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Awake', $node->type, 'Type Hint changed');
     }
 
+    public function testWithTraverser()
+    {
+        $this->context->expects($this->once())
+                ->method('hasNewContract')
+                ->with('Pull\Me\Under')
+                ->will($this->returnValue(true));
+
+        $this->context->expects($this->once())
+                ->method('getNewContract')
+                ->with('Pull\Me\Under')
+                ->will($this->returnValue('Awake'));
+
+        $classNode = new \PHPParser_Node_Stmt_Class('Victory', array(
+                    'stmts' => array(
+                        new \PHPParser_Node_Stmt_ClassMethod('holy', array(
+                            'params' => array(new \PHPParser_Node_Param('war', null, new \PHPParser_Node_Name('Pull\Me\Under')))
+                        ))
+                        )), array(
+                    'comments' => array(
+                        new \PHPParser_Comment('@mondrian contractor SomeNewContract')
+                    )
+                ));
+        $file = new \Trismegiste\Mondrian\Parser\PhpFile('/I/Am/Victory.php', array(
+                    $classNode
+                ));
+
+        $traverser = new \PHPParser_NodeTraverser();
+        $traverser->addVisitor($this->visitor);
+
+        $traverser->traverse(array($file));
+        $this->assertTrue($file->isModified());
+        $this->assertEquals('Awake', (string) $classNode->stmts[0]->params[0]->type);
+    }
+
 }
