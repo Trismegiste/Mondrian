@@ -35,7 +35,7 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
         $this->invocationMocker
                 ->expects($cptWrite)
                 ->method('write')
-                ->with($this->testCase->isInstanceOf('Trismegiste\Mondrian\Parser\PhpFile'));
+                ->withAnyParameters();
 
         $this->storage = array();
         foreach ($fileSystem as $name) {
@@ -67,17 +67,17 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
      */
     public function write(PhpFile $file)
     {
-        $this->invocationMocker->invoke(
-                new \PHPUnit_Framework_MockObject_Invocation_Object(
-                __CLASS__, 'write', array($file), $this
-                )
-        );
-
         $fch = $file->getRealPath();
         $stmts = iterator_to_array($file->getIterator());
         $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
         $this->storage[basename($fch)] = $this->getMockFile(
                 $fch, "<?php\n\n" . $prettyPrinter->prettyPrint($stmts)
+        );
+
+        $this->invocationMocker->invoke(
+                new \PHPUnit_Framework_MockObject_Invocation_Object(
+                'VirtualPhpDumper', 'write', array(basename($fch)), $this
+                )
         );
     }
 
