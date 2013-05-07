@@ -18,75 +18,16 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $coder;
-    protected $storage;
     protected $dumper;
-
-    /**
-     * Stub for writes
-     * @param string $fch
-     * @param array $stmts
-     */
-    public function stubbedWrite(PhpFile $file)
-    {
-        $fch = $file->getRealPath();
-        $stmts = iterator_to_array($file->getIterator());
-        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-        $this->storage[basename($fch)] = new MockSplFileInfo(
-                array(
-            'name' => $fch,
-            'contents' => "<?php\n\n" . $prettyPrinter->prettyPrint($stmts)
-                )
-        );
-    }
-
-    /**
-     * Init VFS
-     *
-     * @return int how many files ?
-     */
-    protected function initStorage($fileSystem)
-    {
-        $iter = array();
-        foreach ($fileSystem as $name) {
-            $absolute = __DIR__ . '/../Fixtures/Refact/' . $name;
-            $iter[$name] = array(
-                'name' => $absolute,
-                'contents' => file_get_contents($absolute)
-            );
-        }
-        $this->storage = new MockFileListIterator($iter);
-
-        return count($fileSystem);
-    }
-
-    /**
-     * Compile VFS
-     */
-    protected function compileStorage()
-    {
-        $generated = '';
-        foreach ($this->storage as $fch) {
-            $str = preg_replace('#^<\?php#', '', $fch->getContents());
-            if (!empty($generated)) {
-                $str = preg_replace('#^namespace.+$#m', '', $str);
-            }
-            $generated .= $str;
-        }
-        eval($generated);
-    }
 
     protected function setUp()
     {
-        $this->initStorage(array('ForFactory.php'));
+        $this->dumper = new VirtualPhpDumper($this, array('ForFactory.php'));
 
-        $this->dumper = $this->getMockBuilder('Trismegiste\Mondrian\Parser\PhpDumper')
-                ->setMethods(array('write'))
-                ->getMock();
-
-        $this->dumper
-                ->expects($this->once())
-                ->method('write')
-                ->will($this->returnCallback(array($this, 'stubbedWrite')));
+//        $this->dumper
+//                ->expects($this->once())
+//                ->method('write')
+//                ->will($this->returnCallback(array($this, 'stubbedWrite')));
 
         $this->coder = new \Trismegiste\Mondrian\Refactor\FactoryGenerator($this->dumper);
     }
@@ -96,8 +37,9 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGeneration()
     {
-        $this->coder->refactor($this->storage);
-        $this->compileStorage();
+        $this->coder->refactor($this->dumper->getIterator());
+        $this->dumper->compileStorage();
+        $this->assertTrue(class_exists('Refact\ForFactory', false));
     }
 
 }

@@ -12,37 +12,40 @@ use Trismegiste\Mondrian\Parser\PhpFile;
 /**
  * VirtualPhpDumper is a stub for virtual php dumper
  */
-class VirtualPhpDumper extends PhpDumper
+class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
 {
 
     protected $storage;
     protected $testCase;
+    protected $directory;
 
     /**
      * Init VFS
      */
-    public function __construct(PHPUnit_Framework_TestCase $testCase, array $fileSystem)
+    public function __construct(\PHPUnit_Framework_TestCase $testCase, array $fileSystem)
     {
-        $iter = array();
+        $this->storage = array();
         $this->testCase = $testCase;
+        $this->directory = __DIR__ . '/../Fixtures/Refact/';
 
         foreach ($fileSystem as $name) {
-            $absolute = __DIR__ . '/../Fixtures/Refact/' . $name;
-            $iter[$name] = $this->getMockFile($absolute, file_get_contents($absolute));
+            $absolute = $this->directory . $name;
+            $this->storage[$name] = $this->getMockFile($absolute, file_get_contents($absolute));
         }
-        $this->storage = new \ArrayIterator($iter);
     }
 
     protected function getMockFile($absolute, $content)
     {
-        $builder = new \PHPUnit_Framework_MockObject_MockBuilder($this->testCase, 'Symfony\Component\Finder\SplFileInfo');
-        $file = $builder->getMock();
+        $file = $this->testCase
+                ->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
+                ->disableOriginalConstructor()
+                ->getMock();
         $file->expects($this->testCase->any())
                 ->method('getRealPath')
-                ->will($this->testCase->willReturn($absolute));
+                ->will($this->testCase->returnValue($absolute));
         $file->expects($this->testCase->any())
                 ->method('getContents')
-                ->will($this->testCase->willReturn($content));
+                ->will($this->testCase->returnValue($content));
 
         return $file;
     }
@@ -75,7 +78,13 @@ class VirtualPhpDumper extends PhpDumper
             }
             $generated .= $str;
         }
+
         eval($generated);
+    }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->storage);
     }
 
 }
