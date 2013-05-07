@@ -18,12 +18,18 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
     protected $storage;
     protected $testCase;
     protected $directory;
+    protected $invocationMocker;
 
     /**
      * Init VFS
      */
     public function __construct(\PHPUnit_Framework_TestCase $testCase, array $fileSystem)
     {
+        $this->invocationMocker = new \PHPUnit_Framework_MockObject_InvocationMocker();
+        $this->invocationMocker
+                ->expects($testCase->exactly(1))
+                ->method('write');
+
         $this->storage = array();
         $this->testCase = $testCase;
         $this->directory = __DIR__ . '/../Fixtures/Refact/';
@@ -57,6 +63,12 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
      */
     public function write(PhpFile $file)
     {
+        $this->invocationMocker->invoke(
+                new \PHPUnit_Framework_MockObject_Invocation_Object(
+                __CLASS__, 'write', array(), $this
+                )
+        );
+
         $fch = $file->getRealPath();
         $stmts = iterator_to_array($file->getIterator());
         $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
@@ -85,6 +97,11 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
     public function getIterator()
     {
         return new \ArrayIterator($this->storage);
+    }
+
+    public function verifyCalls()
+    {
+        $this->invocationMocker->verify();
     }
 
 }

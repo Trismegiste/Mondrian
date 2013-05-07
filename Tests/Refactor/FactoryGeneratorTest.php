@@ -42,4 +42,10 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(class_exists('Refact\ForFactory', false));
     }
 
+    protected function verifyMockObjects()
+    {
+        parent::verifyMockObjects();
+        $this->dumper->verifyCalls();
+    }
+
 }
