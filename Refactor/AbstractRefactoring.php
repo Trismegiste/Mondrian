@@ -33,7 +33,7 @@ abstract class AbstractRefactoring
     /**
      * Parse and refactor
      *  
-     * @param \Iterator $iter list of absolute path to files to parse
+     * @param \Iterator $iter list of SplFileInfo
      */
     public function refactor(\Iterator $iter)
     {

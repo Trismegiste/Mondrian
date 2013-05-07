@@ -9,9 +9,7 @@ namespace Trismegiste\Mondrian\Tests\Refactor;
 use Trismegiste\Mondrian\Refactor\Refactored;
 
 /**
- * RefactoredTest is ...
- *
- * @author flo
+ * RefactoredTest tests for refactoring context
  */
 class RefactoredTest extends \PHPUnit_Framework_TestCase
 {
