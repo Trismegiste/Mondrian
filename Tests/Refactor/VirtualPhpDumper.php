@@ -23,17 +23,21 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
     /**
      * Init VFS
      */
-    public function __construct(\PHPUnit_Framework_TestCase $testCase, array $fileSystem)
+    public function __construct(\PHPUnit_Framework_TestCase $testCase, $baseDir)
+    {
+        $this->testCase = $testCase;
+        $this->directory = $baseDir;
+    }
+
+    public function init(array $fileSystem, \PHPUnit_Framework_MockObject_Matcher_Invocation $cptWrite)
     {
         $this->invocationMocker = new \PHPUnit_Framework_MockObject_InvocationMocker();
         $this->invocationMocker
-                ->expects($testCase->exactly(1))
-                ->method('write');
+                ->expects($cptWrite)
+                ->method('write')
+                ->with($this->testCase->isInstanceOf('Trismegiste\Mondrian\Parser\PhpFile'));
 
         $this->storage = array();
-        $this->testCase = $testCase;
-        $this->directory = __DIR__ . '/../Fixtures/Refact/';
-
         foreach ($fileSystem as $name) {
             $absolute = $this->directory . $name;
             $this->storage[$name] = $this->getMockFile($absolute, file_get_contents($absolute));
@@ -65,7 +69,7 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
     {
         $this->invocationMocker->invoke(
                 new \PHPUnit_Framework_MockObject_Invocation_Object(
-                __CLASS__, 'write', array(), $this
+                __CLASS__, 'write', array($file), $this
                 )
         );
 

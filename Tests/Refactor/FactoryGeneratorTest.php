@@ -22,7 +22,7 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->dumper = new VirtualPhpDumper($this, array('ForFactory.php'));
+        $this->dumper = new VirtualPhpDumper($this, __DIR__ . '/../Fixtures/Refact/');
 
 //        $this->dumper
 //                ->expects($this->once())
@@ -37,6 +37,7 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGeneration()
     {
+        $this->dumper->init(array('ForFactory.php'), $this->once());
         $this->coder->refactor($this->dumper->getIterator());
         $this->dumper->compileStorage();
         $this->assertTrue(class_exists('Refact\ForFactory', false));
