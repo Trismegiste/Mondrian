@@ -15,14 +15,14 @@ coupled. And for this, there is one only rule : **ABSTRACTION**
 This app provides some helpers to add abstraction into concrete classes
 with minimum pain.
 
-## Example
+## Example (on DokudokiBundle project)
 ### Standard
 ![digraph1](./Resources/doc/img/mondrian-digraph.jpg)
 
 ### With centrality (red = more dependent)
 ![digraph1](./Resources/doc/img/mondrian-central.jpg)
 
-### LSP violations
+### Reduced graph to LSP violations
 ![digraph1](./Resources/doc/img/mondrian-liskov.jpg)
 
 ## How
