@@ -6,10 +6,6 @@
 
 namespace Trismegiste\Mondrian\Tests\Refactor;
 
-use Symfony\Component\Finder\Tests\Iterator\MockSplFileInfo;
-use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
-use Trismegiste\Mondrian\Parser\PhpFile;
-
 /**
  * FactoryGeneratorTest is an almost full functional test
  * for FactoryGenerator
@@ -23,12 +19,6 @@ class FactoryGeneratorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->dumper = new VirtualPhpDumper($this, __DIR__ . '/../Fixtures/Refact/');
-
-//        $this->dumper
-//                ->expects($this->once())
-//                ->method('write')
-//                ->will($this->returnCallback(array($this, 'stubbedWrite')));
-
         $this->coder = new \Trismegiste\Mondrian\Refactor\FactoryGenerator($this->dumper);
     }
 
