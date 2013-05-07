@@ -59,7 +59,7 @@ class NewInstanceRefactor extends PublicCollector
                 break;
         }
 
-        parent::leaveNode($node);
+        return parent::leaveNode($node);
     }
 
     protected function enterNewInstance(\PHPParser_Node_Expr_New $node)
@@ -88,7 +88,7 @@ class NewInstanceRefactor extends PublicCollector
 
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-        
+
     }
 
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)

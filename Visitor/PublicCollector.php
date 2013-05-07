@@ -80,6 +80,12 @@ abstract class PublicCollector extends FqcnHelper
             case 'Stmt_ClassMethod' :
                 $this->currentMethod = false;
                 break;
+
+            case 'PhpFile' :
+                if ($this->currentPhpFile->isModified()) {
+                    return $this->currentPhpFile;
+                }
+                break;
         }
     }
 
@@ -96,8 +102,8 @@ abstract class PublicCollector extends FqcnHelper
     /**
      * Extracts annotations in the comment of a statement and injects them in
      * attribute of the node
-     * 
-     * @param \PHPParser_Node_Stmt_ClassMethod $node 
+     *
+     * @param \PHPParser_Node_Stmt_ClassMethod $node
      */
     protected function extractAnnotation(\PHPParser_Node_Stmt $node)
     {
