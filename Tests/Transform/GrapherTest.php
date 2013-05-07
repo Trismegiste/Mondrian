@@ -29,9 +29,16 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     {
         $iter = array();
         foreach (func_get_args() as $name) {
-            $iter[] = array('contents' => file_get_contents(__DIR__ . '/../Fixtures/Project/' . $name));
+            $mockedFile = $this->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
+                    ->disableOriginalConstructor()
+                    ->setMethods(array('getContents'))
+                    ->getMock();
+            $mockedFile->expects($this->once())
+                    ->method('getContents')
+                    ->will($this->returnValue(file_get_contents(__DIR__ . '/../Fixtures/Project/' . $name)));
+            $iter[] = $mockedFile;
         }
-        return $this->grapher->parse(new MockFileListIterator($iter));
+        return $this->grapher->parse(new \ArrayIterator($iter));
     }
 
     public function testOneClass()

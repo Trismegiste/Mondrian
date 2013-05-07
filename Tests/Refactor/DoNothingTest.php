@@ -7,8 +7,6 @@
 namespace Trismegiste\Mondrian\Tests\Refactor;
 
 use Trismegiste\Mondrian\Refactor\Contractor;
-use Symfony\Component\Finder\Tests\Iterator\MockSplFileInfo;
-use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
 
 /**
  * DoNothingTest is an full functional test for Contractor
