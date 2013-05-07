@@ -6,17 +6,19 @@
 
 namespace Trismegiste\Mondrian\Tests\Refactor;
 
+use Trismegiste\Mondrian\Refactor\Contractor;
+
 /**
  * ContractorTest is an almost full functional test 
  * for Contractor
  */
-class ContractorTest extends ContractorTestCase
+class ContractorTest extends RefactorTemplate
 {
 
     protected function setUp()
     {
-        $this->initStorage(array('Earth.php', 'Moon.php'));
-        $this->createContractorMock(4);
+        parent::setUp();
+        $this->coder = new Contractor($this->dumper);
     }
 
     /**
@@ -24,8 +26,10 @@ class ContractorTest extends ContractorTestCase
      */
     public function testGeneration()
     {
-        $this->coder->refactor($this->storage);
-        $this->compileStorage();
+        $this->dumper->init(array('Earth.php', 'Moon.php'), $this->exactly(4));
+
+        $this->coder->refactor($this->dumper->getIterator());
+        $this->dumper->compileStorage();
         $this->assertTrue(class_exists('Refact\Earth', false));
         $this->assertTrue(class_exists('Refact\Moon', false));
         $this->assertTrue(interface_exists('Refact\EarthInterface', false));
