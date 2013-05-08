@@ -6,7 +6,7 @@
 
 namespace Trismegiste\Mondrian\Visitor;
 
-use Trismegiste\Mondrian\Transform\Context;
+use Trismegiste\Mondrian\Transform\ReflectionContext;
 use Trismegiste\Mondrian\Transform\CompilerPass;
 
 /**
@@ -24,7 +24,7 @@ class SymbolMap extends PublicCollector implements CompilerPass
      * 
      * @param Context $ctx 
      */
-    public function __construct(Context $ctx)
+    public function __construct(ReflectionContext $ctx)
     {
         $this->context = $ctx;
     }
