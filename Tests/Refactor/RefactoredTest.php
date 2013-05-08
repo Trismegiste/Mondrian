@@ -37,4 +37,12 @@ class RefactoredTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Prison', $this->content->getNewContract('Glass'));
     }
 
+    /**
+     * @expectedException LogicException
+     */
+    public function testNameCollision()
+    {
+        $this->content->pushNewContract('Sand', 'Prison');
+    }
+
 }

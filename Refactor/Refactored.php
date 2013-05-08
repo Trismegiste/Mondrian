@@ -22,6 +22,9 @@ class Refactored
      */
     public function pushNewContract($fqcn, $interfaceName)
     {
+        if (in_array($interfaceName, $this->newContract)) {
+            throw new \LogicException("Two classes want to create the same contract");
+        }
         $this->newContract[$fqcn] = $interfaceName;
     }
 
