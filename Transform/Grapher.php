@@ -28,13 +28,14 @@ class Grapher
         $parser = new PackageParser(new \PHPParser_Parser(new \PHPParser_Lexer()));
         $graph = new \Trismegiste\Mondrian\Graph\Digraph();
 
-        $context = new Context();
+        $reflection = new ReflectionContext();
+        $vertexContext = new GraphContext();
         // 0th pass
-        $pass[0] = new Visitor\SymbolMap($context);
+        $pass[0] = new Visitor\SymbolMap($reflection);
         // 1st pass
-        $pass[1] = new Visitor\VertexCollector($context, $graph);
+        $pass[1] = new Visitor\VertexCollector($reflection, $vertexContext, $graph);
         // 2nd pass
-        $pass[2] = new Visitor\EdgeCollector($context, $graph);
+        $pass[2] = new Visitor\EdgeCollector($reflection, $vertexContext, $graph);
 
         $stmts = $parser->parse($iter);
 

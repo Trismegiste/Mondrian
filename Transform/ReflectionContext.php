@@ -7,25 +7,17 @@
 namespace Trismegiste\Mondrian\Transform;
 
 use Trismegiste\Mondrian\Graph\Graph;
-use Trismegiste\Mondrian\Graph\Vertex;
 
 /**
- * Context is a context of parser. 
+ * ReflectionContext is a context for Reflection on types
  * 
- * 1 - Responsible for maintaining a list of methods, classes and interfaces used
+ * Responsible for maintaining a list of methods, classes and interfaces used
  * for building inheritance links in a digraph
- * 
- * 2 - Indexing the vertices by name
- * 
- * @todo This class is not SRP; best proof: I've made 2 test classes.
- * It should be easy to split it in two since PassCollector wraps all
- * Context method for subclasses.
  */
-class Context
+class ReflectionContext
 {
 
     protected $inheritanceMap;
-    protected $vertex;
 
     /**
      * Build the context
@@ -34,10 +26,6 @@ class Context
      */
     public function __construct()
     {
-        $this->vertex = array('class' => array(), 'interface' => array(),
-            'method' => array(), 'impl' => array(),
-            'param' => array()
-        );
         $this->inheritanceMap = array();
     }
 
@@ -186,61 +174,6 @@ class Context
     public function isInterface($cls)
     {
         return $this->inheritanceMap[$cls]['interface'];
-    }
-
-    /**
-     * Find a vertex by its type and name
-     *
-     * @param string $type
-     * @param string $key
-     * 
-     * @return Vertex or null
-     */
-    public function findVertex($type, $key)
-    {
-        if (array_key_exists($key, $this->vertex[$type])) {
-            return $this->vertex[$type][$key];
-        }
-        return null;
-    }
-
-    /**
-     * Returns if a vertex of the type $type with the index $key exists
-     * 
-     * @param string $type
-     * @param string $key
-     * 
-     * @return bool 
-     */
-    public function existsVertex($type, $key)
-    {
-        return array_key_exists($key, $this->vertex[$type]);
-    }
-
-    /**
-     * Find all methods with the same name whatever its class
-     * 
-     * @param string $method
-     * 
-     * @return Vertex[] 
-     */
-    public function findAllMethodSameName($method)
-    {
-        return array_filter($this->vertex['method'], function($val) use ($method) {
-                            return preg_match("#::$method$#", $val->getName());
-                        });
-    }
-
-    /**
-     * Maintains a hashmap : ( type , index ) => Vertex obj
-     * 
-     * @param string $type [interface|class|method|param|impl]
-     * @param string $index the unique index in this type
-     * @param Vertex $v the vertex to index
-     */
-    public function indicesVertex($type, $index, Vertex $v)
-    {
-        $this->vertex[$type][$index] = $v;
     }
 
 }

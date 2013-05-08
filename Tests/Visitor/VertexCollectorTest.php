@@ -15,16 +15,19 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $visitor;
-    protected $context;
+    protected $reflection;
+    protected $vertex;
     protected $graph;
 
     protected function setUp()
     {
-        $this->context = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Context')
+        $this->reflection = $this->getMockBuilder('Trismegiste\Mondrian\Transform\ReflectionContext')
+                ->getMock();
+        $this->vertex = $this->getMockBuilder('Trismegiste\Mondrian\Transform\GraphContext')
                 ->getMock();
         $this->graph = $this->getMockBuilder('Trismegiste\Mondrian\Graph\Graph')
                 ->getMock();
-        $this->visitor = new VertexCollector($this->context, $this->graph);
+        $this->visitor = new VertexCollector($this->reflection, $this->vertex, $this->graph);
     }
 
     public function getTypeNodeSetting()
@@ -44,13 +47,13 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoNewClassVertex($type, $fqcn, $graphVertex, array $nodeList)
     {
-        $this->context
+        $this->vertex
                 ->expects($this->once())
                 ->method('existsVertex')
                 ->with($type, $fqcn)
                 ->will($this->returnValue(true));
 
-        $this->graph
+        $this->vertex
                 ->expects($this->never())
                 ->method('addVertex');
 
@@ -64,13 +67,13 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNewClassVertex($type, $fqcn, $graphVertex, array $nodeList)
     {
-        $this->context
+        $this->vertex
                 ->expects($this->once())
                 ->method('existsVertex')
                 ->with($type, $fqcn)
                 ->will($this->returnValue(false));
 
-        $this->context
+        $this->vertex
                 ->expects($this->once())
                 ->method('indicesVertex')
                 ->with($type, $fqcn);
@@ -94,13 +97,13 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
         $method->params[] = new \PHPParser_Node_Param('incantations');
         $nodeList[] = $method;
 
-        $this->context
+        $this->reflection
                 ->expects($this->once())
                 ->method('getDeclaringClass')
                 ->with($fqcn, 'crisis')
                 ->will($this->returnValue($fqcn));
 
-        $this->context
+        $this->reflection
                 ->expects($this->once())
                 ->method('isInterface')
                 ->with($fqcn)

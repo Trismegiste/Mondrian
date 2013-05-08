@@ -7,7 +7,7 @@
 namespace Trismegiste\Mondrian\Tests\Visitor;
 
 use Trismegiste\Mondrian\Visitor\SymbolMap;
-use Trismegiste\Mondrian\Transform\Context;
+use Trismegiste\Mondrian\Transform\ReflectionContext;
 
 /**
  * SymbolMapTest is a test for the visitor SymbolMap
@@ -21,7 +21,7 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->context = new Context();
+        $this->context = new ReflectionContext();
         $this->visitor = new SymbolMap($this->context);
     }
 

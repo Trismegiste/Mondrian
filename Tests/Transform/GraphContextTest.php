@@ -6,20 +6,20 @@
 
 namespace Trismegiste\Mondrian\Tests\Transform;
 
-use Trismegiste\Mondrian\Transform\Context;
+use Trismegiste\Mondrian\Transform\GraphContext;
 use Trismegiste\Mondrian\Graph\Vertex;
 
 /**
- * ContextTest tests for vertex mapping Context
+ * GraphContextTest tests for vertex mapping Context
  */
-class VertexContextTest extends \PHPUnit_Framework_TestCase
+class GraphContextTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $context;
 
     protected function setUp()
     {
-        $this->context = new Context();
+        $this->context = new GraphContext();
     }
 
     public function getVertexMock()

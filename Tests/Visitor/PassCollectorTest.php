@@ -16,7 +16,8 @@ class PassCollectorTest extends \PHPUnit_Framework_TestCase
     {
         $pass = $this->getMockForAbstractClass(
                 'Trismegiste\Mondrian\Visitor\PassCollector', array(
-            $this->getMock('Trismegiste\Mondrian\Transform\Context'),
+            $this->getMock('Trismegiste\Mondrian\Transform\ReflectionContext'),
+            $this->getMock('Trismegiste\Mondrian\Transform\GraphContext'),
             $this->getMock('Trismegiste\Mondrian\Graph\Graph')
         ));
 

@@ -24,18 +24,21 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $visitor;
-    protected $context;
+    protected $reflection;
     protected $graph;
     protected $vertex;
     protected $nodeList;
+    protected $dictionary;
 
     protected function setUp()
     {
-        $this->context = $this->getMockBuilder('Trismegiste\Mondrian\Transform\Context')
+        $this->reflection = $this->getMockBuilder('Trismegiste\Mondrian\Transform\ReflectionContext')
+                ->getMock();
+        $this->dictionary = $this->getMockBuilder('Trismegiste\Mondrian\Transform\GraphContext')
                 ->getMock();
         $this->graph = $this->getMockBuilder('Trismegiste\Mondrian\Graph\Graph')
                 ->getMock();
-        $this->visitor = new EdgeCollector($this->context, $this->graph);
+        $this->visitor = new EdgeCollector($this->reflection, $this->dictionary, $this->graph);
 
         $vertexNS = 'Trismegiste\Mondrian\Transform\Vertex';
         $this->vertex = array(
@@ -56,7 +59,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                     ->getMock()
         );
 
-        $this->context
+        $this->dictionary
                 ->expects($this->any())
                 ->method('findVertex')
                 ->will($this->returnValueMap(array(
@@ -71,7 +74,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                             array('param', 'Atavachron\Funnels::sand/0', $this->vertex['P']),
         )));
 
-        $this->context
+        $this->reflection
                 ->expects($this->any())
                 ->method('isInterface')
                 ->will($this->returnValueMap(array(
@@ -142,7 +145,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
 
-        $this->context
+        $this->reflection
                 ->expects($this->once())
                 ->method('getDeclaringClass')
                 ->with('Atavachron\Funnels', 'sand')
@@ -198,7 +201,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Interface('Berwell');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('clown');
 
-        $this->context
+        $this->reflection
                 ->expects($this->once())
                 ->method('getDeclaringClass')
                 ->with('Atavachron\Berwell', 'clown')
@@ -223,7 +226,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('clown');
         $this->nodeList[2]->params[] = new \PHPParser_Node_Param('obj', null, new \PHPParser_Node_Name('Funnels'));
 
-        $this->context
+        $this->reflection
                 ->expects($this->once())
                 ->method('getDeclaringClass')
                 ->with('Atavachron\Berwell', 'clown')
@@ -258,7 +261,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->nodeList[2]->params[] = new \PHPParser_Node_Param('obj');
 
         // Method is owned by the class
-        $this->context
+        $this->reflection
                 ->expects($this->once())
                 ->method('getDeclaringClass')
                 ->with('Atavachron\Funnels', 'sand')
@@ -323,7 +326,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->nodeList[3] = new \PHPParser_Node_Expr_MethodCall(
                 new \PHPParser_Node_Expr_Variable('obj'), 'clown');
 
-        $this->context
+        $this->dictionary
                 ->expects($this->once())
                 ->method('findAllMethodSameName')
                 ->with('clown')
@@ -349,12 +352,12 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->nodeList[2]->params[] = new \PHPParser_Node_Param('obj', null, new \PHPParser_Node_Name('Berwell'));
         $this->nodeList[3] = new \PHPParser_Node_Expr_MethodCall(new \PHPParser_Node_Expr_Variable('obj'), 'clown');
 
-        $this->context
+        $this->reflection
                 ->expects($this->once())
                 ->method('hasDeclaringClass')
                 ->will($this->returnValue(true));
 
-        $this->context
+        $this->reflection
                 ->expects($this->once())
                 ->method('findMethodInInheritanceTree')
                 ->will($this->returnArgument(0));
