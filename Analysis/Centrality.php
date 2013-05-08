@@ -47,10 +47,22 @@ abstract class Centrality extends Algorithm implements VertexDecorator
             $vertexArray[$idx] = $v;
         }
         arsort($eigenArray);
+
+        // filtering only non-zero value
+        $threshold = 1;
+        foreach ($eigenArray as $idx => $val) {
+            if ($val > 1e-5) {
+                $threshold++;
+            } else {
+                break;
+            }
+        }
+        $cardinal = (float) $threshold;
+
         // only the order is interesting, I'm not Google
         $iter = 0;
         foreach ($eigenArray as $idx => $val) {
-            $pseudoRank = min(array(1 + $iter / 2, 11));
+            $pseudoRank = min(array($iter / $cardinal, 1));
             $vertexArray[$idx]->setMeta($metaName, $pseudoRank);
             $iter++;
         }

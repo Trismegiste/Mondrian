@@ -45,7 +45,7 @@ class UsedCentralityTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->graph->decorate();
-        $this->assertEquals(1, $meth->getMeta('centrality'));
+        $this->assertLessThan(0.1, $meth->getMeta('centrality'));
     }
 
 }

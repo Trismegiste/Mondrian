@@ -45,7 +45,7 @@ class DependCentralityTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->graph->decorate();
-        $this->assertEquals(11, $meth->getMeta('centrality'));
+        $this->assertGreaterThan(0.9, $meth->getMeta('centrality'));
     }
 
 }

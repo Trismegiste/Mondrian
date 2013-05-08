@@ -36,7 +36,7 @@ abstract class StaticAnalysis extends Vertex implements Vizable, MetaInterface
         $default = $this->getSpecific();
 
         if ($this->hasMeta('centrality')) {
-            $default['color'] = sprintf('/rdylgn11/%d', $this->getMeta('centrality'));
+            $default['color'] = sprintf('%.3f,1,1', $this->getMeta('centrality') * 0.7);
         }
 
         return $default;
