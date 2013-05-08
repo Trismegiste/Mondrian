@@ -38,10 +38,10 @@ abstract class AbstractRefactoring
     public function refactor(\Iterator $iter)
     {
         $parser = new PackageParser(new \PHPParser_Parser(new \PHPParser_Lexer()));
+        $stmts = $parser->parse($iter);
+
         // passes :
         $pass = $this->buildRefactoringPass();
-
-        $stmts = $parser->parse($iter);
 
         foreach ($pass as $collector) {
             $traverser = new \PHPParser_NodeTraverser();

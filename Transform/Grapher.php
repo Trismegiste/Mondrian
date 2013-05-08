@@ -8,6 +8,7 @@ namespace Trismegiste\Mondrian\Transform;
 
 use Trismegiste\Mondrian\Visitor;
 use Trismegiste\Mondrian\Parser\PackageParser;
+use Trismegiste\Mondrian\Graph\Digraph;
 
 /**
  * Grapher transforms source code into graph
@@ -25,28 +26,33 @@ class Grapher
      */
     public function parse(\Iterator $iter)
     {
+        $graph = new Digraph();
+
         $parser = new PackageParser(new \PHPParser_Parser(new \PHPParser_Lexer()));
-        $graph = new \Trismegiste\Mondrian\Graph\Digraph();
-
-        $reflection = new ReflectionContext();
-        $vertexContext = new GraphContext();
-        // 0th pass
-        $pass[0] = new Visitor\SymbolMap($reflection);
-        // 1st pass
-        $pass[1] = new Visitor\VertexCollector($reflection, $vertexContext, $graph);
-        // 2nd pass
-        $pass[2] = new Visitor\EdgeCollector($reflection, $vertexContext, $graph);
-
         $stmts = $parser->parse($iter);
 
-        foreach ($pass as $collector) {
+        // passes :
+        $pass = $this->buildCompilerPass($graph);
 
+        foreach ($pass as $collector) {
             $traverser = new \PHPParser_NodeTraverser();
             $traverser->addVisitor($collector);
             $traverser->traverse($stmts);
         }
 
         return $graph;
+    }
+
+    protected function buildCompilerPass(Digraph $graph)
+    {
+        $reflection = new ReflectionContext();
+        $vertexContext = new GraphContext();
+
+        return array(
+            new Visitor\SymbolMap($reflection),
+            new Visitor\VertexCollector($reflection, $vertexContext, $graph),
+            new Visitor\EdgeCollector($reflection, $vertexContext, $graph)
+        );
     }
 
 }
