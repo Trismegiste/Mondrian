@@ -7,14 +7,13 @@
 namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Transform\ReflectionContext;
-use Trismegiste\Mondrian\Transform\CompilerPass;
 
 /**
  * SymbolMap is a class to collect list of class/interface/method name
  * 
  * It fills the Context with symbols
  */
-class SymbolMap extends PublicCollector implements CompilerPass
+class SymbolMap extends PublicCollector
 {
 
     private $context;
@@ -74,7 +73,7 @@ class SymbolMap extends PublicCollector implements CompilerPass
     /**
      * Compiling the pass : resolving symbols in the context
      */
-    public function compile()
+    public function afterTraverse(array $dummy)
     {
         $this->context->resolveSymbol();
     }

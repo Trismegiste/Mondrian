@@ -37,7 +37,7 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
             $stmts = $parser->parse($code);
             $traverser->traverse($stmts);
         }
-        $this->visitor->compile();
+        $this->visitor->afterTraverse(array());
 
         $this->assertAttributeEquals(array(
             'Project\\InheritExtra' => array(
@@ -65,7 +65,7 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
             $stmts = $parser->parse($code);
             $traverser->traverse($stmts);
         }
-        $this->visitor->compile();
+        $this->visitor->afterTraverse(array());
 
         $this->assertAttributeEquals(array(
             'Project\\Concrete' => array(
@@ -89,7 +89,7 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
             $stmts = $parser->parse($code);
             $traverser->traverse($stmts);
         }
-        $this->visitor->compile();
+        $this->visitor->afterTraverse(array());
 
         $this->assertAttributeEquals(array(
             'Project\\Aliasing' => array(

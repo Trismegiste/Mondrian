@@ -44,8 +44,6 @@ class Grapher
             $traverser = new \PHPParser_NodeTraverser();
             $traverser->addVisitor($collector);
             $traverser->traverse($stmts);
-
-            $collector->compile();
         }
 
         return $graph;
