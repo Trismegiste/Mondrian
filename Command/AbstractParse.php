@@ -58,7 +58,7 @@ abstract class AbstractParse extends Command
 
         $transformer = new Grapher();
         $output->writeln(sprintf("Parsing %d files...", $scan->count()));
-        $graph = $transformer->parse($scan->getIterator());
+        $graph = $transformer->build($scan->getIterator());
 
         $output->writeln(sprintf("Processing digraph with %d vertices and %d edges...", count($graph->getVertexSet()), count($graph->getEdgeSet())));
         $processed = $this->processGraph($graph, $output);

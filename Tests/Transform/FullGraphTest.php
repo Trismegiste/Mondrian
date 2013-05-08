@@ -39,7 +39,7 @@ class FullGraphTest extends \PHPUnit_Framework_TestCase
         $scan = new Finder();
         $scan->files()->in(__DIR__ . '/../Fixtures/Project/');
 
-        $result = $this->grapher->parse($scan->getIterator());
+        $result = $this->grapher->build($scan->getIterator());
 
         $classVertex = $this->findVertex($result, $nsVertex . 'ClassVertex', 'Project\Concrete');
         $this->assertNotNull($classVertex);

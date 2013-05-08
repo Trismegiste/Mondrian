@@ -36,7 +36,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
                     ->will($this->returnValue(file_get_contents(__DIR__ . '/../Fixtures/Project/' . $name)));
             $iter[] = $mockedFile;
         }
-        return $this->grapher->parse(new \ArrayIterator($iter));
+        return $this->grapher->build(new \ArrayIterator($iter));
     }
 
     public function testOneClass()

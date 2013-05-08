@@ -24,7 +24,7 @@ class Grapher
      * 
      * @return \Trismegiste\Mondrian\Graph\Digraph 
      */
-    public function parse(\Iterator $iter)
+    public function build(\Iterator $iter)
     {
         $graph = new Digraph();
 
