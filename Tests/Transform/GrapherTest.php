@@ -8,12 +8,10 @@ namespace Trismegiste\Mondrian\Tests\Transform;
 
 use Trismegiste\Mondrian\Transform\Grapher;
 use Trismegiste\Mondrian\Graph\Graph;
-use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
 
 /**
  * GrapherTest tests for Grapher
  *
- * @author flo
  */
 class GrapherTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,25 +48,23 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $result->getEdgeSet());
     }
 
-    public function testInheritance()
+    public function getSimpleGraph()
     {
-        $result = $this->callParse('Inheritance.php');
-        $this->assertCount(4, $result->getVertexSet());
-        $this->assertCount(3, $result->getEdgeSet());
+        return array(
+            array('Inheritance.php', 4, 3),
+            array('Interface.php', 4, 3),
+            array('Concrete.php', 3, 3)
+        );
     }
 
-    public function testInterfaceInheritance()
+    /**
+     * @dataProvider getSimpleGraph
+     */
+    public function testSimpleGraph($oneFile, $vCard, $eCard)
     {
-        $result = $this->callParse('Interface.php');
-        $this->assertCount(4, $result->getVertexSet());
-        $this->assertCount(3, $result->getEdgeSet());
-    }
-
-    public function testEmbedMethod()
-    {
-        $result = $this->callParse('Concrete.php');
-        $this->assertCount(3, $result->getVertexSet());
-        $this->assertCount(3, $result->getEdgeSet());
+        $result = $this->callParse($oneFile);
+        $this->assertCount($vCard, $result->getVertexSet());
+        $this->assertCount($eCard, $result->getEdgeSet());
     }
 
     public function testDecoupleMethod()
@@ -323,4 +319,5 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete('Need For Refactoring This Mess');
     }
+
 }
