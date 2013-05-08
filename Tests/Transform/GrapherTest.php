@@ -53,7 +53,9 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         return array(
             array('Inheritance.php', 4, 3),
             array('Interface.php', 4, 3),
-            array('Concrete.php', 3, 3)
+            array('Concrete.php', 3, 3),
+            array('OutsideEdge.php', 4, 5),
+            array('OutsideSignature.php', 2, 2)
         );
     }
 
@@ -189,18 +191,6 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
             )
                 )
                 , $result);
-    }
-
-    public function testOutsideInheritance()
-    {
-        $result = $this->callParse('OutsideEdge.php');
-        $this->assertCount(4, $result->getVertexSet());
-    }
-
-    public function testOutsideSignature()
-    {
-        $result = $this->callParse('OutsideSignature.php');
-        $this->assertCount(2, $result->getVertexSet());
     }
 
     public function testCalling()
