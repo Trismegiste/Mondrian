@@ -239,10 +239,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testNotFilteringOnBadMethodCall()
     {
-        $result = $this->callParse('FilterCallingBad.php');
-
-        $this->assertCount(11, $result->getVertexSet());
-        $this->assertCount(15, $result->getEdgeSet());
+        $result = $this->testSimpleGraph('FilterCallingBad.php', 11, 15);
         $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCallingBad::decorate');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
@@ -251,10 +248,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testTypeNotFoundFilteringOnCall()
     {
-        $result = $this->callParse('FilterCallingUnknown.php');
-
-        $this->assertCount(7, $result->getVertexSet());
-        $this->assertCount(9, $result->getEdgeSet());
+        $result = $this->testSimpleGraph('FilterCallingUnknown.php', 7, 9);
         $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCallingUnknown::decorate');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
@@ -263,10 +257,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testNoFilteringMethodCallOnOuterClass()
     {
-        $result = $this->callParse('FilterOuterCalling.php');
-
-        $this->assertCount(10, $result->getVertexSet());
-        $this->assertCount(13, $result->getEdgeSet());
+        $result = $this->testSimpleGraph('FilterOuterCalling.php', 10, 13);
         $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
@@ -276,10 +267,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilteringCallWithAnnotations()
     {
-        $result = $this->callParse('FilterIgnoreCallTo.php');
-
-        $this->assertCount(11, $result->getVertexSet());
-        $this->assertCount(15, $result->getEdgeSet());
+        $result = $this->testSimpleGraph('FilterIgnoreCallTo.php', 11, 15);
         $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate3');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
@@ -288,11 +276,6 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
         $this->assertCount(2, $succ); // the class and one call (not two)
-    }
-
-    public function testTODO()
-    {
-        $this->markTestIncomplete('Need For Refactoring This Mess');
     }
 
 }
