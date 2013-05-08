@@ -6,7 +6,8 @@
 
 namespace Trismegiste\Mondrian\Visitor;
 
-use Trismegiste\Mondrian\Transform\Context;
+use Trismegiste\Mondrian\Transform\ReflectionContext;
+use Trismegiste\Mondrian\Transform\GraphContext;
 use Trismegiste\Mondrian\Transform\CompilerPass;
 use Trismegiste\Mondrian\Graph\Vertex;
 use Trismegiste\Mondrian\Graph\Graph;
@@ -23,11 +24,13 @@ abstract class PassCollector extends PublicCollector implements CompilerPass
 {
 
     protected $graph;
-    private $context;
+    private $reflection;
+    private $vertexDict;
 
-    public function __construct(Context $ctx, Graph $g)
+    public function __construct(ReflectionContext $ref, GraphContext $grf, Graph $g)
     {
-        $this->context = $ctx;
+        $this->reflection = $ref;
+        $this->vertexDict = $grf;
         $this->graph = $g;
     }
 
@@ -40,7 +43,7 @@ abstract class PassCollector extends PublicCollector implements CompilerPass
      */
     protected function getDeclaringClass($cls, $meth)
     {
-        return $this->context->getDeclaringClass($cls, $meth);
+        return $this->reflection->getDeclaringClass($cls, $meth);
     }
 
     /**
@@ -51,7 +54,7 @@ abstract class PassCollector extends PublicCollector implements CompilerPass
      */
     protected function isInterface($cls)
     {
-        return $this->context->isInterface($cls);
+        return $this->reflection->isInterface($cls);
     }
 
     /**
@@ -63,7 +66,7 @@ abstract class PassCollector extends PublicCollector implements CompilerPass
      */
     protected function findVertex($type, $key)
     {
-        return $this->context->findVertex($type, $key);
+        return $this->vertexDict->findVertex($type, $key);
     }
 
     /**
@@ -71,7 +74,7 @@ abstract class PassCollector extends PublicCollector implements CompilerPass
      */
     protected function findAllMethodSameName($method)
     {
-        return $this->context->findAllMethodSameName($method);
+        return $this->vertexDict->findAllMethodSameName($method);
     }
 
     /**
@@ -79,7 +82,7 @@ abstract class PassCollector extends PublicCollector implements CompilerPass
      */
     protected function existsVertex($type, $key)
     {
-        return $this->context->existsVertex($type, $key);
+        return $this->vertexDict->existsVertex($type, $key);
     }
 
     /**
@@ -97,8 +100,8 @@ abstract class PassCollector extends PublicCollector implements CompilerPass
      */
     protected function findMethodInInheritanceTree($cls, $method)
     {
-        if ($this->context->hasDeclaringClass($cls)) {
-            return $this->context->findMethodInInheritanceTree($cls, $method);
+        if ($this->reflection->hasDeclaringClass($cls)) {
+            return $this->reflection->findMethodInInheritanceTree($cls, $method);
         }
 
         return null;
@@ -109,7 +112,7 @@ abstract class PassCollector extends PublicCollector implements CompilerPass
      */
     protected function indicesVertex($typ, $index, Vertex $v)
     {
-        $this->context->indicesVertex($typ, $index, $v);
+        $this->vertexDict->indicesVertex($typ, $index, $v);
     }
 
 }
