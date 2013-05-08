@@ -111,8 +111,9 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     protected function findVertex(Graph $g, $type, $name)
     {
+        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         foreach ($g->getVertexSet() as $vertex) {
-            if ((get_class($vertex) == $type) && ($vertex->getName() == $name)) {
+            if ((get_class($vertex) == $nsVertex . $type) && ($vertex->getName() == $name)) {
                 return $vertex;
             }
         }
@@ -121,13 +122,12 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     protected function assertEdges(array $search, Graph $g)
     {
-        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         $edge = $g->getEdgeSet();
         $this->assertCount(count($search), $edge);
         foreach ($search as $item) {
-            $src = $this->findVertex($g, $nsVertex . $item[0][0] . 'Vertex', $item[0][1]);
+            $src = $this->findVertex($g, $item[0][0] . 'Vertex', $item[0][1]);
             $this->assertNotNull($src, $item[0][0]);
-            $dst = $this->findVertex($g, $nsVertex . $item[1][0] . 'Vertex', $item[1][1]);
+            $dst = $this->findVertex($g, $item[1][0] . 'Vertex', $item[1][1]);
             $this->assertNotNull($dst, $item[1][0]);
             $e = $g->searchEdge($src, $dst);
             $this->assertNotNull($e, "{$item[0][1]} -> {$item[1][1]}");
@@ -136,15 +136,14 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testExternalInterfaceInheritance()
     {
-        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         $result = $this->callParse('InheritExtra.php');
         $this->assertCount(2, $result->getVertexSet());
         $this->assertNotNull(
                 $this->findVertex(
-                        $result, $nsVertex . "ClassVertex", 'Project\InheritExtra'));
+                        $result, "ClassVertex", 'Project\InheritExtra'));
         $this->assertNotNull(
                 $this->findVertex(
-                        $result, $nsVertex . "ImplVertex", 'Project\InheritExtra::getIterator'));
+                        $result, "ImplVertex", 'Project\InheritExtra::getIterator'));
         $this->assertCount(2, $result->getEdgeSet());
     }
 
@@ -206,13 +205,12 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testCalling()
     {
-        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         $result = $this->callParse('Calling.php', 'Concrete.php');
         $this->assertCount(8, $result->getVertexSet());
         $this->assertCount(10, $result->getEdgeSet());
-        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\Calling::simpleCall');
+        $impl = $this->findVertex($result, 'ImplVertex', 'Project\Calling::simpleCall');
         $this->assertNotNull($impl);
-        $calledMethod = $this->findVertex($result, $nsVertex . 'MethodVertex', 'Project\Concrete::simple');
+        $calledMethod = $this->findVertex($result, 'MethodVertex', 'Project\Concrete::simple');
         $this->assertNotNull($calledMethod);
         $link = $result->searchEdge($impl, $calledMethod);
         $this->assertNotNull($link);
@@ -220,13 +218,12 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testNewInstance()
     {
-        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         $result = $this->callParse('NewInstance.php', 'Concrete.php');
         $this->assertCount(8, $result->getVertexSet());
         $this->assertCount(10, $result->getEdgeSet());
-        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\NewInstance::simpleNew');
+        $impl = $this->findVertex($result, 'ImplVertex', 'Project\NewInstance::simpleNew');
         $this->assertNotNull($impl);
-        $classVertex = $this->findVertex($result, $nsVertex . 'ClassVertex', 'Project\Concrete');
+        $classVertex = $this->findVertex($result, 'ClassVertex', 'Project\Concrete');
         $this->assertNotNull($classVertex);
         $link = $result->searchEdge($impl, $classVertex);
         $this->assertNotNull($link);
@@ -234,12 +231,11 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilteringObviousMethodCall()
     {
-        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         $result = $this->callParse('FilterCalling.php');
 
         $this->assertCount(13, $result->getVertexSet());
         $this->assertCount(17, $result->getEdgeSet());
-        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCalling::decorate');
+        $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
         $this->assertCount(3, $succ); // the class, the param and one call (not two)
@@ -247,12 +243,11 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilteringMethodCallSuper()
     {
-        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         $result = $this->callParse('FilterCallingSuper.php');
 
         $this->assertCount(13, $result->getVertexSet());
         $this->assertCount(17, $result->getEdgeSet());
-        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCalling::decorate');
+        $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
         $this->assertCount(3, $succ); // the class, the param and one call (not two)
@@ -260,12 +255,11 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testNotFilteringOnBadMethodCall()
     {
-        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         $result = $this->callParse('FilterCallingBad.php');
 
         $this->assertCount(11, $result->getVertexSet());
         $this->assertCount(15, $result->getEdgeSet());
-        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCallingBad::decorate');
+        $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCallingBad::decorate');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
         $this->assertCount(4, $succ); // the class, the param and two call (not one)
@@ -273,12 +267,11 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testTypeNotFoundFilteringOnCall()
     {
-        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         $result = $this->callParse('FilterCallingUnknown.php');
 
         $this->assertCount(7, $result->getVertexSet());
         $this->assertCount(9, $result->getEdgeSet());
-        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCallingUnknown::decorate');
+        $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCallingUnknown::decorate');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
         $this->assertCount(3, $succ); // the class, the param and one call (fallback)
@@ -286,12 +279,11 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testNoFilteringMethodCallOnOuterClass()
     {
-        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         $result = $this->callParse('FilterOuterCalling.php');
 
         $this->assertCount(10, $result->getVertexSet());
         $this->assertCount(13, $result->getEdgeSet());
-        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCalling::decorate');
+        $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
         $this->assertCount(2, $succ); // the class, the param and no call
@@ -300,16 +292,15 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilteringCallWithAnnotations()
     {
-        $nsVertex = 'Trismegiste\Mondrian\Transform\Vertex\\';
         $result = $this->callParse('FilterIgnoreCallTo.php');
 
         $this->assertCount(11, $result->getVertexSet());
         $this->assertCount(15, $result->getEdgeSet());
-        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCalling::decorate3');
+        $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate3');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
         $this->assertCount(3, $succ); // the class and two calls
-        $impl = $this->findVertex($result, $nsVertex . 'ImplVertex', 'Project\FilterCalling::decorate2');
+        $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate2');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
         $this->assertCount(2, $succ); // the class and one call (not two)
