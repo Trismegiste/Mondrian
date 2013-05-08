@@ -66,7 +66,7 @@ class NewInstanceRefactor extends PublicCollector
     {
         if ($node->class instanceof \PHPParser_Node_Name) {
             $classShortcut = (string) $node->class;
-            $methodName = 'create' . $classShortcut . count($node->args);
+            $methodName = 'create' . str_replace('\\', '_', $classShortcut) . count($node->args);
             $calling = new \PHPParser_Node_Expr_MethodCall(new \PHPParser_Node_Expr_Variable('this'), $methodName);
             $calling->args = $node->args;
             $calling->setAttribute('classShortcut', $classShortcut);
