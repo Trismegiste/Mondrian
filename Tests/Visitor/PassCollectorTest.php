@@ -20,8 +20,6 @@ class PassCollectorTest extends \PHPUnit_Framework_TestCase
             $this->getMock('Trismegiste\Mondrian\Transform\GraphContext'),
             $this->getMock('Trismegiste\Mondrian\Graph\Graph')
         ));
-
-        $pass->compile();
     }
 
 }

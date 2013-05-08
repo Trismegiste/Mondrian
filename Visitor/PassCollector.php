@@ -8,7 +8,6 @@ namespace Trismegiste\Mondrian\Visitor;
 
 use Trismegiste\Mondrian\Transform\ReflectionContext;
 use Trismegiste\Mondrian\Transform\GraphContext;
-use Trismegiste\Mondrian\Transform\CompilerPass;
 use Trismegiste\Mondrian\Graph\Vertex;
 use Trismegiste\Mondrian\Graph\Graph;
 
@@ -20,7 +19,7 @@ use Trismegiste\Mondrian\Graph\Graph;
  * (It is not one because Context and concrete CompilerPass do not share
  * a common interface)
  */
-abstract class PassCollector extends PublicCollector implements CompilerPass
+abstract class PassCollector extends PublicCollector
 {
 
     protected $graph;
@@ -83,14 +82,6 @@ abstract class PassCollector extends PublicCollector implements CompilerPass
     protected function existsVertex($type, $key)
     {
         return $this->vertexDict->existsVertex($type, $key);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function compile()
-    {
-        // nothing to do
     }
 
     /**
