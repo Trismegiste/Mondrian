@@ -67,6 +67,8 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
         $result = $this->callParse($oneFile);
         $this->assertCount($vCard, $result->getVertexSet());
         $this->assertCount($eCard, $result->getEdgeSet());
+
+        return $result;
     }
 
     public function testDecoupleMethod()
@@ -138,15 +140,13 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testExternalInterfaceInheritance()
     {
-        $result = $this->callParse('InheritExtra.php');
-        $this->assertCount(2, $result->getVertexSet());
+        $result = $this->testSimpleGraph('InheritExtra.php', 2, 2);
         $this->assertNotNull(
                 $this->findVertex(
                         $result, "ClassVertex", 'Project\InheritExtra'));
         $this->assertNotNull(
                 $this->findVertex(
                         $result, "ImplVertex", 'Project\InheritExtra::getIterator'));
-        $this->assertCount(2, $result->getEdgeSet());
     }
 
     public function testDecoupledMethodWithTypedParam()
@@ -221,10 +221,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilteringObviousMethodCall()
     {
-        $result = $this->callParse('FilterCalling.php');
-
-        $this->assertCount(13, $result->getVertexSet());
-        $this->assertCount(17, $result->getEdgeSet());
+        $result = $this->testSimpleGraph('FilterCalling.php', 13, 17);
         $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
@@ -233,10 +230,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilteringMethodCallSuper()
     {
-        $result = $this->callParse('FilterCallingSuper.php');
-
-        $this->assertCount(13, $result->getVertexSet());
-        $this->assertCount(17, $result->getEdgeSet());
+        $result = $this->testSimpleGraph('FilterCallingSuper.php', 13, 17);
         $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate');
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
