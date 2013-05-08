@@ -29,8 +29,8 @@ class NewInstanceRefactorTest extends \PHPUnit_Framework_TestCase
             'stmts' => array(
                 new \PHPParser_Node_Stmt_ClassMethod('holy', array(
                     'stmts' => array(
-                        new \PHPParser_Node_Expr_New(new \PHPParser_Node_Name('Holy')),
-                        new \PHPParser_Node_Expr_New(new \PHPParser_Node_Name('War'))
+                        new \PHPParser_Node_Expr_New(new \PHPParser_Node_Name('Holy\War')),
+                        new \PHPParser_Node_Expr_New(new \PHPParser_Node_Name('Hangar18'))
                     )
                         ))
             )
@@ -47,6 +47,9 @@ class NewInstanceRefactorTest extends \PHPUnit_Framework_TestCase
         $traverser->traverse(array($file));
         $this->assertTrue($file->isModified());
         $this->assertCount(3, $classNode->stmts);
+
+        $pp = new \PHPParser_PrettyPrinter_Default();
+        eval($pp->prettyPrint(iterator_to_array($file->getIterator())));
     }
 
 }
