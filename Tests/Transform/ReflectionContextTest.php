@@ -6,19 +6,19 @@
 
 namespace Trismegiste\Mondrian\Tests\Transform;
 
-use Trismegiste\Mondrian\Transform\Context;
+use Trismegiste\Mondrian\Transform\ReflectionContext;
 
 /**
- * TypeContextTest tests for inheritance Context
+ * ReflectionContextTest tests for ReflectionContext
  */
-class TypeContextTest extends \PHPUnit_Framework_TestCase
+class ReflectionContextTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $context;
 
     protected function setUp()
     {
-        $this->context = new Context();
+        $this->context = new ReflectionContext();
     }
 
     public function testEmpty()
