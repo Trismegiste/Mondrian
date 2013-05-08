@@ -11,9 +11,15 @@ use Trismegiste\Mondrian\Graph\Vertex;
 
 /**
  * Context is a context of parser. 
- * Responsible for maintaining a list of methods, classes and interfaces used
+ * 
+ * 1 - Responsible for maintaining a list of methods, classes and interfaces used
  * for building inheritance links in a digraph
  * 
+ * 2 - Indexing the vertices by name
+ * 
+ * @todo This class is not SRP; best proof: I've made 2 test classes.
+ * It should be easy to split it in two since PassCollector wraps all
+ * Context method for subclasses.
  */
 class Context
 {
