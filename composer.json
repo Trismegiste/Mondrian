@@ -14,7 +14,9 @@
         "nikic/php-parser": "dev-master",
         "symfony/console": "2.2.*",
         "alom/graphviz": "dev-master",
-        "symfony/finder": "2.2.*"
+        "symfony/finder": "2.2.*",
+        "symfony/yaml": "2.2.*",
+        "symfony/config": "2.2.*"
     },
     "autoload": {
         "psr-0": {
