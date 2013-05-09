@@ -156,7 +156,6 @@ class EdgeCollector extends PassCollector
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $this->currentMethodNode = $node;
-        $this->extractAnnotation($node);
         // search for the declaring class of this method
         $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
         $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
@@ -278,8 +277,7 @@ class EdgeCollector extends PassCollector
         $method = $node->name;
         $candidate = null;
         // skipping some obvious calls :
-        if (($node->var->getType() == 'Expr_Variable')
-                && (is_string($node->var->name))) {
+        if (($node->var->getType() == 'Expr_Variable') && (is_string($node->var->name))) {
             // searching a candidate for $called::$method
             // I think there is a chain of responsibility beneath that :
             $candidate = $this->getCalledMethodVertexOn($node->var->name, $method);
@@ -287,10 +285,16 @@ class EdgeCollector extends PassCollector
         // fallback : link to every methods with the same name :
         if (is_null($candidate)) {
             $candidate = $this->findAllMethodSameName($method);
+            if (count($candidate)) {
+                // store the fallback for futher report
+                foreach ($candidate as $called) {
+                    $this->logFallbackCall($this->currentClass, $this->currentMethod, $called->getName());
+                }
+            }
         }
         $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
         // fallback or not, we exclude calls from annotations
-        $exclude = $this->currentMethodNode->getAttribute('ignoreCallTo', array());
+        $exclude = $this->getExcludedCall($this->currentClass, $this->currentMethod);
         foreach ($candidate as $methodVertex) {
             if (!in_array($methodVertex->getName(), $exclude)) {
                 $this->graph->addEdge($impl, $methodVertex);

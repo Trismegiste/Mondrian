@@ -20,7 +20,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->grapher = new Grapher();
+        $this->grapher = new Grapher(array('calling' => array()));
     }
 
     protected function callParse()
@@ -267,6 +267,16 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilteringCallWithAnnotations()
     {
+        $this->grapher = new Grapher(array(
+            'calling' => array(
+                'Project\FilterCalling::decorate2' => array(
+                    'ignore' => array(
+                        'Project\OtherClass::getTitle'
+                    )
+                )
+            )
+        ));
+
         $result = $this->testSimpleGraph('FilterIgnoreCallTo.php', 11, 15);
         $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate3');
         $this->assertNotNull($impl);

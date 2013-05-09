@@ -19,7 +19,7 @@ class GraphContextTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->context = new GraphContext();
+        $this->context = new GraphContext(array('calling' => array()));
     }
 
     public function getVertexMock()
@@ -73,6 +73,24 @@ class GraphContextTest extends \PHPUnit_Framework_TestCase
 
         $this->context->indicesVertex('method', 'unused', $v);
         $this->assertEquals(array('unused' => $v), $this->context->findAllMethodSameName('getter'));
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testBadConfig()
+    {
+        new GraphContext(array());
+    }
+
+    public function testGoodConfig()
+    {
+        $ctx = new GraphContext(array(
+            'calling' => array(
+                'A::b' => array('ignore' => array('C::d'))
+            )
+        ));
+        $this->assertEquals(array('C::d'), $ctx->getExcludedCall('A', 'b'));
     }
 
 }

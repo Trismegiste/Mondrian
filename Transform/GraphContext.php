@@ -17,14 +17,20 @@ class GraphContext
 {
 
     protected $vertex;
+    protected $fineTuning;
 
     /**
      * Build the context
      * 
      * @param Graph $g 
      */
-    public function __construct()
+    public function __construct(array $cfg)
     {
+        if (!array_key_exists('calling', $cfg)) {
+            throw new \InvalidArgumentException("No 'calling' key in the config param");
+        }
+        $this->fineTuning = $cfg;
+
         $this->vertex = array('class' => array(), 'interface' => array(),
             'method' => array(), 'impl' => array(),
             'param' => array()
@@ -84,6 +90,24 @@ class GraphContext
     public function indicesVertex($type, $index, Vertex $v)
     {
         $this->vertex[$type][$index] = $v;
+    }
+
+    /**
+     * Get the list of excluded calls for this Class::Method
+     * 
+     * @param string $class
+     * @param string $method
+     * 
+     * @return array list of excluded methods "fqcn::methodName"
+     */
+    public function getExcludedCall($class, $method)
+    {
+        $ret = array();
+        if (array_key_exists("$class::$method", $this->fineTuning['calling'])) {
+            $ret = $this->fineTuning['calling']["$class::$method"]['ignore'];
+        }
+
+        return $ret;
     }
 
 }

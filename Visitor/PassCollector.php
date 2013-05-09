@@ -15,8 +15,8 @@ use Trismegiste\Mondrian\Graph\Graph;
  * PassCollector is an abstract compiler pass for visiting source code
  * and build the graph with the help of a Context
  * 
- * It feels like a Mediator between Context and concrete CompilerPass
- * (It is not one because Context and concrete CompilerPass do not share
+ * It feels like a Mediator between the two Context and concrete PassCollector
+ * (It is not one because Context and concrete PassCollector do not share
  * a common interface)
  */
 abstract class PassCollector extends PublicCollector
@@ -104,6 +104,16 @@ abstract class PassCollector extends PublicCollector
     protected function indicesVertex($typ, $index, Vertex $v)
     {
         $this->vertexDict->indicesVertex($typ, $index, $v);
+    }
+
+    protected function logFallbackCall($class, $method, $called)
+    {
+        
+    }
+
+    protected function getExcludedCall($class, $method)
+    {
+        return $this->vertexDict->getExcludedCall($class, $method);
     }
 
 }

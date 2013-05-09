@@ -103,7 +103,7 @@ abstract class PublicCollector extends FqcnHelper
      * Extracts annotations in the comment of a statement and injects them in
      * attribute of the node
      *
-     * @param \PHPParser_Node_Stmt_ClassMethod $node
+     * @param \PHPParser_Node_Stmt $node
      */
     protected function extractAnnotation(\PHPParser_Node_Stmt $node)
     {

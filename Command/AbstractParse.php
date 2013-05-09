@@ -56,7 +56,7 @@ abstract class AbstractParse extends Command
                 ->name('*.php')
                 ->exclude($ignoreDir);
 
-        $transformer = new Grapher();
+        $transformer = new Grapher(array('calling' => array()));
         $output->writeln(sprintf("Parsing %d files...", $scan->count()));
         $graph = $transformer->build($scan->getIterator());
 
