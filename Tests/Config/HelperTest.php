@@ -14,6 +14,14 @@ use Trismegiste\Mondrian\Config\Helper;
 class HelperTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function testDefaultCfg()
+    {
+        $helper = new Helper();
+        $cfg = $helper->getConfig(__DIR__);
+        $this->assertArrayHasKey('graph', $cfg);
+        $this->assertArrayHasKey('calling', $cfg['graph']);
+    }
+
     public function testLoad()
     {
         $helper = new Helper();
