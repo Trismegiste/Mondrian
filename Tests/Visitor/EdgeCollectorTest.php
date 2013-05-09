@@ -35,6 +35,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->reflection = $this->getMockBuilder('Trismegiste\Mondrian\Transform\ReflectionContext')
                 ->getMock();
         $this->dictionary = $this->getMockBuilder('Trismegiste\Mondrian\Transform\GraphContext')
+                ->disableOriginalConstructor()
                 ->getMock();
         $this->graph = $this->getMockBuilder('Trismegiste\Mondrian\Graph\Graph')
                 ->getMock();
