@@ -15,7 +15,7 @@ class Validator implements ConfigurationInterface
 
         $rootNode
                 ->children()
-                ->arrayNode('graph')
+                ->arrayNode('graph')->addDefaultsIfNotSet()
                 ->children()
                 ->arrayNode('calling')
                 ->useAttributeAsKey('callee')
