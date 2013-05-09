@@ -16,6 +16,13 @@ use Trismegiste\Mondrian\Graph\Digraph;
 class Grapher
 {
 
+    protected $config;
+
+    public function __construct(array $cfg)
+    {
+        $this->config = $cfg;
+    }
+
     /**
      * Parse a set of php files and build a digraph with multiple
      * passes by visiting the nodes in source code
@@ -46,7 +53,7 @@ class Grapher
     protected function buildCompilerPass(Digraph $graph)
     {
         $reflection = new ReflectionContext();
-        $vertexContext = new GraphContext();
+        $vertexContext = new GraphContext($this->config);
 
         return array(
             new Visitor\SymbolMap($reflection),

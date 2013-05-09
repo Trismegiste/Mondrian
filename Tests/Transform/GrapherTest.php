@@ -20,7 +20,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->grapher = new Grapher();
+        $this->grapher = new Grapher(array('calling' => array()));
     }
 
     protected function callParse()
