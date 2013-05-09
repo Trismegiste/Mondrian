@@ -333,6 +333,11 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->with('clown')
                 ->will($this->returnValue(array($this->vertex['M'])));
 
+        $this->dictionary
+                ->expects($this->any())
+                ->method('getExcludedCall')
+                ->will($this->returnValue(array()));
+
         // edges :
         $this->graph
                 ->expects($this->at(2))
@@ -353,6 +358,11 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->nodeList[2]->params[] = new \PHPParser_Node_Param('obj', null, new \PHPParser_Node_Name('Berwell'));
         $this->nodeList[3] = new \PHPParser_Node_Expr_MethodCall(new \PHPParser_Node_Expr_Variable('obj'), 'clown');
 
+        $this->dictionary
+                ->expects($this->any())
+                ->method('getExcludedCall')
+                ->will($this->returnValue(array()));
+
         $this->reflection
                 ->expects($this->once())
                 ->method('hasDeclaringClass')
@@ -368,6 +378,52 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->at(2))
                 ->method('addEdge')
                 ->with($this->vertex['S'], $this->vertex['M']);
+
+        $this->visitNodeList();
+    }
+
+    /**
+     * Test for :
+     *  * S -> M
+     */
+    public function testExcludingCall()
+    {
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
+        $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
+        $this->nodeList[3] = new \PHPParser_Node_Expr_MethodCall(
+                new \PHPParser_Node_Expr_Variable('obj'), 'clown');
+
+        $this->dictionary
+                ->expects($this->once())
+                ->method('findAllMethodSameName')
+                ->with('clown')
+                ->will($this->returnValue(array($this->vertex['M'])));
+
+        $this->vertex['M']
+                ->expects($this->any())
+                ->method('getName')
+                ->will($this->returnValue('excluded'));
+
+        $this->dictionary
+                ->expects($this->once())
+                ->method('getExcludedCall')
+                ->with('Atavachron\Funnels', 'sand')
+                ->will($this->returnValue(array('excluded')));
+
+        // edges :
+        $this->graph
+                ->expects($this->exactly(2))
+                ->method('addEdge');
+
+        $this->graph
+                ->expects($this->at(0))
+                ->method('addEdge')
+                ->with($this->vertex['S'], $this->vertex['C']);
+
+        $this->graph
+                ->expects($this->at(1))
+                ->method('addEdge')
+                ->with($this->vertex['C'], $this->vertex['S']);
 
         $this->visitNodeList();
     }

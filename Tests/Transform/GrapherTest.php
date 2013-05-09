@@ -267,6 +267,20 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilteringCallWithAnnotations()
     {
+        // trick to change config after construct
+        $refl = new \ReflectionObject($this->grapher);
+        $prop = $refl->getProperty('config');
+        $prop->setAccessible(true);
+        $prop->setValue($this->grapher, array(
+            'calling' => array(
+                'Project\FilterCalling::decorate2' => array(
+                    'ignore' => array(
+                        'Project\OtherClass::getTitle'
+                    )
+                )
+            )
+        ));
+
         $result = $this->testSimpleGraph('FilterIgnoreCallTo.php', 11, 15);
         $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate3');
         $this->assertNotNull($impl);

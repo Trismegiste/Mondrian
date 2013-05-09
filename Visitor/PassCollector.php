@@ -113,7 +113,7 @@ abstract class PassCollector extends PublicCollector
 
     protected function getExcludedCall($class, $method)
     {
-        return array();
+        return $this->vertexDict->getExcludedCall($class, $method);
     }
 
 }

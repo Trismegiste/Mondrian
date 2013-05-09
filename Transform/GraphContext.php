@@ -92,4 +92,22 @@ class GraphContext
         $this->vertex[$type][$index] = $v;
     }
 
+    /**
+     * Get the list of excluded calls for this Class::Method
+     * 
+     * @param string $class
+     * @param string $method
+     * 
+     * @return array list of excluded methods "fqcn::methodName"
+     */
+    public function getExcludedCall($class, $method)
+    {
+        $ret = array();
+        if (array_key_exists("$class::$method", $this->fineTuning['calling'])) {
+            $ret = $this->fineTuning['calling']["$class::$method"]['ignore'];
+        }
+
+        return $ret;
+    }
+
 }

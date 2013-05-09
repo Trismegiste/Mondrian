@@ -295,7 +295,7 @@ class EdgeCollector extends PassCollector
         }
         $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
         // fallback or not, we exclude calls from annotations
-        $exclude = $this->currentMethodNode->getAttribute('ignoreCallTo', array());
+        $exclude = $this->getExcludedCall($this->currentClass, $this->currentMethod);
         foreach ($candidate as $methodVertex) {
             if (!in_array($methodVertex->getName(), $exclude)) {
                 $this->graph->addEdge($impl, $methodVertex);

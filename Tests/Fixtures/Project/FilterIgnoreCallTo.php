@@ -42,12 +42,12 @@ class FilterCalling
     /**
      * 2 vertices and 3 edges for this method
      * 
-     * @mondrian ignoreCallTo Project\OtherClass::getTitle
+     * the config in the test ignores the call to Project\OtherClass::getTitle
      */
     public function decorate2()
     {
         // plus 1 edge for this call
-        // should generate two edges but annotation remove ones
+        // should generate two edges but config remove ones
         $this->obj->getTitle();
     }
 
