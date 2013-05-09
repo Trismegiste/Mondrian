@@ -278,8 +278,7 @@ class EdgeCollector extends PassCollector
         $method = $node->name;
         $candidate = null;
         // skipping some obvious calls :
-        if (($node->var->getType() == 'Expr_Variable')
-                && (is_string($node->var->name))) {
+        if (($node->var->getType() == 'Expr_Variable') && (is_string($node->var->name))) {
             // searching a candidate for $called::$method
             // I think there is a chain of responsibility beneath that :
             $candidate = $this->getCalledMethodVertexOn($node->var->name, $method);
@@ -287,6 +286,12 @@ class EdgeCollector extends PassCollector
         // fallback : link to every methods with the same name :
         if (is_null($candidate)) {
             $candidate = $this->findAllMethodSameName($method);
+            if (count($candidate)) {
+                // store the fallback for futher report
+                foreach ($candidate as $called) {
+                    $this->logFallbackCall($this->currentClass, $this->currentMethod, $called->getName());
+                }
+            }
         }
         $impl = $this->findVertex('impl', $this->currentClass . '::' . $this->currentMethod);
         // fallback or not, we exclude calls from annotations
