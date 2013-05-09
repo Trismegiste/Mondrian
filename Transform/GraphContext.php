@@ -17,14 +17,20 @@ class GraphContext
 {
 
     protected $vertex;
+    protected $fineTuning;
 
     /**
      * Build the context
      * 
      * @param Graph $g 
      */
-    public function __construct()
+    public function __construct(array $cfg)
     {
+        if (!array_key_exists('calling', $cfg)) {
+            throw new \InvalidArgumentException("No 'calling' key in the config param");
+        }
+        $this->fineTuning = $cfg;
+
         $this->vertex = array('class' => array(), 'interface' => array(),
             'method' => array(), 'impl' => array(),
             'param' => array()

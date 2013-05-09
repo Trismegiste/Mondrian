@@ -19,7 +19,7 @@ class GraphContextTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->context = new GraphContext();
+        $this->context = new GraphContext(array('calling' => array()));
     }
 
     public function getVertexMock()
