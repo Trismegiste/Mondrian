@@ -18,6 +18,15 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 class Helper
 {
 
+    /**
+     * Read the config
+     * 
+     * @param string $dir filepath to the package directory
+     * 
+     * @return array the full config
+     * 
+     * @throws \DomainException if the config is invalid
+     */
     public function getConfig($dir)
     {
         // load

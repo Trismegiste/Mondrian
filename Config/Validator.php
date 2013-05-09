@@ -5,6 +5,9 @@ namespace Trismegiste\Mondrian\Config;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
+/**
+ * Validator of the configuration of the package
+ */
 class Validator implements ConfigurationInterface
 {
 
