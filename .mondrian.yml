@@ -1,0 +1,7 @@
+graph:
+    calling:
+        SomeClass::someMethod:
+            ignore:
+                - ClassToIgnore1::calledMethod1
+                - ClassToIgnore2::calledMethod1
+                - ClassToIgnore3::calledMethod2
