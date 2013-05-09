@@ -75,4 +75,22 @@ class GraphContextTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('unused' => $v), $this->context->findAllMethodSameName('getter'));
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testBadConfig()
+    {
+        new GraphContext(array());
+    }
+
+    public function testGoodConfig()
+    {
+        $ctx = new GraphContext(array(
+            'calling' => array(
+                'A::b' => array('ignore' => array('C::d'))
+            )
+        ));
+        $this->assertEquals(array('C::d'), $ctx->getExcludedCall('A', 'b'));
+    }
+
 }

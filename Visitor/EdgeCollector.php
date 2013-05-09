@@ -156,7 +156,6 @@ class EdgeCollector extends PassCollector
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $this->currentMethodNode = $node;
-        $this->extractAnnotation($node);
         // search for the declaring class of this method
         $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
         $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
