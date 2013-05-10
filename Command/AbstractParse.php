@@ -15,10 +15,13 @@ use Trismegiste\Mondrian\Transform\Grapher;
 use Trismegiste\Mondrian\Transform\Format\Factory;
 use Symfony\Component\Finder\Finder;
 use Trismegiste\Mondrian\Graph\Graph;
+use Trismegiste\Mondrian\Config\Helper;
 
 /**
  * AbstractParse transforms a bunch of php files into a digraph
  * and exports it into a report file
+ *
+ * Design pattern : Template Method
  */
 abstract class AbstractParse extends Command
 {
@@ -30,6 +33,15 @@ abstract class AbstractParse extends Command
         return 'Parses a directory to generate a digraph';
     }
 
+    /**
+     * The method that does the job : it computes/decorates/redifines the
+     * graph passed in parameter.
+     *
+     * @param Graph $g the graph to process
+     * @param OutputInterface $out console output
+     *
+     * @return Graph the processed graph (the same or another)
+     */
     abstract protected function processGraph(Graph $g, OutputInterface $out);
 
     protected function configure()
@@ -43,6 +55,9 @@ abstract class AbstractParse extends Command
                 ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Format of export', 'dot');
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $directory = $input->getArgument('dir');
@@ -56,7 +71,7 @@ abstract class AbstractParse extends Command
                 ->name('*.php')
                 ->exclude($ignoreDir);
 
-        $transformer = new Grapher(array('calling' => array()));
+        $transformer = new Grapher($this->getConfig($directory));
         $output->writeln(sprintf("Parsing %d files...", $scan->count()));
         $graph = $transformer->build($scan->getIterator());
 
@@ -68,6 +83,20 @@ abstract class AbstractParse extends Command
         $reportName = "$reportName.$ext";
         file_put_contents($reportName, $dumper->export());
         $output->writeln("Report $reportName created");
+    }
+
+    /**
+     * get the graph section of the configuration for this package
+     *
+     * @param string $dir the root dir of the package
+     *
+     * @return array
+     */
+    protected function getConfig($dir)
+    {
+        $helper = new Helper();
+
+        return $helper->getGraphConfig($dir);
     }
 
 }

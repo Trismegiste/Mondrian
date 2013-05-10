@@ -20,18 +20,18 @@ class Helper
 
     /**
      * Read the config
-     * 
+     *
      * @param string $dir filepath to the package directory
-     * 
+     *
      * @return array the full config
-     * 
+     *
      * @throws \DomainException if the config is invalid
      */
     public function getConfig($dir)
     {
         // load
         try {
-            // all this stuff is not really necessary but this component is kewl 
+            // all this stuff is not really necessary but this component is kewl
             // and I want to use it.
             // A better configuration handling => better programing
             $delegatingLoader = new DelegatingLoader(new LoaderResolver(array(new Loader())));
@@ -49,6 +49,20 @@ class Helper
         }
 
         return $processedConfig;
+    }
+
+    /**
+     * Get the graph configuration
+     *
+     * @param string $dir filepath to the package directory
+     *
+     * @return array the full config
+     */
+    public function getGraphConfig($dir)
+    {
+        $cfg = $this->getConfig($dir);
+
+        return $cfg['graph'];
     }
 
 }
