@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">263</span></a></li>
+                <span class="label label-info">292</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">1</span>
@@ -62,7 +62,6 @@
         </span><pre>__construct()</pre></a></li>
 <li class="method public inherited"><a href="#method_beforeTraverse" title="beforeTraverse :: "><span class="description">beforeTraverse()
         </span><pre>beforeTraverse()</pre></a></li>
-<li class="method public inherited"><a href="#method_compile" title="compile :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>compile()</pre></a></li>
 <li class="method public inherited"><a href="#method_enterNode" title="enterNode :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>enterNode()</pre></a></li>
 <li class="method public inherited"><a href="#method_leaveNode" title="leaveNode :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>leaveNode()</pre></a></li>
 </ul>
@@ -85,17 +84,19 @@ or code could be bugged</span><pre>findMethodInInheritanceTree()</pre></a></li>
 <li class="method protected inherited"><a href="#method_findVertex" title="findVertex :: Find a vertex by its type and name"><span class="description">Find a vertex by its type and name</span><pre>findVertex()</pre></a></li>
 <li class="method protected inherited"><a href="#method_getCurrentMethodIndex" title="getCurrentMethodIndex :: the vertex name for a MethodVertex"><span class="description">the vertex name for a MethodVertex</span><pre>getCurrentMethodIndex()</pre></a></li>
 <li class="method protected inherited"><a href="#method_getDeclaringClass" title="getDeclaringClass :: Finds the FQCN of the first declaring class/interface of a method"><span class="description">Finds the FQCN of the first declaring class/interface of a method</span><pre>getDeclaringClass()</pre></a></li>
-<li class="method protected inherited"><a href="#method_getNamespacedName" title="getNamespacedName :: "><span class="description">getNamespacedName()
-        </span><pre>getNamespacedName()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getExcludedCall" title="getExcludedCall :: "><span class="description">getExcludedCall()
+        </span><pre>getExcludedCall()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getNamespacedName" title="getNamespacedName :: Helper : get the FQCN of the given $node-&gt;name"><span class="description">Helper : get the FQCN of the given $node-&gt;name</span><pre>getNamespacedName()</pre></a></li>
 <li class="method protected inherited"><a href="#method_indicesVertex" title="indicesVertex :: See Context"><span class="description">See Context</span><pre>indicesVertex()</pre></a></li>
 <li class="method protected inherited"><a href="#method_isInterface" title="isInterface :: Is FQCN an interface ?"><span class="description">Is FQCN an interface ?</span><pre>isInterface()</pre></a></li>
-<li class="method protected "><a href="#method_pushImplementation" title="pushImplementation :: Adding a new vertex if the index is not already indexed"><span class="description">Adding a new vertex if the index is not already indexed</span><pre>pushImplementation()</pre></a></li>
-<li class="method protected "><a href="#method_pushMethod" title="pushMethod :: Adding a new vertex if the index is not already indexed
-Since it is a method, I'm also adding the parameters"><span class="description">Adding a new vertex if the index is not already indexed
+<li class="method protected inherited"><a href="#method_logFallbackCall" title="logFallbackCall :: "><span class="description">logFallbackCall()
+        </span><pre>logFallbackCall()</pre></a></li>
+<li class="method protected "><a href="#method_pushImplementation" title="pushImplementation :: Adding a new vertex if the implementation is not already indexed"><span class="description">Adding a new vertex if the implementation is not already indexed</span><pre>pushImplementation()</pre></a></li>
+<li class="method protected "><a href="#method_pushMethod" title="pushMethod :: Adding a new vertex if the method is not already indexed
+Since it is a method, I'm also adding the parameters"><span class="description">Adding a new vertex if the method is not already indexed
 Since it is a method, I'm also adding the parameters</span><pre>pushMethod()</pre></a></li>
 <li class="method protected "><a href="#method_pushParameter" title="pushParameter :: Add a parameter vertex."><span class="description">Add a parameter vertex.</span><pre>pushParameter()</pre></a></li>
-<li class="method protected inherited"><a href="#method_resolveClassName" title="resolveClassName :: "><span class="description">resolveClassName()
-        </span><pre>resolveClassName()</pre></a></li>
+<li class="method protected inherited"><a href="#method_resolveClassName" title="resolveClassName :: resolve the Name with current namespace and alias"><span class="description">resolve the Name with current namespace and alias</span><pre>resolveClassName()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
@@ -107,12 +108,16 @@ Since it is a method, I'm also adding the parameters</span><pre>pushMethod()</pr
 <li class="property protected inherited"><a href="#property_aliases" title="$aliases :: "><span class="description">Currently defined namespace and class aliases</span><pre>$aliases</pre></a></li>
 <li class="property protected inherited"><a href="#property_currentClass" title="$currentClass :: "><span class="description"></span><pre>$currentClass</pre></a></li>
 <li class="property protected inherited"><a href="#property_currentMethod" title="$currentMethod :: "><span class="description"></span><pre>$currentMethod</pre></a></li>
+<li class="property protected inherited"><a href="#property_currentPhpFile" title="$currentPhpFile :: current file"><span class="description"></span><pre>$currentPhpFile</pre></a></li>
 <li class="property protected inherited"><a href="#property_graph" title="$graph :: "><span class="description"></span><pre>$graph</pre></a></li>
 <li class="property protected inherited"><a href="#property_namespace" title="$namespace :: "><span class="description">Current namespace</span><pre>$namespace</pre></a></li>
 </ul>
 </li>
 <li class="nav-header private">» Private
-                    <ul><li class="property private inherited"><a href="#property_context" title="$context :: "><span class="description"></span><pre>$context</pre></a></li></ul>
+                    <ul>
+<li class="property private inherited"><a href="#property_reflection" title="$reflection :: "><span class="description"></span><pre>$reflection</pre></a></li>
+<li class="property private inherited"><a href="#property_vertexDict" title="$vertexDict :: "><span class="description"></span><pre>$vertexDict</pre></a></li>
+</ul>
 </li>
 </ul>
 </div>
@@ -135,15 +140,15 @@ Since it is a method, I'm also adding the parameters</span><pre>pushMethod()</pr
 <div class="element class">
 <p class="short_description">VertexCollector is a visitor to transform code into graph vertices</p>
 <div class="details">
-<div class="long_description"><p>It feels like a Mediator between Context and concrete CompilerPass
-(It is not because Context and concrete CompilerPass are not daughter
-of a common interface)</p></div>
+<div class="long_description"><p>It feels like a Mediator between the two Context and concrete PassCollector
+(It is not one because Context and concrete PassCollector do not share
+a common interface)</p></div>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
 <a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
 <h2>__construct()
         </h2>
-<pre>__construct(\Trismegiste\Mondrian\Transform\Context $ctx, \Trismegiste\Mondrian\Graph\Graph $g) </pre>
+<pre>__construct(\Trismegiste\Mondrian\Transform\ReflectionContext $ref, \Trismegiste\Mondrian\Transform\GraphContext $grf, \Trismegiste\Mondrian\Graph\Graph $g) </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -152,7 +157,8 @@ of a common interface)</p></div>
 <td>\Trismegiste\Mondrian\Visitor\PassCollector::__construct()</td>
 </tr></table>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$ctx</h4></div>
+<div class="subelement argument"><h4>$ref</h4></div>
+<div class="subelement argument"><h4>$grf</h4></div>
 <div class="subelement argument"><h4>$g</h4></div>
 </div></div>
 </div>
@@ -179,18 +185,6 @@ of a common interface)</p></div>
 </table>
 <h3>Parameters</h3>
 <div class="subelement argument"><h4>$nodes</h4></div>
-</div></div>
-</div>
-<a id="method_compile"></a><div class="element clickable method public method_compile" data-toggle="collapse" data-target=".method_compile .collapse">
-<h2>{@inheritDoc}</h2>
-<pre>compile() </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PassCollector::compile()</td>
-</tr></table>
 </div></div>
 </div>
 <a id="method_enterNode"></a><div class="element clickable method public method_enterNode" data-toggle="collapse" data-target=".method_enterNode .collapse">
@@ -307,7 +301,7 @@ attribute of the node</h2>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$node</h4>
-<code>\PHPParser_Node_Stmt_ClassMethod</code>
+<code>\PHPParser_Node_Stmt</code>
 </div>
 </div></div>
 </div>
@@ -407,10 +401,25 @@ or code could be bugged</h2>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a id="method_getNamespacedName"></a><div class="element clickable method protected method_getNamespacedName" data-toggle="collapse" data-target=".method_getNamespacedName .collapse">
-<h2>getNamespacedName()
+<a id="method_getExcludedCall"></a><div class="element clickable method protected method_getExcludedCall" data-toggle="collapse" data-target=".method_getExcludedCall .collapse">
+<h2>getExcludedCall()
         </h2>
-<pre>getNamespacedName(\PHPParser_Node $node) </pre>
+<pre>getExcludedCall($class, $method) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PassCollector::getExcludedCall()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$class</h4></div>
+<div class="subelement argument"><h4>$method</h4></div>
+</div></div>
+</div>
+<a id="method_getNamespacedName"></a><div class="element clickable method protected method_getNamespacedName" data-toggle="collapse" data-target=".method_getNamespacedName .collapse">
+<h2>Helper : get the FQCN of the given $node-&gt;name</h2>
+<pre>getNamespacedName(\PHPParser_Node $node) : string</pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -429,7 +438,12 @@ or code could be bugged</h2>
 </tr>
 </table>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$node</h4></div>
+<div class="subelement argument">
+<h4>$node</h4>
+<code>\PHPParser_Node</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <a id="method_indicesVertex"></a><div class="element clickable method protected method_indicesVertex" data-toggle="collapse" data-target=".method_indicesVertex .collapse">
@@ -466,8 +480,25 @@ or code could be bugged</h2>
 <div class="subelement response"><code>bool</code></div>
 </div></div>
 </div>
+<a id="method_logFallbackCall"></a><div class="element clickable method protected method_logFallbackCall" data-toggle="collapse" data-target=".method_logFallbackCall .collapse">
+<h2>logFallbackCall()
+        </h2>
+<pre>logFallbackCall($class, $method, $called) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PassCollector::logFallbackCall()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$class</h4></div>
+<div class="subelement argument"><h4>$method</h4></div>
+<div class="subelement argument"><h4>$called</h4></div>
+</div></div>
+</div>
 <a id="method_pushImplementation"></a><div class="element clickable method protected method_pushImplementation" data-toggle="collapse" data-target=".method_pushImplementation .collapse">
-<h2>Adding a new vertex if the index is not already indexed</h2>
+<h2>Adding a new vertex if the implementation is not already indexed</h2>
 <pre>pushImplementation(\PHPParser_Node_Stmt_ClassMethod $node) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
@@ -480,7 +511,7 @@ or code could be bugged</h2>
 </div></div>
 </div>
 <a id="method_pushMethod"></a><div class="element clickable method protected method_pushMethod" data-toggle="collapse" data-target=".method_pushMethod .collapse">
-<h2>Adding a new vertex if the index is not already indexed
+<h2>Adding a new vertex if the method is not already indexed
 Since it is a method, I'm also adding the parameters</h2>
 <pre>pushMethod(\PHPParser_Node_Stmt_ClassMethod $node) </pre>
 <div class="labels"></div>
@@ -498,7 +529,7 @@ Since it is a method, I'm also adding the parameters</h2>
 <pre>pushParameter(string $methodName, int $order) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>I must point out that I storre the order
+<div class="long_description"><p>I must point out that I store the order
 of the parameter, not its name. Why ? Because, name can change accross
 inheritance tree. Therefore, it could fail the refactoring of the source
 from the digraph.</p></div>
@@ -514,9 +545,8 @@ from the digraph.</p></div>
 </div></div>
 </div>
 <a id="method_resolveClassName"></a><div class="element clickable method protected method_resolveClassName" data-toggle="collapse" data-target=".method_resolveClassName .collapse">
-<h2>resolveClassName()
-        </h2>
-<pre>resolveClassName(\PHPParser_Node_Name $src) </pre>
+<h2>resolve the Name with current namespace and alias</h2>
+<pre>resolveClassName(\PHPParser_Node_Name $src) : \PHPParser_Node_Name | \PHPParser_Node_Name_FullyQualified</pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -535,7 +565,14 @@ from the digraph.</p></div>
 </tr>
 </table>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$src</h4></div>
+<div class="subelement argument">
+<h4>$src</h4>
+<code>\PHPParser_Node_Name</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\PHPParser_Node_Name</code><code>\PHPParser_Node_Name_FullyQualified</code>
+</div>
 </div></div>
 </div>
 <h3>
@@ -598,6 +635,28 @@ from the digraph.</p></div>
 </table>
 </div></div>
 </div>
+<a id="property_currentPhpFile"> </a><div class="element clickable property protected property_currentPhpFile" data-toggle="collapse" data-target=".property_currentPhpFile .collapse">
+<h2></h2>
+<pre>$currentPhpFile </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::$$currentPhpFile</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$currentPhpFile</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PassCollector::$$currentPhpFile</td>
+</tr>
+</table>
+</div></div>
+</div>
 <a id="property_graph"> </a><div class="element clickable property protected property_graph" data-toggle="collapse" data-target=".property_graph .collapse">
 <h2></h2>
 <pre>$graph </pre>
@@ -632,15 +691,27 @@ from the digraph.</p></div>
 </table>
 </div></div>
 </div>
-<a id="property_context"> </a><div class="element clickable property private property_context" data-toggle="collapse" data-target=".property_context .collapse">
+<a id="property_reflection"> </a><div class="element clickable property private property_reflection" data-toggle="collapse" data-target=".property_reflection .collapse">
 <h2></h2>
-<pre>$context </pre>
+<pre>$reflection </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <table class="table table-bordered"><tr>
 <th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PassCollector::$$context</td>
+<td>\Trismegiste\Mondrian\Visitor\PassCollector::$$reflection</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_vertexDict"> </a><div class="element clickable property private property_vertexDict" data-toggle="collapse" data-target=".property_vertexDict .collapse">
+<h2></h2>
+<pre>$vertexDict </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PassCollector::$$vertexDict</td>
 </tr></table>
 </div></div>
 </div>
@@ -651,7 +722,7 @@ from the digraph.</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-04-30T14:19:27+02:00.<br></footer></div>
+            generated on 2013-05-10T14:44:16+02:00.<br></footer></div>
 </div>
 </body>
 </html>

@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">263</span></a></li>
+                <span class="label label-info">292</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">1</span>
@@ -71,7 +71,13 @@
 <a href="../namespaces/Trismegiste.Mondrian.Command.html" title="Command"><i class="icon-th"></i>Command</a><ul class="nav nav-list nav-namespaces"></ul>
 </li>
 <li>
+<a href="../namespaces/Trismegiste.Mondrian.Config.html" title="Config"><i class="icon-th"></i>Config</a><ul class="nav nav-list nav-namespaces"></ul>
+</li>
+<li>
 <a href="../namespaces/Trismegiste.Mondrian.Graph.html" title="Graph"><i class="icon-th"></i>Graph</a><ul class="nav nav-list nav-namespaces"></ul>
+</li>
+<li>
+<a href="../namespaces/Trismegiste.Mondrian.Parser.html" title="Parser"><i class="icon-th"></i>Parser</a><ul class="nav nav-list nav-namespaces"></ul>
 </li>
 <li>
 <a href="../namespaces/Trismegiste.Mondrian.Refactor.html" title="Refactor"><i class="icon-th"></i>Refactor</a><ul class="nav nav-list nav-namespaces"></ul>
@@ -356,7 +362,7 @@ with hidden coupling</p>
 <h1>LiskovCommand<a href="../classes/Trismegiste.Mondrian.Command.LiskovCommand.html">¶</a>
 </h1>
 <p class="short_description">LiskovCommand transforms a bunch of php files into a reduced digraph
-to the LSP violation to refactor (and later achieve ISP)</p>
+to the LSP violation to refactor (mandatory before ISP)</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Command.LiskovCommand.html" class="more">« More »</a>
 </div>
@@ -383,6 +389,43 @@ and exports it into a report file with centrality informations of
 the using of each node.</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Command.UsedCentralityCommand.html" class="more">« More »</a>
+</div>
+</div>
+<ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Config.html">Config</a>
+</li>
+</ul>
+<div class="namespace-indent">
+<h3>
+<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
+<div id="Helper" class="element ajax clickable class">
+<h1>Helper<a href="../classes/Trismegiste.Mondrian.Config.Helper.html">¶</a>
+</h1>
+<p class="short_description">Helper is a Facade for the config heavy machinery</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Config.Helper.html" class="more">« More »</a>
+</div>
+<div id="Loader" class="element ajax clickable class">
+<h1>Loader<a href="../classes/Trismegiste.Mondrian.Config.Loader.html">¶</a>
+</h1>
+<p class="short_description">Loader is a loader for the Mondrian config tool</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Config.Loader.html" class="more">« More »</a>
+</div>
+<div id="Validator" class="element ajax clickable class">
+<h1>Validator<a href="../classes/Trismegiste.Mondrian.Config.Validator.html">¶</a>
+</h1>
+<p class="short_description">Validator of the configuration of the package</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Config.Validator.html" class="more">« More »</a>
 </div>
 </div>
 <ul class="breadcrumb">
@@ -501,18 +544,62 @@ Component : Concrete Decorator</p>
 <span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
 </li>
 <li class="active">
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Parser.html">Parser</a>
+</li>
+</ul>
+<div class="namespace-indent">
+<h3>
+<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
+<div id="PackageParser" class="element ajax clickable class">
+<h1>PackageParser<a href="../classes/Trismegiste.Mondrian.Parser.PackageParser.html">¶</a>
+</h1>
+<p class="short_description">PackageParser is a parser for multiple files</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Parser.PackageParser.html" class="more">« More »</a>
+</div>
+<div id="PhpDumper" class="element ajax clickable class">
+<h1>PhpDumper<a href="../classes/Trismegiste.Mondrian.Parser.PhpDumper.html">¶</a>
+</h1>
+<p class="short_description">PhpDumper dumps a PhpFile into a file</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Parser.PhpDumper.html" class="more">« More »</a>
+</div>
+<div id="PhpFile" class="element ajax clickable class">
+<h1>PhpFile<a href="../classes/Trismegiste.Mondrian.Parser.PhpFile.html">¶</a>
+</h1>
+<p class="short_description">PhpFile is a node in a package repreenting a file</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Parser.PhpFile.html" class="more">« More »</a>
+</div>
+<div id="PhpPersistence" class="element ajax clickable class">
+<h1>PhpPersistence<a href="../classes/Trismegiste.Mondrian.Parser.PhpPersistence.html">¶</a>
+</h1>
+<p class="short_description">PhpPersistence is an abstract template for persisting a PhpFile</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Parser.PhpPersistence.html" class="more">« More »</a>
+</div>
+</div>
+<ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
+</li>
+<li class="active">
 <span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Refactor.html">Refactor</a>
 </li>
 </ul>
 <div class="namespace-indent">
 <h3>
 <i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="RefactorPass" class="element ajax clickable interface">
-<h1>RefactorPass<a href="../classes/Trismegiste.Mondrian.Refactor.RefactorPass.html">¶</a>
+<div id="AbstractRefactoring" class="element ajax clickable class">
+<h1>AbstractRefactoring<a href="../classes/Trismegiste.Mondrian.Refactor.AbstractRefactoring.html">¶</a>
 </h1>
-<p class="short_description">RefactorPass is a contract for a refactoring pass</p>
+<p class="short_description">Design pattern : Template Method</p>
 <div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Refactor.RefactorPass.html" class="more">« More »</a>
+<a href="../classes/Trismegiste.Mondrian.Refactor.AbstractRefactoring.html" class="more">« More »</a>
 </div>
 <div id="Contractor" class="element ajax clickable class">
 <h1>Contractor<a href="../classes/Trismegiste.Mondrian.Refactor.Contractor.html">¶</a>
@@ -520,6 +607,14 @@ Component : Concrete Decorator</p>
 <p class="short_description">Contractor refactors a list of classes with annotations hints.</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Refactor.Contractor.html" class="more">« More »</a>
+</div>
+<div id="FactoryGenerator" class="element ajax clickable class">
+<h1>FactoryGenerator<a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenerator.html">¶</a>
+</h1>
+<p class="short_description">FactoryGenerator refactors a package by extracting all
+new instances and puts it in protected methods.</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenerator.html" class="more">« More »</a>
 </div>
 <div id="Refactored" class="element ajax clickable class">
 <h1>Refactored<a href="../classes/Trismegiste.Mondrian.Refactor.Refactored.html">¶</a>
@@ -544,19 +639,12 @@ Component : Concrete Decorator</p>
 <div class="namespace-indent">
 <h3>
 <i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="CompilerPass" class="element ajax clickable interface">
-<h1>CompilerPass<a href="../classes/Trismegiste.Mondrian.Transform.CompilerPass.html">¶</a>
+<div id="GraphContext" class="element ajax clickable class">
+<h1>GraphContext<a href="../classes/Trismegiste.Mondrian.Transform.GraphContext.html">¶</a>
 </h1>
-<p class="short_description">CompilerPass is a contract for a compil pass</p>
+<p class="short_description">GraphContext is a context for building a graph.</p>
 <div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.CompilerPass.html" class="more">« More »</a>
-</div>
-<div id="Context" class="element ajax clickable class">
-<h1>Context<a href="../classes/Trismegiste.Mondrian.Transform.Context.html">¶</a>
-</h1>
-<p class="short_description">Context is a context of parser.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Context.html" class="more">« More »</a>
+<a href="../classes/Trismegiste.Mondrian.Transform.GraphContext.html" class="more">« More »</a>
 </div>
 <div id="Grapher" class="element ajax clickable class">
 <h1>Grapher<a href="../classes/Trismegiste.Mondrian.Transform.Grapher.html">¶</a>
@@ -564,6 +652,13 @@ Component : Concrete Decorator</p>
 <p class="short_description">Grapher transforms source code into graph</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Transform.Grapher.html" class="more">« More »</a>
+</div>
+<div id="ReflectionContext" class="element ajax clickable class">
+<h1>ReflectionContext<a href="../classes/Trismegiste.Mondrian.Transform.ReflectionContext.html">¶</a>
+</h1>
+<p class="short_description">ReflectionContext is a context for Reflection on types</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Transform.ReflectionContext.html" class="more">« More »</a>
 </div>
 <ul class="breadcrumb">
 <li>
@@ -736,10 +831,16 @@ Design Pattern : Decorator</p>
 <div id="NewContractCollector" class="element ajax clickable class">
 <h1>NewContractCollector<a href="../classes/Trismegiste.Mondrian.Visitor.NewContractCollector.html">¶</a>
 </h1>
-<p class="short_description">NewContractCollector gather classe which needs to be refactor with a
-contract</p>
+<p class="short_description">NewContractCollector gather classe which needs to be refactor with a contract.</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Visitor.NewContractCollector.html" class="more">« More »</a>
+</div>
+<div id="NewInstanceRefactor" class="element ajax clickable class">
+<h1>NewInstanceRefactor<a href="../classes/Trismegiste.Mondrian.Visitor.NewInstanceRefactor.html">¶</a>
+</h1>
+<p class="short_description">NewInstanceRefactor is a generator of method for each new instance</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Visitor.NewInstanceRefactor.html" class="more">« More »</a>
 </div>
 <div id="ParamRefactor" class="element ajax clickable class">
 <h1>ParamRefactor<a href="../classes/Trismegiste.Mondrian.Visitor.ParamRefactor.html">¶</a>
@@ -784,7 +885,7 @@ and build the graph with the help of a Context</p>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-04-30T14:19:27+02:00.<br></footer></div>
+            generated on 2013-05-10T14:44:16+02:00.<br></footer></div>
 </div>
 </body>
 </html>

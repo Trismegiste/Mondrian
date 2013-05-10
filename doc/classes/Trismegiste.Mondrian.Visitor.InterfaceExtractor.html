@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">263</span></a></li>
+                <span class="label label-info">292</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">1</span>
@@ -60,34 +60,26 @@
                     <ul>
 <li class="method public "><a href="#method___construct" title="__construct :: "><span class="description">__construct()
         </span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_beforeTraverse" title="beforeTraverse :: "><span class="description">beforeTraverse()
-        </span><pre>beforeTraverse()</pre></a></li>
+<li class="method public "><a href="#method_afterTraverse" title="afterTraverse :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>afterTraverse()</pre></a></li>
+<li class="method public "><a href="#method_beforeTraverse" title="beforeTraverse :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>beforeTraverse()</pre></a></li>
 <li class="method public inherited"><a href="#method_enterNode" title="enterNode :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>enterNode()</pre></a></li>
-<li class="method public "><a href="#method_getGenerated" title="getGenerated :: "><span class="description">getGenerated()
-        </span><pre>getGenerated()</pre></a></li>
-<li class="method public "><a href="#method_hasGenerated" title="hasGenerated :: "><span class="description">hasGenerated()
-        </span><pre>hasGenerated()</pre></a></li>
-<li class="method public "><a href="#method_isModified" title="isModified :: Is this pass has changed the parsed content ?"><span class="description">Is this pass has changed the parsed content ?</span><pre>isModified()</pre></a></li>
 <li class="method public "><a href="#method_leaveNode" title="leaveNode :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>leaveNode()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header protected">» Protected
                     <ul>
-<li class="method protected "><a href="#method_buildNewInterface" title="buildNewInterface :: "><span class="description">buildNewInterface()
-        </span><pre>buildNewInterface()</pre></a></li>
+<li class="method protected "><a href="#method_buildNewInterface" title="buildNewInterface :: Build the new PhpFile for the new contract"><span class="description">Build the new PhpFile for the new contract</span><pre>buildNewInterface()</pre></a></li>
 <li class="method protected "><a href="#method_enterClassNode" title="enterClassNode :: Visits a class node"><span class="description">Visits a class node</span><pre>enterClassNode()</pre></a></li>
 <li class="method protected "><a href="#method_enterInterfaceNode" title="enterInterfaceNode :: Visits an interface node"><span class="description">Visits an interface node</span><pre>enterInterfaceNode()</pre></a></li>
 <li class="method protected "><a href="#method_enterPublicMethodNode" title="enterPublicMethodNode :: Visits a public method node"><span class="description">Visits a public method node</span><pre>enterPublicMethodNode()</pre></a></li>
-<li class="method protected "><a href="#method_enterStandardMethod" title="enterStandardMethod :: "><span class="description">enterStandardMethod()
-        </span><pre>enterStandardMethod()</pre></a></li>
+<li class="method protected "><a href="#method_enterStandardMethod" title="enterStandardMethod :: Stacks the method for the new interface"><span class="description">Stacks the method for the new interface</span><pre>enterStandardMethod()</pre></a></li>
 <li class="method protected inherited"><a href="#method_extractAnnotation" title="extractAnnotation :: Extracts annotations in the comment of a statement and injects them in
 attribute of the node"><span class="description">Extracts annotations in the comment of a statement and injects them in
 attribute of the node</span><pre>extractAnnotation()</pre></a></li>
 <li class="method protected inherited"><a href="#method_getCurrentMethodIndex" title="getCurrentMethodIndex :: the vertex name for a MethodVertex"><span class="description">the vertex name for a MethodVertex</span><pre>getCurrentMethodIndex()</pre></a></li>
-<li class="method protected inherited"><a href="#method_getNamespacedName" title="getNamespacedName :: "><span class="description">getNamespacedName()
-        </span><pre>getNamespacedName()</pre></a></li>
-<li class="method protected inherited"><a href="#method_resolveClassName" title="resolveClassName :: "><span class="description">resolveClassName()
-        </span><pre>resolveClassName()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getNamespacedName" title="getNamespacedName :: Helper : get the FQCN of the given $node-&gt;name"><span class="description">Helper : get the FQCN of the given $node-&gt;name</span><pre>getNamespacedName()</pre></a></li>
+<li class="method protected inherited"><a href="#method_resolveClassName" title="resolveClassName :: resolve the Name with current namespace and alias"><span class="description">resolve the Name with current namespace and alias</span><pre>resolveClassName()</pre></a></li>
+<li class="method protected "><a href="#method_writeUpdated" title="writeUpdated :: Write a list of PhpFile"><span class="description">Write a list of PhpFile</span><pre>writeUpdated()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
@@ -100,6 +92,8 @@ attribute of the node</span><pre>extractAnnotation()</pre></a></li>
 <li class="property protected "><a href="#property_context" title="$context :: "><span class="description"></span><pre>$context</pre></a></li>
 <li class="property protected inherited"><a href="#property_currentClass" title="$currentClass :: "><span class="description"></span><pre>$currentClass</pre></a></li>
 <li class="property protected inherited"><a href="#property_currentMethod" title="$currentMethod :: "><span class="description"></span><pre>$currentMethod</pre></a></li>
+<li class="property protected inherited"><a href="#property_currentPhpFile" title="$currentPhpFile :: current file"><span class="description"></span><pre>$currentPhpFile</pre></a></li>
+<li class="property protected "><a href="#property_dumper" title="$dumper :: "><span class="description"></span><pre>$dumper</pre></a></li>
 <li class="property protected "><a href="#property_methodStack" title="$methodStack :: "><span class="description"></span><pre>$methodStack</pre></a></li>
 <li class="property protected inherited"><a href="#property_namespace" title="$namespace :: "><span class="description">Current namespace</span><pre>$namespace</pre></a></li>
 <li class="property protected "><a href="#property_newContent" title="$newContent :: "><span class="description"></span><pre>$newContent</pre></a></li>
@@ -133,17 +127,27 @@ attribute of the node</span><pre>extractAnnotation()</pre></a></li>
 <a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
 <h2>__construct()
         </h2>
-<pre>__construct(\Trismegiste\Mondrian\Refactor\Refactored $ctx) </pre>
+<pre>__construct(\Trismegiste\Mondrian\Refactor\Refactored $ctx, \Trismegiste\Mondrian\Parser\PhpPersistence $callable) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument"><h4>$ctx</h4></div>
+<div class="subelement argument"><h4>$callable</h4></div>
+</div></div>
+</div>
+<a id="method_afterTraverse"></a><div class="element clickable method public method_afterTraverse" data-toggle="collapse" data-target=".method_afterTraverse .collapse">
+<h2>{@inheritDoc}</h2>
+<pre>afterTraverse(array $node) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$node</h4></div>
 </div></div>
 </div>
 <a id="method_beforeTraverse"></a><div class="element clickable method public method_beforeTraverse" data-toggle="collapse" data-target=".method_beforeTraverse .collapse">
-<h2>beforeTraverse()
-        </h2>
+<h2>{@inheritDoc}</h2>
 <pre>beforeTraverse(array $nodes) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
@@ -166,30 +170,6 @@ attribute of the node</span><pre>extractAnnotation()</pre></a></li>
 <div class="subelement argument"><h4>$node</h4></div>
 </div></div>
 </div>
-<a id="method_getGenerated"></a><div class="element clickable method public method_getGenerated" data-toggle="collapse" data-target=".method_getGenerated .collapse">
-<h2>getGenerated()
-        </h2>
-<pre>getGenerated() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="method_hasGenerated"></a><div class="element clickable method public method_hasGenerated" data-toggle="collapse" data-target=".method_hasGenerated .collapse">
-<h2>hasGenerated()
-        </h2>
-<pre>hasGenerated() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="method_isModified"></a><div class="element clickable method public method_isModified" data-toggle="collapse" data-target=".method_isModified .collapse">
-<h2>Is this pass has changed the parsed content ?</h2>
-<pre>isModified() : bool</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>bool</code></div>
-</div></div>
-</div>
 <a id="method_leaveNode"></a><div class="element clickable method public method_leaveNode" data-toggle="collapse" data-target=".method_leaveNode .collapse">
 <h2>{@inheritDoc}</h2>
 <pre>leaveNode(\PHPParser_Node $node) </pre>
@@ -201,11 +181,19 @@ attribute of the node</span><pre>extractAnnotation()</pre></a></li>
 </div></div>
 </div>
 <a id="method_buildNewInterface"></a><div class="element clickable method protected method_buildNewInterface" data-toggle="collapse" data-target=".method_buildNewInterface .collapse">
-<h2>buildNewInterface()
-        </h2>
-<pre>buildNewInterface() </pre>
+<h2>Build the new PhpFile for the new contract</h2>
+<pre>buildNewInterface() : <a href="../classes/Trismegiste.Mondrian.Parser.PhpFile.html">\Trismegiste\Mondrian\Parser\PhpFile</a></pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="http://php.net/manual/en/class.runtimeexception.php">\RuntimeException</a></code></th>
+<td>If no inside a PhpFile (WAT?)</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Trismegiste.Mondrian.Parser.PhpFile.html">\Trismegiste\Mondrian\Parser\PhpFile</a></code></div>
+</div></div>
 </div>
 <a id="method_enterClassNode"></a><div class="element clickable method protected method_enterClassNode" data-toggle="collapse" data-target=".method_enterClassNode .collapse">
 <h2>Visits a class node</h2>
@@ -247,14 +235,16 @@ attribute of the node</span><pre>extractAnnotation()</pre></a></li>
 </div></div>
 </div>
 <a id="method_enterStandardMethod"></a><div class="element clickable method protected method_enterStandardMethod" data-toggle="collapse" data-target=".method_enterStandardMethod .collapse">
-<h2>enterStandardMethod()
-        </h2>
+<h2>Stacks the method for the new interface</h2>
 <pre>enterStandardMethod(\PHPParser_Node_Stmt_ClassMethod $node) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$node</h4></div>
+<div class="subelement argument">
+<h4>$node</h4>
+<code>\PHPParser_Node_Stmt_ClassMethod</code>
+</div>
 </div></div>
 </div>
 <a id="method_extractAnnotation"></a><div class="element clickable method protected method_extractAnnotation" data-toggle="collapse" data-target=".method_extractAnnotation .collapse">
@@ -271,7 +261,7 @@ attribute of the node</h2>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$node</h4>
-<code>\PHPParser_Node_Stmt_ClassMethod</code>
+<code>\PHPParser_Node_Stmt</code>
 </div>
 </div></div>
 </div>
@@ -290,9 +280,8 @@ attribute of the node</h2>
 </div></div>
 </div>
 <a id="method_getNamespacedName"></a><div class="element clickable method protected method_getNamespacedName" data-toggle="collapse" data-target=".method_getNamespacedName .collapse">
-<h2>getNamespacedName()
-        </h2>
-<pre>getNamespacedName(\PHPParser_Node $node) </pre>
+<h2>Helper : get the FQCN of the given $node-&gt;name</h2>
+<pre>getNamespacedName(\PHPParser_Node $node) : string</pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -307,13 +296,17 @@ attribute of the node</h2>
 </tr>
 </table>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$node</h4></div>
+<div class="subelement argument">
+<h4>$node</h4>
+<code>\PHPParser_Node</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <a id="method_resolveClassName"></a><div class="element clickable method protected method_resolveClassName" data-toggle="collapse" data-target=".method_resolveClassName .collapse">
-<h2>resolveClassName()
-        </h2>
-<pre>resolveClassName(\PHPParser_Node_Name $src) </pre>
+<h2>resolve the Name with current namespace and alias</h2>
+<pre>resolveClassName(\PHPParser_Node_Name $src) : \PHPParser_Node_Name | \PHPParser_Node_Name_FullyQualified</pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -328,7 +321,27 @@ attribute of the node</h2>
 </tr>
 </table>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$src</h4></div>
+<div class="subelement argument">
+<h4>$src</h4>
+<code>\PHPParser_Node_Name</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\PHPParser_Node_Name</code><code>\PHPParser_Node_Name_FullyQualified</code>
+</div>
+</div></div>
+</div>
+<a id="method_writeUpdated"></a><div class="element clickable method protected method_writeUpdated" data-toggle="collapse" data-target=".method_writeUpdated .collapse">
+<h2>Write a list of PhpFile</h2>
+<pre>writeUpdated(array $fileList) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$fileList</h4>
+<code>array</code>
+</div>
 </div></div>
 </div>
 <h3>
@@ -381,6 +394,30 @@ attribute of the node</h2>
 </tr></table>
 </div></div>
 </div>
+<a id="property_currentPhpFile"> </a><div class="element clickable property protected property_currentPhpFile" data-toggle="collapse" data-target=".property_currentPhpFile .collapse">
+<h2></h2>
+<pre>$currentPhpFile </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::$$currentPhpFile</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$currentPhpFile</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_dumper"> </a><div class="element clickable property protected property_dumper" data-toggle="collapse" data-target=".property_dumper .collapse">
+<h2></h2>
+<pre>$dumper </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
 <a id="property_methodStack"> </a><div class="element clickable property protected property_methodStack" data-toggle="collapse" data-target=".property_methodStack .collapse">
 <h2></h2>
 <pre>$methodStack </pre>
@@ -424,7 +461,7 @@ attribute of the node</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-04-30T14:19:27+02:00.<br></footer></div>
+            generated on 2013-05-10T14:44:16+02:00.<br></footer></div>
 </div>
 </body>
 </html>

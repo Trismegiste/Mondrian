@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">263</span></a></li>
+                <span class="label label-info">292</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">1</span>
@@ -66,10 +66,8 @@
 </li>
 <li class="nav-header protected">» Protected
                     <ul>
-<li class="method protected "><a href="#method_getNamespacedName" title="getNamespacedName :: "><span class="description">getNamespacedName()
-        </span><pre>getNamespacedName()</pre></a></li>
-<li class="method protected "><a href="#method_resolveClassName" title="resolveClassName :: "><span class="description">resolveClassName()
-        </span><pre>resolveClassName()</pre></a></li>
+<li class="method protected "><a href="#method_getNamespacedName" title="getNamespacedName :: Helper : get the FQCN of the given $node-&gt;name"><span class="description">Helper : get the FQCN of the given $node-&gt;name</span><pre>getNamespacedName()</pre></a></li>
+<li class="method protected "><a href="#method_resolveClassName" title="resolveClassName :: resolve the Name with current namespace and alias"><span class="description">resolve the Name with current namespace and alias</span><pre>resolveClassName()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header">
@@ -79,6 +77,7 @@
 <li class="nav-header protected">» Protected
                     <ul>
 <li class="property protected "><a href="#property_aliases" title="$aliases :: "><span class="description">Currently defined namespace and class aliases</span><pre>$aliases</pre></a></li>
+<li class="property protected "><a href="#property_currentPhpFile" title="$currentPhpFile :: current file"><span class="description"></span><pre>$currentPhpFile</pre></a></li>
 <li class="property protected "><a href="#property_namespace" title="$namespace :: "><span class="description">Current namespace</span><pre>$namespace</pre></a></li>
 </ul>
 </li>
@@ -129,25 +128,35 @@
 </div></div>
 </div>
 <a id="method_getNamespacedName"></a><div class="element clickable method protected method_getNamespacedName" data-toggle="collapse" data-target=".method_getNamespacedName .collapse">
-<h2>getNamespacedName()
-        </h2>
-<pre>getNamespacedName(\PHPParser_Node $node) </pre>
+<h2>Helper : get the FQCN of the given $node-&gt;name</h2>
+<pre>getNamespacedName(\PHPParser_Node $node) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$node</h4></div>
+<div class="subelement argument">
+<h4>$node</h4>
+<code>\PHPParser_Node</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
 <a id="method_resolveClassName"></a><div class="element clickable method protected method_resolveClassName" data-toggle="collapse" data-target=".method_resolveClassName .collapse">
-<h2>resolveClassName()
-        </h2>
-<pre>resolveClassName(\PHPParser_Node_Name $src) </pre>
+<h2>resolve the Name with current namespace and alias</h2>
+<pre>resolveClassName(\PHPParser_Node_Name $src) : \PHPParser_Node_Name | \PHPParser_Node_Name_FullyQualified</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
-<div class="subelement argument"><h4>$src</h4></div>
+<div class="subelement argument">
+<h4>$src</h4>
+<code>\PHPParser_Node_Name</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\PHPParser_Node_Name</code><code>\PHPParser_Node_Name_FullyQualified</code>
+</div>
 </div></div>
 </div>
 <h3>
@@ -155,6 +164,12 @@
 <a id="property_aliases"> </a><div class="element clickable property protected property_aliases" data-toggle="collapse" data-target=".property_aliases .collapse">
 <h2>Currently defined namespace and class aliases</h2>
 <pre>$aliases : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_currentPhpFile"> </a><div class="element clickable property protected property_currentPhpFile" data-toggle="collapse" data-target=".property_currentPhpFile .collapse">
+<h2></h2>
+<pre>$currentPhpFile </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
@@ -171,7 +186,7 @@
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-04-30T14:19:27+02:00.<br></footer></div>
+            generated on 2013-05-10T14:44:16+02:00.<br></footer></div>
 </div>
 </body>
 </html>
