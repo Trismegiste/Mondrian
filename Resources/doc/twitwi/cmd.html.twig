@@ -44,19 +44,24 @@
             "track" the type of a given variable. I've tried some simplistic approach
             but in the end, when you have a line like :
             <pre>call_user_func(array($this->$$objName, $methodName));</pre>
-            You have a good chance to mistake on the type. That's why, I have add
-            some annotations to put in your code to remove bad link and add some other.
+            You have a good chance to mistake on the type. That's why, I've dismissed any
+            chance to analyse that and came up with a fine-tuning configuration stored
+            in a file to remove bad link (and add some other).
         </p>
         <p>
-            Currently, there is an annotation (a comment) to put
-            in your code in the header of the method where a calling is done :
+            You have to add a file named "<strong>.mondrian.yml</strong>" (don't forget the dot)
+            in the package root directory. Here is a sample :
             <pre>
-/**
- * @mondrian ignoreCallTo MyProject\MyClass::someMethod
- */</pre>
-            It means the current implementation will not be linked with the specified method.<br/>
-            See a sample in
-            <a href="https://github.com/Trismegiste/Mondrian/blob/master/Tests/Fixtures/Project/FilterIgnoreCallTo.php#L45">unit tests</a>
+graph:
+    calling:
+        TheCalleeClass::thisMethodIsTheCaller:
+            ignore:
+                - OneCalledClass::thisMethodWillBeIgnored
+                - OneOtherCalledClass::thisMethodWillBeIgnoredToo
+</pre>
+            It means the method "thisMethodIsTheCaller" will not be linked with OneCalledClass::thisMethodWillBeIgnored
+            if there is any calling. All other classes with the same method will be linked, except if the command successfuly
+            discriminate the right type (very few obvious case like "this" and typehinted parameters of the method).
         </p>
 
     </div>
