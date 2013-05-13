@@ -57,7 +57,7 @@ class HiddenCoupling extends BreadthFirstSearch implements Generator
      * in O(n³)
      *
      */
-    public function createReducedGraph() 
+    public function createReducedGraph()
     {
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
         $dependency = $this->getEdgeSet();

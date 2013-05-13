@@ -24,7 +24,7 @@ class FilterCallingUnknown
     // plus 1 vertex and 2 edges for the parameter (no type found => no edge)
     public function decorate(Unknown $obj)
     {
-        // plus 1 edge cause typing is bad 
+        // plus 1 edge cause typing is bad
         // therefore the fallback links with methods of same name.
         return $obj->getTitle();
     }

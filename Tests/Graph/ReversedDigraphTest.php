@@ -41,7 +41,7 @@ class ReversedDigraphTest extends \PHPUnit_Framework_TestCase
         $reversed = $this->graph->getReversed();
         $this->assertCount($card, $reversed->getVertexSet());
         $this->assertCount($card * ($card - 1) / 2, $reversed->getEdgeSet());
-        
+
         $newGraph = new ReversedDigraph($reversed);
         $origin = $newGraph->getReversed();
         $this->assertEquals($this->graph->getVertexSet(), $origin->getVertexSet());

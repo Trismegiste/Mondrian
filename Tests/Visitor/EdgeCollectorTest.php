@@ -9,16 +9,16 @@ namespace Trismegiste\Mondrian\Tests\Visitor;
 use Trismegiste\Mondrian\Visitor\EdgeCollector;
 
 /**
- * EdgeCollectorTest is simple tests for EdgeCollector visitor. Tests the 
+ * EdgeCollectorTest is simple tests for EdgeCollector visitor. Tests the
  * grammar implementation of digraph.
- * 
+ *
  * Vocabulary :
  *  * C : Class
  *  * I : Interface
  *  * M : Method signature
  *  * P : Param
  *  * S : Method Implementation
- * 
+ *
  */
 class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
 {

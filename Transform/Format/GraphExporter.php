@@ -14,5 +14,5 @@ use Trismegiste\Mondrian\Graph\Algorithm;
  */
 abstract class GraphExporter extends Algorithm implements ExporterInterface
 {
-    
+
 }

@@ -18,9 +18,9 @@ class Loader extends SymfonyLoader
     protected $default = '.mondrian.yml';
 
     /**
-     * 
+     *
      * @param string $resource the directory which owns the .mondrian.yml file
-     * 
+     *
      * @return array the config
      */
     public function load($resource, $type = null)
@@ -29,8 +29,8 @@ class Loader extends SymfonyLoader
     }
 
     /**
-     * Does this loader support 
-     * 
+     * Does this loader support
+     *
      * @param string $resource directory path
      *
      * @return bool true if the config file is here

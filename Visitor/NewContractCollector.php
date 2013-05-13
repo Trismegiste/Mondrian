@@ -9,8 +9,8 @@ namespace Trismegiste\Mondrian\Visitor;
 use Trismegiste\Mondrian\Refactor\Refactored;
 
 /**
- * NewContractCollector gather classe which needs to be refactor with a contract. 
- * 
+ * NewContractCollector gather classe which needs to be refactor with a contract.
+ *
  * Adds the new interface so changes could be made to the current PhpFile
  */
 class NewContractCollector extends PublicCollector
@@ -42,7 +42,7 @@ class NewContractCollector extends PublicCollector
      */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-        
+
     }
 
     /**
@@ -50,7 +50,7 @@ class NewContractCollector extends PublicCollector
      */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
-        
+
     }
 
 }

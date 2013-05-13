@@ -64,6 +64,6 @@ interface Graph
      * @return Iterator
      */
     function getEdgeIterator(Vertex $v);
-    
+
     function getPartition();
 }

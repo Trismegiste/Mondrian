@@ -20,7 +20,7 @@ class Graphviz extends GraphExporter
     {
         return new Digraph('PhpGraph');
     }
-    
+
     public function export()
     {
         $default = array('fixedsize' => true, 'width' => 2, 'height' => 2);

@@ -70,7 +70,7 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
 
     /**
      * resolve the Name with current namespace and alias
-     * 
+     *
      * @param \PHPParser_Node_Name $src
      * @return \PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
      */
@@ -100,7 +100,7 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
 
     /**
      * Helper : get the FQCN of the given $node->name
-     * 
+     *
      * @param PHPParser_Node $node
      * @return string
      */

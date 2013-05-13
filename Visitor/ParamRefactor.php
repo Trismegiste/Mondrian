@@ -10,7 +10,7 @@ use Trismegiste\Mondrian\Refactor\Refactored;
 
 /**
  * ParamRefactor replaces the class of a param by its contract
- * 
+ *
  * Changes could be made to the current PhpFile
  */
 class ParamRefactor extends FqcnHelper
@@ -37,7 +37,7 @@ class ParamRefactor extends FqcnHelper
 
     /**
      * Visit a Param Node
-     * 
+     *
      * @param \PHPParser_Node_Param $node
      */
     protected function enterParam(\PHPParser_Node_Param $node)

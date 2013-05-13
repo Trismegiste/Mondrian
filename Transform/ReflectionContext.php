@@ -10,7 +10,7 @@ use Trismegiste\Mondrian\Graph\Graph;
 
 /**
  * ReflectionContext is a context for Reflection on types
- * 
+ *
  * Responsible for maintaining a list of methods, classes and interfaces used
  * for building inheritance links in a digraph
  */
@@ -21,8 +21,8 @@ class ReflectionContext
 
     /**
      * Build the context
-     * 
-     * @param Graph $g 
+     *
+     * @param Graph $g
      */
     public function __construct()
     {
@@ -32,7 +32,7 @@ class ReflectionContext
     /**
      * Construct the inheritanceMap by resolving which class or interface
      * first declares a method
-     * 
+     *
      * (not vey efficient algo, I admit), it sux, it's redundent, I don't like it
      */
     public function resolveSymbol()
@@ -75,14 +75,14 @@ class ReflectionContext
 
     /**
      * Find if method is declared in superclass.
-     * 
+     *
      * Note1: Algo is DFS
      * Note2: Must be called AFTER resolveSymbol
      * Note3: this one is kewl, I don't know why it works at the first try
-     * 
+     *
      * @param string $cls
      * @param string $method
-     * 
+     *
      * @return string the class which first declares the method (or null)
      */
     public function findMethodInInheritanceTree($cls, $method)
@@ -103,7 +103,7 @@ class ReflectionContext
 
     /**
      * Initialize a new symbol
-     * 
+     *
      * @param string $name class or interface name
      * @param bool $isInterface is interface ?
      */
@@ -118,7 +118,7 @@ class ReflectionContext
 
     /**
      * Stacks a parent type for a type
-     * 
+     *
      * @param string $cls the type
      * @param string $parent the parent type of $cls
      */
@@ -128,11 +128,11 @@ class ReflectionContext
     }
 
     /**
-     * Add a method to its type with the current type 
+     * Add a method to its type with the current type
      * for its default declaring type (after resolveSymbol, it changes)
-     * 
+     *
      * @param string $cls
-     * @param string $method 
+     * @param string $method
      */
     public function addMethodToClass($cls, $method)
     {
@@ -143,7 +143,7 @@ class ReflectionContext
      * Search if a type (class or interface) exists in the inheritanceMap
      *
      * @param string $cls
-     * 
+     *
      * @return bool
      */
     public function hasDeclaringClass($cls)
@@ -156,7 +156,7 @@ class ReflectionContext
      *
      * @param string $cls subclass name
      * @param string $meth method name
-     * 
+     *
      * @return string
      */
     public function getDeclaringClass($cls, $meth)
@@ -168,7 +168,7 @@ class ReflectionContext
      * Is FQCN an interface ?
      *
      * @param string $cls FQCN
-     * 
+     *
      * @return bool
      */
     public function isInterface($cls)

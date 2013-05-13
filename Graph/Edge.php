@@ -18,9 +18,9 @@ class Edge
     /**
      * Since edge has one source vertex and one target vertex
      * it is builded with two vertices in its constructor
-     * 
+     *
      * @param Vertex $from
-     * @param Vertex $to 
+     * @param Vertex $to
      */
     public function __construct(Vertex $from, Vertex $to)
     {
@@ -30,7 +30,7 @@ class Edge
 
     /**
      * Get the source vertex
-     * 
+     *
      * @return Vertex
      */
     public function getSource()
@@ -40,7 +40,7 @@ class Edge
 
     /**
      * Get the target vertex
-     * 
+     *
      * @return Vertex
      */
     public function getTarget()

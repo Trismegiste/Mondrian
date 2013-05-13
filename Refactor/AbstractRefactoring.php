@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Parser\PhpPersistence;
 
 /**
  * Design pattern : Template Method
- * 
+ *
  * This is a template for a refactoring service
  */
 abstract class AbstractRefactoring
@@ -22,7 +22,7 @@ abstract class AbstractRefactoring
 
     /**
      * Build the service with a dumper for writing file
-     * 
+     *
      * @param \Trismegiste\Mondrian\Parser\PhpPersistence $dumper
      */
     public function __construct(PhpPersistence $dumper)
@@ -32,7 +32,7 @@ abstract class AbstractRefactoring
 
     /**
      * Parse and refactor
-     *  
+     *
      * @param \Iterator $iter list of SplFileInfo
      */
     public function refactor(\Iterator $iter)
@@ -52,7 +52,7 @@ abstract class AbstractRefactoring
 
     /**
      * Build the refactoring passes
-     * 
+     *
      * @return FqcnHelper[]
      */
     abstract protected function buildRefactoringPass();

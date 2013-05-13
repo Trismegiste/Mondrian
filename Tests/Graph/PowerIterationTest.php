@@ -53,7 +53,7 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider loop
-     * @param type $iter 
+     * @param type $iter
      */
     public function testEigenSparse($iter)
     {

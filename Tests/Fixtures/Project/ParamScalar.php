@@ -7,7 +7,7 @@ class ParamScalar
 
     public function methodWithScalar(array $param)
     {
-        
+
     }
 
 }

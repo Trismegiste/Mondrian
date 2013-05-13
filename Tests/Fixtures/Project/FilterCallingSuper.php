@@ -18,7 +18,7 @@ class VeryCommonSuper
 
 class SomeService extends VeryCommonSuper
 {
-    
+
 }
 
 class OtherClass

@@ -18,7 +18,7 @@ use Trismegiste\Mondrian\Parser\PhpDumper;
 /**
  * RefactorCommand recursively scans a directory and
  * refactors concrete class with annotations.
- * 
+ *
  * It creates an interface, changes paramters types and adds inheritance
  */
 class RefactorCommand extends Command

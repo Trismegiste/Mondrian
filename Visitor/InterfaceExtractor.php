@@ -65,7 +65,7 @@ class InterfaceExtractor extends PublicCollector
 
     /**
      * Build the new PhpFile for the new contract
-     * 
+     *
      * @return \Trismegiste\Mondrian\Parser\PhpFile
      * @throws \RuntimeException If no inside a PhpFile (WAT?)
      */
@@ -90,7 +90,7 @@ class InterfaceExtractor extends PublicCollector
      */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-        
+
     }
 
     /**
@@ -106,7 +106,7 @@ class InterfaceExtractor extends PublicCollector
 
     /**
      * Stacks the method for the new interface
-     * 
+     *
      * @param \PHPParser_Node_Stmt_ClassMethod $node
      */
     protected function enterStandardMethod(\PHPParser_Node_Stmt_ClassMethod $node)
@@ -129,7 +129,7 @@ class InterfaceExtractor extends PublicCollector
 
     /**
      * Write a list of PhpFile
-     * 
+     *
      * @param array $fileList
      */
     protected function writeUpdated(array $fileList)

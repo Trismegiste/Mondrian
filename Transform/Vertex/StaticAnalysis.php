@@ -46,7 +46,7 @@ abstract class StaticAnalysis extends Vertex implements Vizable, MetaInterface
 
     /**
      * Compacts a FQCN by shortening the full "path"
-     * 
+     *
      * @param string $str the FQCN
      * @return string a compacted form of the FQCN
      */

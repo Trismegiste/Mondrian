@@ -10,8 +10,8 @@ use Trismegiste\Mondrian\Graph\Graph;
 use Trismegiste\Mondrian\Graph\Vertex;
 
 /**
- * GraphContext is a context for building a graph. 
- * Indexing the vertices by name 
+ * GraphContext is a context for building a graph.
+ * Indexing the vertices by name
  */
 class GraphContext
 {
@@ -21,8 +21,8 @@ class GraphContext
 
     /**
      * Build the context
-     * 
-     * @param Graph $g 
+     *
+     * @param Graph $g
      */
     public function __construct(array $cfg)
     {
@@ -42,7 +42,7 @@ class GraphContext
      *
      * @param string $type
      * @param string $key
-     * 
+     *
      * @return Vertex or null
      */
     public function findVertex($type, $key)
@@ -55,11 +55,11 @@ class GraphContext
 
     /**
      * Returns if a vertex of the type $type with the index $key exists
-     * 
+     *
      * @param string $type
      * @param string $key
-     * 
-     * @return bool 
+     *
+     * @return bool
      */
     public function existsVertex($type, $key)
     {
@@ -68,10 +68,10 @@ class GraphContext
 
     /**
      * Find all methods with the same name whatever its class
-     * 
+     *
      * @param string $method
-     * 
-     * @return Vertex[] 
+     *
+     * @return Vertex[]
      */
     public function findAllMethodSameName($method)
     {
@@ -82,7 +82,7 @@ class GraphContext
 
     /**
      * Maintains a hashmap : ( type , index ) => Vertex obj
-     * 
+     *
      * @param string $type [interface|class|method|param|impl]
      * @param string $index the unique index in this type
      * @param Vertex $v the vertex to index
@@ -94,10 +94,10 @@ class GraphContext
 
     /**
      * Get the list of excluded calls for this Class::Method
-     * 
+     *
      * @param string $class
      * @param string $method
-     * 
+     *
      * @return array list of excluded methods "fqcn::methodName"
      */
     public function getExcludedCall($class, $method)

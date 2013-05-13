@@ -14,7 +14,7 @@ class Aliasing extends Marion implements Premonition
 
     public function spokes(Premonition $obj)
     {
-        
+
     }
 
 }

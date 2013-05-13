@@ -62,7 +62,7 @@ class VertexCollector extends PassCollector
      * Adding a new vertex if the method is not already indexed
      * Since it is a method, I'm also adding the parameters
      *
-     * @param \PHPParser_Node_Stmt_ClassMethod $node 
+     * @param \PHPParser_Node_Stmt_ClassMethod $node
      */
     protected function pushMethod(\PHPParser_Node_Stmt_ClassMethod $node)
     {
@@ -80,7 +80,7 @@ class VertexCollector extends PassCollector
     /**
      * Adding a new vertex if the implementation is not already indexed
      *
-     * @param \PHPParser_Node_Stmt_ClassMethod $node 
+     * @param \PHPParser_Node_Stmt_ClassMethod $node
      */
     protected function pushImplementation(\PHPParser_Node_Stmt_ClassMethod $node)
     {
@@ -93,13 +93,13 @@ class VertexCollector extends PassCollector
     }
 
     /**
-     * Add a parameter vertex. I must point out that I store the order 
+     * Add a parameter vertex. I must point out that I store the order
      * of the parameter, not its name. Why ? Because, name can change accross
      * inheritance tree. Therefore, it could fail the refactoring of the source
      * from the digraph.
-     * 
+     *
      * @param string $methodName like 'FQCN::method'
-     * @param int $order 
+     * @param int $order
      */
     protected function pushParameter($methodName, $order)
     {

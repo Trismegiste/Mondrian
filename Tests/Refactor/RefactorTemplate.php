@@ -7,7 +7,7 @@
 namespace Trismegiste\Mondrian\Tests\Refactor;
 
 /**
- * RefactorTemplate is an abstract full functional test 
+ * RefactorTemplate is an abstract full functional test
  * for refactor service
  */
 abstract class RefactorTemplate extends \PHPUnit_Framework_TestCase

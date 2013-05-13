@@ -26,10 +26,10 @@ class Grapher
     /**
      * Parse a set of php files and build a digraph with multiple
      * passes by visiting the nodes in source code
-     *  
+     *
      * @param \Iterator $iter list of SplFileInfo
-     * 
-     * @return \Trismegiste\Mondrian\Graph\Digraph 
+     *
+     * @return \Trismegiste\Mondrian\Graph\Digraph
      */
     public function build(\Iterator $iter)
     {

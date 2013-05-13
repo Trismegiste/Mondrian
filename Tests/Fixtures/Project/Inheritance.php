@@ -8,5 +8,5 @@ class Mother {}
 
 class Root extends Mother implements IOne, ITwo
 {
-    
+
 }

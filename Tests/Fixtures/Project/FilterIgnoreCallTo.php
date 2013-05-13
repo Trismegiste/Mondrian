@@ -41,7 +41,7 @@ class FilterCalling
 
     /**
      * 2 vertices and 3 edges for this method
-     * 
+     *
      * the config in the test ignores the call to Project\OtherClass::getTitle
      */
     public function decorate2()

@@ -9,7 +9,7 @@ namespace Trismegiste\Mondrian\Tests\Refactor;
 use Trismegiste\Mondrian\Refactor\Contractor;
 
 /**
- * ContractorTest is an almost full functional test 
+ * ContractorTest is an almost full functional test
  * for Contractor
  */
 class ContractorTest extends RefactorTemplate

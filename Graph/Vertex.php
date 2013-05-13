@@ -16,8 +16,8 @@ class Vertex
 
     /**
      * Construct the vertex with its name (preferably unique)
-     * 
-     * @param string $name 
+     *
+     * @param string $name
      */
     public function __construct($name)
     {

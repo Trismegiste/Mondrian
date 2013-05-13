@@ -10,7 +10,7 @@ use Trismegiste\Mondrian\Transform\ReflectionContext;
 
 /**
  * SymbolMap is a class to collect list of class/interface/method name
- * 
+ *
  * It fills the Context with symbols
  */
 class SymbolMap extends PublicCollector
@@ -20,8 +20,8 @@ class SymbolMap extends PublicCollector
 
     /**
      * Build the collector
-     * 
-     * @param Context $ctx 
+     *
+     * @param Context $ctx
      */
     public function __construct(ReflectionContext $ctx)
     {

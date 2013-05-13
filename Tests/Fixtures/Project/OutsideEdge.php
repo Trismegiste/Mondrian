@@ -7,7 +7,7 @@ class OutsideEdge
 
     public function compute(UnknownParam $param)
     {
-        
+
     }
 
 }

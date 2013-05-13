@@ -15,8 +15,8 @@ class ReversedDigraph extends Algorithm
 
     /**
      * Build the reversed digraph of this digraph
-     * 
-     * @return Digraph 
+     *
+     * @return Digraph
      */
     public function getReversed()
     {

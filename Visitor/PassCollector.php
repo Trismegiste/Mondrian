@@ -14,7 +14,7 @@ use Trismegiste\Mondrian\Graph\Graph;
 /**
  * PassCollector is an abstract compiler pass for visiting source code
  * and build the graph with the help of a Context
- * 
+ *
  * It feels like a Mediator between the two Context and concrete PassCollector
  * (It is not one because Context and concrete PassCollector do not share
  * a common interface)
@@ -85,7 +85,7 @@ abstract class PassCollector extends PublicCollector
     }
 
     /**
-     * Check if the class exists before searching for the 
+     * Check if the class exists before searching for the
      * declaring class of the method, because class could be unknown, outside
      * or code could be bugged
      */
@@ -108,7 +108,7 @@ abstract class PassCollector extends PublicCollector
 
     protected function logFallbackCall($class, $method, $called)
     {
-        
+
     }
 
     protected function getExcludedCall($class, $method)

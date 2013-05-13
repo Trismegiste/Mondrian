@@ -13,7 +13,7 @@ use Trismegiste\Mondrian\Analysis\CodeMetrics;
 /**
  * DigraphCommand transforms a bunch of php files into a digraph
  * and exports it into a report file.
- * 
+ *
  * It make also some code metrics about it.
  *
  */

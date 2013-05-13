@@ -8,10 +8,10 @@ namespace Project;
 
 class Maid
 {
-    
+
 }
 
 interface Peril
 {
-    
+
 }

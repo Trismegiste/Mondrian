@@ -14,5 +14,5 @@ class Nothing
 
 interface ForCodeCoverage
 {
-    
+
 }

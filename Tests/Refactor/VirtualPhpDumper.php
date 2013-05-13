@@ -62,7 +62,7 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
 
     /**
      * Stub for writes
-     * 
+     *
      * @param \Trismegiste\Mondrian\Parser\PhpFile $file
      */
     public function write(PhpFile $file)
