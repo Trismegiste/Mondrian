@@ -23,7 +23,7 @@ class DependCentralityCommand extends AbstractCentrality
 
     protected function getAlgorithm()
     {
-        return 'depend';
+        return 'bottleneck';
     }
 
     protected function createCentrality(Graph $g)

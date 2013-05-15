@@ -47,7 +47,7 @@ abstract class AbstractParse extends Command
     protected function configure()
     {
         $this
-                ->setName('mondrian:' . $this->getSubname())
+                ->setName($this->getSubname())
                 ->setDescription($this->getFullDesc())
                 ->addArgument('dir', InputArgument::REQUIRED, 'The directory to explore')
                 ->addArgument('report', InputArgument::OPTIONAL, 'The filename of the report', 'report')
