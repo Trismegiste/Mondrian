@@ -23,7 +23,7 @@ class UsedCentralityCommand extends AbstractCentrality
 
     protected function getAlgorithm()
     {
-        return 'used';
+        return 'ripple';
     }
 
     protected function createCentrality(Graph $g)

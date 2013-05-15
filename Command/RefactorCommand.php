@@ -27,7 +27,7 @@ class RefactorCommand extends Command
     protected function configure()
     {
         $this
-                ->setName('mondrian:abstract')
+                ->setName('refactor:abstract')
                 ->setDescription('Scans a directory and refactors classes with annotations')
                 ->addArgument('dir', InputArgument::REQUIRED, 'The directory to explore')
                 ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests', 'vendor'));

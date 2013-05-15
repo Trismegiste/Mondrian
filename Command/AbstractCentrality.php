@@ -21,7 +21,7 @@ abstract class AbstractCentrality extends AbstractParse
 
     protected function getSubname()
     {
-        return 'centrality:' . $this->getAlgorithm();
+        return $this->getAlgorithm();
     }
 
     protected function getFullDesc()

@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Trismegiste\\Mondrian": ""
+            "Trismegiste\\Mondrian\\": ""
         }
     },
     "repositories": [ {
