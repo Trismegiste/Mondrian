@@ -77,15 +77,15 @@
         <p>
             This tool is using the Symfony/Console component, it means you have an helper
             when you type :
-            <pre>$ php console.php</pre>
+            <pre>$ php mondrian.php</pre>
         </p>
         <p>
             You have an helper on a command
-            <pre>$ php console.php help mondrian:digraph</pre>
+            <pre>$ php mondrian.php help digraph</pre>
         </p>
         <p>
             And a listing of commands :
-            <pre>$ php console.php list</pre>
+            <pre>$ php mondrian.php list</pre>
         </p>
         <p>
             All commands which generate digraph need a mandatory argument for
@@ -118,7 +118,7 @@
             in a file to remove bad link (and add some other).
         </p>
         <p>
-            You have to add a file named ".mondrian.yml" (don't forget the dot)
+            You have to add a file named "<strong>.mondrian.yml</strong>" (don't forget the dot)
             in the package root directory. Here is a sample :
             <pre>
 graph:
@@ -130,7 +130,7 @@ graph:
 </pre>
             It means the method "thisMethodIsTheCaller" will not be linked with OneCalledClass::thisMethodWillBeIgnored
             if there is any calling. All other classes with the same method will be linked, except if the command successfuly
-            discriminate the right type (very few obvious case like "this" and typehinted parameters of the method.
+            discriminate the right type (very few obvious case like "this" and typehinted parameters of the method).
         </p>
 
     </div>
@@ -141,7 +141,7 @@ graph:
         <p>Generates a digraph on the
             <a href="http://www.graphviz.org/">GraphViz</a>
             format (only .dot, currently other formats are not tested)</p>
-        <pre>$ php console.php mondrian:digraph ~/MyMessyProject</pre>
+        <pre>$ php mondrian.php digraph ~/MyMessyProject</pre>
         <p>
             This digraph is a general picture of the source. If it is too heavy or too messy, you can
             try to generate a smaller one on a deeper directory. The same way you
@@ -190,7 +190,7 @@ graph:
         </p>
         <p>This tool helps you to find two effects on some components:</p>
         <h3>The ripple effect</h3>
-        <pre>$ php console.php mondrian:centrality:used ~/MyMessyProject</pre>
+        <pre>$ php mondrian.php ripple ~/MyMessyProject</pre>
         <p>
             One component (class, parameter, method...) can be highly used accross
             the source code. Each time there is a change in this component, chances
@@ -200,7 +200,7 @@ graph:
             Git.
         </p>
         <h3>The bottleneck effect</h3>
-        <pre>$ php console.php mondrian:centrality:depend ~/MyMessyProject</pre>
+        <pre>$ php mondrian.php bottleneck ~/MyMessyProject</pre>
         <p>
             Do you remember this project where everytime you made a change somewhere,
             THAT class need to be modified too ? The "depend" algorithm finds this
@@ -219,7 +219,7 @@ graph:
             SpaghettiCoupling is an analyser which finds coupling between classes
             with theirs concrete components.
         </p>
-        <pre>$ php console.php mondrian:spaghetti ~/MyProject</pre>
+        <pre>$ php mondrian.php spaghetti ~/MyProject</pre>
         <p>
             Example :<br/>
             In the implementation of the method A::doThing(), there is a call to
@@ -257,7 +257,7 @@ graph:
             This is an analyser which checks and finds hidden coupling
             between types.
         </p>
-        <pre>$ php console.php mondrian:hidden ~/MyProject</pre>
+        <pre>$ php mondrian.php hidden ~/MyProject</pre>
         <p>
             This analyser searches for method calls. Everytime there is a call of
             a method against an object ( $obj->getThing() ), it means an edge from
@@ -292,7 +292,7 @@ graph:
             <a href="http://en.wikipedia.org/wiki/Strongly_connected_component">cycles between vertices</a>
             in the digraph.
         </p>
-        <pre>$ php console.php mondrian:cycle ~/MyProject</pre>
+        <pre>$ php mondrian.php cycle ~/MyProject</pre>
         <p>
             This command uses the
             <a href="http://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm">Tarjan algorithm</a>
@@ -321,7 +321,7 @@ graph:
             <a href="http://en.wikipedia.org/wiki/Interface_segregation_principle">ISP</a>
             in a second pass of refactoring.
         </p>
-        <pre>$ php console.php mondrian:liskov ~/MyProject</pre>
+        <pre>$ php mondrian.php liskov ~/MyProject</pre>
         <p>
             After the graph is reduced, there is centrality algorithm to put colours.
             The most used items are in red and the less are in green. With this,
@@ -349,7 +349,7 @@ graph:
                 <li>it adds the inheritance for <em>NewInterfaceName</em></li>
             </ul>
         </p>
-        <pre>$ php console.php mondrian:abstract ~/MyProject</pre>
+        <pre>$ php mondrian.php refactor:abstract ~/MyProject</pre>
         <p>
             Each interface is stored in the same namespace, neighbour of the
             class in a directory. <em>NewInterfaceName</em> is a short name not a FQCN.
@@ -392,7 +392,7 @@ graph:
             That's why these interfaces are literally "coupling generators", this is
             a seed for spaghetti coupling.
         </p>
-        <pre>$ php console.php mondrian:badcontract ~/MyProject</pre>
+        <pre>$ php mondrian.php badcontract ~/MyProject</pre>
         <p>
             This digraph is reduced to the revelant vertices : interfaces linked to methods
             linked to classes. Parameters and implementations vertices are removed, as
