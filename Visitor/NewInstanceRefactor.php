@@ -19,11 +19,19 @@ class NewInstanceRefactor extends PublicCollector
     protected $dumper;
     protected $currentClassStmts;
 
+    /**
+     * The ctor needs a service for persistence of modified files
+     *
+     * @param \Trismegiste\Mondrian\Parser\PhpPersistence $callable
+     */
     public function __construct(PhpPersistence $callable)
     {
         $this->dumper = $callable;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enterNode(\PHPParser_Node $node)
     {
         parent::enterNode($node);
@@ -33,6 +41,9 @@ class NewInstanceRefactor extends PublicCollector
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function leaveNode(\PHPParser_Node $node)
     {
         switch ($node->getType()) {
@@ -62,6 +73,12 @@ class NewInstanceRefactor extends PublicCollector
         return parent::leaveNode($node);
     }
 
+    /**
+     * Enter in a new instance statement (only process "hard-coded" classname)
+     *
+     * @param \PHPParser_Node_Expr_New $node
+     * @return \PHPParser_Node_Expr_MethodCall|null
+     */
     protected function enterNewInstance(\PHPParser_Node_Expr_New $node)
     {
         if ($node->class instanceof \PHPParser_Node_Name) {
@@ -79,6 +96,9 @@ class NewInstanceRefactor extends PublicCollector
         return null;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
         $this->factoryMethodStack = array();
@@ -86,16 +106,28 @@ class NewInstanceRefactor extends PublicCollector
         $this->currentClassStmts = &$node->stmts;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
 
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
+        // only refactor a method if it contains more than 1 statements (would be pointless otherwise, IMO)
         $this->currentMethodRelevant = count($node->stmts) > 1;
     }
 
+    /**
+     * Writes modified files
+     *
+     * @param array $nodes
+     */
     public function afterTraverse(array $nodes)
     {
         foreach ($nodes as $file) {
@@ -106,3 +138,4 @@ class NewInstanceRefactor extends PublicCollector
     }
 
 }
+
