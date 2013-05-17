@@ -6,9 +6,12 @@
 
 namespace Trismegiste\Mondrian\Tests\Transform;
 
-use Trismegiste\Mondrian\Transform\Grapher;
 use Trismegiste\Mondrian\Graph\Graph;
 use Symfony\Component\Finder\Finder;
+use Trismegiste\Mondrian\Graph\Digraph;
+use Trismegiste\Mondrian\Builder\Linking;
+use Trismegiste\Mondrian\Transform\GraphBuilder;
+use Trismegiste\Mondrian\Builder\Statement\Builder;
 
 /**
  * FullGraphTest is functional tests for Grapher
@@ -16,11 +19,16 @@ use Symfony\Component\Finder\Finder;
 class FullGraphTest extends \PHPUnit_Framework_TestCase
 {
 
-    protected $grapher;
+    protected $graph;
+    protected $compiler;
 
     protected function setUp()
     {
-        $this->grapher = new Grapher(array('calling' => array()));
+        $conf = array('calling' => array());
+
+        $this->graph = new Digraph();
+        $this->compiler = new Linking(
+                new Builder(), new GraphBuilder($conf, $this->graph));
     }
 
     protected function findVertex(Graph $g, $type, $name)
@@ -39,7 +47,8 @@ class FullGraphTest extends \PHPUnit_Framework_TestCase
         $scan = new Finder();
         $scan->files()->in(__DIR__ . '/../Fixtures/Project/');
 
-        $result = $this->grapher->build($scan->getIterator());
+        $this->compiler->run($scan->getIterator());
+        $result = $this->graph;
 
         $classVertex = $this->findVertex($result, $nsVertex . 'ClassVertex', 'Project\Concrete');
         $this->assertNotNull($classVertex);

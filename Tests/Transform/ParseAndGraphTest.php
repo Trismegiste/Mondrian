@@ -6,21 +6,29 @@
 
 namespace Trismegiste\Mondrian\Tests\Transform;
 
-use Trismegiste\Mondrian\Transform\Grapher;
+use Trismegiste\Mondrian\Graph\Digraph;
 use Trismegiste\Mondrian\Graph\Graph;
+use Trismegiste\Mondrian\Builder\Linking;
+use Trismegiste\Mondrian\Transform\GraphBuilder;
+use Trismegiste\Mondrian\Builder\Statement\Builder;
 
 /**
  * GrapherTest tests for Grapher
  *
  */
-class GrapherTest extends \PHPUnit_Framework_TestCase
+class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
 {
 
-    protected $grapher;
+    protected $compiler;
+    protected $graph;
 
     protected function setUp()
     {
-        $this->grapher = new Grapher(array('calling' => array()));
+        $conf = array('calling' => array());
+
+        $this->graph = new Digraph();
+        $this->compiler = new Linking(
+                new Builder(), new GraphBuilder($conf, $this->graph));
     }
 
     protected function callParse()
@@ -36,7 +44,10 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
                     ->will($this->returnValue(file_get_contents(__DIR__ . '/../Fixtures/Project/' . $name)));
             $iter[] = $mockedFile;
         }
-        return $this->grapher->build(new \ArrayIterator($iter));
+
+        $this->compiler->run(new \ArrayIterator($iter));
+
+        return $this->graph;
     }
 
     public function testOneClass()
@@ -267,7 +278,7 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilteringCallWithAnnotations()
     {
-        $this->grapher = new Grapher(array(
+        $conf = array(
             'calling' => array(
                 'Project\FilterCalling::decorate2' => array(
                     'ignore' => array(
@@ -275,7 +286,10 @@ class GrapherTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )
-        ));
+        );
+
+        $this->compiler = new Linking(
+                new Builder(), new GraphBuilder($conf, $this->graph));
 
         $result = $this->testSimpleGraph('FilterIgnoreCallTo.php', 11, 15);
         $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate3');

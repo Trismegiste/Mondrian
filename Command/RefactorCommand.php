@@ -12,8 +12,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Finder\Finder;
-use Trismegiste\Mondrian\Refactor\Contractor;
 use Trismegiste\Mondrian\Parser\PhpDumper;
+use Trismegiste\Mondrian\Builder\Linking;
+use Trismegiste\Mondrian\Builder\Statement\Builder;
+use Trismegiste\Mondrian\Refactor\ContractorBuilder;
 
 /**
  * RefactorCommand recursively scans a directory and
@@ -44,8 +46,11 @@ class RefactorCommand extends Command
                 ->name('*.php')
                 ->exclude($ignoreDir);
 
-        $service = new Contractor(new PhpDumper());
-        $service->refactor($scan->getIterator());
+        $compil = new Linking(
+                new Builder(), 
+                new ContractorBuilder(new PhpDumper()));
+
+        $compil->run($scan->getIterator());
     }
 
 }

@@ -11,10 +11,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
-use Trismegiste\Mondrian\Transform\Grapher;
+use Trismegiste\Mondrian\Builder\Linking;
+use Trismegiste\Mondrian\Builder\Statement\Builder;
+use Trismegiste\Mondrian\Transform\GraphBuilder;
 use Trismegiste\Mondrian\Transform\Format\Factory;
 use Symfony\Component\Finder\Finder;
 use Trismegiste\Mondrian\Graph\Graph;
+use Trismegiste\Mondrian\Graph\Digraph;
 use Trismegiste\Mondrian\Config\Helper;
 
 /**
@@ -71,9 +74,12 @@ abstract class AbstractParse extends Command
                 ->name('*.php')
                 ->exclude($ignoreDir);
 
-        $transformer = new Grapher($this->getConfig($directory));
+        $graph = new Digraph();
+        $fineTuning = $this->getConfig($directory);
+        $compil = new Linking(new Builder(), new GraphBuilder($fineTuning, $graph));
+
         $output->writeln(sprintf("Parsing %d files...", $scan->count()));
-        $graph = $transformer->build($scan->getIterator());
+        $compil->run($scan->getIterator());
 
         $output->writeln(sprintf("Processing digraph with %d vertices and %d edges...", count($graph->getVertexSet()), count($graph->getEdgeSet())));
         $processed = $this->processGraph($graph, $output);

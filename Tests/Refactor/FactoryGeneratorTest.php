@@ -6,17 +6,22 @@
 
 namespace Trismegiste\Mondrian\Tests\Refactor;
 
+use Trismegiste\Mondrian\Builder\Linking;
+use Trismegiste\Mondrian\Builder\Statement\Builder;
+use Trismegiste\Mondrian\Refactor\FactoryGenBuilder;
+
 /**
- * FactoryGeneratorTest is an almost full functional test
- * for FactoryGenerator
+ * ParseAndFactoryTest is an almost full functional test
+ * for FactoryGenBuilder
  */
-class FactoryGeneratorTest extends RefactorTemplate
+class ParseAndFactoryTest extends RefactorTemplate
 {
 
     protected function setUp()
     {
         parent::setUp();
-        $this->coder = new \Trismegiste\Mondrian\Refactor\FactoryGenerator($this->dumper);
+        $this->coder = new Linking(
+                new Builder(), new FactoryGenBuilder($this->dumper));
     }
 
     /**
@@ -25,7 +30,7 @@ class FactoryGeneratorTest extends RefactorTemplate
     public function testGeneration()
     {
         $this->dumper->init(array('ForFactory.php'), $this->once());
-        $this->coder->refactor($this->dumper->getIterator());
+        $this->coder->run($this->dumper->getIterator());
         $this->dumper->compileStorage();
         $this->assertTrue(class_exists('Refact\ForFactory', false));
     }

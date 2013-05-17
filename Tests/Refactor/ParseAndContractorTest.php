@@ -6,19 +6,22 @@
 
 namespace Trismegiste\Mondrian\Tests\Refactor;
 
-use Trismegiste\Mondrian\Refactor\Contractor;
+use Trismegiste\Mondrian\Builder\Linking;
+use Trismegiste\Mondrian\Builder\Statement\Builder;
+use Trismegiste\Mondrian\Refactor\ContractorBuilder;
 
 /**
- * ContractorTest is an almost full functional test
- * for Contractor
+ * ParseAndContractorTest is an almost full functional test
+ * for ContractorBuilder
  */
-class ContractorTest extends RefactorTemplate
+class ParseAndContractorTest extends RefactorTemplate
 {
 
     protected function setUp()
     {
         parent::setUp();
-        $this->coder = new Contractor($this->dumper);
+        $this->coder = new Linking(
+                new Builder(), new ContractorBuilder($this->dumper));
     }
 
     /**
@@ -28,7 +31,7 @@ class ContractorTest extends RefactorTemplate
     {
         $this->dumper->init(array('Earth.php', 'Moon.php'), $this->exactly(4));
 
-        $this->coder->refactor($this->dumper->getIterator());
+        $this->coder->run($this->dumper->getIterator());
         $this->dumper->compileStorage();
         $this->assertTrue(class_exists('Refact\Earth', false));
         $this->assertTrue(class_exists('Refact\Moon', false));
