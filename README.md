@@ -16,10 +16,10 @@ This app provides some helpers to add abstraction into concrete classes
 with minimum pain.
 
 ## Examples
-### Digraph standard on trismegiste/dokudoki
+### Default digraph on trismegiste/dokudoki
 ![digraph1](./Resources/doc/img/sample1.jpg)
 
-### Which components are bottleneck
+### Which components are bottleneck ?
 ![digraph1](./Resources/doc/img/sample2.jpg)
 
 ### Reduced graph to LSP violations on trismegiste/prolog
