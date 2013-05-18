@@ -12,9 +12,29 @@ namespace Trismegiste\Mondrian\Transform\Logger;
 class GraphLogger implements LoggerInterface
 {
 
+    protected $stack = array();
+
     public function logCallTo($callee, $called)
     {
-        
+        $this->stack[$callee][$called] = true;
+    }
+
+    protected function getCallingDigest()
+    {
+        $report = array();
+        ksort($this->stack);
+        foreach ($this->stack as $callee => $calledLst) {
+            $calledLst = array_keys($calledLst);
+            sort($calledLst);
+            $report[$callee] = array('ignore' => $calledLst);
+        }
+
+        return array('calling' => $report);
+    }
+
+    public function getDigest()
+    {
+        return array('graph' => $this->getCallingDigest());
     }
 
 }
