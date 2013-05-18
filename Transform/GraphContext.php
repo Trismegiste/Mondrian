@@ -19,6 +19,7 @@ class GraphContext
 
     protected $vertex;
     protected $fineTuning;
+    protected $buildLogger;
 
     /**
      * Build the context
@@ -38,6 +39,8 @@ class GraphContext
             'method' => array(), 'impl' => array(),
             'param' => array()
         );
+
+        $this->buildLogger = $log;
     }
 
     /**
@@ -111,6 +114,18 @@ class GraphContext
         }
 
         return $ret;
+    }
+
+    /**
+     * Log a call found by the fallback
+     * 
+     * @param string $class
+     * @param string $method
+     * @param string $called
+     */
+    public function logFallbackCall($class, $method, $called)
+    {
+        
     }
 
 }

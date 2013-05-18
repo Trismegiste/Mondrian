@@ -108,7 +108,7 @@ abstract class PassCollector extends PublicCollector
 
     protected function logFallbackCall($class, $method, $called)
     {
-
+        $this->vertexDict->logFallbackCall($class, $method, $called);
     }
 
     protected function getExcludedCall($class, $method)
