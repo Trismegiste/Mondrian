@@ -29,6 +29,11 @@ use Trismegiste\Mondrian\Config\Helper;
 abstract class AbstractParse extends Command
 {
 
+    protected $fineTuning;
+    protected $phpfinder;
+    protected $reportName;
+    protected $reportFormat;
+
     abstract protected function getSubname();
 
     protected function getFullDesc()
@@ -63,32 +68,19 @@ abstract class AbstractParse extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $directory = $input->getArgument('dir');
-        $reportName = $input->getArgument('report');
-        $ignoreDir = $input->getOption('ignore');
-        $ext = $input->getOption('format');
-
-        $scan = new Finder();
-        $scan->files()
-                ->in($directory)
-                ->name('*.php')
-                ->exclude($ignoreDir);
-
         $graph = new Digraph();
-        $fineTuning = $this->getConfig($directory);
-        $compil = new Linking(new Builder(), new GraphBuilder($fineTuning, $graph));
+        $compil = new Linking(new Builder(), new GraphBuilder($this->fineTuning, $graph));
 
-        $output->writeln(sprintf("Parsing %d files...", $scan->count()));
-        $compil->run($scan->getIterator());
+        $output->writeln(sprintf("Parsing %d files...", $this->phpfinder->count()));
+        $compil->run($this->phpfinder->getIterator());
 
         $output->writeln(sprintf("Processing digraph with %d vertices and %d edges...", count($graph->getVertexSet()), count($graph->getEdgeSet())));
         $processed = $this->processGraph($graph, $output);
 
         $ff = new Factory();
-        $dumper = $ff->create($processed, $ext);
-        $reportName = "$reportName.$ext";
-        file_put_contents($reportName, $dumper->export());
-        $output->writeln("Report $reportName created");
+        $dumper = $ff->create($processed, $this->reportFormat);
+        file_put_contents($this->reportName, $dumper->export());
+        $output->writeln("Report $this->reportName created");
     }
 
     /**
@@ -103,6 +95,32 @@ abstract class AbstractParse extends Command
         $helper = new Helper();
 
         return $helper->getGraphConfig($dir);
+    }
+
+    /**
+     * Inject parameters of the command
+     */
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        $directory = $input->getArgument('dir');
+        $ignoreDir = $input->getOption('ignore');
+        $this->fineTuning = $this->getConfig($directory);
+        $this->phpfinder = $this->getPhpFinder($directory, $ignoreDir);
+
+        $this->reportName = $input->getArgument('report');
+        $this->reportFormat = $input->getOption('format');
+        $this->reportName = "$this->reportName.$this->reportFormat";
+    }
+
+    protected function getPhpFinder($directory, $ignoreDir)
+    {
+        $scan = new Finder();
+        $scan->files()
+                ->in($directory)
+                ->name('*.php')
+                ->exclude($ignoreDir);
+
+        return $scan;
     }
 
 }

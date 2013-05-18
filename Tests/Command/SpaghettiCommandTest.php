@@ -35,7 +35,7 @@ class SpaghettiCommandTest extends TestTemplate
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command' => $command->getName(),
-            'dir' => __DIR__ . 'nihil',
+            'dir' => __DIR__,
             '--strategy' => 'loose'
         ));
     }
