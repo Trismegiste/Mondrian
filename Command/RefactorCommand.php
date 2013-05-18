@@ -26,6 +26,8 @@ use Trismegiste\Mondrian\Refactor\ContractorBuilder;
 class RefactorCommand extends Command
 {
 
+    protected $phpfinder;
+
     protected function configure()
     {
         $this
@@ -37,20 +39,25 @@ class RefactorCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $compil = new Linking(
+                new Builder(), new ContractorBuilder(new PhpDumper()));
+
+        $compil->run($this->phpfinder->getIterator());
+    }
+
+    /**
+     * Inject parameters of the command
+     */
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
         $directory = $input->getArgument('dir');
         $ignoreDir = $input->getOption('ignore');
 
-        $scan = new Finder();
-        $scan->files()
+        $this->phpfinder = new Finder();
+        $this->phpfinder->files()
                 ->in($directory)
                 ->name('*.php')
                 ->exclude($ignoreDir);
-
-        $compil = new Linking(
-                new Builder(), 
-                new ContractorBuilder(new PhpDumper()));
-
-        $compil->run($scan->getIterator());
     }
 
 }
