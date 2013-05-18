@@ -11,5 +11,12 @@ namespace Trismegiste\Mondrian\Transform\Logger;
  */
 interface LoggerInterface
 {
-    
+
+    /**
+     * Log a call from a method to a method
+     * 
+     * @param string $callee fqcn::method that makes the invocation
+     * @param type $called the called fqcn:method 
+     */
+    public function logCallTo($callee, $called);
 }

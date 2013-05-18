@@ -11,5 +11,10 @@ namespace Trismegiste\Mondrian\Transform\Logger;
  */
 class NullLogger implements LoggerInterface
 {
-    
+
+    public function logCallTo($callee, $called)
+    {
+        
+    }
+
 }

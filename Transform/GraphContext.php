@@ -125,7 +125,7 @@ class GraphContext
      */
     public function logFallbackCall($class, $method, $called)
     {
-        
+        $this->buildLogger->logCallTo("$class::$method", $called);
     }
 
 }

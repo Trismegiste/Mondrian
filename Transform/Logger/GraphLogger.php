@@ -11,5 +11,10 @@ namespace Trismegiste\Mondrian\Transform\Logger;
  */
 class GraphLogger implements LoggerInterface
 {
-    
+
+    public function logCallTo($callee, $called)
+    {
+        
+    }
+
 }
