@@ -8,6 +8,7 @@ namespace Trismegiste\Mondrian\Transform;
 
 use Trismegiste\Mondrian\Graph\Graph;
 use Trismegiste\Mondrian\Graph\Vertex;
+use Trismegiste\Mondrian\Transform\Logger\LoggerInterface;
 
 /**
  * GraphContext is a context for building a graph.
@@ -22,9 +23,11 @@ class GraphContext
     /**
      * Build the context
      *
-     * @param Graph $g
+     * @param array $cfg the config
+     * @param \Trismegiste\Mondrian\Transform\Logger\LoggerInterface $log a logger
+     * @throws \InvalidArgumentException if config is invalid
      */
-    public function __construct(array $cfg)
+    public function __construct(array $cfg, LoggerInterface $log)
     {
         if (!array_key_exists('calling', $cfg)) {
             throw new \InvalidArgumentException("No 'calling' key in the config param");

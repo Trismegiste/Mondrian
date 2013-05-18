@@ -19,7 +19,7 @@ class GraphContextTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->context = new GraphContext(array('calling' => array()));
+        $this->context = new GraphContext(array('calling' => array()), $this->getLoggerMock());
     }
 
     public function getVertexMock()
@@ -31,6 +31,11 @@ class GraphContextTest extends \PHPUnit_Framework_TestCase
         }
 
         return $v;
+    }
+    
+    protected function getLoggerMock()
+    {
+        return $this->getMock('Trismegiste\Mondrian\Transform\Logger\LoggerInterface');
     }
 
     /**
@@ -80,7 +85,7 @@ class GraphContextTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadConfig()
     {
-        new GraphContext(array());
+        new GraphContext(array(), $this->getLoggerMock());
     }
 
     public function testGoodConfig()
@@ -89,7 +94,7 @@ class GraphContextTest extends \PHPUnit_Framework_TestCase
             'calling' => array(
                 'A::b' => array('ignore' => array('C::d'))
             )
-        ));
+        ), $this->getLoggerMock());
         $this->assertEquals(array('C::d'), $ctx->getExcludedCall('A', 'b'));
     }
 

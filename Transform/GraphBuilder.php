@@ -24,19 +24,36 @@ class GraphBuilder extends AbstractTraverser
     protected $config;
     protected $reflection;
     protected $vertexContext;
+    protected $logger;
 
+    /**
+     * Injecting the external in/out parameters
+     * 
+     * @param array $cfg
+     * @param \Trismegiste\Mondrian\Graph\Graph $g
+     * @param \Trismegiste\Mondrian\Transform\Logger\LoggerInterface $log
+     */
     public function __construct(array $cfg, Graph $g, LoggerInterface $log)
     {
         $this->config = $cfg;
         $this->graphResult = $g;
+        $this->logger = $log;
     }
 
+    /**
+     * Build the context(s) for passes
+     */
     public function buildContext()
     {
         $this->reflection = new ReflectionContext();
-        $this->vertexContext = new GraphContext($this->config);
+        $this->vertexContext = new GraphContext($this->config, $this->logger);
     }
 
+    /**
+     * Build a list of viitor for each pass
+     * 
+     * @return FqcnCollector[] list of passes
+     */
     public function buildCollectors()
     {
         return array(
