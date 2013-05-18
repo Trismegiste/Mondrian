@@ -19,6 +19,7 @@ use Symfony\Component\Finder\Finder;
 use Trismegiste\Mondrian\Graph\Graph;
 use Trismegiste\Mondrian\Graph\Digraph;
 use Trismegiste\Mondrian\Config\Helper;
+use Trismegiste\Mondrian\Transform\Logger\NullLogger;
 
 /**
  * AbstractParse transforms a bunch of php files into a digraph
@@ -69,7 +70,8 @@ abstract class AbstractParse extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $graph = new Digraph();
-        $compil = new Linking(new Builder(), new GraphBuilder($this->fineTuning, $graph));
+        $logger = new NullLogger();
+        $compil = new Linking(new Builder(), new GraphBuilder($this->fineTuning, $graph, $logger));
 
         $output->writeln(sprintf("Parsing %d files...", $this->phpfinder->count()));
         $compil->run($this->phpfinder->getIterator());

@@ -12,6 +12,7 @@ use Trismegiste\Mondrian\Graph\Digraph;
 use Trismegiste\Mondrian\Builder\Linking;
 use Trismegiste\Mondrian\Transform\GraphBuilder;
 use Trismegiste\Mondrian\Builder\Statement\Builder;
+use Trismegiste\Mondrian\Transform\Logger\NullLogger;
 
 /**
  * FullGraphTest is functional tests for Grapher
@@ -28,7 +29,7 @@ class FullGraphTest extends \PHPUnit_Framework_TestCase
 
         $this->graph = new Digraph();
         $this->compiler = new Linking(
-                new Builder(), new GraphBuilder($conf, $this->graph));
+                new Builder(), new GraphBuilder($conf, $this->graph, new NullLogger()));
     }
 
     protected function findVertex(Graph $g, $type, $name)

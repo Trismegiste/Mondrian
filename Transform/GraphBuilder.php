@@ -9,6 +9,7 @@ namespace Trismegiste\Mondrian\Transform;
 use Trismegiste\Mondrian\Graph\Graph;
 use Trismegiste\Mondrian\Visitor;
 use Trismegiste\Mondrian\Builder\Compiler\AbstractTraverser;
+use Trismegiste\Mondrian\Transform\Logger\LoggerInterface;
 
 /**
  * Design Pattern: Builder
@@ -24,7 +25,7 @@ class GraphBuilder extends AbstractTraverser
     protected $reflection;
     protected $vertexContext;
 
-    public function __construct(array $cfg, Graph $g)
+    public function __construct(array $cfg, Graph $g, LoggerInterface $log)
     {
         $this->config = $cfg;
         $this->graphResult = $g;

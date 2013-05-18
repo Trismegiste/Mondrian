@@ -1,11 +1,12 @@
 # TODO
 
 ## Features
- * make other formats (json and xml)
+ * make a command for generation of default config (+ test)
+   * Inject it in a subclass of GraphBuilder
+   * Inject it in a the GraphContext
+   * redirect calling fallback logs to this logger
+   * write the content of the logger in the command
+ 
+ * make a command for FactoryGenerator (+ test)
 
-## Refactor
- 1 Injecting the Digraph in the Grapher (no need to return, then)
- 2 Refactoring the code between Grapher and AbstractRefactor by injecting one 
-   or two builder, it becomes a Director
- 3 create a Builder\Statement and injecting it in the Director
- 4 create a Builder\Compiler and injecting it in the Director
+ * test builder and director

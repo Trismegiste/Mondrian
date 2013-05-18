@@ -11,6 +11,7 @@ use Trismegiste\Mondrian\Graph\Graph;
 use Trismegiste\Mondrian\Builder\Linking;
 use Trismegiste\Mondrian\Transform\GraphBuilder;
 use Trismegiste\Mondrian\Builder\Statement\Builder;
+use Trismegiste\Mondrian\Transform\Logger\NullLogger;
 
 /**
  * GrapherTest tests for Grapher
@@ -28,7 +29,7 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
 
         $this->graph = new Digraph();
         $this->compiler = new Linking(
-                new Builder(), new GraphBuilder($conf, $this->graph));
+                new Builder(), new GraphBuilder($conf, $this->graph, new NullLogger()));
     }
 
     protected function callParse()
@@ -289,7 +290,7 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->compiler = new Linking(
-                new Builder(), new GraphBuilder($conf, $this->graph));
+                new Builder(), new GraphBuilder($conf, $this->graph, new NullLogger()));
 
         $result = $this->testSimpleGraph('FilterIgnoreCallTo.php', 11, 15);
         $impl = $this->findVertex($result, 'ImplVertex', 'Project\FilterCalling::decorate3');
