@@ -20,7 +20,10 @@ class Director
     }
 
     /**
-     * Iterator could injected in the builder... or not ?
+     * Parses a list of php files
+     * 
+     * @param \Iterator $iter an iterator of SplFileInfo
+     * @return array an array of PHPParser_Node
      */
     public function parse(\Iterator $iter)
     {

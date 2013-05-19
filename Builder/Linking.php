@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Builder\Statement;
 /**
  * Linking is making the link between the parser and the compiler
  *
- * It is a kind of director, but with director
+ * It is a kind of director, but with directors and eventually it is a Facade
  */
 class Linking
 {
