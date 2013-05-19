@@ -26,6 +26,7 @@ $application->addCommands(array(
     new Command\CyclicCommand(),
     new Command\LiskovCommand(),
     new Command\ContractorCommand(),
-    new Command\BadInterfaceCommand()
+    new Command\BadInterfaceCommand(),
+    new Command\FactoryGenerator()
 ));
 $application->run();

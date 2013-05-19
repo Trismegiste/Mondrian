@@ -54,12 +54,16 @@ class GraphLoggerTest extends \PHPUnit_Framework_TestCase
     {
         $this->logger->logCallTo('Aaa::b', 'C::d');
         $this->logger->logCallTo('Aaa::b', 'Bbb::e');
-        $this->markTestIncomplete();
+        $report = $this->logger->getDigest();
+        $this->assertEquals('Bbb::e', $report['graph']['calling']['Aaa::b']['ignore'][0]);
     }
 
     public function testSortOnClass()
     {
-        $this->markTestIncomplete();
+        $this->logger->logCallTo('Ab::a', 'C::d');
+        $this->logger->logCallTo('Aaa::b', 'Bbb::e');
+        $report = $this->logger->getDigest();
+        $this->assertEquals('Aaa::b', key($report['graph']['calling']));
     }
 
 }

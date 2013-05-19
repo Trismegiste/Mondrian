@@ -14,6 +14,9 @@ class GraphLogger implements LoggerInterface
 
     protected $stack = array();
 
+    /**
+     * {@inheritdoc}
+     */
     public function logCallTo($callee, $called)
     {
         $this->stack[$callee][$called] = true;
@@ -32,6 +35,11 @@ class GraphLogger implements LoggerInterface
         return array('calling' => $report);
     }
 
+    /**
+     * Get the yml config
+     * 
+     * @return string the yaml-formatted full report
+     */
     public function getDigest()
     {
         return array('graph' => $this->getCallingDigest());
