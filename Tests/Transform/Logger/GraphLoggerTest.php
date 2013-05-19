@@ -50,4 +50,16 @@ class GraphLoggerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('C::d'), $report['graph']['calling']['A::b']['ignore']);
     }
 
+    public function testSortOnMethod()
+    {
+        $this->logger->logCallTo('Aaa::b', 'C::d');
+        $this->logger->logCallTo('Aaa::b', 'Bbb::e');
+        $this->markTestIncomplete();
+    }
+
+    public function testSortOnClass()
+    {
+        $this->markTestIncomplete();
+    }
+
 }

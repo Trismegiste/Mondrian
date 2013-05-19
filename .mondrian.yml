@@ -1,0 +1,11 @@
+graph:
+  calling:
+    'Trismegiste\Mondrian\Builder\Linking::run':
+      ignore:
+        - 'Trismegiste\Mondrian\Parser\PackageParser::parse'
+    'Trismegiste\Mondrian\Builder\Statement\Builder::getParsed':
+      ignore:
+        - 'Trismegiste\Mondrian\Builder\Statement\Director::parse'
+    'Trismegiste\Mondrian\Visitor\NewInstanceRefactor::leaveNode':
+      ignore:
+        - 'Trismegiste\Mondrian\Transform\Vertex\Vizable::getAttribute'

@@ -1,12 +1,7 @@
 # TODO
 
 ## Features
- * make a command for generation of default config (+ test)
-   * Inject it in a subclass of GraphBuilder
-   * Inject it in a the GraphContext
-   * redirect calling fallback logs to this logger
-   * write the content of the logger in the command
- 
+ * AbstractRefactor, mother of refactoring command
+ * 3 folders for analysis, config, refactoring commands
  * make a command for FactoryGenerator (+ test)
-
  * test builder and director
