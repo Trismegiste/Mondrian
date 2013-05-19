@@ -57,8 +57,9 @@ class NewInstanceRefactor extends PublicCollector
                 foreach ($this->factoryMethodStack as $name => $calling) {
                     $factory = new \PHPParser_Node_Stmt_ClassMethod($name);
                     $factory->type = \PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED;
-                    $factory->params = $calling->args;
+                    $factory->params = $this->getProcessedArgument($calling->args);
                     $class = $calling->getAttribute('classShortcut');
+
                     $factory->stmts = array(
                         new \PHPParser_Node_Stmt_Return(
                                 new \PHPParser_Node_Expr_New(new \PHPParser_Node_Name($class), $factory->params)
@@ -71,6 +72,22 @@ class NewInstanceRefactor extends PublicCollector
         }
 
         return parent::leaveNode($node);
+    }
+
+    private function getProcessedArgument(array $args)
+    {
+        $param = array();
+        foreach ($args as $idx => $argument) {
+            if ($argument->value->getType() === 'Expr_Variable') {
+                $paramName = $argument->value->name;
+            } else {
+                $paramName = 'param' . $idx;
+            }
+            $newParam = new \PHPParser_Node_Param($paramName);
+            $param[$idx] = $newParam;
+        }
+
+        return $param;
     }
 
     /**
@@ -111,7 +128,7 @@ class NewInstanceRefactor extends PublicCollector
      */
     protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
     {
-
+        
     }
 
     /**
