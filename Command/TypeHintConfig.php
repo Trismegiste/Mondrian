@@ -28,6 +28,8 @@ use Symfony\Component\Yaml\Yaml;
 class TypeHintConfig extends Command
 {
 
+    const HEADER_CONFIG = "# Mondrian - static code analysis configuration\n# More info at https://github.com/Trismegiste/Mondrian\n";
+
     protected $fineTuning;
     protected $phpfinder;
     protected $newConfigFile;
@@ -53,7 +55,8 @@ class TypeHintConfig extends Command
         $output->writeln(sprintf("Parsing %d files...", $this->phpfinder->count()));
         $compil->run($this->phpfinder->getIterator());
 
-        file_put_contents($this->newConfigFile, Yaml::dump($logger->getDigest(), 5));
+        file_put_contents($this->newConfigFile, self::HEADER_CONFIG );
+        file_put_contents($this->newConfigFile, Yaml::dump($logger->getDigest(), 5), FILE_APPEND);
         $output->writeln("Default config {$this->newConfigFile} created");
     }
 
