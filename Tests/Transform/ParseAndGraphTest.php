@@ -277,7 +277,7 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
         // (there is no signature to call since it's an outer class)
     }
 
-    public function testFilteringCallWithAnnotations()
+    public function testFilteringCallWithFineTuning()
     {
         $conf = array(
             'calling' => array(

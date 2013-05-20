@@ -37,7 +37,7 @@ class AbstractTraverserTest extends \PHPUnit_Framework_TestCase
                 ->method('buildCollectors')
                 ->will($this->returnValue(array($visitor)));
         $visitor
-                ->expects($this->atLeastOnce())
+                ->expects($this->once())
                 ->method('enterNode');
 
         $director = new Director($this->builder);
