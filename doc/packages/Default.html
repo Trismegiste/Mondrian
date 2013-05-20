@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">292</span></a></li>
+                <span class="label label-info">350</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">1</span>
@@ -62,10 +62,13 @@
 </li>
 <li class="nav-header">
 <i class="icon-custom icon-interface"></i> Interfaces</li>
+<li><a href="#BuilderInterface" title="Contract for a builder of statements list">BuilderInterface</a></li>
+<li><a href="#BuilderInterface" title="BuilderInterface is a contract to build a compiler">BuilderInterface</a></li>
 <li><a href="#Matrix" title="A 2D matrix">Matrix</a></li>
 <li><a href="#MetaInterface" title="MetaInterface is a contract for a container of metadatas">MetaInterface</a></li>
 <li><a href="#Vizable" title="Contract for getting information to view this vertex as a node in GraphViz">Vizable</a></li>
 <li><a href="#ExporterInterface" title="ExporterInterface is a contract for an exporter">ExporterInterface</a></li>
+<li><a href="#LoggerInterface" title="LoggerInterface is a contract for a logger">LoggerInterface</a></li>
 <li><a href="#Search" title="Search is a contract for searching coupled component">Search</a></li>
 <li><a href="#Generator" title="Contract for a factory of a new reduced Graph (from a bigger graph)">Generator</a></li>
 <li><a href="#VertexDecorator" title="Contract for adding information on vertices in a Graph">VertexDecorator</a></li>
@@ -73,11 +76,16 @@
 Component : Component">Graph</a></li>
 <li class="nav-header">
 <i class="icon-custom icon-class"></i> Classes</li>
-<li><a href="#FactoryGenerator" title="FactoryGenerator refactors a package by extracting all
-new instances and puts it in protected methods.">FactoryGenerator</a></li>
-<li><a href="#Contractor" title="Contractor refactors a list of classes with annotations hints.">Contractor</a></li>
+<li><a href="#Director" title="Director is a director for parsing a set of failes">Director</a></li>
+<li><a href="#Builder" title="Statement is a builder of statement of set of php files">Builder</a></li>
+<li><a href="#Linking" title="Linking is making the link between the parser and the compiler">Linking</a></li>
+<li><a href="#Director" title="Design pattern : Builder">Director</a></li>
+<li><a href="#AbstractTraverser" title="AbstractTraverser partly builds the compiler with a traverser">AbstractTraverser</a></li>
+<li><a href="#RefactoringBuilder" title="RefactoringBuilder builds an abstract builder for refactoring service">RefactoringBuilder</a></li>
 <li><a href="#Refactored" title="Refactored is a container for refactoring changes">Refactored</a></li>
-<li><a href="#AbstractRefactoring" title="Design pattern : Template Method">AbstractRefactoring</a></li>
+<li><a href="#FactoryGenBuilder" title="FactoryGenBuilder builds the compiler for the factory generator
+refactoring service">FactoryGenBuilder</a></li>
+<li><a href="#ContractorBuilder" title="ContractorBuilder builds the compiler for the contractor refactoring service">ContractorBuilder</a></li>
 <li><a href="#NewInstanceRefactor" title="NewInstanceRefactor is a generator of method for each new instance">NewInstanceRefactor</a></li>
 <li><a href="#PublicCollector" title='PublicCollector is an abstract node collector for public "things" of types'>PublicCollector</a></li>
 <li><a href="#EdgeCollector" title="EdgeCollector is a visitor to transform code into graph edges">EdgeCollector</a></li>
@@ -101,7 +109,6 @@ and build the graph with the help of a Context">PassCollector</a></li>
 <li><a href="#ClassVertex" title="ClassVertex is a vertex for a class">ClassVertex</a></li>
 <li><a href="#ImplVertex" title="ImplVertex is a vertex for an implementation
 (content of a method)">ImplVertex</a></li>
-<li><a href="#Grapher" title="Grapher transforms source code into graph">Grapher</a></li>
 <li><a href="#Graphviz" title="Graphviz is a decorator for GraphViz output">Graphviz</a></li>
 <li><a href="#Json" title="Json is a decorator for JSON output">Json</a></li>
 <li><a href="#Factory" title="Factory is a simple factory for export format for Graph">Factory</a></li>
@@ -109,6 +116,9 @@ and build the graph with the help of a Context">PassCollector</a></li>
 Design Pattern : Decorator">GraphExporter</a></li>
 <li><a href="#GraphContext" title="GraphContext is a context for building a graph.">GraphContext</a></li>
 <li><a href="#ReflectionContext" title="ReflectionContext is a context for Reflection on types">ReflectionContext</a></li>
+<li><a href="#GraphLogger" title="GraphLogger logs the transform of source code to a graph">GraphLogger</a></li>
+<li><a href="#NullLogger" title="NullLogger logs nothing">NullLogger</a></li>
+<li><a href="#GraphBuilder" title="Design Pattern: Builder">GraphBuilder</a></li>
 <li><a href="#Centrality" title="Centrality analyses a graph and add centrality rank to vertices
 Design Pattern : Decorator of Graph">Centrality</a></li>
 <li><a href="#ByImplemented" title="ByImplemented selects path between classes if
@@ -151,16 +161,21 @@ and exports it into a report file with centrality informations of
 the dependencies of each node.">DependCentralityCommand</a></li>
 <li><a href="#HiddenCouplingCommand" title="HiddenCouplingCommand transforms a bunch of php files into a digraph
 with hidden coupling">HiddenCouplingCommand</a></li>
+<li><a href="#FactoryGenerator" title="FactoryGenerator is a refactoring tools which scans all new statements
+and create a protected method for each.">FactoryGenerator</a></li>
 <li><a href="#CyclicCommand" title="CyclicCommand reduces a graph to its strongly connected components">CyclicCommand</a></li>
 <li><a href="#AbstractParse" title="AbstractParse transforms a bunch of php files into a digraph
 and exports it into a report file">AbstractParse</a></li>
 <li><a href="#DigraphCommand" title="DigraphCommand transforms a bunch of php files into a digraph
 and exports it into a report file.">DigraphCommand</a></li>
+<li><a href="#TypeHintConfig" title="TypeHintConfig generates a default type-hint config files">TypeHintConfig</a></li>
 <li><a href="#SpaghettiCommand" title="SpaghettiCommand reduces a graph to its coupled implementation vertices">SpaghettiCommand</a></li>
 <li><a href="#RefactorCommand" title="RefactorCommand recursively scans a directory and
-refactors concrete class with annotations.">RefactorCommand</a></li>
+refactors classes.">RefactorCommand</a></li>
 <li><a href="#LiskovCommand" title="LiskovCommand transforms a bunch of php files into a reduced digraph
 to the LSP violation to refactor (mandatory before ISP)">LiskovCommand</a></li>
+<li><a href="#ContractorCommand" title="ContractorCommand recursively scans a directory and
+refactors concrete class with annotations.">ContractorCommand</a></li>
 <li><a href="#BadInterfaceCommand" title="BadInterfaceCommand transforms reduced the digraph
 to the bad interface with concrete parameters in their
 methods">BadInterfaceCommand</a></li>
@@ -206,6 +221,20 @@ and exports it into a report file with centrality informations">AbstractCentrali
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Analysis.VertexDecorator.html" class="more">« More »</a>
 </div>
+<div id="BuilderInterface" class="element ajax clickable interface">
+<h1>BuilderInterface<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.BuilderInterface.html">¶</a>
+</h1>
+<p class="short_description">BuilderInterface is a contract to build a compiler</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.BuilderInterface.html" class="more">« More »</a>
+</div>
+<div id="BuilderInterface" class="element ajax clickable interface">
+<h1>BuilderInterface<a href="../classes/Trismegiste.Mondrian.Builder.Statement.BuilderInterface.html">¶</a>
+</h1>
+<p class="short_description">Contract for a builder of statements list</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Builder.Statement.BuilderInterface.html" class="more">« More »</a>
+</div>
 <div id="Graph" class="element ajax clickable interface">
 <h1>Graph<a href="../classes/Trismegiste.Mondrian.Graph.Graph.html">¶</a>
 </h1>
@@ -220,6 +249,13 @@ Component : Component</p>
 <p class="short_description">ExporterInterface is a contract for an exporter</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Transform.Format.ExporterInterface.html" class="more">« More »</a>
+</div>
+<div id="LoggerInterface" class="element ajax clickable interface">
+<h1>LoggerInterface<a href="../classes/Trismegiste.Mondrian.Transform.Logger.LoggerInterface.html">¶</a>
+</h1>
+<p class="short_description">LoggerInterface is a contract for a logger</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Transform.Logger.LoggerInterface.html" class="more">« More »</a>
 </div>
 <div id="MetaInterface" class="element ajax clickable interface">
 <h1>MetaInterface<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MetaInterface.html">¶</a>
@@ -331,6 +367,41 @@ there is a use in a implementation.</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Analysis.UsedCentrality.html" class="more">« More »</a>
 </div>
+<div id="AbstractTraverser" class="element ajax clickable class">
+<h1>AbstractTraverser<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.AbstractTraverser.html">¶</a>
+</h1>
+<p class="short_description">AbstractTraverser partly builds the compiler with a traverser</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.AbstractTraverser.html" class="more">« More »</a>
+</div>
+<div id="Director" class="element ajax clickable class">
+<h1>Director<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.Director.html">¶</a>
+</h1>
+<p class="short_description">Design pattern : Builder</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.Director.html" class="more">« More »</a>
+</div>
+<div id="Linking" class="element ajax clickable class">
+<h1>Linking<a href="../classes/Trismegiste.Mondrian.Builder.Linking.html">¶</a>
+</h1>
+<p class="short_description">Linking is making the link between the parser and the compiler</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Builder.Linking.html" class="more">« More »</a>
+</div>
+<div id="Builder" class="element ajax clickable class">
+<h1>Builder<a href="../classes/Trismegiste.Mondrian.Builder.Statement.Builder.html">¶</a>
+</h1>
+<p class="short_description">Statement is a builder of statement of set of php files</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Builder.Statement.Builder.html" class="more">« More »</a>
+</div>
+<div id="Director" class="element ajax clickable class">
+<h1>Director<a href="../classes/Trismegiste.Mondrian.Builder.Statement.Director.html">¶</a>
+</h1>
+<p class="short_description">Director is a director for parsing a set of failes</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Builder.Statement.Director.html" class="more">« More »</a>
+</div>
 <div id="AbstractCentrality" class="element ajax clickable class">
 <h1>AbstractCentrality<a href="../classes/Trismegiste.Mondrian.Command.AbstractCentrality.html">¶</a>
 </h1>
@@ -356,6 +427,14 @@ methods</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Command.BadInterfaceCommand.html" class="more">« More »</a>
 </div>
+<div id="ContractorCommand" class="element ajax clickable class">
+<h1>ContractorCommand<a href="../classes/Trismegiste.Mondrian.Command.ContractorCommand.html">¶</a>
+</h1>
+<p class="short_description">ContractorCommand recursively scans a directory and
+refactors concrete class with annotations.</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Command.ContractorCommand.html" class="more">« More »</a>
+</div>
 <div id="CyclicCommand" class="element ajax clickable class">
 <h1>CyclicCommand<a href="../classes/Trismegiste.Mondrian.Command.CyclicCommand.html">¶</a>
 </h1>
@@ -380,6 +459,14 @@ and exports it into a report file.</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Command.DigraphCommand.html" class="more">« More »</a>
 </div>
+<div id="FactoryGenerator" class="element ajax clickable class">
+<h1>FactoryGenerator<a href="../classes/Trismegiste.Mondrian.Command.FactoryGenerator.html">¶</a>
+</h1>
+<p class="short_description">FactoryGenerator is a refactoring tools which scans all new statements
+and create a protected method for each.</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Command.FactoryGenerator.html" class="more">« More »</a>
+</div>
 <div id="HiddenCouplingCommand" class="element ajax clickable class">
 <h1>HiddenCouplingCommand<a href="../classes/Trismegiste.Mondrian.Command.HiddenCouplingCommand.html">¶</a>
 </h1>
@@ -400,7 +487,7 @@ to the LSP violation to refactor (mandatory before ISP)</p>
 <h1>RefactorCommand<a href="../classes/Trismegiste.Mondrian.Command.RefactorCommand.html">¶</a>
 </h1>
 <p class="short_description">RefactorCommand recursively scans a directory and
-refactors concrete class with annotations.</p>
+refactors classes.</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Command.RefactorCommand.html" class="more">« More »</a>
 </div>
@@ -410,6 +497,13 @@ refactors concrete class with annotations.</p>
 <p class="short_description">SpaghettiCommand reduces a graph to its coupled implementation vertices</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Command.SpaghettiCommand.html" class="more">« More »</a>
+</div>
+<div id="TypeHintConfig" class="element ajax clickable class">
+<h1>TypeHintConfig<a href="../classes/Trismegiste.Mondrian.Command.TypeHintConfig.html">¶</a>
+</h1>
+<p class="short_description">TypeHintConfig generates a default type-hint config files</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Command.TypeHintConfig.html" class="more">« More »</a>
 </div>
 <div id="UsedCentralityCommand" class="element ajax clickable class">
 <h1>UsedCentralityCommand<a href="../classes/Trismegiste.Mondrian.Command.UsedCentralityCommand.html">¶</a>
@@ -552,27 +646,20 @@ Component : Concrete Decorator</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Parser.PhpPersistence.html" class="more">« More »</a>
 </div>
-<div id="AbstractRefactoring" class="element ajax clickable class">
-<h1>AbstractRefactoring<a href="../classes/Trismegiste.Mondrian.Refactor.AbstractRefactoring.html">¶</a>
+<div id="ContractorBuilder" class="element ajax clickable class">
+<h1>ContractorBuilder<a href="../classes/Trismegiste.Mondrian.Refactor.ContractorBuilder.html">¶</a>
 </h1>
-<p class="short_description">Design pattern : Template Method</p>
+<p class="short_description">ContractorBuilder builds the compiler for the contractor refactoring service</p>
 <div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Refactor.AbstractRefactoring.html" class="more">« More »</a>
+<a href="../classes/Trismegiste.Mondrian.Refactor.ContractorBuilder.html" class="more">« More »</a>
 </div>
-<div id="Contractor" class="element ajax clickable class">
-<h1>Contractor<a href="../classes/Trismegiste.Mondrian.Refactor.Contractor.html">¶</a>
+<div id="FactoryGenBuilder" class="element ajax clickable class">
+<h1>FactoryGenBuilder<a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenBuilder.html">¶</a>
 </h1>
-<p class="short_description">Contractor refactors a list of classes with annotations hints.</p>
+<p class="short_description">FactoryGenBuilder builds the compiler for the factory generator
+refactoring service</p>
 <div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Refactor.Contractor.html" class="more">« More »</a>
-</div>
-<div id="FactoryGenerator" class="element ajax clickable class">
-<h1>FactoryGenerator<a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenerator.html">¶</a>
-</h1>
-<p class="short_description">FactoryGenerator refactors a package by extracting all
-new instances and puts it in protected methods.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenerator.html" class="more">« More »</a>
+<a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenBuilder.html" class="more">« More »</a>
 </div>
 <div id="Refactored" class="element ajax clickable class">
 <h1>Refactored<a href="../classes/Trismegiste.Mondrian.Refactor.Refactored.html">¶</a>
@@ -580,6 +667,13 @@ new instances and puts it in protected methods.</p>
 <p class="short_description">Refactored is a container for refactoring changes</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Refactor.Refactored.html" class="more">« More »</a>
+</div>
+<div id="RefactoringBuilder" class="element ajax clickable class">
+<h1>RefactoringBuilder<a href="../classes/Trismegiste.Mondrian.Refactor.RefactoringBuilder.html">¶</a>
+</h1>
+<p class="short_description">RefactoringBuilder builds an abstract builder for refactoring service</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Refactor.RefactoringBuilder.html" class="more">« More »</a>
 </div>
 <div id="Factory" class="element ajax clickable class">
 <h1>Factory<a href="../classes/Trismegiste.Mondrian.Transform.Format.Factory.html">¶</a>
@@ -610,6 +704,13 @@ Design Pattern : Decorator</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Transform.Format.Json.html" class="more">« More »</a>
 </div>
+<div id="GraphBuilder" class="element ajax clickable class">
+<h1>GraphBuilder<a href="../classes/Trismegiste.Mondrian.Transform.GraphBuilder.html">¶</a>
+</h1>
+<p class="short_description">Design Pattern: Builder</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Transform.GraphBuilder.html" class="more">« More »</a>
+</div>
 <div id="GraphContext" class="element ajax clickable class">
 <h1>GraphContext<a href="../classes/Trismegiste.Mondrian.Transform.GraphContext.html">¶</a>
 </h1>
@@ -617,12 +718,19 @@ Design Pattern : Decorator</p>
 <div class="details collapse"></div>
 <a href="../classes/Trismegiste.Mondrian.Transform.GraphContext.html" class="more">« More »</a>
 </div>
-<div id="Grapher" class="element ajax clickable class">
-<h1>Grapher<a href="../classes/Trismegiste.Mondrian.Transform.Grapher.html">¶</a>
+<div id="GraphLogger" class="element ajax clickable class">
+<h1>GraphLogger<a href="../classes/Trismegiste.Mondrian.Transform.Logger.GraphLogger.html">¶</a>
 </h1>
-<p class="short_description">Grapher transforms source code into graph</p>
+<p class="short_description">GraphLogger logs the transform of source code to a graph</p>
 <div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Grapher.html" class="more">« More »</a>
+<a href="../classes/Trismegiste.Mondrian.Transform.Logger.GraphLogger.html" class="more">« More »</a>
+</div>
+<div id="NullLogger" class="element ajax clickable class">
+<h1>NullLogger<a href="../classes/Trismegiste.Mondrian.Transform.Logger.NullLogger.html">¶</a>
+</h1>
+<p class="short_description">NullLogger logs nothing</p>
+<div class="details collapse"></div>
+<a href="../classes/Trismegiste.Mondrian.Transform.Logger.NullLogger.html" class="more">« More »</a>
 </div>
 <div id="ReflectionContext" class="element ajax clickable class">
 <h1>ReflectionContext<a href="../classes/Trismegiste.Mondrian.Transform.ReflectionContext.html">¶</a>
@@ -751,7 +859,7 @@ and build the graph with the help of a Context</p>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-05-10T14:44:16+02:00.<br></footer></div>
+            generated on 2013-05-20T14:00:20+02:00.<br></footer></div>
 </div>
 </body>
 </html>

@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">292</span></a></li>
+                <span class="label label-info">350</span></a></li>
 <li><a href="markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">1</span>
@@ -56,11 +56,17 @@
 <button class="btn critical">Critical</button><button class="btn error">Error</button><button class="btn notice">Notice</button>
 </div></li>
 <li class="nav-header">Navigation</li>
-<li><a href="#Refactor/FactoryGenerator.php"><i class="icon-file"></i>Refactor/FactoryGenerator.php</a></li>
-<li><a href="#Refactor/Contractor.php"><i class="icon-file"></i>Refactor/Contractor.php</a></li>
+<li><a href="#Builder/Statement/BuilderInterface.php"><i class="icon-file"></i>Builder/Statement/BuilderInterface.php</a></li>
+<li><a href="#Builder/Statement/Director.php"><i class="icon-file"></i>Builder/Statement/Director.php</a></li>
+<li><a href="#Builder/Statement/Builder.php"><i class="icon-file"></i>Builder/Statement/Builder.php</a></li>
+<li><a href="#Builder/Linking.php"><i class="icon-file"></i>Builder/Linking.php</a></li>
+<li><a href="#Builder/Compiler/BuilderInterface.php"><i class="icon-file"></i>Builder/Compiler/BuilderInterface.php</a></li>
+<li><a href="#Builder/Compiler/Director.php"><i class="icon-file"></i>Builder/Compiler/Director.php</a></li>
+<li><a href="#Builder/Compiler/AbstractTraverser.php"><i class="icon-file"></i>Builder/Compiler/AbstractTraverser.php</a></li>
+<li><a href="#Refactor/RefactoringBuilder.php"><i class="icon-file"></i>Refactor/RefactoringBuilder.php</a></li>
 <li><a href="#Refactor/Refactored.php"><i class="icon-file"></i>Refactor/Refactored.php</a></li>
-<li><a href="#Refactor/AbstractRefactoring.php"><i class="icon-file"></i>Refactor/AbstractRefactoring.php</a></li>
-<li><a href="#console.php"><i class="icon-file"></i>console.php</a></li>
+<li><a href="#Refactor/FactoryGenBuilder.php"><i class="icon-file"></i>Refactor/FactoryGenBuilder.php</a></li>
+<li><a href="#Refactor/ContractorBuilder.php"><i class="icon-file"></i>Refactor/ContractorBuilder.php</a></li>
 <li><a href="#Visitor/NewInstanceRefactor.php"><i class="icon-file"></i>Visitor/NewInstanceRefactor.php</a></li>
 <li><a href="#Visitor/PublicCollector.php"><i class="icon-file"></i>Visitor/PublicCollector.php</a></li>
 <li><a href="#Visitor/EdgeCollector.php"><i class="icon-file"></i>Visitor/EdgeCollector.php</a></li>
@@ -85,7 +91,6 @@
 <li><a href="#Transform/Vertex/Vizable.php"><i class="icon-file"></i>Transform/Vertex/Vizable.php</a></li>
 <li><a href="#Transform/Vertex/ClassVertex.php"><i class="icon-file"></i>Transform/Vertex/ClassVertex.php</a></li>
 <li><a href="#Transform/Vertex/ImplVertex.php"><i class="icon-file"></i>Transform/Vertex/ImplVertex.php</a></li>
-<li><a href="#Transform/Grapher.php"><i class="icon-file"></i>Transform/Grapher.php</a></li>
 <li><a href="#Transform/Format/Graphviz.php"><i class="icon-file"></i>Transform/Format/Graphviz.php</a></li>
 <li><a href="#Transform/Format/ExporterInterface.php"><i class="icon-file"></i>Transform/Format/ExporterInterface.php</a></li>
 <li><a href="#Transform/Format/Json.php"><i class="icon-file"></i>Transform/Format/Json.php</a></li>
@@ -93,6 +98,10 @@
 <li><a href="#Transform/Format/GraphExporter.php"><i class="icon-file"></i>Transform/Format/GraphExporter.php</a></li>
 <li><a href="#Transform/GraphContext.php"><i class="icon-file"></i>Transform/GraphContext.php</a></li>
 <li><a href="#Transform/ReflectionContext.php"><i class="icon-file"></i>Transform/ReflectionContext.php</a></li>
+<li><a href="#Transform/Logger/LoggerInterface.php"><i class="icon-file"></i>Transform/Logger/LoggerInterface.php</a></li>
+<li><a href="#Transform/Logger/GraphLogger.php"><i class="icon-file"></i>Transform/Logger/GraphLogger.php</a></li>
+<li><a href="#Transform/Logger/NullLogger.php"><i class="icon-file"></i>Transform/Logger/NullLogger.php</a></li>
+<li><a href="#Transform/GraphBuilder.php"><i class="icon-file"></i>Transform/GraphBuilder.php</a></li>
 <li><a href="#Analysis/Centrality.php"><i class="icon-file"></i>Analysis/Centrality.php</a></li>
 <li><a href="#Analysis/Strategy/Search.php"><i class="icon-file"></i>Analysis/Strategy/Search.php</a></li>
 <li><a href="#Analysis/Strategy/ByImplemented.php"><i class="icon-file"></i>Analysis/Strategy/ByImplemented.php</a></li>
@@ -123,14 +132,18 @@
 <li><a href="#Command/UsedCentralityCommand.php"><i class="icon-file"></i>Command/UsedCentralityCommand.php</a></li>
 <li><a href="#Command/DependCentralityCommand.php"><i class="icon-file"></i>Command/DependCentralityCommand.php</a></li>
 <li><a href="#Command/HiddenCouplingCommand.php"><i class="icon-file"></i>Command/HiddenCouplingCommand.php</a></li>
+<li><a href="#Command/FactoryGenerator.php"><i class="icon-file"></i>Command/FactoryGenerator.php</a></li>
 <li><a href="#Command/CyclicCommand.php"><i class="icon-file"></i>Command/CyclicCommand.php</a></li>
 <li><a href="#Command/AbstractParse.php"><i class="icon-file"></i>Command/AbstractParse.php</a></li>
 <li><a href="#Command/DigraphCommand.php"><i class="icon-file"></i>Command/DigraphCommand.php</a></li>
+<li><a href="#Command/TypeHintConfig.php"><i class="icon-file"></i>Command/TypeHintConfig.php</a></li>
 <li><a href="#Command/SpaghettiCommand.php"><i class="icon-file"></i>Command/SpaghettiCommand.php</a></li>
 <li><a href="#Command/RefactorCommand.php"><i class="icon-file"></i>Command/RefactorCommand.php</a></li>
 <li><a href="#Command/LiskovCommand.php"><i class="icon-file"></i>Command/LiskovCommand.php</a></li>
+<li><a href="#Command/ContractorCommand.php"><i class="icon-file"></i>Command/ContractorCommand.php</a></li>
 <li><a href="#Command/BadInterfaceCommand.php"><i class="icon-file"></i>Command/BadInterfaceCommand.php</a></li>
 <li><a href="#Command/AbstractCentrality.php"><i class="icon-file"></i>Command/AbstractCentrality.php</a></li>
+<li><a href="#mondrian.php"><i class="icon-file"></i>mondrian.php</a></li>
 <li><a href="#Config/Loader.php"><i class="icon-file"></i>Config/Loader.php</a></li>
 <li><a href="#Config/Validator.php"><i class="icon-file"></i>Config/Validator.php</a></li>
 <li><a href="#Config/Helper.php"><i class="icon-file"></i>Config/Helper.php</a></li>
@@ -143,8 +156,25 @@
 <li>Compilation Errors</li>
 </ul>
 <div class="package-contents">
-<a name="Refactor/FactoryGenerator.php" id="Refactor/FactoryGenerator.php"></a><h3>
-<i class="icon-file"></i>Refactor/FactoryGenerator.php<small style="float: right;padding-right: 10px;">2</small>
+<a name="Builder/Statement/BuilderInterface.php" id="Builder/Statement/BuilderInterface.php"></a><h3>
+<i class="icon-file"></i>Builder/Statement/BuilderInterface.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Builder/Statement/BuilderInterface.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Builder/Statement/Director.php" id="Builder/Statement/Director.php"></a><h3>
+<i class="icon-file"></i>Builder/Statement/Director.php<small style="float: right;padding-right: 10px;">3</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -156,19 +186,24 @@
 <tr class="error">
 <td>error</td>
 <td>0</td>
-<td>No page-level DocBlock was found in file Refactor/FactoryGenerator.php</td>
+<td>No page-level DocBlock was found in file Builder/Statement/Director.php</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>18</td>
-<td>No DocBlock was found for method buildRefactoringPass()</td>
+<td>15</td>
+<td>No DocBlock was found for property $builder</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for method __construct()</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="package-contents">
-<a name="Refactor/Contractor.php" id="Refactor/Contractor.php"></a><h3>
-<i class="icon-file"></i>Refactor/Contractor.php<small style="float: right;padding-right: 10px;">1</small>
+<a name="Builder/Statement/Builder.php" id="Builder/Statement/Builder.php"></a><h3>
+<i class="icon-file"></i>Builder/Statement/Builder.php<small style="float: right;padding-right: 10px;">5</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -176,11 +211,183 @@
 <th>Line</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr class="error">
+<tbody>
+<tr class="error">
 <td>error</td>
 <td>0</td>
-<td>No page-level DocBlock was found in file Refactor/Contractor.php</td>
-</tr></tbody>
+<td>No page-level DocBlock was found in file Builder/Statement/Builder.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for property $lexer</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for property $fileParser</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>19</td>
+<td>No DocBlock was found for property $packageParser</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>45</td>
+<td>Argument $iter is missing from the Docblock of getParsed()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Builder/Linking.php" id="Builder/Linking.php"></a><h3>
+<i class="icon-file"></i>Builder/Linking.php<small style="float: right;padding-right: 10px;">5</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Builder/Linking.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>20</td>
+<td>No DocBlock was found for property $parser</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>21</td>
+<td>No DocBlock was found for property $compiler</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>23</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for method run()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Builder/Compiler/BuilderInterface.php" id="Builder/Compiler/BuilderInterface.php"></a><h3>
+<i class="icon-file"></i>Builder/Compiler/BuilderInterface.php<small style="float: right;padding-right: 10px;">4</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Builder/Compiler/BuilderInterface.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method buildContext()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>15</td>
+<td>No DocBlock was found for method buildCollectors()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for method buildTraverser()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Builder/Compiler/Director.php" id="Builder/Compiler/Director.php"></a><h3>
+<i class="icon-file"></i>Builder/Compiler/Director.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Builder/Compiler/Director.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for property $builder</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Builder/Compiler/AbstractTraverser.php" id="Builder/Compiler/AbstractTraverser.php"></a><h3>
+<i class="icon-file"></i>Builder/Compiler/AbstractTraverser.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Builder/Compiler/AbstractTraverser.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for method buildTraverser()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Refactor/RefactoringBuilder.php" id="Refactor/RefactoringBuilder.php"></a><h3>
+<i class="icon-file"></i>Refactor/RefactoringBuilder.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Refactor/RefactoringBuilder.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for property $dumper</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>20</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+</tbody>
 </table></div>
 </div>
 <div class="package-contents">
@@ -208,8 +415,8 @@
 </table></div>
 </div>
 <div class="package-contents">
-<a name="Refactor/AbstractRefactoring.php" id="Refactor/AbstractRefactoring.php"></a><h3>
-<i class="icon-file"></i>Refactor/AbstractRefactoring.php<small style="float: right;padding-right: 10px;">2</small>
+<a name="Refactor/FactoryGenBuilder.php" id="Refactor/FactoryGenBuilder.php"></a><h3>
+<i class="icon-file"></i>Refactor/FactoryGenBuilder.php<small style="float: right;padding-right: 10px;">3</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -221,19 +428,24 @@
 <tr class="error">
 <td>error</td>
 <td>0</td>
-<td>No page-level DocBlock was found in file Refactor/AbstractRefactoring.php</td>
+<td>No page-level DocBlock was found in file Refactor/FactoryGenBuilder.php</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>21</td>
-<td>No DocBlock was found for property $phpDumper</td>
+<td>18</td>
+<td>No DocBlock was found for method buildCollectors()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>23</td>
+<td>No DocBlock was found for method buildContext()</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="package-contents">
-<a name="console.php" id="console.php"></a><h3>
-<i class="icon-file"></i>console.php<small style="float: right;padding-right: 10px;">1</small>
+<a name="Refactor/ContractorBuilder.php" id="Refactor/ContractorBuilder.php"></a><h3>
+<i class="icon-file"></i>Refactor/ContractorBuilder.php<small style="float: right;padding-right: 10px;">4</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -241,16 +453,33 @@
 <th>Line</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr class="error">
+<tbody>
+<tr class="error">
 <td>error</td>
 <td>0</td>
-<td>No page-level DocBlock was found in file console.php</td>
-</tr></tbody>
+<td>No page-level DocBlock was found in file Refactor/ContractorBuilder.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for property $context</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>19</td>
+<td>No DocBlock was found for method buildCollectors()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for method buildContext()</td>
+</tr>
+</tbody>
 </table></div>
 </div>
 <div class="package-contents">
 <a name="Visitor/NewInstanceRefactor.php" id="Visitor/NewInstanceRefactor.php"></a><h3>
-<i class="icon-file"></i>Visitor/NewInstanceRefactor.php<small style="float: right;padding-right: 10px;">13</small>
+<i class="icon-file"></i>Visitor/NewInstanceRefactor.php<small style="float: right;padding-right: 10px;">11</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -286,43 +515,33 @@
 </tr>
 <tr class="error">
 <td>error</td>
-<td>22</td>
-<td>No DocBlock was found for method __construct()</td>
+<td>32</td>
+<td>Argument $node is missing from the Docblock of enterNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>27</td>
-<td>No DocBlock was found for method enterNode()</td>
+<td>44</td>
+<td>Argument $node is missing from the Docblock of leaveNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>36</td>
-<td>No DocBlock was found for method leaveNode()</td>
+<td>77</td>
+<td>No DocBlock was found for method getProcessedArgument()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>65</td>
-<td>No DocBlock was found for method enterNewInstance()</td>
+<td>116</td>
+<td>Argument $node is missing from the Docblock of enterClassNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>82</td>
-<td>No DocBlock was found for method enterClassNode()</td>
+<td>126</td>
+<td>Argument $node is missing from the Docblock of enterInterfaceNode()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>89</td>
-<td>No DocBlock was found for method enterInterfaceNode()</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>94</td>
-<td>No DocBlock was found for method enterPublicMethodNode()</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>99</td>
-<td>No DocBlock was found for method afterTraverse()</td>
+<td>134</td>
+<td>Argument $node is missing from the Docblock of enterPublicMethodNode()</td>
 </tr>
 </tbody>
 </table></div>
@@ -1204,40 +1423,6 @@
 </table></div>
 </div>
 <div class="package-contents">
-<a name="Transform/Grapher.php" id="Transform/Grapher.php"></a><h3>
-<i class="icon-file"></i>Transform/Grapher.php<small style="float: right;padding-right: 10px;">4</small>
-</h3>
-<div><table class="table markers table-bordered">
-<thead><tr>
-<th>Type</th>
-<th>Line</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr class="error">
-<td>error</td>
-<td>0</td>
-<td>No page-level DocBlock was found in file Transform/Grapher.php</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>19</td>
-<td>No DocBlock was found for property $config</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>21</td>
-<td>No DocBlock was found for method __construct()</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>53</td>
-<td>No DocBlock was found for method buildCompilerPass()</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="package-contents">
 <a name="Transform/Format/Graphviz.php" id="Transform/Format/Graphviz.php"></a><h3>
 <i class="icon-file"></i>Transform/Format/Graphviz.php<small style="float: right;padding-right: 10px;">3</small>
 </h3>
@@ -1372,7 +1557,7 @@
 </div>
 <div class="package-contents">
 <a name="Transform/GraphContext.php" id="Transform/GraphContext.php"></a><h3>
-<i class="icon-file"></i>Transform/GraphContext.php<small style="float: right;padding-right: 10px;">6</small>
+<i class="icon-file"></i>Transform/GraphContext.php<small style="float: right;padding-right: 10px;">4</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -1388,28 +1573,18 @@
 </tr>
 <tr class="error">
 <td>error</td>
-<td>19</td>
+<td>20</td>
 <td>No DocBlock was found for property $vertex</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>20</td>
+<td>21</td>
 <td>No DocBlock was found for property $fineTuning</td>
 </tr>
 <tr class="error">
 <td>error</td>
 <td>22</td>
-<td>Name of argument $cfg does not match with the DocBlock's name $g in __construct()</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>22</td>
-<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $cfg in __construct()</td>
-</tr>
-<tr class="notice">
-<td>notice</td>
-<td>22</td>
-<td>Parameter $g could not be found in __construct()</td>
+<td>No DocBlock was found for property $buildLogger</td>
 </tr>
 </tbody>
 </table></div>
@@ -1444,6 +1619,130 @@
 <td>error</td>
 <td>51</td>
 <td>No DocBlock was found for method recursivDeclaration()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Transform/Logger/LoggerInterface.php" id="Transform/Logger/LoggerInterface.php"></a><h3>
+<i class="icon-file"></i>Transform/Logger/LoggerInterface.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Transform/Logger/LoggerInterface.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Transform/Logger/GraphLogger.php" id="Transform/Logger/GraphLogger.php"></a><h3>
+<i class="icon-file"></i>Transform/Logger/GraphLogger.php<small style="float: right;padding-right: 10px;">5</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Transform/Logger/GraphLogger.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>15</td>
+<td>No DocBlock was found for property $stack</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>Argument $callee is missing from the Docblock of logCallTo()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>Argument $called is missing from the Docblock of logCallTo()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>25</td>
+<td>No DocBlock was found for method getCallingDigest()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Transform/Logger/NullLogger.php" id="Transform/Logger/NullLogger.php"></a><h3>
+<i class="icon-file"></i>Transform/Logger/NullLogger.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Transform/Logger/NullLogger.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>15</td>
+<td>No DocBlock was found for method logCallTo()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Transform/GraphBuilder.php" id="Transform/GraphBuilder.php"></a><h3>
+<i class="icon-file"></i>Transform/GraphBuilder.php<small style="float: right;padding-right: 10px;">6</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Transform/GraphBuilder.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>23</td>
+<td>No DocBlock was found for property $graphResult</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>24</td>
+<td>No DocBlock was found for property $config</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>25</td>
+<td>No DocBlock was found for property $reflection</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>26</td>
+<td>No DocBlock was found for property $vertexContext</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>27</td>
+<td>No DocBlock was found for property $logger</td>
 </tr>
 </tbody>
 </table></div>
@@ -2266,6 +2565,35 @@
 </table></div>
 </div>
 <div class="package-contents">
+<a name="Command/FactoryGenerator.php" id="Command/FactoryGenerator.php"></a><h3>
+<i class="icon-file"></i>Command/FactoryGenerator.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Command/FactoryGenerator.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>25</td>
+<td>No DocBlock was found for method configure()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for method execute()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
 <a name="Command/CyclicCommand.php" id="Command/CyclicCommand.php"></a><h3>
 <i class="icon-file"></i>Command/CyclicCommand.php<small style="float: right;padding-right: 10px;">4</small>
 </h3>
@@ -2301,7 +2629,7 @@
 </div>
 <div class="package-contents">
 <a name="Command/AbstractParse.php" id="Command/AbstractParse.php"></a><h3>
-<i class="icon-file"></i>Command/AbstractParse.php<small style="float: right;padding-right: 10px;">6</small>
+<i class="icon-file"></i>Command/AbstractParse.php<small style="float: right;padding-right: 10px;">13</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -2317,28 +2645,63 @@
 </tr>
 <tr class="error">
 <td>error</td>
-<td>26</td>
-<td>No DocBlock was found for method getSubname()</td>
-</tr>
-<tr class="error">
-<td>error</td>
-<td>28</td>
-<td>No DocBlock was found for method getFullDesc()</td>
-</tr>
-<tr class="error">
-<td>error</td>
 <td>33</td>
-<td>No DocBlock was found for method processGraph()</td>
+<td>No DocBlock was found for property $fineTuning</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for property $phpfinder</td>
 </tr>
 <tr class="error">
 <td>error</td>
 <td>35</td>
+<td>No DocBlock was found for property $reportName</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for property $reportFormat</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>38</td>
+<td>No DocBlock was found for method getSubname()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>40</td>
+<td>No DocBlock was found for method getFullDesc()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>56</td>
 <td>No DocBlock was found for method configure()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>46</td>
-<td>No DocBlock was found for method execute()</td>
+<td>67</td>
+<td>Argument $input is missing from the Docblock of execute()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>67</td>
+<td>Argument $output is missing from the Docblock of execute()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>102</td>
+<td>Argument $input is missing from the Docblock of initialize()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>102</td>
+<td>Argument $output is missing from the Docblock of initialize()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>117</td>
+<td>No DocBlock was found for method getPhpFinder()</td>
 </tr>
 </tbody>
 </table></div>
@@ -2373,6 +2736,70 @@
 <td>error</td>
 <td>33</td>
 <td>No DocBlock was found for method processGraph()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Command/TypeHintConfig.php" id="Command/TypeHintConfig.php"></a><h3>
+<i class="icon-file"></i>Command/TypeHintConfig.php<small style="float: right;padding-right: 10px;">10</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Command/TypeHintConfig.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $fineTuning</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for property $phpfinder</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>35</td>
+<td>No DocBlock was found for property $newConfigFile</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>37</td>
+<td>No DocBlock was found for method configure()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>46</td>
+<td>Argument $input is missing from the Docblock of execute()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>46</td>
+<td>Argument $output is missing from the Docblock of execute()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>77</td>
+<td>Argument $input is missing from the Docblock of initialize()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>77</td>
+<td>Argument $output is missing from the Docblock of initialize()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>89</td>
+<td>No DocBlock was found for method getPhpFinder()</td>
 </tr>
 </tbody>
 </table></div>
@@ -2438,7 +2865,7 @@
 </div>
 <div class="package-contents">
 <a name="Command/RefactorCommand.php" id="Command/RefactorCommand.php"></a><h3>
-<i class="icon-file"></i>Command/RefactorCommand.php<small style="float: right;padding-right: 10px;">3</small>
+<i class="icon-file"></i>Command/RefactorCommand.php<small style="float: right;padding-right: 10px;">5</small>
 </h3>
 <div><table class="table markers table-bordered">
 <thead><tr>
@@ -2454,13 +2881,23 @@
 </tr>
 <tr class="error">
 <td>error</td>
-<td>27</td>
+<td>23</td>
+<td>No DocBlock was found for property $phpfinder</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>25</td>
 <td>No DocBlock was found for method configure()</td>
 </tr>
 <tr class="error">
 <td>error</td>
-<td>36</td>
-<td>No DocBlock was found for method execute()</td>
+<td>32</td>
+<td>Argument $input is missing from the Docblock of initialize()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>32</td>
+<td>Argument $output is missing from the Docblock of initialize()</td>
 </tr>
 </tbody>
 </table></div>
@@ -2495,6 +2932,35 @@
 <td>error</td>
 <td>31</td>
 <td>No DocBlock was found for method processGraph()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Command/ContractorCommand.php" id="Command/ContractorCommand.php"></a><h3>
+<i class="icon-file"></i>Command/ContractorCommand.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file Command/ContractorCommand.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>25</td>
+<td>No DocBlock was found for method configure()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for method execute()</td>
 </tr>
 </tbody>
 </table></div>
@@ -2583,6 +3049,23 @@
 </table></div>
 </div>
 <div class="package-contents">
+<a name="mondrian.php" id="mondrian.php"></a><h3>
+<i class="icon-file"></i>mondrian.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file mondrian.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
 <a name="Config/Loader.php" id="Config/Loader.php"></a><h3>
 <i class="icon-file"></i>Config/Loader.php<small style="float: right;padding-right: 10px;">5</small>
 </h3>
@@ -2667,7 +3150,7 @@
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-05-10T14:44:17+02:00.<br></footer></div>
+            generated on 2013-05-20T14:00:20+02:00.<br></footer></div>
 </div>
 </body>
 </html>

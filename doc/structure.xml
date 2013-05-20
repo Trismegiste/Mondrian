@@ -1,62 +1,362 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project version="2.0.0a12" title="Mondrian">
-  <file path="Refactor/FactoryGenerator.php" hash="c4fb6d3f8d80618db20976eb6a5fafbe" package="Default">
-    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Refactor" line="15" package="Default">
-      <extends>\Trismegiste\Mondrian\Refactor\AbstractRefactoring</extends>
-      <name>FactoryGenerator</name>
-      <full_name>\Trismegiste\Mondrian\Refactor\FactoryGenerator</full_name>
-      <docblock line="11">
-        <description>FactoryGenerator refactors a package by extracting all
-new instances and puts it in protected methods.</description>
+  <file path="Builder/Statement/BuilderInterface.php" hash="f8ff7ed4c86b1930f9a96747497f4802" package="Default">
+    <interface namespace="Trismegiste\Mondrian\Builder\Statement" line="8" package="Default">
+      <name>BuilderInterface</name>
+      <full_name>\Trismegiste\Mondrian\Builder\Statement\BuilderInterface</full_name>
+      <docblock line="5">
+        <description>Contract for a builder of statements list</description>
         <long-description></long-description>
       </docblock>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Refactor" line="18" package="Default">
-        <name>buildRefactoringPass</name>
-        <full_name>buildRefactoringPass</full_name>
-      </method>
-    </class>
-    <parse_markers>
-      <error line="0" code="50007">No page-level DocBlock was found in file Refactor/FactoryGenerator.php</error>
-      <error line="18" code="50010">No DocBlock was found for method buildRefactoringPass()</error>
-    </parse_markers>
-  </file>
-  <file path="Refactor/Contractor.php" hash="887feff38f3f17f0a42c13555d2c6e82" package="Default">
-    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Refactor" line="28" package="Default">
-      <extends>\Trismegiste\Mondrian\Refactor\AbstractRefactoring</extends>
-      <name>Contractor</name>
-      <full_name>\Trismegiste\Mondrian\Refactor\Contractor</full_name>
-      <docblock line="11">
-        <description>Contractor refactors a list of classes with annotations hints.</description>
-        <long-description>&lt;p&gt;What it does ?
- * It creates a new interface for each class with annotation
-   like "@mondrian contractor NewInterfaceName".
- * it replaces all these classes by their new interface in
-   methods parameters (public or not, this is important)
- * it adds the inheritance for NewInterfaceName&lt;/p&gt;
-
-&lt;p&gt;Each interface is stored in the same namespace, neighbour of the
-class in a directory. NewInterfaceName is a short name not a FQCN.
-It is not possible to store the generated content in another directory
-since everybody uses Git or at least SVN. Therefore you can launch the
-test suite immediatly.&lt;/p&gt;</long-description>
-      </docblock>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Refactor" line="36" package="Default">
-        <name>buildRefactoringPass</name>
-        <full_name>buildRefactoringPass</full_name>
-        <docblock line="31">
-          <description>Build the refactoring passes with context</description>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Statement" line="14" package="Default">
+        <name>buildLexer</name>
+        <full_name>buildLexer</full_name>
+        <docblock line="11">
+          <description>Builds the lexer</description>
           <long-description></long-description>
-          <tag line="31" name="return" description="" type="\Trismegiste\Mondrian\Refactor\FqcnHelper[]">
-            <type by_reference="false">\Trismegiste\Mondrian\Refactor\FqcnHelper[]</type>
-          </tag>
         </docblock>
       </method>
-    </class>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Statement" line="19" package="Default">
+        <name>buildFileLevel</name>
+        <full_name>buildFileLevel</full_name>
+        <docblock line="16">
+          <description>Builds the parser at the file level</description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Statement" line="24" package="Default">
+        <name>buildPackageLevel</name>
+        <full_name>buildPackageLevel</full_name>
+        <docblock line="21">
+          <description>Builds the parser at the package level</description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Statement" line="31" package="Default">
+        <name>getParsed</name>
+        <full_name>getParsed</full_name>
+        <docblock line="26">
+          <description>Gets result of the builder of statements</description>
+          <long-description></long-description>
+          <tag line="26" name="param" description="" type="\Iterator" variable="$iter">
+            <type by_reference="false">\Iterator</type>
+          </tag>
+        </docblock>
+        <argument line="31">
+          <name>$iter</name>
+          <default></default>
+          <type>\Iterator</type>
+        </argument>
+      </method>
+    </interface>
     <parse_markers>
-      <error line="0" code="50007">No page-level DocBlock was found in file Refactor/Contractor.php</error>
+      <error line="0" code="50007">No page-level DocBlock was found in file Builder/Statement/BuilderInterface.php</error>
     </parse_markers>
   </file>
-  <file path="Refactor/Refactored.php" hash="0b7187559d9884200d9865c108053658" package="Default">
+  <file path="Builder/Statement/Director.php" hash="89d09efadb8fe077f4f13f31215d696d" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Builder\Statement" line="12" package="Default">
+      <extends/>
+      <name>Director</name>
+      <full_name>\Trismegiste\Mondrian\Builder\Statement\Director</full_name>
+      <docblock line="9">
+        <description>Director is a director for parsing a set of failes</description>
+        <long-description></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="private" line="15" namespace="Trismegiste\Mondrian\Builder\Statement" package="Default">
+        <name>$builder</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Statement" line="17" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="17">
+          <name>$struct</name>
+          <default></default>
+          <type>\Trismegiste\Mondrian\Builder\Statement\BuilderInterface</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Statement" line="28" package="Default">
+        <name>parse</name>
+        <full_name>parse</full_name>
+        <docblock line="22">
+          <description>Parses a list of php files</description>
+          <long-description></long-description>
+          <tag line="22" name="param" description="an iterator of SplFileInfo" type="\Iterator" variable="$iter">
+            <type by_reference="false">\Iterator</type>
+          </tag>
+          <tag line="22" name="return" description="an array of PHPParser_Node" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="28">
+          <name>$iter</name>
+          <default></default>
+          <type>\Iterator</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Builder/Statement/Director.php</error>
+      <error line="15" code="50018">No DocBlock was found for property $builder</error>
+      <error line="17" code="50010">No DocBlock was found for method __construct()</error>
+    </parse_markers>
+  </file>
+  <file path="Builder/Statement/Builder.php" hash="0663842be0c3367aa65aaa827151096f" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Builder\Statement" line="14" package="Default">
+      <extends/>
+      <implements>\Trismegiste\Mondrian\Builder\Statement\BuilderInterface</implements>
+      <name>Builder</name>
+      <full_name>\Trismegiste\Mondrian\Builder\Statement\Builder</full_name>
+      <docblock line="11">
+        <description>Statement is a builder of statement of set of php files</description>
+        <long-description></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="17" namespace="Trismegiste\Mondrian\Builder\Statement" package="Default">
+        <name>$lexer</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="18" namespace="Trismegiste\Mondrian\Builder\Statement" package="Default">
+        <name>$fileParser</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="19" namespace="Trismegiste\Mondrian\Builder\Statement" package="Default">
+        <name>$packageParser</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Statement" line="24" package="Default">
+        <name>buildLexer</name>
+        <full_name>buildLexer</full_name>
+        <docblock line="21">
+          <description>{@inheritdoc}</description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Statement" line="32" package="Default">
+        <name>buildFileLevel</name>
+        <full_name>buildFileLevel</full_name>
+        <docblock line="29">
+          <description>{@inheritdoc}</description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Statement" line="40" package="Default">
+        <name>buildPackageLevel</name>
+        <full_name>buildPackageLevel</full_name>
+        <docblock line="37">
+          <description>{@inheritdoc}</description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Statement" line="48" package="Default">
+        <name>getParsed</name>
+        <full_name>getParsed</full_name>
+        <docblock line="45">
+          <description>{@inheritdoc}</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="48">
+          <name>$iter</name>
+          <default></default>
+          <type>\Iterator</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Builder/Statement/Builder.php</error>
+      <error line="17" code="50018">No DocBlock was found for property $lexer</error>
+      <error line="18" code="50018">No DocBlock was found for property $fileParser</error>
+      <error line="19" code="50018">No DocBlock was found for property $packageParser</error>
+      <error line="45" code="50015">Argument $iter is missing from the Docblock of getParsed()</error>
+    </parse_markers>
+  </file>
+  <file path="Builder/Linking.php" hash="b1650e3d95966a5b5d7a2cd9a650da86" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Builder" line="17" package="Default">
+      <extends/>
+      <name>Linking</name>
+      <full_name>\Trismegiste\Mondrian\Builder\Linking</full_name>
+      <docblock line="12">
+        <description>Linking is making the link between the parser and the compiler</description>
+        <long-description>&lt;p&gt;It is a kind of director, but with directors and eventually it is a Facade&lt;/p&gt;</long-description>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="20" namespace="Trismegiste\Mondrian\Builder" package="Default">
+        <name>$parser</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="21" namespace="Trismegiste\Mondrian\Builder" package="Default">
+        <name>$compiler</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder" line="23" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="23">
+          <name>$parserBuilder</name>
+          <default></default>
+          <type>\Trismegiste\Mondrian\Builder\Statement\BuilderInterface</type>
+        </argument>
+        <argument line="23">
+          <name>$compilerBuilder</name>
+          <default></default>
+          <type>\Trismegiste\Mondrian\Builder\Compiler\BuilderInterface</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder" line="29" package="Default">
+        <name>run</name>
+        <full_name>run</full_name>
+        <argument line="29">
+          <name>$iter</name>
+          <default></default>
+          <type>\Iterator</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Builder/Linking.php</error>
+      <error line="20" code="50018">No DocBlock was found for property $parser</error>
+      <error line="21" code="50018">No DocBlock was found for property $compiler</error>
+      <error line="23" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="29" code="50010">No DocBlock was found for method run()</error>
+    </parse_markers>
+  </file>
+  <file path="Builder/Compiler/BuilderInterface.php" hash="c2e1a5d939e5913e19f6448c4f5d98e0" package="Default">
+    <interface namespace="Trismegiste\Mondrian\Builder\Compiler" line="10" package="Default">
+      <name>BuilderInterface</name>
+      <full_name>\Trismegiste\Mondrian\Builder\Compiler\BuilderInterface</full_name>
+      <docblock line="7">
+        <description>BuilderInterface is a contract to build a compiler</description>
+        <long-description></long-description>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Compiler" line="13" package="Default">
+        <name>buildContext</name>
+        <full_name>buildContext</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Compiler" line="15" package="Default">
+        <name>buildCollectors</name>
+        <full_name>buildCollectors</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Compiler" line="17" package="Default">
+        <name>buildTraverser</name>
+        <full_name>buildTraverser</full_name>
+        <argument line="17">
+          <name>$collector</name>
+          <default></default>
+          <type>\Trismegiste\Mondrian\Visitor\FqcnHelper</type>
+        </argument>
+      </method>
+    </interface>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Builder/Compiler/BuilderInterface.php</error>
+      <error line="13" code="50010">No DocBlock was found for method buildContext()</error>
+      <error line="15" code="50010">No DocBlock was found for method buildCollectors()</error>
+      <error line="17" code="50010">No DocBlock was found for method buildTraverser()</error>
+    </parse_markers>
+  </file>
+  <file path="Builder/Compiler/Director.php" hash="d62da48b8872d70ae3e510c2034a6ed8" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Builder\Compiler" line="14" package="Default">
+      <extends/>
+      <name>Director</name>
+      <full_name>\Trismegiste\Mondrian\Builder\Compiler\Director</full_name>
+      <docblock line="9">
+        <description>Design pattern : Builder</description>
+        <long-description>&lt;p&gt;Director makes a compilation/generation/transform with a compiler&lt;/p&gt;</long-description>
+      </docblock>
+      <property final="false" static="false" visibility="private" line="17" namespace="Trismegiste\Mondrian\Builder\Compiler" package="Default">
+        <name>$builder</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Compiler" line="24" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="19">
+          <description>The builder contains the components to create for making the compilation</description>
+          <long-description></long-description>
+          <tag line="19" name="param" description="" type="\Trismegiste\Mondrian\Builder\Compiler\BuilderInterface" variable="$structure">
+            <type by_reference="false">\Trismegiste\Mondrian\Builder\Compiler\BuilderInterface</type>
+          </tag>
+        </docblock>
+        <argument line="24">
+          <name>$structure</name>
+          <default></default>
+          <type>\Trismegiste\Mondrian\Builder\Compiler\BuilderInterface</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Compiler" line="34" package="Default">
+        <name>compile</name>
+        <full_name>compile</full_name>
+        <docblock line="29">
+          <description>Does the compilation of the parsed statements</description>
+          <long-description></long-description>
+          <tag line="29" name="param" description="" type="array" variable="$stmts">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="34">
+          <name>$stmts</name>
+          <default></default>
+          <type>array</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Builder/Compiler/Director.php</error>
+      <error line="17" code="50018">No DocBlock was found for property $builder</error>
+    </parse_markers>
+  </file>
+  <file path="Builder/Compiler/AbstractTraverser.php" hash="5d452e426e7bb951e121a2ece2215748" package="Default">
+    <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Builder\Compiler" line="14" package="Default">
+      <extends/>
+      <implements>\Trismegiste\Mondrian\Builder\Compiler\BuilderInterface</implements>
+      <name>AbstractTraverser</name>
+      <full_name>\Trismegiste\Mondrian\Builder\Compiler\AbstractTraverser</full_name>
+      <docblock line="11">
+        <description>AbstractTraverser partly builds the compiler with a traverser</description>
+        <long-description></long-description>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Builder\Compiler" line="17" package="Default">
+        <name>buildTraverser</name>
+        <full_name>buildTraverser</full_name>
+        <argument line="17">
+          <name>$collector</name>
+          <default></default>
+          <type>\Trismegiste\Mondrian\Visitor\FqcnHelper</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Builder/Compiler/AbstractTraverser.php</error>
+      <error line="17" code="50010">No DocBlock was found for method buildTraverser()</error>
+    </parse_markers>
+  </file>
+  <file path="Refactor/RefactoringBuilder.php" hash="013d87fc041eee056174f1fc85693807" package="Default">
+    <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Refactor" line="15" package="Default">
+      <extends>\Trismegiste\Mondrian\Builder\Compiler\AbstractTraverser</extends>
+      <name>RefactoringBuilder</name>
+      <full_name>\Trismegiste\Mondrian\Refactor\RefactoringBuilder</full_name>
+      <docblock line="12">
+        <description>RefactoringBuilder builds an abstract builder for refactoring service</description>
+        <long-description></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="18" namespace="Trismegiste\Mondrian\Refactor" package="Default">
+        <name>$dumper</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Refactor" line="20" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="20">
+          <name>$dump</name>
+          <default></default>
+          <type>\Trismegiste\Mondrian\Parser\PhpDumper</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Refactor/RefactoringBuilder.php</error>
+      <error line="18" code="50018">No DocBlock was found for property $dumper</error>
+      <error line="20" code="50010">No DocBlock was found for method __construct()</error>
+    </parse_markers>
+  </file>
+  <file path="Refactor/Refactored.php" hash="63493c271fe2ef2091204a608f3409d8" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Refactor" line="12" package="Default">
       <extends/>
       <name>Refactored</name>
@@ -131,77 +431,61 @@ test suite immediatly.&lt;/p&gt;</long-description>
       <error line="15" code="50018">No DocBlock was found for property $newContract</error>
     </parse_markers>
   </file>
-  <file path="Refactor/AbstractRefactoring.php" hash="1e9335b62a09cb60b567b2c97cf49cc3" package="Default">
-    <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Refactor" line="18" package="Default">
-      <extends/>
-      <name>AbstractRefactoring</name>
-      <full_name>\Trismegiste\Mondrian\Refactor\AbstractRefactoring</full_name>
-      <docblock line="13">
-        <description>Design pattern : Template Method</description>
-        <long-description>&lt;p&gt;This is a template for a refactoring service&lt;/p&gt;</long-description>
+  <file path="Refactor/FactoryGenBuilder.php" hash="2b08fd93be5642c43a1a37cc3c880127" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Refactor" line="15" package="Default">
+      <extends>\Trismegiste\Mondrian\Refactor\RefactoringBuilder</extends>
+      <name>FactoryGenBuilder</name>
+      <full_name>\Trismegiste\Mondrian\Refactor\FactoryGenBuilder</full_name>
+      <docblock line="11">
+        <description>FactoryGenBuilder builds the compiler for the factory generator
+refactoring service</description>
+        <long-description></long-description>
       </docblock>
-      <property final="false" static="false" visibility="protected" line="21" namespace="Trismegiste\Mondrian\Refactor" package="Default">
-        <name>$phpDumper</name>
-        <default></default>
-      </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Refactor" line="28" package="Default">
-        <name>__construct</name>
-        <full_name>__construct</full_name>
-        <docblock line="23">
-          <description>Build the service with a dumper for writing file</description>
-          <long-description></long-description>
-          <tag line="23" name="param" description="" type="\Trismegiste\Mondrian\Parser\PhpPersistence" variable="$dumper">
-            <type by_reference="false">\Trismegiste\Mondrian\Parser\PhpPersistence</type>
-          </tag>
-        </docblock>
-        <argument line="28">
-          <name>$dumper</name>
-          <default></default>
-          <type>\Trismegiste\Mondrian\Parser\PhpPersistence</type>
-        </argument>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Refactor" line="18" package="Default">
+        <name>buildCollectors</name>
+        <full_name>buildCollectors</full_name>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Refactor" line="38" package="Default">
-        <name>refactor</name>
-        <full_name>refactor</full_name>
-        <docblock line="33">
-          <description>Parse and refactor</description>
-          <long-description></long-description>
-          <tag line="33" name="param" description="list of SplFileInfo" type="\Iterator" variable="$iter">
-            <type by_reference="false">\Iterator</type>
-          </tag>
-        </docblock>
-        <argument line="38">
-          <name>$iter</name>
-          <default></default>
-          <type>\Iterator</type>
-        </argument>
-      </method>
-      <method final="false" abstract="true" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Refactor" line="58" package="Default">
-        <name>buildRefactoringPass</name>
-        <full_name>buildRefactoringPass</full_name>
-        <docblock line="53">
-          <description>Build the refactoring passes</description>
-          <long-description></long-description>
-          <tag line="53" name="return" description="" type="\Trismegiste\Mondrian\Visitor\FqcnHelper[]">
-            <type by_reference="false">\Trismegiste\Mondrian\Visitor\FqcnHelper[]</type>
-          </tag>
-        </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Refactor" line="23" package="Default">
+        <name>buildContext</name>
+        <full_name>buildContext</full_name>
       </method>
     </class>
     <parse_markers>
-      <error line="0" code="50007">No page-level DocBlock was found in file Refactor/AbstractRefactoring.php</error>
-      <error line="21" code="50018">No DocBlock was found for property $phpDumper</error>
+      <error line="0" code="50007">No page-level DocBlock was found in file Refactor/FactoryGenBuilder.php</error>
+      <error line="18" code="50010">No DocBlock was found for method buildCollectors()</error>
+      <error line="23" code="50010">No DocBlock was found for method buildContext()</error>
     </parse_markers>
   </file>
-  <file path="console.php" hash="67de4b5639ab814295e0e19b99ffa4be" package="Default">
-    <include line="11" type="Require Once" package="Default">
-      <name>vendor/autoload.php</name>
-    </include>
+  <file path="Refactor/ContractorBuilder.php" hash="7c36c81c80d7629f19e41512fc68bc5f" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Refactor" line="14" package="Default">
+      <extends>\Trismegiste\Mondrian\Refactor\RefactoringBuilder</extends>
+      <name>ContractorBuilder</name>
+      <full_name>\Trismegiste\Mondrian\Refactor\ContractorBuilder</full_name>
+      <docblock line="11">
+        <description>ContractorBuilder builds the compiler for the contractor refactoring service</description>
+        <long-description></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="17" namespace="Trismegiste\Mondrian\Refactor" package="Default">
+        <name>$context</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Refactor" line="19" package="Default">
+        <name>buildCollectors</name>
+        <full_name>buildCollectors</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Refactor" line="31" package="Default">
+        <name>buildContext</name>
+        <full_name>buildContext</full_name>
+      </method>
+    </class>
     <parse_markers>
-      <error line="0" code="50007">No page-level DocBlock was found in file console.php</error>
+      <error line="0" code="50007">No page-level DocBlock was found in file Refactor/ContractorBuilder.php</error>
+      <error line="17" code="50018">No DocBlock was found for property $context</error>
+      <error line="19" code="50010">No DocBlock was found for method buildCollectors()</error>
+      <error line="31" code="50010">No DocBlock was found for method buildContext()</error>
     </parse_markers>
   </file>
-  <file path="Visitor/NewInstanceRefactor.php" hash="d1f59569a9d1c06536f4d07c73c11a43" package="Default">
+  <file path="Visitor/NewInstanceRefactor.php" hash="f03cf509e28355f2d6e50d19773c3eb3" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Visitor" line="14" package="Default">
       <extends>\Trismegiste\Mondrian\Visitor\PublicCollector</extends>
       <name>NewInstanceRefactor</name>
@@ -226,73 +510,127 @@ test suite immediatly.&lt;/p&gt;</long-description>
         <name>$currentClassStmts</name>
         <default></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Visitor" line="22" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Visitor" line="27" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <argument line="22">
+        <docblock line="22">
+          <description>The ctor needs a service for persistence of modified files</description>
+          <long-description></long-description>
+          <tag line="22" name="param" description="" type="\Trismegiste\Mondrian\Parser\PhpPersistence" variable="$callable">
+            <type by_reference="false">\Trismegiste\Mondrian\Parser\PhpPersistence</type>
+          </tag>
+        </docblock>
+        <argument line="27">
           <name>$callable</name>
           <default></default>
           <type>\Trismegiste\Mondrian\Parser\PhpPersistence</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Visitor" line="27" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Visitor" line="35" package="Default">
         <name>enterNode</name>
         <full_name>enterNode</full_name>
-        <argument line="27">
+        <docblock line="32">
+          <description>{@inheritdoc}</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="35">
           <name>$node</name>
           <default></default>
           <type>\PHPParser_Node</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Visitor" line="36" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Visitor" line="47" package="Default">
         <name>leaveNode</name>
         <full_name>leaveNode</full_name>
-        <argument line="36">
+        <docblock line="44">
+          <description>{@inheritdoc}</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="47">
           <name>$node</name>
           <default></default>
           <type>\PHPParser_Node</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Visitor" line="65" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="Trismegiste\Mondrian\Visitor" line="77" package="Default">
+        <name>getProcessedArgument</name>
+        <full_name>getProcessedArgument</full_name>
+        <argument line="77">
+          <name>$args</name>
+          <default></default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Visitor" line="99" package="Default">
         <name>enterNewInstance</name>
         <full_name>enterNewInstance</full_name>
-        <argument line="65">
+        <docblock line="93">
+          <description>Enter in a new instance statement (only process "hard-coded" classname)</description>
+          <long-description></long-description>
+          <tag line="93" name="param" description="" type="\PHPParser_Node_Expr_New" variable="$node">
+            <type by_reference="false">\PHPParser_Node_Expr_New</type>
+          </tag>
+          <tag line="93" name="return" description="" type="\PHPParser_Node_Expr_MethodCall|null">
+            <type by_reference="false">\PHPParser_Node_Expr_MethodCall</type>
+            <type by_reference="false">null</type>
+          </tag>
+        </docblock>
+        <argument line="99">
           <name>$node</name>
           <default></default>
           <type>\PHPParser_Node_Expr_New</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Visitor" line="82" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Visitor" line="119" package="Default">
         <name>enterClassNode</name>
         <full_name>enterClassNode</full_name>
-        <argument line="82">
+        <docblock line="116">
+          <description>{@inheritdoc}</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="119">
           <name>$node</name>
           <default></default>
           <type>\PHPParser_Node_Stmt_Class</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Visitor" line="89" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Visitor" line="129" package="Default">
         <name>enterInterfaceNode</name>
         <full_name>enterInterfaceNode</full_name>
-        <argument line="89">
+        <docblock line="126">
+          <description>{@inheritdoc}</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="129">
           <name>$node</name>
           <default></default>
           <type>\PHPParser_Node_Stmt_Interface</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Visitor" line="94" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Visitor" line="137" package="Default">
         <name>enterPublicMethodNode</name>
         <full_name>enterPublicMethodNode</full_name>
-        <argument line="94">
+        <docblock line="134">
+          <description>{@inheritdoc}</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="137">
           <name>$node</name>
           <default></default>
           <type>\PHPParser_Node_Stmt_ClassMethod</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Visitor" line="99" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Visitor" line="148" package="Default">
         <name>afterTraverse</name>
         <full_name>afterTraverse</full_name>
-        <argument line="99">
+        <docblock line="143">
+          <description>Writes modified files</description>
+          <long-description></long-description>
+          <tag line="143" name="param" description="" type="array" variable="$nodes">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="148">
           <name>$nodes</name>
           <default></default>
           <type>array</type>
@@ -305,17 +643,15 @@ test suite immediatly.&lt;/p&gt;</long-description>
       <error line="18" code="50018">No DocBlock was found for property $factoryMethodStack</error>
       <error line="19" code="50018">No DocBlock was found for property $dumper</error>
       <error line="20" code="50018">No DocBlock was found for property $currentClassStmts</error>
-      <error line="22" code="50010">No DocBlock was found for method __construct()</error>
-      <error line="27" code="50010">No DocBlock was found for method enterNode()</error>
-      <error line="36" code="50010">No DocBlock was found for method leaveNode()</error>
-      <error line="65" code="50010">No DocBlock was found for method enterNewInstance()</error>
-      <error line="82" code="50010">No DocBlock was found for method enterClassNode()</error>
-      <error line="89" code="50010">No DocBlock was found for method enterInterfaceNode()</error>
-      <error line="94" code="50010">No DocBlock was found for method enterPublicMethodNode()</error>
-      <error line="99" code="50010">No DocBlock was found for method afterTraverse()</error>
+      <error line="32" code="50015">Argument $node is missing from the Docblock of enterNode()</error>
+      <error line="44" code="50015">Argument $node is missing from the Docblock of leaveNode()</error>
+      <error line="77" code="50010">No DocBlock was found for method getProcessedArgument()</error>
+      <error line="116" code="50015">Argument $node is missing from the Docblock of enterClassNode()</error>
+      <error line="126" code="50015">Argument $node is missing from the Docblock of enterInterfaceNode()</error>
+      <error line="134" code="50015">Argument $node is missing from the Docblock of enterPublicMethodNode()</error>
     </parse_markers>
   </file>
-  <file path="Visitor/PublicCollector.php" hash="61df2abfd9233ed61924c1b4e47c3312" package="Default">
+  <file path="Visitor/PublicCollector.php" hash="a1a2942cac9b543b6e954fdf6c8bfffa" package="Default">
     <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Visitor" line="13" package="Default">
       <extends>\Trismegiste\Mondrian\Visitor\FqcnHelper</extends>
       <name>PublicCollector</name>
@@ -443,7 +779,7 @@ attribute of the node</description>
       <error line="68" code="50015">Argument $node is missing from the Docblock of leaveNode()</error>
     </parse_markers>
   </file>
-  <file path="Visitor/EdgeCollector.php" hash="35d8f9e2c9bd2fd9da756fa62ae7f2de" package="Default">
+  <file path="Visitor/EdgeCollector.php" hash="f1d5fd705772880d046c804acb0a5316" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Visitor" line="16" package="Default">
       <extends>\Trismegiste\Mondrian\Visitor\PassCollector</extends>
       <name>EdgeCollector</name>
@@ -735,7 +1071,7 @@ is created&lt;/p&gt;</long-description>
       <error line="190" code="50015">Argument $node is missing from the Docblock of enterClassNode()</error>
     </parse_markers>
   </file>
-  <file path="Visitor/VertexCollector.php" hash="e00af2cce3455693db9a7336c908781a" package="Default">
+  <file path="Visitor/VertexCollector.php" hash="fab27ac46ac062ceafe598747af1866b" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Visitor" line="14" package="Default">
       <extends>\Trismegiste\Mondrian\Visitor\PassCollector</extends>
       <name>VertexCollector</name>
@@ -851,7 +1187,7 @@ from the digraph.&lt;/p&gt;</long-description>
       <error line="43" code="50015">Argument $node is missing from the Docblock of enterPublicMethodNode()</error>
     </parse_markers>
   </file>
-  <file path="Visitor/SymbolMap.php" hash="a511edae5fbe0cd70c6ebb976bbc5f11" package="Default">
+  <file path="Visitor/SymbolMap.php" hash="de0bc631b3ef5f7b8d680e3c0af20ae9" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Visitor" line="16" package="Default">
       <extends>\Trismegiste\Mondrian\Visitor\PublicCollector</extends>
       <name>SymbolMap</name>
@@ -943,7 +1279,7 @@ from the digraph.&lt;/p&gt;</long-description>
       <error line="73" code="50015">Argument $dummy is missing from the Docblock of afterTraverse()</error>
     </parse_markers>
   </file>
-  <file path="Visitor/FqcnHelper.php" hash="f25e4e4d17c1a425fd7b4e9d958070d7" package="Default">
+  <file path="Visitor/FqcnHelper.php" hash="71bc81afda70520fad7dae2214a3c528" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Visitor" line="16" package="Default">
       <extends>\PHPParser_NodeVisitorAbstract</extends>
       <name>FqcnHelper</name>
@@ -1047,7 +1383,7 @@ from the digraph.&lt;/p&gt;</long-description>
       <error line="41" code="50010">No DocBlock was found for method enterNode()</error>
     </parse_markers>
   </file>
-  <file path="Visitor/PassCollector.php" hash="a2f69267eebb787ba18f7cbf56dbea26" package="Default">
+  <file path="Visitor/PassCollector.php" hash="d42f4d82a7bca382fb5cc07e9e7ebdd2" package="Default">
     <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Visitor" line="22" package="Default">
       <extends>\Trismegiste\Mondrian\Visitor\PublicCollector</extends>
       <name>PassCollector</name>
@@ -1289,7 +1625,7 @@ or code could be bugged</description>
       <error line="114" code="50010">No DocBlock was found for method getExcludedCall()</error>
     </parse_markers>
   </file>
-  <file path="Visitor/NewContractCollector.php" hash="6b899d0dd462e16d51d6abaecdefe3ce" package="Default">
+  <file path="Visitor/NewContractCollector.php" hash="fd29c7092549183ff752c8e252b92c4c" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Visitor" line="16" package="Default">
       <extends>\Trismegiste\Mondrian\Visitor\PublicCollector</extends>
       <name>NewContractCollector</name>
@@ -1360,7 +1696,7 @@ or code could be bugged</description>
       <error line="48" code="50015">Argument $node is missing from the Docblock of enterPublicMethodNode()</error>
     </parse_markers>
   </file>
-  <file path="Visitor/InterfaceExtractor.php" hash="50693b1dcdb015b02f2f8dcfbfe65298" package="Default">
+  <file path="Visitor/InterfaceExtractor.php" hash="56e2f8585690bbe6a09008ef82b27701" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Visitor" line="15" package="Default">
       <extends>\Trismegiste\Mondrian\Visitor\PublicCollector</extends>
       <name>InterfaceExtractor</name>
@@ -1544,7 +1880,7 @@ or code could be bugged</description>
       <error line="121" code="50015">Argument $node is missing from the Docblock of afterTraverse()</error>
     </parse_markers>
   </file>
-  <file path="Visitor/ParamRefactor.php" hash="a27fe87df0fc22830f9ec72405089e53" package="Default">
+  <file path="Visitor/ParamRefactor.php" hash="73718bc7ba5d3a9b093141e5c90e26c1" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Visitor" line="16" package="Default">
       <extends>\Trismegiste\Mondrian\Visitor\FqcnHelper</extends>
       <name>ParamRefactor</name>
@@ -1603,7 +1939,7 @@ or code could be bugged</description>
       <error line="26" code="50015">Argument $node is missing from the Docblock of enterNode()</error>
     </parse_markers>
   </file>
-  <file path="Algebra/ByteMatrix.php" hash="0fee82476e44d619671f7db04b04e117" package="Default">
+  <file path="Algebra/ByteMatrix.php" hash="289263b381fbc38ce6075f0be1e69394" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Algebra" line="14" package="Default">
       <extends/>
       <implements>\Trismegiste\Mondrian\Algebra\Matrix</implements>
@@ -1611,7 +1947,7 @@ or code could be bugged</description>
       <full_name>\Trismegiste\Mondrian\Algebra\ByteMatrix</full_name>
       <docblock line="9">
         <description>ByteMatrix is a compressed matrix of unsigned shortint</description>
-        <long-description/>
+        <long-description></long-description>
         <tag line="9" name="author" description="florent"/>
       </docblock>
       <constant namespace="Trismegiste\Mondrian\Algebra" line="17" package="Default">
@@ -1621,25 +1957,25 @@ or code could be bugged</description>
       </constant>
       <property final="false" static="false" visibility="protected" line="19" namespace="Trismegiste\Mondrian\Algebra" package="Default">
         <name>$dimension</name>
-        <default/>
+        <default></default>
       </property>
       <property final="false" static="false" visibility="protected" line="20" namespace="Trismegiste\Mondrian\Algebra" package="Default">
         <name>$content</name>
-        <default/>
+        <default></default>
       </property>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Algebra" line="27" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <docblock line="22">
           <description>build a square matrix</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="22" name="param" description="size of matrix" type="int" variable="$dimension">
             <type by_reference="false">int</type>
           </tag>
         </docblock>
         <argument line="27">
           <name>$dimension</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -1648,7 +1984,7 @@ or code could be bugged</description>
         <full_name>getSize</full_name>
         <docblock line="33">
           <description>{@inheritDoc}</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Algebra" line="44" package="Default">
@@ -1656,16 +1992,16 @@ or code could be bugged</description>
         <full_name>get</full_name>
         <docblock line="41">
           <description>{@inheritDoc}</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
         <argument line="44">
           <name>$line</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
         <argument line="44">
           <name>$column</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -1674,21 +2010,21 @@ or code could be bugged</description>
         <full_name>set</full_name>
         <docblock line="49">
           <description>{@inheritDoc}</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
         <argument line="52">
           <name>$line</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
         <argument line="52">
           <name>$column</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
         <argument line="52">
           <name>$value</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -1788,7 +2124,7 @@ Use the algebra order line x column</description>
       <error line="0" code="50007">No page-level DocBlock was found in file Algebra/Matrix.php</error>
     </parse_markers>
   </file>
-  <file path="Parser/PhpPersistence.php" hash="5f3807c65caa05bf8246272c131fa92b" package="Default">
+  <file path="Parser/PhpPersistence.php" hash="f565359595f6f69969ecf42fb4ce1ae7" package="Default">
     <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Parser" line="12" package="Default">
       <extends/>
       <name>PhpPersistence</name>
@@ -1828,7 +2164,7 @@ Use the algebra order line x column</description>
       <error line="17" code="50010">No DocBlock was found for method __construct()</error>
     </parse_markers>
   </file>
-  <file path="Parser/PhpFile.php" hash="4662d2a63e1445c403a8820eab4c76ad" package="Default">
+  <file path="Parser/PhpFile.php" hash="cee6fa91b72e8257013aef4e5380934a" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Parser" line="15" package="Default">
       <extends>\PHPParser_NodeAbstract</extends>
       <name>PhpFile</name>
@@ -1887,7 +2223,7 @@ Use the algebra order line x column</description>
       <error line="41" code="50010">No DocBlock was found for method modified()</error>
     </parse_markers>
   </file>
-  <file path="Parser/PhpDumper.php" hash="ea4bc6feab6aecdd787d2d1b506a3bcb" package="Default">
+  <file path="Parser/PhpDumper.php" hash="531dc7222a4f9af618e3d9e7c09c1ed3" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Parser" line="12" package="Default">
       <extends>\Trismegiste\Mondrian\Parser\PhpPersistence</extends>
       <name>PhpDumper</name>
@@ -1917,7 +2253,7 @@ Use the algebra order line x column</description>
       <error line="0" code="50007">No page-level DocBlock was found in file Parser/PhpDumper.php</error>
     </parse_markers>
   </file>
-  <file path="Parser/PackageParser.php" hash="217a0d9daa8e38c468f2244eb3b076d8" package="Default">
+  <file path="Parser/PackageParser.php" hash="9ce6648ec575bb4d61717a96b522e25f" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Parser" line="15" package="Default">
       <extends/>
       <name>PackageParser</name>
@@ -1966,14 +2302,14 @@ Use the algebra order line x column</description>
       <error line="35" code="50010">No DocBlock was found for method createPhpFileNode()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Vertex/ParamVertex.php" hash="fb84a8515a240393a1acae5d600b5aad" package="Default">
+  <file path="Transform/Vertex/ParamVertex.php" hash="debe50cb9ed5bee13087a857a9f50d8e" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform\Vertex" line="12" package="Default">
       <extends>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis</extends>
       <name>ParamVertex</name>
       <full_name>\Trismegiste\Mondrian\Transform\Vertex\ParamVertex</full_name>
       <docblock line="9">
         <description>ParamVertex is a vertex for an parameter of a method</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Transform\Vertex" line="15" package="Default">
         <name>getSpecific</name>
@@ -1985,7 +2321,7 @@ Use the algebra order line x column</description>
       <error line="15" code="50010">No DocBlock was found for method getSpecific()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Vertex/StaticAnalysis.php" hash="814e48cc814e510d1d051a4127fa3a99" package="Default">
+  <file path="Transform/Vertex/StaticAnalysis.php" hash="95ea2178e7222b9c355f1c671097df04" package="Default">
     <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Transform\Vertex" line="14" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Vertex</extends>
       <implements>\Trismegiste\Mondrian\Transform\Vertex\Vizable</implements>
@@ -2070,14 +2406,14 @@ Use the algebra order line x column</description>
       <error line="45" code="50010">No DocBlock was found for method getSpecific()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Vertex/InterfaceVertex.php" hash="30d44c4af283303603d804a567fd65c5" package="Default">
+  <file path="Transform/Vertex/InterfaceVertex.php" hash="8a8344bf544f9f681b644d18f6664b22" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform\Vertex" line="12" package="Default">
       <extends>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis</extends>
       <name>InterfaceVertex</name>
       <full_name>\Trismegiste\Mondrian\Transform\Vertex\InterfaceVertex</full_name>
       <docblock line="9">
         <description>InterfaceVertex is a vertex for an interface</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Transform\Vertex" line="15" package="Default">
         <name>getSpecific</name>
@@ -2089,14 +2425,14 @@ Use the algebra order line x column</description>
       <error line="15" code="50010">No DocBlock was found for method getSpecific()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Vertex/MethodVertex.php" hash="00d5c338076866008f9a845f7fbf7e6c" package="Default">
+  <file path="Transform/Vertex/MethodVertex.php" hash="6fe0b5ba5a2036690d2e90e22c3bb726" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform\Vertex" line="12" package="Default">
       <extends>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis</extends>
       <name>MethodVertex</name>
       <full_name>\Trismegiste\Mondrian\Transform\Vertex\MethodVertex</full_name>
       <docblock line="9">
         <description>MethodVertex is a vertex for a method</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Transform\Vertex" line="15" package="Default">
         <name>getSpecific</name>
@@ -2108,25 +2444,25 @@ Use the algebra order line x column</description>
       <error line="15" code="50010">No DocBlock was found for method getSpecific()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Vertex/MetaInterface.php" hash="15dc61845e6b379301e63dfd2a7c10e3" package="Default">
+  <file path="Transform/Vertex/MetaInterface.php" hash="c7dff1816b081b6402fdb58a32360ce7" package="Default">
     <interface namespace="Trismegiste\Mondrian\Transform\Vertex" line="13" package="Default">
       <name>MetaInterface</name>
       <full_name>\Trismegiste\Mondrian\Transform\Vertex\MetaInterface</full_name>
       <docblock line="9">
         <description>MetaInterface is a contract for a container of metadatas</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform\Vertex" line="16" package="Default">
         <name>setMeta</name>
         <full_name>setMeta</full_name>
         <argument line="16">
           <name>$key</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
         <argument line="16">
           <name>$val</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -2135,7 +2471,7 @@ Use the algebra order line x column</description>
         <full_name>getMeta</full_name>
         <argument line="18">
           <name>$key</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -2144,7 +2480,7 @@ Use the algebra order line x column</description>
         <full_name>hasMeta</full_name>
         <argument line="20">
           <name>$key</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -2180,14 +2516,14 @@ Use the algebra order line x column</description>
       <error line="0" code="50007">No page-level DocBlock was found in file Transform/Vertex/Vizable.php</error>
     </parse_markers>
   </file>
-  <file path="Transform/Vertex/ClassVertex.php" hash="4b17f1e4974a87caa200187ea136ca6e" package="Default">
+  <file path="Transform/Vertex/ClassVertex.php" hash="e09c5fb0a5340ceea1e54dbd10a24edb" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform\Vertex" line="12" package="Default">
       <extends>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis</extends>
       <name>ClassVertex</name>
       <full_name>\Trismegiste\Mondrian\Transform\Vertex\ClassVertex</full_name>
       <docblock line="9">
         <description>ClassVertex is a vertex for a class</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Transform\Vertex" line="15" package="Default">
         <name>getSpecific</name>
@@ -2199,7 +2535,7 @@ Use the algebra order line x column</description>
       <error line="15" code="50010">No DocBlock was found for method getSpecific()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Vertex/ImplVertex.php" hash="7597e92a88667049dda21cf536d80d1e" package="Default">
+  <file path="Transform/Vertex/ImplVertex.php" hash="279569414308d30464a3d7cabee2642d" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform\Vertex" line="13" package="Default">
       <extends>\Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis</extends>
       <name>ImplVertex</name>
@@ -2207,7 +2543,7 @@ Use the algebra order line x column</description>
       <docblock line="9">
         <description>ImplVertex is a vertex for an implementation
 (content of a method)</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Transform\Vertex" line="16" package="Default">
         <name>getSpecific</name>
@@ -2219,73 +2555,14 @@ Use the algebra order line x column</description>
       <error line="16" code="50010">No DocBlock was found for method getSpecific()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Grapher.php" hash="61ed7b97971f96e9ef725087a2eec64f" package="Default">
-    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform" line="16" package="Default">
-      <extends/>
-      <name>Grapher</name>
-      <full_name>\Trismegiste\Mondrian\Transform\Grapher</full_name>
-      <docblock line="13">
-        <description>Grapher transforms source code into graph</description>
-        <long-description></long-description>
-      </docblock>
-      <property final="false" static="false" visibility="protected" line="19" namespace="Trismegiste\Mondrian\Transform" package="Default">
-        <name>$config</name>
-        <default></default>
-      </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="21" package="Default">
-        <name>__construct</name>
-        <full_name>__construct</full_name>
-        <argument line="21">
-          <name>$cfg</name>
-          <default></default>
-          <type>array</type>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="34" package="Default">
-        <name>build</name>
-        <full_name>build</full_name>
-        <docblock line="26">
-          <description>Parse a set of php files and build a digraph with multiple
-passes by visiting the nodes in source code</description>
-          <long-description></long-description>
-          <tag line="26" name="param" description="list of SplFileInfo" type="\Iterator" variable="$iter">
-            <type by_reference="false">\Iterator</type>
-          </tag>
-          <tag line="26" name="return" description="" type="\Trismegiste\Mondrian\Graph\Digraph">
-            <type by_reference="false">\Trismegiste\Mondrian\Graph\Digraph</type>
-          </tag>
-        </docblock>
-        <argument line="34">
-          <name>$iter</name>
-          <default></default>
-          <type>\Iterator</type>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Transform" line="53" package="Default">
-        <name>buildCompilerPass</name>
-        <full_name>buildCompilerPass</full_name>
-        <argument line="53">
-          <name>$graph</name>
-          <default></default>
-          <type>\Trismegiste\Mondrian\Graph\Digraph</type>
-        </argument>
-      </method>
-    </class>
-    <parse_markers>
-      <error line="0" code="50007">No page-level DocBlock was found in file Transform/Grapher.php</error>
-      <error line="19" code="50018">No DocBlock was found for property $config</error>
-      <error line="21" code="50010">No DocBlock was found for method __construct()</error>
-      <error line="53" code="50010">No DocBlock was found for method buildCompilerPass()</error>
-    </parse_markers>
-  </file>
-  <file path="Transform/Format/Graphviz.php" hash="5717a64f8ed20131ae873ac8d5e40929" package="Default">
+  <file path="Transform/Format/Graphviz.php" hash="2d5b6cf8c559388a91386e32b807a61b" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform\Format" line="16" package="Default">
       <extends>\Trismegiste\Mondrian\Transform\Format\GraphExporter</extends>
       <name>Graphviz</name>
       <full_name>\Trismegiste\Mondrian\Transform\Format\Graphviz</full_name>
       <docblock line="12">
         <description>Graphviz is a decorator for GraphViz output</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Transform\Format" line="19" package="Default">
         <name>createGraphVizDot</name>
@@ -2302,13 +2579,13 @@ passes by visiting the nodes in source code</description>
       <error line="24" code="50010">No DocBlock was found for method export()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Format/ExporterInterface.php" hash="91d2b9527f84962875c1d2a294759be7" package="Default">
+  <file path="Transform/Format/ExporterInterface.php" hash="a5516f5aa13fd6d3b95ffe19cee4bb2b" package="Default">
     <interface namespace="Trismegiste\Mondrian\Transform\Format" line="12" package="Default">
       <name>ExporterInterface</name>
       <full_name>\Trismegiste\Mondrian\Transform\Format\ExporterInterface</full_name>
       <docblock line="9">
         <description>ExporterInterface is a contract for an exporter</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform\Format" line="15" package="Default">
         <name>export</name>
@@ -2320,21 +2597,21 @@ passes by visiting the nodes in source code</description>
       <error line="15" code="50010">No DocBlock was found for method export()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Format/Json.php" hash="c7adde3ad6804490fd1a65ddf13b7229" package="Default">
+  <file path="Transform/Format/Json.php" hash="25c5af697eae063d603a225116c59a05" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform\Format" line="15" package="Default">
       <extends>\Trismegiste\Mondrian\Transform\Format\GraphExporter</extends>
       <name>Json</name>
       <full_name>\Trismegiste\Mondrian\Transform\Format\Json</full_name>
       <docblock line="11">
         <description>Json is a decorator for JSON output</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="private" namespace="Trismegiste\Mondrian\Transform\Format" line="18" package="Default">
         <name>shortenClassname</name>
         <full_name>shortenClassname</full_name>
         <argument line="18">
           <name>$cls</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -2343,7 +2620,7 @@ passes by visiting the nodes in source code</description>
         <full_name>exportVertex</full_name>
         <argument line="31">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -2359,14 +2636,14 @@ passes by visiting the nodes in source code</description>
       <error line="60" code="50010">No DocBlock was found for method export()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Format/Factory.php" hash="54a00fa1aa64feef6c68310797b34873" package="Default">
+  <file path="Transform/Format/Factory.php" hash="43154122c2441fe4371b1066a6697ac0" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform\Format" line="14" package="Default">
       <extends/>
       <name>Factory</name>
       <full_name>\Trismegiste\Mondrian\Transform\Format\Factory</full_name>
       <docblock line="11">
         <description>Factory is a simple factory for export format for Graph</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <property final="false" static="false" visibility="protected" line="17" namespace="Trismegiste\Mondrian\Transform\Format" package="Default">
         <name>$typeList</name>
@@ -2377,12 +2654,12 @@ passes by visiting the nodes in source code</description>
         <full_name>create</full_name>
         <argument line="22">
           <name>$g</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
         <argument line="22">
           <name>$format</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -2393,7 +2670,7 @@ passes by visiting the nodes in source code</description>
       <error line="22" code="50010">No DocBlock was found for method create()</error>
     </parse_markers>
   </file>
-  <file path="Transform/Format/GraphExporter.php" hash="72ec7146d9fa85fb453e61321b923011" package="Default">
+  <file path="Transform/Format/GraphExporter.php" hash="c81dca5c5e4df37c4ce8ab5391cac91e" package="Default">
     <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Transform\Format" line="15" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <implements>\Trismegiste\Mondrian\Transform\Format\ExporterInterface</implements>
@@ -2402,174 +2679,221 @@ passes by visiting the nodes in source code</description>
       <docblock line="11">
         <description>GraphExporter is abstract exporter of a graph
 Design Pattern : Decorator</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
     </class>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file Transform/Format/GraphExporter.php</error>
     </parse_markers>
   </file>
-  <file path="Transform/GraphContext.php" hash="07c0ecabb9a8cdd491267b2705fc5b40" package="Default">
-    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform" line="16" package="Default">
+  <file path="Transform/GraphContext.php" hash="419af44cfeda3c65269d24e43c88641a" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform" line="17" package="Default">
       <extends/>
       <name>GraphContext</name>
       <full_name>\Trismegiste\Mondrian\Transform\GraphContext</full_name>
-      <docblock line="12">
+      <docblock line="13">
         <description>GraphContext is a context for building a graph.</description>
         <long-description>&lt;p&gt;Indexing the vertices by name&lt;/p&gt;</long-description>
       </docblock>
-      <property final="false" static="false" visibility="protected" line="19" namespace="Trismegiste\Mondrian\Transform" package="Default">
+      <property final="false" static="false" visibility="protected" line="20" namespace="Trismegiste\Mondrian\Transform" package="Default">
         <name>$vertex</name>
         <default></default>
       </property>
-      <property final="false" static="false" visibility="protected" line="20" namespace="Trismegiste\Mondrian\Transform" package="Default">
+      <property final="false" static="false" visibility="protected" line="21" namespace="Trismegiste\Mondrian\Transform" package="Default">
         <name>$fineTuning</name>
         <default></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="27" package="Default">
+      <property final="false" static="false" visibility="protected" line="22" namespace="Trismegiste\Mondrian\Transform" package="Default">
+        <name>$buildLogger</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="31" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <docblock line="22">
+        <docblock line="24">
           <description>Build the context</description>
           <long-description></long-description>
-          <tag line="22" name="param" description="" type="\Trismegiste\Mondrian\Graph\Graph" variable="$g">
-            <type by_reference="false">\Trismegiste\Mondrian\Graph\Graph</type>
+          <tag line="24" name="param" description="the config" type="array" variable="$cfg">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="24" name="param" description="a logger" type="\Trismegiste\Mondrian\Transform\Logger\LoggerInterface" variable="$log">
+            <type by_reference="false">\Trismegiste\Mondrian\Transform\Logger\LoggerInterface</type>
+          </tag>
+          <tag line="24" name="throws" description="if config is invalid" type="\InvalidArgumentException">
+            <type by_reference="false">\InvalidArgumentException</type>
           </tag>
         </docblock>
-        <argument line="27">
+        <argument line="31">
           <name>$cfg</name>
           <default></default>
           <type>array</type>
         </argument>
+        <argument line="31">
+          <name>$log</name>
+          <default></default>
+          <type>\Trismegiste\Mondrian\Transform\Logger\LoggerInterface</type>
+        </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="48" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="54" package="Default">
         <name>findVertex</name>
         <full_name>findVertex</full_name>
-        <docblock line="40">
+        <docblock line="46">
           <description>Find a vertex by its type and name</description>
           <long-description></long-description>
-          <tag line="40" name="param" description="" type="string" variable="$type">
+          <tag line="46" name="param" description="" type="string" variable="$type">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="40" name="param" description="" type="string" variable="$key">
+          <tag line="46" name="param" description="" type="string" variable="$key">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="40" name="return" description="or null" type="\Trismegiste\Mondrian\Graph\Vertex">
+          <tag line="46" name="return" description="or null" type="\Trismegiste\Mondrian\Graph\Vertex">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
         </docblock>
-        <argument line="48">
+        <argument line="54">
           <name>$type</name>
           <default></default>
           <type/>
         </argument>
-        <argument line="48">
+        <argument line="54">
           <name>$key</name>
           <default></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="64" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="70" package="Default">
         <name>existsVertex</name>
         <full_name>existsVertex</full_name>
-        <docblock line="56">
+        <docblock line="62">
           <description>Returns if a vertex of the type $type with the index $key exists</description>
           <long-description></long-description>
-          <tag line="56" name="param" description="" type="string" variable="$type">
+          <tag line="62" name="param" description="" type="string" variable="$type">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="56" name="param" description="" type="string" variable="$key">
+          <tag line="62" name="param" description="" type="string" variable="$key">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="56" name="return" description="" type="bool">
+          <tag line="62" name="return" description="" type="bool">
             <type by_reference="false">bool</type>
           </tag>
         </docblock>
-        <argument line="64">
+        <argument line="70">
           <name>$type</name>
           <default></default>
           <type/>
         </argument>
-        <argument line="64">
+        <argument line="70">
           <name>$key</name>
           <default></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="76" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="82" package="Default">
         <name>findAllMethodSameName</name>
         <full_name>findAllMethodSameName</full_name>
-        <docblock line="69">
+        <docblock line="75">
           <description>Find all methods with the same name whatever its class</description>
           <long-description></long-description>
-          <tag line="69" name="param" description="" type="string" variable="$method">
+          <tag line="75" name="param" description="" type="string" variable="$method">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="69" name="return" description="" type="\Trismegiste\Mondrian\Graph\Vertex[]">
+          <tag line="75" name="return" description="" type="\Trismegiste\Mondrian\Graph\Vertex[]">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex[]</type>
           </tag>
         </docblock>
-        <argument line="76">
+        <argument line="82">
           <name>$method</name>
           <default></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="90" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="96" package="Default">
         <name>indicesVertex</name>
         <full_name>indicesVertex</full_name>
-        <docblock line="83">
+        <docblock line="89">
           <description>Maintains a hashmap : ( type , index ) =&gt; Vertex obj</description>
           <long-description></long-description>
-          <tag line="83" name="param" description="[interface|class|method|param|impl]" type="string" variable="$type">
+          <tag line="89" name="param" description="[interface|class|method|param|impl]" type="string" variable="$type">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="83" name="param" description="the unique index in this type" type="string" variable="$index">
+          <tag line="89" name="param" description="the unique index in this type" type="string" variable="$index">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="83" name="param" description="the vertex to index" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$v">
+          <tag line="89" name="param" description="the vertex to index" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$v">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
         </docblock>
-        <argument line="90">
+        <argument line="96">
           <name>$type</name>
           <default></default>
           <type/>
         </argument>
-        <argument line="90">
+        <argument line="96">
           <name>$index</name>
           <default></default>
           <type/>
         </argument>
-        <argument line="90">
+        <argument line="96">
           <name>$v</name>
           <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="103" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="109" package="Default">
         <name>getExcludedCall</name>
         <full_name>getExcludedCall</full_name>
-        <docblock line="95">
+        <docblock line="101">
           <description>Get the list of excluded calls for this Class::Method</description>
           <long-description></long-description>
-          <tag line="95" name="param" description="" type="string" variable="$class">
+          <tag line="101" name="param" description="" type="string" variable="$class">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="95" name="param" description="" type="string" variable="$method">
+          <tag line="101" name="param" description="" type="string" variable="$method">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="95" name="return" description="list of excluded methods &quot;fqcn::methodName&quot;" type="array">
+          <tag line="101" name="return" description="list of excluded methods &quot;fqcn::methodName&quot;" type="array">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
-        <argument line="103">
+        <argument line="109">
           <name>$class</name>
           <default></default>
           <type/>
         </argument>
-        <argument line="103">
+        <argument line="109">
           <name>$method</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="126" package="Default">
+        <name>logFallbackCall</name>
+        <full_name>logFallbackCall</full_name>
+        <docblock line="119">
+          <description>Log a call found by the fallback</description>
+          <long-description></long-description>
+          <tag line="119" name="param" description="" type="string" variable="$class">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="119" name="param" description="" type="string" variable="$method">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="119" name="param" description="" type="string" variable="$called">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="126">
+          <name>$class</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="126">
+          <name>$method</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="126">
+          <name>$called</name>
           <default></default>
           <type/>
         </argument>
@@ -2577,14 +2901,12 @@ Design Pattern : Decorator</description>
     </class>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file Transform/GraphContext.php</error>
-      <error line="19" code="50018">No DocBlock was found for property $vertex</error>
-      <error line="20" code="50018">No DocBlock was found for property $fineTuning</error>
-      <error line="22" code="50014">Name of argument $cfg does not match with the DocBlock's name $g in __construct()</error>
-      <error line="22" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $cfg in __construct()</error>
-      <notice line="22" code="50013">Parameter $g could not be found in __construct()</notice>
+      <error line="20" code="50018">No DocBlock was found for property $vertex</error>
+      <error line="21" code="50018">No DocBlock was found for property $fineTuning</error>
+      <error line="22" code="50018">No DocBlock was found for property $buildLogger</error>
     </parse_markers>
   </file>
-  <file path="Transform/ReflectionContext.php" hash="4675015d4d5259d8e4578517ee94a7da" package="Default">
+  <file path="Transform/ReflectionContext.php" hash="bc8b25a54e54e534d2713e7608408758" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform" line="17" package="Default">
       <extends/>
       <name>ReflectionContext</name>
@@ -2807,7 +3129,220 @@ for its default declaring type (after resolveSymbol, it changes)</description>
       <error line="51" code="50010">No DocBlock was found for method recursivDeclaration()</error>
     </parse_markers>
   </file>
-  <file path="Analysis/Centrality.php" hash="e7924d922b536110cb49784ac608a32c" package="Default">
+  <file path="Transform/Logger/LoggerInterface.php" hash="7f1f2fafde2acc32fa61fc599c3af65b" package="Default">
+    <interface namespace="Trismegiste\Mondrian\Transform\Logger" line="12" package="Default">
+      <name>LoggerInterface</name>
+      <full_name>\Trismegiste\Mondrian\Transform\Logger\LoggerInterface</full_name>
+      <docblock line="9">
+        <description>LoggerInterface is a contract for a logger</description>
+        <long-description></long-description>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform\Logger" line="21" package="Default">
+        <name>logCallTo</name>
+        <full_name>logCallTo</full_name>
+        <docblock line="15">
+          <description>Log a call from a method to a method</description>
+          <long-description></long-description>
+          <tag line="15" name="param" description="fqcn::method that makes the invocation" type="string" variable="$callee">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="15" name="param" description="the called fqcn::method" type="string" variable="$called">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="21">
+          <name>$callee</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="21">
+          <name>$called</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+    </interface>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Transform/Logger/LoggerInterface.php</error>
+    </parse_markers>
+  </file>
+  <file path="Transform/Logger/GraphLogger.php" hash="d96fcfd356c1a08c2509f3358678d86b" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform\Logger" line="12" package="Default">
+      <extends/>
+      <implements>\Trismegiste\Mondrian\Transform\Logger\LoggerInterface</implements>
+      <name>GraphLogger</name>
+      <full_name>\Trismegiste\Mondrian\Transform\Logger\GraphLogger</full_name>
+      <docblock line="9">
+        <description>GraphLogger logs the transform of source code to a graph</description>
+        <long-description></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="15" namespace="Trismegiste\Mondrian\Transform\Logger" package="Default">
+        <name>$stack</name>
+        <default>array()</default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform\Logger" line="20" package="Default">
+        <name>logCallTo</name>
+        <full_name>logCallTo</full_name>
+        <docblock line="17">
+          <description>{@inheritdoc}</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="20">
+          <name>$callee</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="20">
+          <name>$called</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Transform\Logger" line="25" package="Default">
+        <name>getCallingDigest</name>
+        <full_name>getCallingDigest</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform\Logger" line="43" package="Default">
+        <name>getDigest</name>
+        <full_name>getDigest</full_name>
+        <docblock line="38">
+          <description>Get the yml config</description>
+          <long-description></long-description>
+          <tag line="38" name="return" description="the yaml-formatted full report" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Transform/Logger/GraphLogger.php</error>
+      <error line="15" code="50018">No DocBlock was found for property $stack</error>
+      <error line="17" code="50015">Argument $callee is missing from the Docblock of logCallTo()</error>
+      <error line="17" code="50015">Argument $called is missing from the Docblock of logCallTo()</error>
+      <error line="25" code="50010">No DocBlock was found for method getCallingDigest()</error>
+    </parse_markers>
+  </file>
+  <file path="Transform/Logger/NullLogger.php" hash="ff3c6e2e54e8d57c856c63c99b188775" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform\Logger" line="12" package="Default">
+      <extends/>
+      <implements>\Trismegiste\Mondrian\Transform\Logger\LoggerInterface</implements>
+      <name>NullLogger</name>
+      <full_name>\Trismegiste\Mondrian\Transform\Logger\NullLogger</full_name>
+      <docblock line="9">
+        <description>NullLogger logs nothing</description>
+        <long-description></long-description>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform\Logger" line="15" package="Default">
+        <name>logCallTo</name>
+        <full_name>logCallTo</full_name>
+        <argument line="15">
+          <name>$callee</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="15">
+          <name>$called</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Transform/Logger/NullLogger.php</error>
+      <error line="15" code="50010">No DocBlock was found for method logCallTo()</error>
+    </parse_markers>
+  </file>
+  <file path="Transform/GraphBuilder.php" hash="9af8a959b3b736511c23bdb6c6332296" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Transform" line="20" package="Default">
+      <extends>\Trismegiste\Mondrian\Builder\Compiler\AbstractTraverser</extends>
+      <name>GraphBuilder</name>
+      <full_name>\Trismegiste\Mondrian\Transform\GraphBuilder</full_name>
+      <docblock line="14">
+        <description>Design Pattern: Builder</description>
+        <long-description>&lt;p&gt;GraphBuilder is a builder for a compiler&lt;/p&gt;</long-description>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="23" namespace="Trismegiste\Mondrian\Transform" package="Default">
+        <name>$graphResult</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="24" namespace="Trismegiste\Mondrian\Transform" package="Default">
+        <name>$config</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="25" namespace="Trismegiste\Mondrian\Transform" package="Default">
+        <name>$reflection</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="26" namespace="Trismegiste\Mondrian\Transform" package="Default">
+        <name>$vertexContext</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="27" namespace="Trismegiste\Mondrian\Transform" package="Default">
+        <name>$logger</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="36" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="29">
+          <description>Injecting the external in/out parameters</description>
+          <long-description></long-description>
+          <tag line="29" name="param" description="" type="array" variable="$cfg">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="29" name="param" description="" type="\Trismegiste\Mondrian\Graph\Graph" variable="$g">
+            <type by_reference="false">\Trismegiste\Mondrian\Graph\Graph</type>
+          </tag>
+          <tag line="29" name="param" description="" type="\Trismegiste\Mondrian\Transform\Logger\LoggerInterface" variable="$log">
+            <type by_reference="false">\Trismegiste\Mondrian\Transform\Logger\LoggerInterface</type>
+          </tag>
+        </docblock>
+        <argument line="36">
+          <name>$cfg</name>
+          <default></default>
+          <type>array</type>
+        </argument>
+        <argument line="36">
+          <name>$g</name>
+          <default></default>
+          <type>\Trismegiste\Mondrian\Graph\Graph</type>
+        </argument>
+        <argument line="36">
+          <name>$log</name>
+          <default></default>
+          <type>\Trismegiste\Mondrian\Transform\Logger\LoggerInterface</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="46" package="Default">
+        <name>buildContext</name>
+        <full_name>buildContext</full_name>
+        <docblock line="43">
+          <description>Build the context(s) for passes</description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Transform" line="57" package="Default">
+        <name>buildCollectors</name>
+        <full_name>buildCollectors</full_name>
+        <docblock line="52">
+          <description>Build a list of viitor for each pass</description>
+          <long-description></long-description>
+          <tag line="52" name="return" description="list of passes" type="\Trismegiste\Mondrian\Transform\FqcnCollector[]">
+            <type by_reference="false">\Trismegiste\Mondrian\Transform\FqcnCollector[]</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Transform/GraphBuilder.php</error>
+      <error line="23" code="50018">No DocBlock was found for property $graphResult</error>
+      <error line="24" code="50018">No DocBlock was found for property $config</error>
+      <error line="25" code="50018">No DocBlock was found for property $reflection</error>
+      <error line="26" code="50018">No DocBlock was found for property $vertexContext</error>
+      <error line="27" code="50018">No DocBlock was found for property $logger</error>
+    </parse_markers>
+  </file>
+  <file path="Analysis/Centrality.php" hash="0669a2dedca306a0f13f4ff9f9de3b48" package="Default">
     <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Analysis" line="28" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <implements>\Trismegiste\Mondrian\Analysis\VertexDecorator</implements>
@@ -2853,34 +3388,34 @@ pagerank (sort of)&lt;/p&gt;</long-description>
       <error line="0" code="50007">No page-level DocBlock was found in file Analysis/Centrality.php</error>
     </parse_markers>
   </file>
-  <file path="Analysis/Strategy/Search.php" hash="33c8cbbe23e3dc610e02f2d11beb41e6" package="Default">
+  <file path="Analysis/Strategy/Search.php" hash="be8fdef82c8961b9ff93c8226f48270c" package="Default">
     <interface namespace="Trismegiste\Mondrian\Analysis\Strategy" line="15" package="Default">
       <name>Search</name>
       <full_name>\Trismegiste\Mondrian\Analysis\Strategy\Search</full_name>
       <docblock line="12">
         <description>Search is a contract for searching coupled component</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Analysis\Strategy" line="21" package="Default">
         <name>collapseEdge</name>
         <full_name>collapseEdge</full_name>
         <docblock line="18">
           <description>Add or not a shortcut from $src to $dst by following $path</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
         <argument line="21">
           <name>$src</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="21">
           <name>$dst</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="21">
           <name>$path</name>
-          <default/>
+          <default></default>
           <type>array</type>
         </argument>
       </method>
@@ -2892,7 +3427,7 @@ pagerank (sort of)&lt;/p&gt;</long-description>
       <error line="18" code="50015">Argument $path is missing from the Docblock of collapseEdge()</error>
     </parse_markers>
   </file>
-  <file path="Analysis/Strategy/ByImplemented.php" hash="23e839e0603f7ea5cc2970edf44f85ee" package="Default">
+  <file path="Analysis/Strategy/ByImplemented.php" hash="079372126380926cc394c90b2ded7b87" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis\Strategy" line="21" package="Default">
       <extends/>
       <implements>\Trismegiste\Mondrian\Analysis\Strategy\Search</implements>
@@ -2906,14 +3441,14 @@ because connect property is transitive.&lt;/p&gt;</long-description>
       </docblock>
       <property final="false" static="false" visibility="protected" line="24" namespace="Trismegiste\Mondrian\Analysis\Strategy" package="Default">
         <name>$reducedGraph</name>
-        <default/>
+        <default></default>
       </property>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Analysis\Strategy" line="26" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <argument line="26">
           <name>$g</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
       </method>
@@ -2922,17 +3457,17 @@ because connect property is transitive.&lt;/p&gt;</long-description>
         <full_name>collapseEdge</full_name>
         <argument line="31">
           <name>$src</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="31">
           <name>$dst</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="31">
           <name>$path</name>
-          <default/>
+          <default></default>
           <type>array</type>
         </argument>
       </method>
@@ -2944,7 +3479,7 @@ because connect property is transitive.&lt;/p&gt;</long-description>
       <error line="31" code="50010">No DocBlock was found for method collapseEdge()</error>
     </parse_markers>
   </file>
-  <file path="Analysis/Strategy/ByCalling.php" hash="e3a65b878563fdc8d16716853e53b5a8" package="Default">
+  <file path="Analysis/Strategy/ByCalling.php" hash="aefc584c1d205b2c6046cb27d4ba138a" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis\Strategy" line="21" package="Default">
       <extends/>
       <implements>\Trismegiste\Mondrian\Analysis\Strategy\Search</implements>
@@ -2956,14 +3491,14 @@ because connect property is transitive.&lt;/p&gt;</long-description>
       </docblock>
       <property final="false" static="false" visibility="protected" line="24" namespace="Trismegiste\Mondrian\Analysis\Strategy" package="Default">
         <name>$reducedGraph</name>
-        <default/>
+        <default></default>
       </property>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Analysis\Strategy" line="26" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <argument line="26">
           <name>$g</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
       </method>
@@ -2972,17 +3507,17 @@ because connect property is transitive.&lt;/p&gt;</long-description>
         <full_name>collapseEdge</full_name>
         <argument line="31">
           <name>$src</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="31">
           <name>$dst</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="31">
           <name>$path</name>
-          <default/>
+          <default></default>
           <type>array</type>
         </argument>
       </method>
@@ -2994,7 +3529,7 @@ because connect property is transitive.&lt;/p&gt;</long-description>
       <error line="31" code="50010">No DocBlock was found for method collapseEdge()</error>
     </parse_markers>
   </file>
-  <file path="Analysis/Strategy/ByConnection.php" hash="72b190dc4c0239e15cc8afe4a9fd076e" package="Default">
+  <file path="Analysis/Strategy/ByConnection.php" hash="8b6cbd7ea648a25cc2aa6396f32c0fc0" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis\Strategy" line="20" package="Default">
       <extends/>
       <implements>\Trismegiste\Mondrian\Analysis\Strategy\Search</implements>
@@ -3003,18 +3538,18 @@ because connect property is transitive.&lt;/p&gt;</long-description>
       <docblock line="16">
         <description>ByConnection selects shortcut on a path at the first class
 because connect property is transitive.</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <property final="false" static="false" visibility="protected" line="23" namespace="Trismegiste\Mondrian\Analysis\Strategy" package="Default">
         <name>$reducedGraph</name>
-        <default/>
+        <default></default>
       </property>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Analysis\Strategy" line="25" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <argument line="25">
           <name>$g</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
       </method>
@@ -3023,17 +3558,17 @@ because connect property is transitive.</description>
         <full_name>collapseEdge</full_name>
         <argument line="30">
           <name>$src</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="30">
           <name>$dst</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="30">
           <name>$path</name>
-          <default/>
+          <default></default>
           <type>array</type>
         </argument>
       </method>
@@ -3045,7 +3580,7 @@ because connect property is transitive.</description>
       <error line="30" code="50010">No DocBlock was found for method collapseEdge()</error>
     </parse_markers>
   </file>
-  <file path="Analysis/UsedCentrality.php" hash="9dd19c5f4a1a3b0387b7cbd8e752657d" package="Default">
+  <file path="Analysis/UsedCentrality.php" hash="d2cc502ef3db59b0c1864d65af575ebf" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis" line="23" package="Default">
       <extends>\Trismegiste\Mondrian\Analysis\Centrality</extends>
       <name>UsedCentrality</name>
@@ -3068,7 +3603,7 @@ Git.&lt;/li&gt;
         <docblock line="26">
           <description>Add used centrality information on each vertex
 (edge effect on this digraph)</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
       </method>
     </class>
@@ -3100,7 +3635,7 @@ Git.&lt;/li&gt;
       <error line="0" code="50007">No page-level DocBlock was found in file Analysis/Generator.php</error>
     </parse_markers>
   </file>
-  <file path="Analysis/CouplingMaker.php" hash="020f4c164c812721ca4b0bed4370fcef" package="Default">
+  <file path="Analysis/CouplingMaker.php" hash="d046ee9ed78e0b4ab2cb6164887e4391" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis" line="24" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <implements>\Trismegiste\Mondrian\Analysis\Generator</implements>
@@ -3124,7 +3659,7 @@ a seed for spaghetti coupling.&lt;/p&gt;</long-description>
       <error line="27" code="50010">No DocBlock was found for method createReducedGraph()</error>
     </parse_markers>
   </file>
-  <file path="Analysis/HiddenCoupling.php" hash="83166b4b78d4ec393990c9f47a81f316" package="Default">
+  <file path="Analysis/HiddenCoupling.php" hash="7f1c95a919856fee7654836355c62bd4" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis" line="49" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\BreadthFirstSearch</extends>
       <implements>\Trismegiste\Mondrian\Analysis\Generator</implements>
@@ -3176,7 +3711,7 @@ in O(n³)&lt;/p&gt;</long-description>
         <full_name>findOwningClassVertex</full_name>
         <argument line="87">
           <name>$impl</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Transform\Vertex\ImplVertex</type>
         </argument>
       </method>
@@ -3185,7 +3720,7 @@ in O(n³)&lt;/p&gt;</long-description>
         <full_name>findDeclaringVertex</full_name>
         <argument line="101">
           <name>$meth</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Transform\Vertex\MethodVertex</type>
         </argument>
       </method>
@@ -3196,7 +3731,7 @@ in O(n³)&lt;/p&gt;</long-description>
       <error line="101" code="50010">No DocBlock was found for method findDeclaringVertex()</error>
     </parse_markers>
   </file>
-  <file path="Analysis/DependCentrality.php" hash="90a108055f8d8b86f97644c7561dd378" package="Default">
+  <file path="Analysis/DependCentrality.php" hash="30badb9ce823dc9dafc38bb0c2aeed77" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis" line="21" package="Default">
       <extends>\Trismegiste\Mondrian\Analysis\Centrality</extends>
       <name>DependCentrality</name>
@@ -3220,7 +3755,7 @@ CoR etc... All bugs are "drown" to this component like a blackhole.&lt;/li&gt;
         <docblock line="24">
           <description>Add dependency centrality information on each vertex
 (edge effect on this digraph)</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
       </method>
     </class>
@@ -3228,7 +3763,7 @@ CoR etc... All bugs are "drown" to this component like a blackhole.&lt;/li&gt;
       <error line="0" code="50007">No page-level DocBlock was found in file Analysis/DependCentrality.php</error>
     </parse_markers>
   </file>
-  <file path="Analysis/SpaghettiCoupling.php" hash="bc71df2420560604d0ed43aafac58400" package="Default">
+  <file path="Analysis/SpaghettiCoupling.php" hash="c0cf001d561576c76bc90c7971e5ec86" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis" line="47" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\BreadthFirstSearch</extends>
       <name>SpaghettiCoupling</name>
@@ -3272,14 +3807,14 @@ not to replace your coding skills. There is no magic for that.&lt;/p&gt;
         <docblock line="52">
           <description>Set the strategy to reduce the graph by shortening a path between 2
 components</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="52" name="param" description="" type="\Trismegiste\Mondrian\Analysis\Strategy\Search" variable="$strategy">
             <type by_reference="false">\Trismegiste\Mondrian\Analysis\Strategy\Search</type>
           </tag>
         </docblock>
         <argument line="58">
           <name>$strategy</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Analysis\Strategy\Search</type>
         </argument>
       </method>
@@ -3288,7 +3823,7 @@ components</description>
         <full_name>generateCoupledClassGraph</full_name>
         <docblock line="63">
           <description>Generate a digraph reduced to all concrete coupled classes</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
       </method>
     </class>
@@ -3297,14 +3832,14 @@ components</description>
       <error line="50" code="50018">No DocBlock was found for property $strategy</error>
     </parse_markers>
   </file>
-  <file path="Analysis/Cycle.php" hash="2e695675f9dff4f278589b12419ad1e8" package="Default">
+  <file path="Analysis/Cycle.php" hash="2d11c90928904d3da1788a9d21e3811b" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis" line="14" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Tarjan</extends>
       <name>Cycle</name>
       <full_name>\Trismegiste\Mondrian\Analysis\Cycle</full_name>
       <docblock line="11">
         <description>Cycle analyses cycles by searching for strongly connected components</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <property final="false" static="false" visibility="protected" line="17" namespace="Trismegiste\Mondrian\Analysis" package="Default">
         <name>$scc</name>
@@ -3326,7 +3861,7 @@ components</description>
       <error line="20" code="50010">No DocBlock was found for method getPartition()</error>
     </parse_markers>
   </file>
-  <file path="Analysis/CodeMetrics.php" hash="08a1ce6cc52cfc1293a75d147e210b3f" package="Default">
+  <file path="Analysis/CodeMetrics.php" hash="7d9e2367f371449b72cc00a3ba0cf47a" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis" line="40" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <name>CodeMetrics</name>
@@ -3363,7 +3898,7 @@ That's why I didn't push too far these statistics.&lt;/p&gt;
         <full_name>extractShortName</full_name>
         <docblock line="43">
           <description>Extract the class name of a vertex to get a printable result</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="43" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$v">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -3373,7 +3908,7 @@ That's why I didn't push too far these statistics.&lt;/p&gt;
         </docblock>
         <argument line="49">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3382,7 +3917,7 @@ That's why I didn't push too far these statistics.&lt;/p&gt;
         <full_name>getCardinal</full_name>
         <docblock line="59">
           <description>Makes the statistics on the code</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="59" name="return" description="hashmap of stat" type="array">
             <type by_reference="false">array</type>
           </tag>
@@ -3399,14 +3934,14 @@ That's why I didn't push too far these statistics.&lt;/p&gt;
       <full_name>\Trismegiste\Mondrian\Analysis\VertexDecorator</full_name>
       <docblock line="9">
         <description>Contract for adding information on vertices in a Graph</description>
-        <long-description></long-description>
+        <long-description/>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Analysis" line="18" package="Default">
         <name>decorate</name>
         <full_name>decorate</full_name>
         <docblock line="15">
           <description>Add metadata to vertices</description>
-          <long-description></long-description>
+          <long-description/>
         </docblock>
       </method>
     </interface>
@@ -3414,7 +3949,7 @@ That's why I didn't push too far these statistics.&lt;/p&gt;
       <error line="0" code="50007">No page-level DocBlock was found in file Analysis/VertexDecorator.php</error>
     </parse_markers>
   </file>
-  <file path="Analysis/LiskovSearch.php" hash="56bcdf67ffe00f776ff4a665f6600a3f" package="Default">
+  <file path="Analysis/LiskovSearch.php" hash="d321de69ab44823ffdc5bc61baa2cf59" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Analysis" line="17" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <implements>\Trismegiste\Mondrian\Analysis\Generator</implements>
@@ -3437,7 +3972,7 @@ That's why I didn't push too far these statistics.&lt;/p&gt;
       <error line="0" code="50007">No page-level DocBlock was found in file Analysis/LiskovSearch.php</error>
     </parse_markers>
   </file>
-  <file path="Graph/ReversedDigraph.php" hash="bd4307b05e3502e5e8ecd5cafa57c120" package="Default">
+  <file path="Graph/ReversedDigraph.php" hash="c52215974125ed3dd42759ae22b3154a" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="13" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <name>ReversedDigraph</name>
@@ -3445,14 +3980,14 @@ That's why I didn't push too far these statistics.&lt;/p&gt;
       <docblock line="9">
         <description>ReversedDigraph is a decorator which provides a reversed
 graph of this directed graph</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Graph" line="21" package="Default">
         <name>getReversed</name>
         <full_name>getReversed</full_name>
         <docblock line="16">
           <description>Build the reversed digraph of this digraph</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="16" name="return" description="" type="\Trismegiste\Mondrian\Graph\Digraph">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Digraph</type>
           </tag>
@@ -3463,7 +3998,7 @@ graph of this directed graph</description>
       <error line="0" code="50007">No page-level DocBlock was found in file Graph/ReversedDigraph.php</error>
     </parse_markers>
   </file>
-  <file path="Graph/Algorithm.php" hash="9f2fe3aef798de609b8252ff5c7f4c73" package="Default">
+  <file path="Graph/Algorithm.php" hash="cdde95bb39ba56375d28d4ecfda48a07" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="22" package="Default">
       <extends/>
       <implements>\Trismegiste\Mondrian\Graph\Graph</implements>
@@ -3482,21 +4017,21 @@ you only need to subclass this decorator and add your methods.&lt;/p&gt;
       </docblock>
       <property final="false" static="false" visibility="protected" line="25" namespace="Trismegiste\Mondrian\Graph" package="Default">
         <name>$graph</name>
-        <default/>
+        <default></default>
       </property>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Graph" line="32" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <docblock line="27">
           <description>Decorates the graph</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="27" name="param" description="" type="\Trismegiste\Mondrian\Graph\Graph" variable="$g">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Graph</type>
           </tag>
         </docblock>
         <argument line="32">
           <name>$g</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
       </method>
@@ -3505,12 +4040,12 @@ you only need to subclass this decorator and add your methods.&lt;/p&gt;
         <full_name>addEdge</full_name>
         <argument line="37">
           <name>$source</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="37">
           <name>$target</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3519,7 +4054,7 @@ you only need to subclass this decorator and add your methods.&lt;/p&gt;
         <full_name>addVertex</full_name>
         <argument line="42">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3536,12 +4071,12 @@ you only need to subclass this decorator and add your methods.&lt;/p&gt;
         <full_name>searchEdge</full_name>
         <argument line="57">
           <name>$source</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="57">
           <name>$target</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3550,7 +4085,7 @@ you only need to subclass this decorator and add your methods.&lt;/p&gt;
         <full_name>getSuccessor</full_name>
         <argument line="62">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3559,11 +4094,11 @@ you only need to subclass this decorator and add your methods.&lt;/p&gt;
         <full_name>getEdgeIterator</full_name>
         <docblock line="67">
           <description>{@inheritDoc}</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
         <argument line="70">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3572,7 +4107,7 @@ you only need to subclass this decorator and add your methods.&lt;/p&gt;
         <full_name>getPartition</full_name>
         <docblock line="75">
           <description>{@inheritDoc}</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
       </method>
     </class>
@@ -3588,7 +4123,7 @@ you only need to subclass this decorator and add your methods.&lt;/p&gt;
       <error line="67" code="50015">Argument $v is missing from the Docblock of getEdgeIterator()</error>
     </parse_markers>
   </file>
-  <file path="Graph/BreadthFirstSearch.php" hash="82e0e40aa7bc14c4c6f343b4770e272a" package="Default">
+  <file path="Graph/BreadthFirstSearch.php" hash="f2aa9fbd3b9a30a972d50b04481f1b25" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="17" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <name>BreadthFirstSearch</name>
@@ -3609,12 +4144,12 @@ two vertices.</description>
         <full_name>searchPath</full_name>
         <argument line="22">
           <name>$src</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="22">
           <name>$dst</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3623,12 +4158,12 @@ two vertices.</description>
         <full_name>recursivSearchPath</full_name>
         <argument line="40">
           <name>$step</name>
-          <default/>
+          <default></default>
           <type>\SplObjectStorage</type>
         </argument>
         <argument line="40">
           <name>$dst</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3637,7 +4172,7 @@ two vertices.</description>
         <full_name>resetVisited</full_name>
         <docblock line="66">
           <description>Reset visited state of edges</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
       </method>
     </class>
@@ -3648,7 +4183,7 @@ two vertices.</description>
       <error line="40" code="50010">No DocBlock was found for method recursivSearchPath()</error>
     </parse_markers>
   </file>
-  <file path="Graph/Graph.php" hash="22a9a1fce0c56ce8e1591674ad4e7881" package="Default">
+  <file path="Graph/Graph.php" hash="ef856515808f5d5ac1e9fd225c6fcc46" package="Default">
     <interface namespace="Trismegiste\Mondrian\Graph" line="11" package="Default">
       <name>Graph</name>
       <full_name>\Trismegiste\Mondrian\Graph\Graph</full_name>
@@ -3662,14 +4197,14 @@ Component : Component</description>
         <full_name>addVertex</full_name>
         <docblock line="14">
           <description>Add a vertex to the graph without edge</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="14" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$v">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
         </docblock>
         <argument line="19">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3678,7 +4213,7 @@ Component : Component</description>
         <full_name>addEdge</full_name>
         <docblock line="21">
           <description>Add a (un)directed edge if it does not already exist</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="21" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$source">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -3688,12 +4223,12 @@ Component : Component</description>
         </docblock>
         <argument line="27">
           <name>$source</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="27">
           <name>$target</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3702,7 +4237,7 @@ Component : Component</description>
         <full_name>searchEdge</full_name>
         <docblock line="29">
           <description>Searches an existing (directed or not) edge between two vertices</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="29" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$source">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -3715,12 +4250,12 @@ Component : Component</description>
         </docblock>
         <argument line="36">
           <name>$source</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="36">
           <name>$target</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3729,7 +4264,7 @@ Component : Component</description>
         <full_name>getVertexSet</full_name>
         <docblock line="38">
           <description>Get the vertices in the graph</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="38" name="return" description="" type="array">
             <type by_reference="false">array</type>
           </tag>
@@ -3740,7 +4275,7 @@ Component : Component</description>
         <full_name>getEdgeSet</full_name>
         <docblock line="45">
           <description>Get the edges set</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="45" name="return" description="" type="array">
             <type by_reference="false">array</type>
           </tag>
@@ -3751,7 +4286,7 @@ Component : Component</description>
         <full_name>getSuccessor</full_name>
         <docblock line="52">
           <description>Get successors of a vertex</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="52" name="return" description="null if the vertex is not in this graph&#10;                        or an array of vertices" type="null|array">
             <type by_reference="false">null</type>
             <type by_reference="false">array</type>
@@ -3759,7 +4294,7 @@ Component : Component</description>
         </docblock>
         <argument line="58">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3768,7 +4303,7 @@ Component : Component</description>
         <full_name>getEdgeIterator</full_name>
         <docblock line="60">
           <description>Get an iterator on edges for one vertex</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="60" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$v">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -3778,7 +4313,7 @@ Component : Component</description>
         </docblock>
         <argument line="66">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3793,14 +4328,14 @@ Component : Component</description>
       <error line="68" code="50010">No DocBlock was found for method getPartition()</error>
     </parse_markers>
   </file>
-  <file path="Graph/PrettyPrint.php" hash="bbb9b78596a7228c84c50c0d91111ac3" package="Default">
+  <file path="Graph/PrettyPrint.php" hash="c981c8a0a7aa0adc242d98bef1284781" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="14" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <name>PrettyPrint</name>
       <full_name>\Trismegiste\Mondrian\Graph\PrettyPrint</full_name>
       <docblock line="9">
         <description>PrettyPrint is Decorator for pretty printing a graph</description>
-        <long-description/>
+        <long-description></long-description>
         <tag line="9" name="author" description="flo"/>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="private" namespace="Trismegiste\Mondrian\Graph" line="17" package="Default">
@@ -3808,7 +4343,7 @@ Component : Component</description>
         <full_name>extractShortName</full_name>
         <argument line="17">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3823,7 +4358,7 @@ Component : Component</description>
       <error line="27" code="50010">No DocBlock was found for method __toString()</error>
     </parse_markers>
   </file>
-  <file path="Graph/FloydWarshall.php" hash="5994fce42b7976d6ce744c228faec222" package="Default">
+  <file path="Graph/FloydWarshall.php" hash="eb45a6b3ec48c5f7d48647d10041ddcc" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="17" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <name>FloydWarshall</name>
@@ -3843,7 +4378,7 @@ Component : Component</description>
       <error line="20" code="50010">No DocBlock was found for method getDistance()</error>
     </parse_markers>
   </file>
-  <file path="Graph/DepthFirstSearch.php" hash="a625e9eb4b73ed796d1398761fc694ac" package="Default">
+  <file path="Graph/DepthFirstSearch.php" hash="5bdcba8e87d51a09f201bed6e1fa67cb" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="15" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <name>DepthFirstSearch</name>
@@ -3862,7 +4397,7 @@ two vertices.</description>
         <full_name>searchPath</full_name>
         <docblock line="20">
           <description>Finds a directed path from $src to $dst</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="20" name="param" description="starting point" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$src">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -3875,12 +4410,12 @@ two vertices.</description>
         </docblock>
         <argument line="27">
           <name>$src</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="27">
           <name>$dst</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3889,7 +4424,7 @@ two vertices.</description>
         <full_name>recursivSearchPath</full_name>
         <docblock line="35">
           <description>Recursive search</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="35" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$src">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -3902,12 +4437,12 @@ two vertices.</description>
         </docblock>
         <argument line="42">
           <name>$src</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="42">
           <name>$dst</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3917,22 +4452,22 @@ two vertices.</description>
       <error line="18" code="50018">No DocBlock was found for property $stack</error>
     </parse_markers>
   </file>
-  <file path="Graph/Edge.php" hash="fc69e01c45b22ab1b2c13ac63aa98360" package="Default">
+  <file path="Graph/Edge.php" hash="c998195b882fa5e4658f4e529687a0d2" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="12" package="Default">
       <extends/>
       <name>Edge</name>
       <full_name>\Trismegiste\Mondrian\Graph\Edge</full_name>
       <docblock line="9">
         <description>Edge is a directed edge</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <property final="false" static="false" visibility="protected" line="15" namespace="Trismegiste\Mondrian\Graph" package="Default">
         <name>$to</name>
-        <default/>
+        <default></default>
       </property>
       <property final="false" static="false" visibility="protected" line="16" namespace="Trismegiste\Mondrian\Graph" package="Default">
         <name>$from</name>
-        <default/>
+        <default></default>
       </property>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Graph" line="25" package="Default">
         <name>__construct</name>
@@ -3940,7 +4475,7 @@ two vertices.</description>
         <docblock line="18">
           <description>Since edge has one source vertex and one target vertex
 it is builded with two vertices in its constructor</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="18" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$from">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -3950,12 +4485,12 @@ it is builded with two vertices in its constructor</description>
         </docblock>
         <argument line="25">
           <name>$from</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="25">
           <name>$to</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -3964,7 +4499,7 @@ it is builded with two vertices in its constructor</description>
         <full_name>getSource</full_name>
         <docblock line="31">
           <description>Get the source vertex</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="31" name="return" description="" type="\Trismegiste\Mondrian\Graph\Vertex">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -3975,7 +4510,7 @@ it is builded with two vertices in its constructor</description>
         <full_name>getTarget</full_name>
         <docblock line="41">
           <description>Get the target vertex</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="41" name="return" description="" type="\Trismegiste\Mondrian\Graph\Vertex">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -3988,7 +4523,7 @@ it is builded with two vertices in its constructor</description>
       <error line="16" code="50018">No DocBlock was found for property $from</error>
     </parse_markers>
   </file>
-  <file path="Graph/PowerIteration.php" hash="b2fd7a1140ded8f3e6b5dd32d416dd6a" package="Default">
+  <file path="Graph/PowerIteration.php" hash="966f72d0cc2418277c2234903e22c784" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="31" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <name>PowerIteration</name>
@@ -4019,7 +4554,7 @@ dominant eigenvector.&lt;/p&gt;
         <docblock line="34">
           <description>Return the dominant eigenvector of the adjacency matrix of
 this graph</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="34" name="param" description="" type="float" variable="$precision">
             <type by_reference="false">float</type>
           </tag>
@@ -4038,32 +4573,32 @@ this graph</description>
       <error line="0" code="50007">No page-level DocBlock was found in file Graph/PowerIteration.php</error>
     </parse_markers>
   </file>
-  <file path="Graph/Vertex.php" hash="129a700c7e7d4465f7d2e226327fd099" package="Default">
+  <file path="Graph/Vertex.php" hash="f18a81282b0bafdfb7fa56c1d822a250" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="12" package="Default">
       <extends/>
       <name>Vertex</name>
       <full_name>\Trismegiste\Mondrian\Graph\Vertex</full_name>
       <docblock line="9">
         <description>Vertex is a vertex of a graph</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <property final="false" static="false" visibility="protected" line="15" namespace="Trismegiste\Mondrian\Graph" package="Default">
         <name>$name</name>
-        <default/>
+        <default></default>
       </property>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Graph" line="22" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <docblock line="17">
           <description>Construct the vertex with its name (preferably unique)</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="17" name="param" description="" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
         <argument line="22">
           <name>$name</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -4078,7 +4613,7 @@ this graph</description>
       <error line="27" code="50010">No DocBlock was found for method getName()</error>
     </parse_markers>
   </file>
-  <file path="Graph/Tarjan.php" hash="1707ca4545ba3146bc18e2bef723ea35" package="Default">
+  <file path="Graph/Tarjan.php" hash="21fa28be9fe7d9e7491dd6f1285c7ae2" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="17" package="Default">
       <extends>\Trismegiste\Mondrian\Graph\Algorithm</extends>
       <name>Tarjan</name>
@@ -4091,15 +4626,15 @@ in a directed graph (a.k.a digraph)&lt;/p&gt;</long-description>
       </docblock>
       <property final="false" static="false" visibility="private" line="20" namespace="Trismegiste\Mondrian\Graph" package="Default">
         <name>$stack</name>
-        <default/>
+        <default></default>
       </property>
       <property final="false" static="false" visibility="private" line="21" namespace="Trismegiste\Mondrian\Graph" package="Default">
         <name>$index</name>
-        <default/>
+        <default></default>
       </property>
       <property final="false" static="false" visibility="private" line="22" namespace="Trismegiste\Mondrian\Graph" package="Default">
         <name>$partition</name>
-        <default/>
+        <default></default>
       </property>
       <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Graph" line="36" package="Default">
         <name>getStronglyConnected</name>
@@ -4122,7 +4657,7 @@ https://code.google.com/p/jbpt/source/browse/trunk/jbpt-core/src/main/java/org/j
         <full_name>recursivStrongConnect</full_name>
         <argument line="51">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -4135,7 +4670,7 @@ https://code.google.com/p/jbpt/source/browse/trunk/jbpt-core/src/main/java/org/j
       <error line="51" code="50010">No DocBlock was found for method recursivStrongConnect()</error>
     </parse_markers>
   </file>
-  <file path="Graph/Digraph.php" hash="dbbee9e37cd5bbd78a8e0b53de16d4dc" package="Default">
+  <file path="Graph/Digraph.php" hash="392d28429ea8443e38443bd06613ef51" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Graph" line="17" package="Default">
       <extends/>
       <implements>\Trismegiste\Mondrian\Graph\Graph</implements>
@@ -4150,7 +4685,7 @@ between two vertices (the two directions)&lt;/p&gt;</long-description>
       </docblock>
       <property final="false" static="false" visibility="protected" line="28" namespace="Trismegiste\Mondrian\Graph" package="Default">
         <name>$adjacency</name>
-        <default/>
+        <default></default>
         <docblock line="20">
           <description>This is a hashmap Source Vertex -&gt; \SplObjectStorage (the adjacencies list
 of one vertex)</description>
@@ -4170,14 +4705,14 @@ of one vertex)</description>
         <docblock line="35">
           <description>Add a vertex to the graph without edge
 Note : Idempotent method</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="35" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$v">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
         </docblock>
         <argument line="41">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -4186,7 +4721,7 @@ Note : Idempotent method</description>
         <full_name>addEdge</full_name>
         <docblock line="51">
           <description>Add a directed edge if it does not already exist</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="51" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$source">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -4199,12 +4734,12 @@ Note : Idempotent method</description>
         </docblock>
         <argument line="59">
           <name>$source</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="59">
           <name>$target</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -4213,7 +4748,7 @@ Note : Idempotent method</description>
         <full_name>searchEdge</full_name>
         <docblock line="73">
           <description>Searches an existing directed edge between two vertices</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="73" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$source">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -4226,12 +4761,12 @@ Note : Idempotent method</description>
         </docblock>
         <argument line="80">
           <name>$source</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
         <argument line="80">
           <name>$target</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -4240,7 +4775,7 @@ Note : Idempotent method</description>
         <full_name>getVertexSet</full_name>
         <docblock line="91">
           <description>Get the vertices in the graph</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="91" name="return" description="" type="\Trismegiste\Mondrian\Graph\Vertex[]">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex[]</type>
           </tag>
@@ -4251,7 +4786,7 @@ Note : Idempotent method</description>
         <full_name>getEdgeSet</full_name>
         <docblock line="106">
           <description>Get the edges set</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="106" name="return" description="" type="\Trismegiste\Mondrian\Graph\Edge[]">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Edge[]</type>
           </tag>
@@ -4263,7 +4798,7 @@ Note : Idempotent method</description>
         <docblock line="124">
           <description>Returns successor(s) of a given vertex (a.k.a all vertices targeted
 by edges coming from the given vertex)</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="124" name="param" description="" type="\Trismegiste\Mondrian\Graph\Vertex" variable="$v">
             <type by_reference="false">\Trismegiste\Mondrian\Graph\Vertex</type>
           </tag>
@@ -4273,7 +4808,7 @@ by edges coming from the given vertex)</description>
         </docblock>
         <argument line="131">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -4282,11 +4817,11 @@ by edges coming from the given vertex)</description>
         <full_name>getEdgeIterator</full_name>
         <docblock line="144">
           <description>{@inheritDoc}</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
         <argument line="147">
           <name>$v</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Vertex</type>
         </argument>
       </method>
@@ -4295,7 +4830,7 @@ by edges coming from the given vertex)</description>
         <full_name>getPartition</full_name>
         <docblock line="152">
           <description>{@inheritDoc}</description>
-          <long-description/>
+          <long-description></long-description>
         </docblock>
       </method>
     </class>
@@ -4305,7 +4840,7 @@ by edges coming from the given vertex)</description>
       <error line="144" code="50015">Argument $v is missing from the Docblock of getEdgeIterator()</error>
     </parse_markers>
   </file>
-  <file path="Command/UsedCentralityCommand.php" hash="20aa45bfe6eac432a3a41eeb04f9509d" package="Default">
+  <file path="Command/UsedCentralityCommand.php" hash="b39d0a83c3e2c104611f25b73ef3d5cf" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="21" package="Default">
       <extends>\Trismegiste\Mondrian\Command\AbstractCentrality</extends>
       <name>UsedCentralityCommand</name>
@@ -4327,7 +4862,7 @@ there are many effects accross the source code (a.k.a the ripple effect)&lt;/p&g
         <full_name>createCentrality</full_name>
         <argument line="29">
           <name>$g</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
       </method>
@@ -4338,7 +4873,7 @@ there are many effects accross the source code (a.k.a the ripple effect)&lt;/p&g
       <error line="29" code="50010">No DocBlock was found for method createCentrality()</error>
     </parse_markers>
   </file>
-  <file path="Command/DependCentralityCommand.php" hash="158de258bd35d6aabab766f85671ce27" package="Default">
+  <file path="Command/DependCentralityCommand.php" hash="076de62215bcc3d4474c222272eb1209" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="21" package="Default">
       <extends>\Trismegiste\Mondrian\Command\AbstractCentrality</extends>
       <name>DependCentralityCommand</name>
@@ -4360,7 +4895,7 @@ each time there is a change somewhere in the source code (bottleneck effect)&lt;
         <full_name>createCentrality</full_name>
         <argument line="29">
           <name>$g</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
       </method>
@@ -4371,7 +4906,7 @@ each time there is a change somewhere in the source code (bottleneck effect)&lt;
       <error line="29" code="50010">No DocBlock was found for method createCentrality()</error>
     </parse_markers>
   </file>
-  <file path="Command/HiddenCouplingCommand.php" hash="c0e5b36b5f690ab47f26842115b246f6" package="Default">
+  <file path="Command/HiddenCouplingCommand.php" hash="f83e5ed6d65bffba633cc1951d5768cd" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="19" package="Default">
       <extends>\Trismegiste\Mondrian\Command\AbstractParse</extends>
       <name>HiddenCouplingCommand</name>
@@ -4379,7 +4914,7 @@ each time there is a change somewhere in the source code (bottleneck effect)&lt;
       <docblock line="14">
         <description>HiddenCouplingCommand transforms a bunch of php files into a digraph
 with hidden coupling</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="22" package="Default">
         <name>getSubname</name>
@@ -4394,12 +4929,12 @@ with hidden coupling</description>
         <full_name>processGraph</full_name>
         <argument line="32">
           <name>$graph</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
         <argument line="32">
           <name>$output</name>
-          <default/>
+          <default></default>
           <type>\Symfony\Component\Console\Output\OutputInterface</type>
         </argument>
       </method>
@@ -4411,14 +4946,49 @@ with hidden coupling</description>
       <error line="32" code="50010">No DocBlock was found for method processGraph()</error>
     </parse_markers>
   </file>
-  <file path="Command/CyclicCommand.php" hash="80b2c7d03b16a2bff2c4aba3d1fcd19f" package="Default">
+  <file path="Command/FactoryGenerator.php" hash="640662f59b1c9e30c7d38c159f651ed1" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="22" package="Default">
+      <extends>\Trismegiste\Mondrian\Command\RefactorCommand</extends>
+      <name>FactoryGenerator</name>
+      <full_name>\Trismegiste\Mondrian\Command\FactoryGenerator</full_name>
+      <docblock line="16">
+        <description>FactoryGenerator is a refactoring tools which scans all new statements
+and create a protected method for each.</description>
+        <long-description>&lt;p&gt;With this, it is possible to mockup the new instance for unit testing&lt;/p&gt;</long-description>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="25" package="Default">
+        <name>configure</name>
+        <full_name>configure</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="33" package="Default">
+        <name>execute</name>
+        <full_name>execute</full_name>
+        <argument line="33">
+          <name>$input</name>
+          <default></default>
+          <type>\Symfony\Component\Console\Input\InputInterface</type>
+        </argument>
+        <argument line="33">
+          <name>$output</name>
+          <default></default>
+          <type>\Symfony\Component\Console\Output\OutputInterface</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Command/FactoryGenerator.php</error>
+      <error line="25" code="50010">No DocBlock was found for method configure()</error>
+      <error line="33" code="50010">No DocBlock was found for method execute()</error>
+    </parse_markers>
+  </file>
+  <file path="Command/CyclicCommand.php" hash="5c44ce6b151ff63e1be35b4bfc9101d9" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="16" package="Default">
       <extends>\Trismegiste\Mondrian\Command\AbstractParse</extends>
       <name>CyclicCommand</name>
       <full_name>\Trismegiste\Mondrian\Command\CyclicCommand</full_name>
       <docblock line="13">
         <description>CyclicCommand reduces a graph to its strongly connected components</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="19" package="Default">
         <name>getSubname</name>
@@ -4433,12 +5003,12 @@ with hidden coupling</description>
         <full_name>processGraph</full_name>
         <argument line="29">
           <name>$graph</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
         <argument line="29">
           <name>$output</name>
-          <default/>
+          <default></default>
           <type>\Symfony\Component\Console\Output\OutputInterface</type>
         </argument>
       </method>
@@ -4450,67 +5020,159 @@ with hidden coupling</description>
       <error line="29" code="50010">No DocBlock was found for method processGraph()</error>
     </parse_markers>
   </file>
-  <file path="Command/AbstractParse.php" hash="30581365730778bb3bf078cc61d51044" package="Default">
-    <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Command" line="23" package="Default">
+  <file path="Command/AbstractParse.php" hash="eeac0f24cae6b69d38cc5111cccc424f" package="Default">
+    <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Command" line="30" package="Default">
       <extends>\Symfony\Component\Console\Command\Command</extends>
       <name>AbstractParse</name>
       <full_name>\Trismegiste\Mondrian\Command\AbstractParse</full_name>
-      <docblock line="19">
+      <docblock line="24">
         <description>AbstractParse transforms a bunch of php files into a digraph
 and exports it into a report file</description>
-        <long-description></long-description>
+        <long-description>&lt;p&gt;Design pattern : Template Method&lt;/p&gt;</long-description>
       </docblock>
-      <method final="false" abstract="true" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="26" package="Default">
+      <property final="false" static="false" visibility="protected" line="33" namespace="Trismegiste\Mondrian\Command" package="Default">
+        <name>$fineTuning</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="34" namespace="Trismegiste\Mondrian\Command" package="Default">
+        <name>$phpfinder</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="35" namespace="Trismegiste\Mondrian\Command" package="Default">
+        <name>$reportName</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="36" namespace="Trismegiste\Mondrian\Command" package="Default">
+        <name>$reportFormat</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="true" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="38" package="Default">
         <name>getSubname</name>
         <full_name>getSubname</full_name>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="28" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="40" package="Default">
         <name>getFullDesc</name>
         <full_name>getFullDesc</full_name>
       </method>
-      <method final="false" abstract="true" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="33" package="Default">
+      <method final="false" abstract="true" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="54" package="Default">
         <name>processGraph</name>
         <full_name>processGraph</full_name>
-        <argument line="33">
+        <docblock line="45">
+          <description>The method that does the job : it computes/decorates/redifines the
+graph passed in parameter.</description>
+          <long-description></long-description>
+          <tag line="45" name="param" description="the graph to process" type="\Trismegiste\Mondrian\Graph\Graph" variable="$g">
+            <type by_reference="false">\Trismegiste\Mondrian\Graph\Graph</type>
+          </tag>
+          <tag line="45" name="param" description="console output" type="\Symfony\Component\Console\Output\OutputInterface" variable="$out">
+            <type by_reference="false">\Symfony\Component\Console\Output\OutputInterface</type>
+          </tag>
+          <tag line="45" name="return" description="the processed graph (the same or another)" type="\Trismegiste\Mondrian\Graph\Graph">
+            <type by_reference="false">\Trismegiste\Mondrian\Graph\Graph</type>
+          </tag>
+        </docblock>
+        <argument line="54">
           <name>$g</name>
           <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
-        <argument line="33">
+        <argument line="54">
           <name>$out</name>
           <default></default>
           <type>\Symfony\Component\Console\Output\OutputInterface</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="35" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="56" package="Default">
         <name>configure</name>
         <full_name>configure</full_name>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="46" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="70" package="Default">
         <name>execute</name>
         <full_name>execute</full_name>
-        <argument line="46">
+        <docblock line="67">
+          <description>{@inheritDoc}</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="70">
           <name>$input</name>
           <default></default>
           <type>\Symfony\Component\Console\Input\InputInterface</type>
         </argument>
-        <argument line="46">
+        <argument line="70">
           <name>$output</name>
           <default></default>
           <type>\Symfony\Component\Console\Output\OutputInterface</type>
         </argument>
       </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="95" package="Default">
+        <name>getConfig</name>
+        <full_name>getConfig</full_name>
+        <docblock line="88">
+          <description>get the graph section of the configuration for this package</description>
+          <long-description></long-description>
+          <tag line="88" name="param" description="the root dir of the package" type="string" variable="$dir">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="88" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="95">
+          <name>$dir</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="105" package="Default">
+        <name>initialize</name>
+        <full_name>initialize</full_name>
+        <docblock line="102">
+          <description>Inject parameters of the command</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="105">
+          <name>$input</name>
+          <default></default>
+          <type>\Symfony\Component\Console\Input\InputInterface</type>
+        </argument>
+        <argument line="105">
+          <name>$output</name>
+          <default></default>
+          <type>\Symfony\Component\Console\Output\OutputInterface</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="117" package="Default">
+        <name>getPhpFinder</name>
+        <full_name>getPhpFinder</full_name>
+        <argument line="117">
+          <name>$directory</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="117">
+          <name>$ignoreDir</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
     </class>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file Command/AbstractParse.php</error>
-      <error line="26" code="50010">No DocBlock was found for method getSubname()</error>
-      <error line="28" code="50010">No DocBlock was found for method getFullDesc()</error>
-      <error line="33" code="50010">No DocBlock was found for method processGraph()</error>
-      <error line="35" code="50010">No DocBlock was found for method configure()</error>
-      <error line="46" code="50010">No DocBlock was found for method execute()</error>
+      <error line="33" code="50018">No DocBlock was found for property $fineTuning</error>
+      <error line="34" code="50018">No DocBlock was found for property $phpfinder</error>
+      <error line="35" code="50018">No DocBlock was found for property $reportName</error>
+      <error line="36" code="50018">No DocBlock was found for property $reportFormat</error>
+      <error line="38" code="50010">No DocBlock was found for method getSubname()</error>
+      <error line="40" code="50010">No DocBlock was found for method getFullDesc()</error>
+      <error line="56" code="50010">No DocBlock was found for method configure()</error>
+      <error line="67" code="50015">Argument $input is missing from the Docblock of execute()</error>
+      <error line="67" code="50015">Argument $output is missing from the Docblock of execute()</error>
+      <error line="102" code="50015">Argument $input is missing from the Docblock of initialize()</error>
+      <error line="102" code="50015">Argument $output is missing from the Docblock of initialize()</error>
+      <error line="117" code="50010">No DocBlock was found for method getPhpFinder()</error>
     </parse_markers>
   </file>
-  <file path="Command/DigraphCommand.php" hash="e3ea55956f24cad16bb9125e6a2b1cbe" package="Default">
+  <file path="Command/DigraphCommand.php" hash="edd6631b9fdbbcfbd4c3773cc3dc7463" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="20" package="Default">
       <extends>\Trismegiste\Mondrian\Command\AbstractParse</extends>
       <name>DigraphCommand</name>
@@ -4533,12 +5195,12 @@ and exports it into a report file.</description>
         <full_name>processGraph</full_name>
         <argument line="33">
           <name>$graph</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
         <argument line="33">
           <name>$output</name>
-          <default/>
+          <default></default>
           <type>\Symfony\Component\Console\Output\OutputInterface</type>
         </argument>
       </method>
@@ -4550,14 +5212,127 @@ and exports it into a report file.</description>
       <error line="33" code="50010">No DocBlock was found for method processGraph()</error>
     </parse_markers>
   </file>
-  <file path="Command/SpaghettiCommand.php" hash="cd4dd6bc136f8e798e72c5f86703b7be" package="Default">
+  <file path="Command/TypeHintConfig.php" hash="b5be1ff3fd72c947fddc16215bd2d648" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="28" package="Default">
+      <extends>\Symfony\Component\Console\Command\Command</extends>
+      <name>TypeHintConfig</name>
+      <full_name>\Trismegiste\Mondrian\Command\TypeHintConfig</full_name>
+      <docblock line="23">
+        <description>TypeHintConfig generates a default type-hint config files</description>
+        <long-description>&lt;p&gt;Overwrites any previous existing&lt;/p&gt;</long-description>
+      </docblock>
+      <constant namespace="Trismegiste\Mondrian\Command" line="31" package="Default">
+        <name>HEADER_CONFIG</name>
+        <full_name>HEADER_CONFIG</full_name>
+        <value>"# Mondrian - static code analysis configuration\n# More info at https://github.com/Trismegiste/Mondrian\n"</value>
+      </constant>
+      <property final="false" static="false" visibility="protected" line="33" namespace="Trismegiste\Mondrian\Command" package="Default">
+        <name>$fineTuning</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="34" namespace="Trismegiste\Mondrian\Command" package="Default">
+        <name>$phpfinder</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="35" namespace="Trismegiste\Mondrian\Command" package="Default">
+        <name>$newConfigFile</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="37" package="Default">
+        <name>configure</name>
+        <full_name>configure</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="49" package="Default">
+        <name>execute</name>
+        <full_name>execute</full_name>
+        <docblock line="46">
+          <description>{@inheritDoc}</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="49">
+          <name>$input</name>
+          <default></default>
+          <type>\Symfony\Component\Console\Input\InputInterface</type>
+        </argument>
+        <argument line="49">
+          <name>$output</name>
+          <default></default>
+          <type>\Symfony\Component\Console\Output\OutputInterface</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="70" package="Default">
+        <name>getConfig</name>
+        <full_name>getConfig</full_name>
+        <docblock line="63">
+          <description>get the graph section of the configuration for this package</description>
+          <long-description></long-description>
+          <tag line="63" name="param" description="the root dir of the package" type="string" variable="$dir">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="63" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="70">
+          <name>$dir</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="80" package="Default">
+        <name>initialize</name>
+        <full_name>initialize</full_name>
+        <docblock line="77">
+          <description>Inject parameters of the command</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="80">
+          <name>$input</name>
+          <default></default>
+          <type>\Symfony\Component\Console\Input\InputInterface</type>
+        </argument>
+        <argument line="80">
+          <name>$output</name>
+          <default></default>
+          <type>\Symfony\Component\Console\Output\OutputInterface</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="89" package="Default">
+        <name>getPhpFinder</name>
+        <full_name>getPhpFinder</full_name>
+        <argument line="89">
+          <name>$directory</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="89">
+          <name>$ignoreDir</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Command/TypeHintConfig.php</error>
+      <error line="33" code="50018">No DocBlock was found for property $fineTuning</error>
+      <error line="34" code="50018">No DocBlock was found for property $phpfinder</error>
+      <error line="35" code="50018">No DocBlock was found for property $newConfigFile</error>
+      <error line="37" code="50010">No DocBlock was found for method configure()</error>
+      <error line="46" code="50015">Argument $input is missing from the Docblock of execute()</error>
+      <error line="46" code="50015">Argument $output is missing from the Docblock of execute()</error>
+      <error line="77" code="50015">Argument $input is missing from the Docblock of initialize()</error>
+      <error line="77" code="50015">Argument $output is missing from the Docblock of initialize()</error>
+      <error line="89" code="50010">No DocBlock was found for method getPhpFinder()</error>
+    </parse_markers>
+  </file>
+  <file path="Command/SpaghettiCommand.php" hash="98929452a5e3a237c457b58530507834" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="21" package="Default">
       <extends>\Trismegiste\Mondrian\Command\AbstractParse</extends>
       <name>SpaghettiCommand</name>
       <full_name>\Trismegiste\Mondrian\Command\SpaghettiCommand</full_name>
       <docblock line="18">
         <description>SpaghettiCommand reduces a graph to its coupled implementation vertices</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <property final="false" static="false" visibility="protected" line="24" namespace="Trismegiste\Mondrian\Command" package="Default">
         <name>$showCycle</name>
@@ -4584,12 +5359,12 @@ and exports it into a report file.</description>
         <full_name>initialize</full_name>
         <argument line="44">
           <name>$input</name>
-          <default/>
+          <default></default>
           <type>\Symfony\Component\Console\Input\InputInterface</type>
         </argument>
         <argument line="44">
           <name>$output</name>
-          <default/>
+          <default></default>
           <type>\Symfony\Component\Console\Output\OutputInterface</type>
         </argument>
       </method>
@@ -4598,7 +5373,7 @@ and exports it into a report file.</description>
         <full_name>getClassFor</full_name>
         <argument line="52">
           <name>$strategy</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -4607,12 +5382,12 @@ and exports it into a report file.</description>
         <full_name>processGraph</full_name>
         <argument line="66">
           <name>$graph</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
         <argument line="66">
           <name>$output</name>
-          <default/>
+          <default></default>
           <type>\Symfony\Component\Console\Output\OutputInterface</type>
         </argument>
       </method>
@@ -4629,29 +5404,37 @@ and exports it into a report file.</description>
       <error line="66" code="50010">No DocBlock was found for method processGraph()</error>
     </parse_markers>
   </file>
-  <file path="Command/RefactorCommand.php" hash="cc0e744470d2aee84f323243946463df" package="Default">
-    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="24" package="Default">
+  <file path="Command/RefactorCommand.php" hash="6b35dfe26a87072da9282f5936f5add2" package="Default">
+    <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Command" line="20" package="Default">
       <extends>\Symfony\Component\Console\Command\Command</extends>
       <name>RefactorCommand</name>
       <full_name>\Trismegiste\Mondrian\Command\RefactorCommand</full_name>
-      <docblock line="18">
+      <docblock line="16">
         <description>RefactorCommand recursively scans a directory and
-refactors concrete class with annotations.</description>
-        <long-description>&lt;p&gt;It creates an interface, changes paramters types and adds inheritance&lt;/p&gt;</long-description>
+refactors classes.</description>
+        <long-description>&lt;p&gt;This abstract class only makes common initializations&lt;/p&gt;</long-description>
       </docblock>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="27" package="Default">
+      <property final="false" static="false" visibility="protected" line="23" namespace="Trismegiste\Mondrian\Command" package="Default">
+        <name>$phpfinder</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="25" package="Default">
         <name>configure</name>
         <full_name>configure</full_name>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="36" package="Default">
-        <name>execute</name>
-        <full_name>execute</full_name>
-        <argument line="36">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="35" package="Default">
+        <name>initialize</name>
+        <full_name>initialize</full_name>
+        <docblock line="32">
+          <description>Inject parameters of the command</description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="35">
           <name>$input</name>
           <default></default>
           <type>\Symfony\Component\Console\Input\InputInterface</type>
         </argument>
-        <argument line="36">
+        <argument line="35">
           <name>$output</name>
           <default></default>
           <type>\Symfony\Component\Console\Output\OutputInterface</type>
@@ -4660,11 +5443,13 @@ refactors concrete class with annotations.</description>
     </class>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file Command/RefactorCommand.php</error>
-      <error line="27" code="50010">No DocBlock was found for method configure()</error>
-      <error line="36" code="50010">No DocBlock was found for method execute()</error>
+      <error line="23" code="50018">No DocBlock was found for property $phpfinder</error>
+      <error line="25" code="50010">No DocBlock was found for method configure()</error>
+      <error line="32" code="50015">Argument $input is missing from the Docblock of initialize()</error>
+      <error line="32" code="50015">Argument $output is missing from the Docblock of initialize()</error>
     </parse_markers>
   </file>
-  <file path="Command/LiskovCommand.php" hash="f6998710a2facd884c1ffc5e0bd23916" package="Default">
+  <file path="Command/LiskovCommand.php" hash="afe5bdf8cac1f163166e58b7ca733215" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="18" package="Default">
       <extends>\Trismegiste\Mondrian\Command\AbstractParse</extends>
       <name>LiskovCommand</name>
@@ -4704,7 +5489,42 @@ to the LSP violation to refactor (mandatory before ISP)</description>
       <error line="31" code="50010">No DocBlock was found for method processGraph()</error>
     </parse_markers>
   </file>
-  <file path="Command/BadInterfaceCommand.php" hash="a298db9597d18a22f4034ae6441c72f3" package="Default">
+  <file path="Command/ContractorCommand.php" hash="47040ef3808551738e5e13714c06ecd1" package="Default">
+    <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="22" package="Default">
+      <extends>\Trismegiste\Mondrian\Command\RefactorCommand</extends>
+      <name>ContractorCommand</name>
+      <full_name>\Trismegiste\Mondrian\Command\ContractorCommand</full_name>
+      <docblock line="16">
+        <description>ContractorCommand recursively scans a directory and
+refactors concrete class with annotations.</description>
+        <long-description>&lt;p&gt;It creates an interface, changes paramters types and adds inheritance&lt;/p&gt;</long-description>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="25" package="Default">
+        <name>configure</name>
+        <full_name>configure</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="33" package="Default">
+        <name>execute</name>
+        <full_name>execute</full_name>
+        <argument line="33">
+          <name>$input</name>
+          <default></default>
+          <type>\Symfony\Component\Console\Input\InputInterface</type>
+        </argument>
+        <argument line="33">
+          <name>$output</name>
+          <default></default>
+          <type>\Symfony\Component\Console\Output\OutputInterface</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Command/ContractorCommand.php</error>
+      <error line="25" code="50010">No DocBlock was found for method configure()</error>
+      <error line="33" code="50010">No DocBlock was found for method execute()</error>
+    </parse_markers>
+  </file>
+  <file path="Command/BadInterfaceCommand.php" hash="fe89704c70d1eaeded8f915571cf0683" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Command" line="19" package="Default">
       <extends>\Trismegiste\Mondrian\Command\AbstractParse</extends>
       <name>BadInterfaceCommand</name>
@@ -4713,7 +5533,7 @@ to the LSP violation to refactor (mandatory before ISP)</description>
         <description>BadInterfaceCommand transforms reduced the digraph
 to the bad interface with concrete parameters in their
 methods</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="false" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="22" package="Default">
         <name>getSubname</name>
@@ -4728,12 +5548,12 @@ methods</description>
         <full_name>processGraph</full_name>
         <argument line="32">
           <name>$graph</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
         <argument line="32">
           <name>$output</name>
-          <default/>
+          <default></default>
           <type>\Symfony\Component\Console\Output\OutputInterface</type>
         </argument>
       </method>
@@ -4745,7 +5565,7 @@ methods</description>
       <error line="32" code="50010">No DocBlock was found for method processGraph()</error>
     </parse_markers>
   </file>
-  <file path="Command/AbstractCentrality.php" hash="14ff27de51d1340160ae8a3492b99428" package="Default">
+  <file path="Command/AbstractCentrality.php" hash="ebd6cfa0cbf039974683db198867b3c6" package="Default">
     <class final="false" abstract="true" namespace="Trismegiste\Mondrian\Command" line="17" package="Default">
       <extends>\Trismegiste\Mondrian\Command\AbstractParse</extends>
       <name>AbstractCentrality</name>
@@ -4753,7 +5573,7 @@ methods</description>
       <docblock line="12">
         <description>AbstractCentrality transforms a bunch of php files into a digraph
 and exports it into a report file with centrality informations</description>
-        <long-description/>
+        <long-description></long-description>
       </docblock>
       <method final="false" abstract="true" static="false" visibility="protected" namespace="Trismegiste\Mondrian\Command" line="20" package="Default">
         <name>getAlgorithm</name>
@@ -4772,12 +5592,12 @@ and exports it into a report file with centrality informations</description>
         <full_name>processGraph</full_name>
         <argument line="32">
           <name>$graph</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
         <argument line="32">
           <name>$output</name>
-          <default/>
+          <default></default>
           <type>\Symfony\Component\Console\Output\OutputInterface</type>
         </argument>
       </method>
@@ -4785,15 +5605,15 @@ and exports it into a report file with centrality informations</description>
         <name>createCentrality</name>
         <full_name>createCentrality</full_name>
         <docblock line="40">
-          <description/>
-          <long-description/>
+          <description></description>
+          <long-description></long-description>
           <tag line="40" name="return" description="" type="\Trismegiste\Mondrian\Command\Centrality">
             <type by_reference="false">\Trismegiste\Mondrian\Command\Centrality</type>
           </tag>
         </docblock>
         <argument line="43">
           <name>$g</name>
-          <default/>
+          <default></default>
           <type>\Trismegiste\Mondrian\Graph\Graph</type>
         </argument>
       </method>
@@ -4808,7 +5628,15 @@ and exports it into a report file with centrality informations</description>
       <error line="40" code="50015">Argument $g is missing from the Docblock of createCentrality()</error>
     </parse_markers>
   </file>
-  <file path="Config/Loader.php" hash="9ea6cfb33bbd40da3995e9b74e2083b9" package="Default">
+  <file path="mondrian.php" hash="f05d4da590da44259ed18024fa790bfd" package="Default">
+    <include line="11" type="Require Once" package="Default">
+      <name>vendor/autoload.php</name>
+    </include>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file mondrian.php</error>
+    </parse_markers>
+  </file>
+  <file path="Config/Loader.php" hash="18e9bf2faf44d61dba55d551ae74979e" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Config" line="15" package="Default">
       <extends>\Symfony\Component\Config\Loader\Loader</extends>
       <name>Loader</name>
@@ -4878,7 +5706,7 @@ and exports it into a report file with centrality informations</description>
       <error line="31" code="50015">Argument $type is missing from the Docblock of supports()</error>
     </parse_markers>
   </file>
-  <file path="Config/Validator.php" hash="a5b6a5b2a9783e795c0ef3ebccebbe37" package="Default">
+  <file path="Config/Validator.php" hash="6ef70de6c75cfd12e3d03056909dffdd" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Config" line="11" package="Default">
       <extends/>
       <implements>\Symfony\Component\Config\Definition\ConfigurationInterface</implements>
@@ -4898,7 +5726,7 @@ and exports it into a report file with centrality informations</description>
       <error line="14" code="50010">No DocBlock was found for method getConfigTreeBuilder()</error>
     </parse_markers>
   </file>
-  <file path="Config/Helper.php" hash="8f714d8335dc9838fc09d047cd759048" package="Default">
+  <file path="Config/Helper.php" hash="8451adf13542ab9c4158b3a47613b48d" package="Default">
     <class final="false" abstract="false" namespace="Trismegiste\Mondrian\Config" line="18" package="Default">
       <extends/>
       <name>Helper</name>
@@ -4929,6 +5757,25 @@ and exports it into a report file with centrality informations</description>
           <type/>
         </argument>
       </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Trismegiste\Mondrian\Config" line="61" package="Default">
+        <name>getGraphConfig</name>
+        <full_name>getGraphConfig</full_name>
+        <docblock line="54">
+          <description>Get the graph configuration</description>
+          <long-description></long-description>
+          <tag line="54" name="param" description="filepath to the package directory" type="string" variable="$dir">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="54" name="return" description="the full config" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="61">
+          <name>$dir</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
     </class>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file Config/Helper.php</error>
@@ -4941,6 +5788,10 @@ and exports it into a report file with centrality informations</description>
       <namespace name="Analysis" full_name="Trismegiste\Mondrian\Analysis">
         <namespace name="Strategy" full_name="Trismegiste\Mondrian\Analysis\Strategy"/>
       </namespace>
+      <namespace name="Builder" full_name="Trismegiste\Mondrian\Builder">
+        <namespace name="Compiler" full_name="Trismegiste\Mondrian\Builder\Compiler"/>
+        <namespace name="Statement" full_name="Trismegiste\Mondrian\Builder\Statement"/>
+      </namespace>
       <namespace name="Command" full_name="Trismegiste\Mondrian\Command"/>
       <namespace name="Config" full_name="Trismegiste\Mondrian\Config"/>
       <namespace name="Graph" full_name="Trismegiste\Mondrian\Graph"/>
@@ -4948,6 +5799,7 @@ and exports it into a report file with centrality informations</description>
       <namespace name="Refactor" full_name="Trismegiste\Mondrian\Refactor"/>
       <namespace name="Transform" full_name="Trismegiste\Mondrian\Transform">
         <namespace name="Format" full_name="Trismegiste\Mondrian\Transform\Format"/>
+        <namespace name="Logger" full_name="Trismegiste\Mondrian\Transform\Logger"/>
         <namespace name="Vertex" full_name="Trismegiste\Mondrian\Transform\Vertex"/>
       </namespace>
       <namespace name="Visitor" full_name="Trismegiste\Mondrian\Visitor"/>

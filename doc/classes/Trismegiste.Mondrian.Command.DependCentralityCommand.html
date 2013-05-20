@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">292</span></a></li>
+                <span class="label label-info">350</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">1</span>
@@ -65,16 +65,32 @@
         </span><pre>configure()</pre></a></li>
 <li class="method protected "><a href="#method_createCentrality" title="createCentrality :: "><span class="description">createCentrality()
         </span><pre>createCentrality()</pre></a></li>
-<li class="method protected inherited"><a href="#method_execute" title="execute :: "><span class="description">execute()
-        </span><pre>execute()</pre></a></li>
+<li class="method protected inherited"><a href="#method_execute" title="execute :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>execute()</pre></a></li>
 <li class="method protected "><a href="#method_getAlgorithm" title="getAlgorithm :: "><span class="description">getAlgorithm()
         </span><pre>getAlgorithm()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getConfig" title="getConfig :: get the graph section of the configuration for this package"><span class="description">get the graph section of the configuration for this package</span><pre>getConfig()</pre></a></li>
 <li class="method protected inherited"><a href="#method_getFullDesc" title="getFullDesc :: "><span class="description">getFullDesc()
         </span><pre>getFullDesc()</pre></a></li>
+<li class="method protected inherited"><a href="#method_getPhpFinder" title="getPhpFinder :: "><span class="description">getPhpFinder()
+        </span><pre>getPhpFinder()</pre></a></li>
 <li class="method protected inherited"><a href="#method_getSubname" title="getSubname :: "><span class="description">getSubname()
         </span><pre>getSubname()</pre></a></li>
-<li class="method protected inherited"><a href="#method_processGraph" title="processGraph :: "><span class="description">processGraph()
-        </span><pre>processGraph()</pre></a></li>
+<li class="method protected inherited"><a href="#method_initialize" title="initialize :: Inject parameters of the command"><span class="description">Inject parameters of the command</span><pre>initialize()</pre></a></li>
+<li class="method protected inherited"><a href="#method_processGraph" title="processGraph :: The method that does the job : it computes/decorates/redifines the
+graph passed in parameter."><span class="description">The method that does the job : it computes/decorates/redifines the
+graph passed in parameter.</span><pre>processGraph()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected inherited"><a href="#property_fineTuning" title="$fineTuning :: "><span class="description"></span><pre>$fineTuning</pre></a></li>
+<li class="property protected inherited"><a href="#property_phpfinder" title="$phpfinder :: "><span class="description"></span><pre>$phpfinder</pre></a></li>
+<li class="property protected inherited"><a href="#property_reportFormat" title="$reportFormat :: "><span class="description"></span><pre>$reportFormat</pre></a></li>
+<li class="property protected inherited"><a href="#property_reportName" title="$reportName :: "><span class="description"></span><pre>$reportName</pre></a></li>
 </ul>
 </li>
 </ul>
@@ -138,8 +154,7 @@ each time there is a change somewhere in the source code (bottleneck effect)</p>
 </div></div>
 </div>
 <a id="method_execute"></a><div class="element clickable method protected method_execute" data-toggle="collapse" data-target=".method_execute .collapse">
-<h2>execute()
-        </h2>
+<h2>{@inheritDoc}</h2>
 <pre>execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
@@ -166,6 +181,30 @@ each time there is a change somewhere in the source code (bottleneck effect)</p>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
+<a id="method_getConfig"></a><div class="element clickable method protected method_getConfig" data-toggle="collapse" data-target=".method_getConfig .collapse">
+<h2>get the graph section of the configuration for this package</h2>
+<pre>getConfig(string $dir) : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractParse::getConfig()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractCentrality::getConfig()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$dir</h4>
+<code>string</code><p>the root dir of the package</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
 <a id="method_getFullDesc"></a><div class="element clickable method protected method_getFullDesc" data-toggle="collapse" data-target=".method_getFullDesc .collapse">
 <h2>getFullDesc()
         </h2>
@@ -177,6 +216,28 @@ each time there is a change somewhere in the source code (bottleneck effect)</p>
 <th>inherited_from</th>
 <td>\Trismegiste\Mondrian\Command\AbstractCentrality::getFullDesc()</td>
 </tr></table>
+</div></div>
+</div>
+<a id="method_getPhpFinder"></a><div class="element clickable method protected method_getPhpFinder" data-toggle="collapse" data-target=".method_getPhpFinder .collapse">
+<h2>getPhpFinder()
+        </h2>
+<pre>getPhpFinder($directory, $ignoreDir) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractParse::getPhpFinder()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractCentrality::getPhpFinder()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$directory</h4></div>
+<div class="subelement argument"><h4>$ignoreDir</h4></div>
 </div></div>
 </div>
 <a id="method_getSubname"></a><div class="element clickable method protected method_getSubname" data-toggle="collapse" data-target=".method_getSubname .collapse">
@@ -192,10 +253,31 @@ each time there is a change somewhere in the source code (bottleneck effect)</p>
 </tr></table>
 </div></div>
 </div>
+<a id="method_initialize"></a><div class="element clickable method protected method_initialize" data-toggle="collapse" data-target=".method_initialize .collapse">
+<h2>Inject parameters of the command</h2>
+<pre>initialize(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractParse::initialize()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractCentrality::initialize()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$input</h4></div>
+<div class="subelement argument"><h4>$output</h4></div>
+</div></div>
+</div>
 <a id="method_processGraph"></a><div class="element clickable method protected method_processGraph" data-toggle="collapse" data-target=".method_processGraph .collapse">
-<h2>processGraph()
-        </h2>
-<pre>processGraph(\Trismegiste\Mondrian\Graph\Graph $graph, \Symfony\Component\Console\Output\OutputInterface $output) </pre>
+<h2>The method that does the job : it computes/decorates/redifines the
+graph passed in parameter.</h2>
+<pre>processGraph(\Trismegiste\Mondrian\Graph\Graph $graph, \Symfony\Component\Console\Output\OutputInterface $output) : <a href="../classes/Trismegiste.Mondrian.Graph.Graph.html">\Trismegiste\Mondrian\Graph\Graph</a></pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -206,6 +288,83 @@ each time there is a change somewhere in the source code (bottleneck effect)</p>
 <h3>Parameters</h3>
 <div class="subelement argument"><h4>$graph</h4></div>
 <div class="subelement argument"><h4>$output</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="../classes/Trismegiste.Mondrian.Graph.Graph.html">\Trismegiste\Mondrian\Graph\Graph</a></code>the processed graph (the same or another)</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_fineTuning"> </a><div class="element clickable property protected property_fineTuning" data-toggle="collapse" data-target=".property_fineTuning .collapse">
+<h2></h2>
+<pre>$fineTuning </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractParse::$$fineTuning</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractCentrality::$$fineTuning</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_phpfinder"> </a><div class="element clickable property protected property_phpfinder" data-toggle="collapse" data-target=".property_phpfinder .collapse">
+<h2></h2>
+<pre>$phpfinder </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractParse::$$phpfinder</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractCentrality::$$phpfinder</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_reportFormat"> </a><div class="element clickable property protected property_reportFormat" data-toggle="collapse" data-target=".property_reportFormat .collapse">
+<h2></h2>
+<pre>$reportFormat </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractParse::$$reportFormat</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractCentrality::$$reportFormat</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_reportName"> </a><div class="element clickable property protected property_reportName" data-toggle="collapse" data-target=".property_reportName .collapse">
+<h2></h2>
+<pre>$reportName </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractParse::$$reportName</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Trismegiste\Mondrian\Command\AbstractCentrality::$$reportName</td>
+</tr>
+</table>
 </div></div>
 </div>
 </div>
@@ -215,7 +374,7 @@ each time there is a change somewhere in the source code (bottleneck effect)</p>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-05-10T14:44:16+02:00.<br></footer></div>
+            generated on 2013-05-20T14:00:20+02:00.<br></footer></div>
 </div>
 </body>
 </html>

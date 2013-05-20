@@ -115,22 +115,19 @@
             <pre>call_user_func(array($this->$$objName, $methodName));</pre>
             You have a good chance to mistake on the type. That's why, I've dismissed any
             chance to analyse that and came up with a fine-tuning configuration stored
-            in a file to remove bad link (and add some other).
+            in a <strong>file to remove bad links</strong> (and add some other).
         </p>
         <p>
             You have to add a file named "<strong>.mondrian.yml</strong>" (don't forget the dot)
-            in the package root directory. Here is a sample :
-            <pre>
-graph:
-    calling:
-        TheCalleeClass::thisMethodIsTheCaller:
-            ignore:
-                - OneCalledClass::thisMethodWillBeIgnored
-                - OneOtherCalledClass::thisMethodWillBeIgnoredToo
-</pre>
-            It means the method "thisMethodIsTheCaller" will not be linked with OneCalledClass::thisMethodWillBeIgnored
-            if there is any calling. All other classes with the same method will be linked, except if the command successfuly
-            discriminate the right type (very few obvious case like "this" and typehinted parameters of the method).
+            in the package root directory.
+            <a href="https://github.com/Trismegiste/Mondrian/blob/master/.mondrian.yml">Here is a sample</a>.
+            It means the method "Trismegiste\Mondrian\Builder\Linking::run" will not be linked with
+            "Trismegiste\Mondrian\Parser\PackageParser::parse" because of name collision on "parse".
+        </p>
+        <p>
+            A command is provided to instantly generate a default configuration with ALL links (bad or good) :
+            <pre>$ php mondrian.php typehint:config ~/MyMessyProject</pre>
+            You have to check and keep only the "false positive" links you want to ignore : please don't add ALL links !
         </p>
 
     </div>
@@ -403,6 +400,17 @@ graph:
             in conjunction with the command <strong>refactor:abstract</strong>. Because
             code generation could become messy and prone to error, you can check
             the quality of the new generated interfaces with this tool.
+        </p>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <a name="factory"></a><h2>Factory of factories (xzibit style)</h2>
+        <p>
+            This command generates a protected method in a class each time the parser finds
+            a "new" statement. Why ? To mockup of course !
+            <pre>$ php mondrian.php refactor:factory ~/MyProject</pre>
+            -- CURRRENTLY under development -- Don't try this at home.
         </p>
     </div>
 </div>
