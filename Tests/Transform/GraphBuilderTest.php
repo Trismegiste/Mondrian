@@ -8,6 +8,7 @@ namespace Trismegiste\Mondrian\Tests\Transform;
 
 use Trismegiste\Mondrian\Transform\GraphBuilder;
 use Trismegiste\Mondrian\Builder\Compiler\Director;
+use Trismegiste\Mondrian\Parser\PhpFile;
 
 /**
  * GraphBuilderTest tests the builder compiler
@@ -31,7 +32,7 @@ class GraphBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testParsing()
     {
-        $this->director->compile(array());
+        $this->director->compile(array(new PhpFile('abc', array())));
     }
 
 }
