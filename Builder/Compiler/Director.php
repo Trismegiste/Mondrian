@@ -27,9 +27,9 @@ class Director
     }
 
     /**
-     * Does the compilation of the parsed statements
+     * Runs the compilation of the parsed statements
      *
-     * @param array $stmts
+     * @param array $stmts statements to compile
      */
     public function compile(array $stmts)
     {
