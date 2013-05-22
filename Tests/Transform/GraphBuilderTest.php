@@ -8,7 +8,7 @@ namespace Trismegiste\Mondrian\Tests\Transform;
 
 use Trismegiste\Mondrian\Transform\GraphBuilder;
 use Trismegiste\Mondrian\Builder\Compiler\Director;
-use Trismegiste\Mondrian\Parser\PhpFile;
+use Trismegiste\Mondrian\Parser\BuilderFactory;
 
 /**
  * GraphBuilderTest tests the builder compiler
@@ -32,8 +32,7 @@ class GraphBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testParsing()
     {
-        // $this->director->compile(array(new PhpFile('abc', array())));
-        $fac = new \Trismegiste\Mondrian\Parser\BuilderFactory();
+        $fac = new BuilderFactory();
         $file = $fac->file('wesh.php')
                         ->ns('Project')
                         ->addStmt(
@@ -46,12 +45,7 @@ class GraphBuilderTest extends \PHPUnit_Framework_TestCase
                                 )->getNode()
                         )->getNode();
 
-        $pp = new \PHPParser_PrettyPrinter_Default();
-
-        $stmts = iterator_to_array($file->getIterator());
-        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
-
-        echo "<?php\n\n" . $prettyPrinter->prettyPrint($stmts);
+        $this->director->compile(array($file));
     }
 
 }
