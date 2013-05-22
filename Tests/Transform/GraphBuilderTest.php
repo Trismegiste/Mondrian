@@ -32,7 +32,26 @@ class GraphBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testParsing()
     {
-        $this->director->compile(array(new PhpFile('abc', array())));
+        // $this->director->compile(array(new PhpFile('abc', array())));
+        $fac = new \Trismegiste\Mondrian\Parser\BuilderFactory();
+        $file = $fac->file('wesh.php')
+                        ->ns('Project')
+                        ->addStmt(
+                                $fac->class('Hello')
+                                ->implement('Kitty')
+                                ->addStmt(
+                                        $fac
+                                        ->method('coucou')
+                                        ->getNode()
+                                )->getNode()
+                        )->getNode();
+
+        $pp = new \PHPParser_PrettyPrinter_Default();
+
+        $stmts = iterator_to_array($file->getIterator());
+        $prettyPrinter = new \PHPParser_PrettyPrinter_Default();
+
+        echo "<?php\n\n" . $prettyPrinter->prettyPrint($stmts);
     }
 
 }
