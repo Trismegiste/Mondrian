@@ -34,14 +34,14 @@ class GraphBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $fac = new BuilderFactory();
         $file = $fac->file('wesh.php')
-                        ->ns('Project')
-                        ->addUse('Wesh')
+                        ->ns('Kitty')
+                        ->addUse('Little\Ball\Fur')
                         ->declaring(
-                                $fac->class('Hello')
-                                ->implement('Kitty')
+                                $fac->class('Soft')
+                                ->implement('Warm')
                                 ->addStmt(
                                         $fac
-                                        ->method('coucou')
+                                        ->method('hello')
                                 )
                         )->getNode();
 

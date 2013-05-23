@@ -7,7 +7,8 @@
 namespace Trismegiste\Mondrian\Parser;
 
 /**
- * PhpFileBuilder is a builder for a PhpFile node
+ * PhpFileBuilder is a builder for a PhpFile node :
+ * Enforces the PSR-0 : one class per file
  */
 class PhpFileBuilder extends \PHPParser_BuilderAbstract
 {
@@ -29,7 +30,7 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
             $stmts[] = $this->fileNamespace;
         }
         if (count($this->useList)) {
-            array_merge($stmts, $this->useList);
+            $stmts = array_merge($stmts, $this->useList);
         }
         if (!is_null($this->theClass)) {
             $stmts[] = $this->theClass;
@@ -44,7 +45,7 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
         if (in_array($node->getType(), array('Stmt_Class', 'Stmt_Interface'))) {
             $this->theClass = $node;
         } else {
-            throw new \InvalidArgumentException("Invalid expected node " . $node->getType());
+            throw new \InvalidArgumentException("Invalid node expected type " . $node->getType());
         }
 
         return $this;
