@@ -35,7 +35,8 @@ class GraphBuilderTest extends \PHPUnit_Framework_TestCase
         $fac = new BuilderFactory();
         $file = $fac->file('wesh.php')
                         ->ns('Project')
-                        ->addClass(
+                        ->addUse('Wesh')
+                        ->declaring(
                                 $fac->class('Hello')
                                 ->implement('Kitty')
                                 ->addStmt(
@@ -44,9 +45,9 @@ class GraphBuilderTest extends \PHPUnit_Framework_TestCase
                                 )
                         )->getNode();
 
-//        $stmt = iterator_to_array($file->getIterator());
-//        $pp = new \PHPParser_PrettyPrinter_Default();
-//        echo $pp->prettyPrint($stmt);
+        $stmt = iterator_to_array($file->getIterator());
+        $pp = new \PHPParser_PrettyPrinter_Default();
+        echo $pp->prettyPrint($stmt);
 
         $this->director->compile(array($file));
     }

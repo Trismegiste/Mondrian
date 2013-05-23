@@ -15,6 +15,7 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
     protected $filename;
     protected $fileNamespace = false;
     protected $theClass = null;
+    protected $useList = array();
 
     public function __construct($absPath)
     {
@@ -27,6 +28,9 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
         if ($this->fileNamespace) {
             $stmts[] = $this->fileNamespace;
         }
+        if (count($this->useList)) {
+            array_merge($stmts, $this->useList);
+        }
         if (!is_null($this->theClass)) {
             $stmts[] = $this->theClass;
         }
@@ -34,7 +38,7 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
         return new PhpFile($this->filename, $stmts);
     }
 
-    public function addClass($stmt)
+    public function declaring($stmt)
     {
         $node = $this->normalizeNode($stmt);
         if (in_array($node->getType(), array('Stmt_Class', 'Stmt_Interface'))) {
@@ -49,7 +53,18 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
     public function ns($str)
     {
         $this->fileNamespace = new \PHPParser_Node_Stmt_Namespace(
-                new \PHPParser_Node_Name((string) $str));
+                        new \PHPParser_Node_Name((string) $str));
+
+        return $this;
+    }
+
+    public function addUse($str)
+    {
+        $this->useList[] = new \PHPParser_Node_Stmt_Use(
+                        array(
+                            new \PHPParser_Node_Stmt_UseUse(
+                                    new \PHPParser_Node_Name(
+                                            (string) $str))));
 
         return $this;
     }
