@@ -14,7 +14,7 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
 
     protected $filename;
     protected $fileNamespace = false;
-    protected $stack = array();
+    protected $theClass = null;
 
     public function __construct($absPath)
     {
@@ -23,20 +23,33 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
 
     public function getNode()
     {
-        return new PhpFile($this->fileNamespace, $this->stack);
+        $stmts = array();
+        if ($this->fileNamespace) {
+            $stmts[] = $this->fileNamespace;
+        }
+        if (!is_null($this->theClass)) {
+            $stmts[] = $this->theClass;
+        }
+
+        return new PhpFile($this->filename, $stmts);
     }
 
-    public function addStmt($stmt)
+    public function addClass($stmt)
     {
-        $this->stack[] = $stmt;
+        $node = $this->normalizeNode($stmt);
+        if (in_array($node->getType(), array('Stmt_Class', 'Stmt_Interface'))) {
+            $this->theClass = $node;
+        } else {
+            throw new \InvalidArgumentException("Invalid expected node " . $node->getType());
+        }
 
         return $this;
     }
 
     public function ns($str)
     {
-        array_unshift($this->stack, new \PHPParser_Node_Stmt_Namespace(
-                        new \PHPParser_Node_Name((string) $str)));
+        $this->fileNamespace = new \PHPParser_Node_Stmt_Namespace(
+                new \PHPParser_Node_Name((string) $str));
 
         return $this;
     }
