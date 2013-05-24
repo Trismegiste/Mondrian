@@ -68,25 +68,14 @@ class GraphBuilderTest extends \PHPUnit_Framework_TestCase
                                 ->addStmt($fac->method('purr'))
                         )->getNode();
 
-        $this->graph->expects($this->exactly(5))
-                ->method('addVertex');
-
+        $this->graph->expects($this->exactly(5))->method('addVertex');
         $this->expectsAddVertex(1, 'impl', 'Kitty\Soft::purr');
         $this->expectsAddVertex(4, 'impl', 'Kitty\Warm::purr');
-        $this->graph->expects($this->exactly(6))
-                ->method('addEdge');
 
-        $this->graph->expects($this->at(5))
-                ->method('addEdge')
-                ->with($this->vertexConstraint('class', 'Kitty\Soft'), $this->vertexConstraint('class', 'Kitty\Warm'));
-
-        $this->graph->expects($this->at(6))
-                ->method('addEdge')
-                ->with($this->vertexConstraint('impl', 'Kitty\Soft::purr'), $this->vertexConstraint('class', 'Kitty\Soft'));
-
-        $this->graph->expects($this->at(7))
-                ->method('addEdge')
-                ->with($this->vertexConstraint('class', 'Kitty\Soft'), $this->vertexConstraint('impl', 'Kitty\Soft::purr'));
+        $this->graph->expects($this->exactly(6))->method('addEdge');
+        $this->expectsAddEdge(5, 'class', 'Kitty\Soft', 'class', 'Kitty\Warm');
+        $this->expectsAddEdge(6, 'impl', 'Kitty\Soft::purr', 'class', 'Kitty\Soft');
+        $this->expectsAddEdge(7, 'class', 'Kitty\Soft', 'impl', 'Kitty\Soft::purr');
 
         $this->director->compile($package);
     }
@@ -103,6 +92,13 @@ class GraphBuilderTest extends \PHPUnit_Framework_TestCase
         $this->graph->expects($this->at($idx))
                 ->method('addVertex')
                 ->with($this->vertexConstraint($type, $name));
+    }
+
+    protected function expectsAddEdge($idx, $type1, $name1, $type2, $name2)
+    {
+        $this->graph->expects($this->at($idx))
+                ->method('addEdge')
+                ->with($this->vertexConstraint($type1, $name1), $this->vertexConstraint($type2, $name2));
     }
 
 }
