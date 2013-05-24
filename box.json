@@ -1,13 +1,14 @@
 {
     "finder": [
     {
-        "name": "*.*",
+        "name": "*.php",
         "exclude": ["Tests"],
         "in": "."
     }
     ],
-    "main": "mondrian.php",
-    "output": "example.phar",
+    "files": ["composer.json"],        
+    "main": "stub_for_box.php",
+    "output": "../mondrian.phar",
     "stub": true,
     "chmod": "0755"
 }
