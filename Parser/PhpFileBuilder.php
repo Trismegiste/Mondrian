@@ -39,6 +39,15 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
         return new PhpFile($this->filename, $stmts);
     }
 
+    /**
+     * Declares a class or an interface
+     *
+     * @param mixed $stmt a Node_Stmt or a Node_Builder
+     *
+     * @return \Trismegiste\Mondrian\Parser\PhpFileBuilder this instance
+     *
+     * @throws \InvalidArgumentException
+     */
     public function declaring($stmt)
     {
         $node = $this->normalizeNode($stmt);
@@ -51,6 +60,13 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
         return $this;
     }
 
+    /**
+     * Namespace
+     *
+     * @param string $str
+     *
+     * @return \Trismegiste\Mondrian\Parser\PhpFileBuilder this instance
+     */
     public function ns($str)
     {
         $this->fileNamespace = new \PHPParser_Node_Stmt_Namespace(
@@ -59,6 +75,13 @@ class PhpFileBuilder extends \PHPParser_BuilderAbstract
         return $this;
     }
 
+    /**
+     * Add an "use fqcn"
+     *
+     * @param string $str
+     *
+     * @return \Trismegiste\Mondrian\Parser\PhpFileBuilder this instance
+     */
     public function addUse($str)
     {
         $this->useList[] = new \PHPParser_Node_Stmt_Use(
