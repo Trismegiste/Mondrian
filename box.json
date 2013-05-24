@@ -1,0 +1,13 @@
+{
+    "finder": [
+    {
+        "name": "*.*",
+        "exclude": ["Tests"],
+        "in": "."
+    }
+    ],
+    "main": "mondrian.php",
+    "output": "example.phar",
+    "stub": true,
+    "chmod": "0755"
+}
