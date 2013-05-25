@@ -36,4 +36,28 @@ class MinimalGraphTest extends GraphBuilderTestCase
         $this->compile(array($stmt));
     }
 
+    public function testHintType()
+    {
+        $fac = $this->createFactory();
+        $pack[0] = $fac->file('param.php')
+                ->ns('Project')
+                ->declaring($fac
+                        ->class('Cfg'))
+                ->getNode();
+        $pack[1] = $fac->file('service.php')
+                ->ns('Project')
+                ->declaring($fac
+                        ->class('Service')
+                        ->addStmt($fac
+                                ->method('run')
+                                ->addParam($fac
+                                        ->param('obj')
+                                        ->setTypeHint('Cfg'))))
+                ->getNode();
+
+        $this->expectsAddEdge(7, 'param', 'Project\Service::run/0', 'class', 'Project\Cfg');
+        $this->expectsAddEdge(10, 'impl', 'Project\Service::run', 'param', 'Project\Service::run/0');
+        $this->compile($pack);
+    }
+
 }
