@@ -6,8 +6,6 @@
 
 namespace Trismegiste\Mondrian\Tests\Transform\BuildGraph;
 
-use Trismegiste\Mondrian\Parser\BuilderFactory;
-
 /**
  * ConcreteTest tests for building a graph on concrete class
  */
@@ -16,7 +14,7 @@ class ConcreteTest extends GraphBuilderTestCase
 
     public function testOneBuilding()
     {
-        $fac = new BuilderFactory();
+        $fac = $this->createFactory();
         $file = $fac->file('sample.php')
                         ->ns('Kitty')
                         ->declaring(
@@ -31,12 +29,12 @@ class ConcreteTest extends GraphBuilderTestCase
         $this->graph->expects($this->exactly(3))
                 ->method('addEdge');
 
-        $this->director->compile(array($file));
+        $this->compile(array($file));
     }
 
     public function testConcreteInheritance()
     {
-        $fac = new BuilderFactory();
+        $fac = $this->createFactory();
         $package[0] = $fac->file('sample1.php')
                         ->ns('Kitty')
                         ->declaring(
@@ -61,7 +59,7 @@ class ConcreteTest extends GraphBuilderTestCase
         $this->expectsAddEdge(6, 'impl', 'Kitty\Soft::purr', 'class', 'Kitty\Soft');
         $this->expectsAddEdge(7, 'class', 'Kitty\Soft', 'impl', 'Kitty\Soft::purr');
 
-        $this->director->compile($package);
+        $this->compile($package);
     }
 
 }
