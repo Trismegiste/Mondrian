@@ -348,6 +348,25 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test static call S -> M
+     */
+    public function testStaticCall()
+    {
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
+        $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
+        $this->nodeList[3] = new \PHPParser_Node_Expr_StaticCall(
+                new \PHPParser_Node_Name('Berwell'), 'clown');
+
+        // edges :
+        $this->graph
+                ->expects($this->at(2))
+                ->method('addEdge')
+                ->with($this->vertex['S'], $this->vertex['M']);
+
+        $this->visitNodeList();
+    }
+    
+    /**
      * Test for :
      *  * S -> M
      */

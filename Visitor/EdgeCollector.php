@@ -26,21 +26,23 @@ class EdgeCollector extends PassCollector
     {
         parent::enterNode($node);
 
-        switch ($node->getType()) {
+        // since we only track the public method, we check we are in :
+        if ($this->currentMethod) {
 
-            case 'Expr_MethodCall' :
-                // since we only track the public method, we check we are in :
-                if ($this->currentMethod) {
+            switch ($node->getType()) {
+
+                case 'Expr_MethodCall' :
                     $this->enterMethodCall($node);
-                }
-                break;
+                    break;
 
-            case 'Expr_New':
-                // since we only track the public method, we check we are in :
-                if ($this->currentMethod) {
+                case 'Expr_New':
                     $this->enterNewInstance($node);
-                }
-                break;
+                    break;
+
+                case 'Expr_StaticCall':
+                    $this->enterStaticCall($node);
+                    break;
+            }
         }
     }
 
@@ -221,6 +223,17 @@ class EdgeCollector extends PassCollector
     {
         if (is_string($node->name)) {
             $this->enterNonDynamicMethodCall($node);
+        }
+    }
+
+    protected function enterStaticCall(\PHPParser_Node_Expr_StaticCall $node)
+    {
+        if (($node->class instanceof \PHPParser_Node_Name) && is_string($node->name)) {
+            $impl = $this->findVertex('impl', $this->getCurrentMethodIndex());
+            $target = $this->findVertex('method', (string) $this->resolveClassName($node->class) . '::' . $node->name);
+            if (!is_null($target)) {
+                $this->graph->addEdge($impl, $target);
+            }
         }
     }
 
