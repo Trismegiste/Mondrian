@@ -33,6 +33,7 @@ class TypeHintConfig extends Command
     protected $fineTuning;
     protected $phpfinder;
     protected $newConfigFile;
+    protected $dryRunning = false;
 
     protected function configure()
     {
@@ -40,7 +41,8 @@ class TypeHintConfig extends Command
                 ->setName('typehint:config')
                 ->setDescription('Regenerates and overwrites any existing typehint config at the root of the package')
                 ->addArgument('dir', InputArgument::REQUIRED, 'The directory to explore')
-                ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests', 'vendor'));
+                ->addOption('ignore', 'i', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Directories to ignore', array('Tests', 'vendor'))
+                ->addOption('dry', null, InputOption::VALUE_NONE, 'Dry run (no write)');
     }
 
     /**
@@ -55,8 +57,7 @@ class TypeHintConfig extends Command
         $output->writeln(sprintf("Parsing %d files...", $this->phpfinder->count()));
         $compil->run($this->phpfinder->getIterator());
 
-        file_put_contents($this->newConfigFile, self::HEADER_CONFIG );
-        file_put_contents($this->newConfigFile, Yaml::dump($logger->getDigest(), 5), FILE_APPEND);
+        $this->writeConfig($logger);
         $output->writeln("Default config {$this->newConfigFile} created");
     }
 
@@ -84,6 +85,7 @@ class TypeHintConfig extends Command
         $this->fineTuning = $this->getConfig($directory);
         $this->phpfinder = $this->getPhpFinder($directory, $ignoreDir);
         $this->newConfigFile = $directory . '/.mondrian.yml';
+        $this->dryRunning = $input->hasOption('dry');
     }
 
     protected function getPhpFinder($directory, $ignoreDir)
@@ -95,6 +97,19 @@ class TypeHintConfig extends Command
                 ->exclude($ignoreDir);
 
         return $scan;
+    }
+
+    /**
+     * Dump the config
+     * 
+     * @param \Trismegiste\Mondrian\Transform\Logger\GraphLogger $logger
+     */
+    protected function writeConfig(GraphLogger $logger)
+    {
+        if (!$this->dryRunning) {
+            file_put_contents($this->newConfigFile, self::HEADER_CONFIG);
+            file_put_contents($this->newConfigFile, Yaml::dump($logger->getDigest(), 5), FILE_APPEND);
+        }
     }
 
 }
