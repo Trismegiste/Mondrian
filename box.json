@@ -8,7 +8,7 @@
     ],
     "files": ["composer.json"],        
     "main": "Resources/box/stub_for_box.php",
-    "output": "../mondrian.phar",
+    "output": "Resources/box/mondrian.phar",
     "stub": true,
     "chmod": "0755"
 }
