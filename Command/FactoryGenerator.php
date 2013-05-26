@@ -6,9 +6,11 @@
 
 namespace Trismegiste\Mondrian\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Trismegiste\Mondrian\Refactor\FactoryGenBuilder;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 use Trismegiste\Mondrian\Builder\Linking;
 use Trismegiste\Mondrian\Builder\Statement\Builder;
 use Trismegiste\Mondrian\Parser\PhpDumper;
@@ -19,23 +21,24 @@ use Trismegiste\Mondrian\Parser\PhpDumper;
  * 
  * With this, it is possible to mockup the new instance for unit testing
  */
-class FactoryGenerator extends RefactorCommand
+class FactoryGenerator extends Command
 {
 
     protected function configure()
     {
-        parent::configure();
-
         $this->setName('refactor:factory')
-                ->setDescription('Scans a source code and replace new instances by factories');
+                ->addArgument('file', InputArgument::REQUIRED, 'The source file to refactor')
+                ->setDescription('Scans a file and replace new instances in methods by protected factories');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $source = $input->getArgument('file');
+
         $compil = new Linking(
                 new Builder(), new FactoryGenBuilder(new PhpDumper()));
 
-        $compil->run($this->phpfinder->getIterator());
+        $compil->run(new \ArrayIterator(array($source)));
     }
 
 }
