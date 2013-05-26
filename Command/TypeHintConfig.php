@@ -85,7 +85,7 @@ class TypeHintConfig extends Command
         $this->fineTuning = $this->getConfig($directory);
         $this->phpfinder = $this->getPhpFinder($directory, $ignoreDir);
         $this->newConfigFile = $directory . '/.mondrian.yml';
-        $this->dryRunning = $input->hasOption('dry');
+        $this->dryRunning = $input->getOption('dry');
     }
 
     protected function getPhpFinder($directory, $ignoreDir)
