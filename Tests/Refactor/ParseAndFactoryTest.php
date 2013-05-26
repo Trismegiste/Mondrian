@@ -33,6 +33,7 @@ class ParseAndFactoryTest extends RefactorTemplate
         $this->coder->run($this->dumper->getIterator());
         $this->dumper->compileStorage();
         $this->assertTrue(class_exists('Refact\ForFactory', false));
+        $this->markTestIncomplete();
     }
 
 }
