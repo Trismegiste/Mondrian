@@ -39,6 +39,8 @@ Packages used in this project :
  * [symfony/console][7]
  * [alom/graphviz][8]
  * [symfony/finder][9]
+ * [symfony/config][10]
+ * Phar builded with [Box][11]
 
 ## Special thanks
 
@@ -55,3 +57,5 @@ Packages used in this project :
 [7]: https://github.com/symfony/Console
 [8]: https://github.com/alexandresalome/graphviz
 [9]: https://github.com/symfony/Finder
+[10]: https://github.com/symfony/Config
+[11]: https://github.com/kherge/box
