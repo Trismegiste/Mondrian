@@ -6,7 +6,7 @@
 
 namespace Trismegiste\Mondrian\Refactor;
 
-use Trismegiste\Mondrian\Parser\PhpDumper;
+use Trismegiste\Mondrian\Parser\PhpPersistence;
 use Trismegiste\Mondrian\Builder\Compiler\AbstractTraverser;
 
 /**
@@ -17,7 +17,7 @@ abstract class RefactoringBuilder extends AbstractTraverser
 
     protected $dumper;
 
-    public function __construct(PhpDumper $dump)
+    public function __construct(PhpPersistence $dump)
     {
         $this->dumper = $dump;
     }
