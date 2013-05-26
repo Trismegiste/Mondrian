@@ -67,7 +67,8 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
             array('Interface.php', 4, 3),
             array('Concrete.php', 3, 3),
             array('OutsideEdge.php', 4, 5),
-            array('OutsideSignature.php', 2, 2)
+            array('OutsideSignature.php', 2, 2),
+            array('StaticCalling.php', 6, 7)
         );
     }
 
