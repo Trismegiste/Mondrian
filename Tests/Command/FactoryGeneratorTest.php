@@ -29,9 +29,6 @@ class FactoryGeneratorTest extends RefactorTestCase
             'file' => __DIR__ . '/../Fixtures/Refact/ForFactory.php',
             '--dry' => true
         ));
-
-        // return the output for further tests
-        return $commandTester->getDisplay();
     }
 
 }
