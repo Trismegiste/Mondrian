@@ -99,9 +99,38 @@
 </p>
 <h2>This tool does not verify your guidances</h2>
 <p>
-    That's partly true. I try to improve it before to add new features. When it comes
-    to PHP Parsing, there could some very exotic cases. I'm not mastering the PHPParser and
-    I'm a beginner with the Graph Theory. But this project is really cool.
+    That's partly true. As I said, to comply SOLID principles can become difficult 
+    when memory concerns or simple design are involved. Don't push too far these principles,
+    they are not "Sacred Stone-Carved Laws". It is rather a tourist map. But from
+    my experience, the over-used of SOLID has rarely drawbacks, except a little too-
+    complicated API. DIP and LSP can never be over-used. For SRP and ISP, try to keep it
+    simple. For OCP, well, you can never expect what new idea will pop in the customer's head.
+</p>
+<h2>I have memory limit error</h2>
+<p>
+    Try to increase the memory_limit config in php.ini or try to work on a smaller
+    package. Don't expect to refactor an app in one pass. Working with 50 to 200 files
+    seems to be a good range.
+</p>
+<h2>I have parsing error</h2>
+<p>
+    Your code has a flaw. The good part of this tool is you could find parsing error
+    in dead code even if your app is working.
+</p>
+<h2>My digraph is too messy to find something relevant</h2>
+<p>
+    Use other algorithms like spaghetti coupling and liskov violations. Work
+    with smaller package. This tool is even useful with 10 poorly-coded files.
+    With a good refactoring, these 10 files can become 30 or 60 files !
+</p>
+<h2>What about special treatment of <em>static</em> item ?</h2>
+<p>
+    Static =&gt; Global =&gt; Evil =&gt; Kill'em all<br/>
+    Yes it is absolute but from my experience, "static" means "cannot evolve"
+    means "future problem". That's why I don't use anymore singleton. And that's
+    why modern frameworks don't use it anymore. Symfony 1.4 was full of singletons,
+    Symfony2 has none. Static is the Dark Side of efferent coupling : easy, quick
+    and if you follow this path you're doomed forever.
 </p>
 
             <hr>

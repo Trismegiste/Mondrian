@@ -74,14 +74,12 @@
 
     <h2>Installation</h2>
 
+    <h3>Download all-in-one Phar</h3>
+    Download the last build
+    <a href="https://raw.github.com/Trismegiste/Mondrian/master/Resources/box/mondrian.phar">here</a>
+
     <h3>With Composer</h3>
     <pre>$ composer.phar create-project trismegiste/mondrian mondrian dev-master</pre>
-
-    <h3>Download</h3>
-    <pre>
-$ curl -L https://github.com/Trismegiste/Mondrian/archive/master.tar.gz | tar xvz
-$ cd Mondrian-master
-$ composer.phar install</pre>
 
     <h3>Clone with Github</h3>
     <pre>
@@ -89,6 +87,24 @@ $ git clone git://github.com/Trismegiste/Mondrian.git
 $ composer.phar install</pre>
 
     <h2>Other requirements</h2>
+    <h3>A lot of memory (for PHP)</h3>
+    <p>
+        In order to run Mondrian on big project, you need a lot of memory. On a large
+        package with fat classes, you can expect about 500kB per php files.
+    </p>
+    <p>
+        You can check the memory usage after parsing with the <strong>--verbose</strong> option.
+    </p>
+    <p>
+        Check the memory limit in CLI environment by
+        <pre>$ php --info | grep memory_limit</pre>
+        Override the memory limit in command line of PHP with
+        <pre>$ php -d memory_limit=256M mondrian.php</pre>
+        It is not currently possible to override the memory limit with the phar executable.<br/>
+        You can change the memory_limit in php.ini. To locate the config file in CLI, you can lauch
+        <pre>$ php --ini</pre>
+    </p>
+
     <h3>Unit tests</h3>
     <p>
         It's a 50/50 joke but don't expect refactor code if you don't have unit tests.

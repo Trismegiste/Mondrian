@@ -71,6 +71,13 @@
         <div class="container">
             
             <h1>Command line tools</h1>
+<div>
+    <p>
+        Note : If you have downloaded the executable Phar, replace in all commands below
+        the sequence "php mondrian.php" by
+        <pre>$ ./mondrian.phar</pre>
+    </p>
+</div>
 <div class="row-fluid">
     <div class="span6">
         <a name="console"></a><h2>The console</h2>
@@ -405,12 +412,22 @@
 </div>
 <div class="row-fluid">
     <div class="span6">
-        <a name="factory"></a><h2>Factory of factories (xzibit style)</h2>
+        <a name="factory"></a><h2>Factory of factories</h2>
         <p>
             This command generates a protected method in a class each time the parser finds
-            a "new" statement. Why ? To mockup of course !
-            <pre>$ php mondrian.php refactor:factory ~/MyProject</pre>
-            -- CURRRENTLY under development -- Don't try this at home.
+            a "new" statement. Why ? Because this is the first step to stub a
+            new instance by a mockup object in unit tests.
+            <pre>$ php mondrian.php refactor:factory ~/MyProject/MyClass.php</pre>
+            In a rapid creation of unit tests before the refactoring,
+            you can easily make deep tests for your classes and initiating the
+            decoupling process. When you have new instances in closed areas,
+            you can start thinking about factory method patttern, builders,
+            abstract factory, injection and so on.
+        </p>
+        <p>
+            Like the refactor:abstract command, it is not magic, it's only
+            a copy-cut-paste robot. Names of factory methods are not pretty
+            but it avoids name collision. You have to change them.
         </p>
     </div>
 </div>
