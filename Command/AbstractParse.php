@@ -83,6 +83,9 @@ abstract class AbstractParse extends Command
         $dumper = $ff->create($processed, $this->reportFormat);
         file_put_contents($this->reportName, $dumper->export());
         $output->writeln("Report $this->reportName created");
+        if ($output->getVerbosity() == OutputInterface::VERBOSITY_VERBOSE) {
+            $output->writeln(sprintf("<comment>%.0f MB used</comment>", memory_get_peak_usage() / 1e6));
+        }
     }
 
     /**

@@ -1,0 +1,14 @@
+{
+    "finder": [
+    {
+        "name": "*.php",
+        "exclude": ["Tests"],
+        "in": "."
+    }
+    ],
+    "files": ["composer.json"],        
+    "main": "Resources/box/stub_for_box.php",
+    "output": "Resources/box/mondrian.phar",
+    "stub": true,
+    "chmod": "0755"
+}
