@@ -123,9 +123,26 @@ rankdir=TB;
     Param3 -> Vehicule [label="type-hint"];
 }
 
+{ rank=same;
+    note;
+    "All these rules were issued by a painstaking brainstorm based on Demeter's Law and S.O.L.I.D principles.
+     This language is designed to easily show violations with graph theory and algorithms that's why there is some weird things.
+     For example: The splitting of method signature and implementation : in fact they are coming from C++ but
+     they're showing the level of abstraction. 
+     There is no care if a class is abstract or not : it does not matter since I am a proponent of 'interfaces everywhere' like Java does
+     for LSP concerns (and I think this principle is the best above all because it is the simplest way for introducing abstraction in source code).
+     I don't care about static : in fact a static call should generate 2 edges : one to the method and one to the class. Since this is a spaghetti
+     coupling with the method, I think one link is enough to show problems. Furthermore, the method is concrete and has a path to the class
+     and I don't want to confuse with edges representing new instantiations.
+     Parameters have no name because subclasses can change them, that's why I only keep their indices." [shape=plaintext];   
+}
+
+edge [style=invis];
 vocabulary -> 
 inheritance -> implementing -> extending -> declaring1  -> declaring2 -> 
 owning1 -> owning2 -> depend1 -> depend2 -> depend3 -> calling -> 
-owning3 -> typehint1 -> typehint2 ;
+owning3 -> typehint1 -> typehint2 -> note ;
+
+
 
 };
