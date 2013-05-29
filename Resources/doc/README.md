@@ -1,5 +1,7 @@
 # The digraph language
 
+![grammar](language.gif)
+
 ## It begins with an idea...
 
 All these rules were issued by a painstaking brainstorm based on Demeter's Law, S.O.L.I.D principles
