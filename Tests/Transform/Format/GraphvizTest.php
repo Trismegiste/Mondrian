@@ -52,7 +52,16 @@ class GraphvizTest extends \PHPUnit_Framework_TestCase
         $this->assertStringStartsWith('digraph', $content);
     }
 
+    public function testValidFormatLabel()
+    {
+        $graph = new NotPlanar();
+        $exporter = new Graphviz($graph);
+        $content = $exporter->export();
+        $this->assertRegExp('#label="[^\s]+"#', $content);
+    }
+
 }
+
 
 class NotPlanar extends Digraph
 {
