@@ -14,6 +14,8 @@ use Trismegiste\Mondrian\Graph\Vertex;
 abstract class StaticAnalysis extends Vertex implements Vizable, MetaInterface
 {
 
+    const LABEL_DELIMITER  = '\n';
+
     protected $metadata = array();
 
     public function getMeta($key)
@@ -59,7 +61,7 @@ abstract class StaticAnalysis extends Vertex implements Vizable, MetaInterface
             $prefix .= $itm[0];
         }
         if (!empty($prefix)) {
-            $prefix .= "\n";
+            $prefix .= self::LABEL_DELIMITER;
         }
 
         return $prefix . $short;
