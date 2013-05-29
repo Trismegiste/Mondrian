@@ -88,8 +88,9 @@ abstract class SearchPathTest extends \PHPUnit_Framework_TestCase
     {
         $node = new Vertex($prefix);
         if ($level > 0) {
-            $this->graph->addEdge($node, $this->recursivAppendTree($level - 1, $prefix . 'L'));
-            $this->graph->addEdge($node, $this->recursivAppendTree($level - 1, $prefix . 'R'));
+            foreach (array('L', 'R') as $branch) {
+                $this->graph->addEdge($node, $this->recursivAppendTree($level - 1, $prefix . $branch));
+            }
         }
         return $node;
     }
