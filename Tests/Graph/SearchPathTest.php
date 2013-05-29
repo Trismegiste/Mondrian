@@ -6,7 +6,6 @@
 
 namespace Trismegiste\Mondrian\Tests\Graph;
 
-use Trismegiste\Mondrian\Graph\BreadthFirstSearch;
 use Trismegiste\Mondrian\Graph\Digraph;
 use Trismegiste\Mondrian\Graph\Vertex;
 use Trismegiste\Mondrian\Graph\Edge;
@@ -95,6 +94,16 @@ abstract class SearchPathTest extends \PHPUnit_Framework_TestCase
             $this->recursivCreateTree($level - 1, $left);
             $this->recursivCreateTree($level - 1, $right);
         }
+    }
+
+    protected function recursivAppendTree($level, $prefix = '>')
+    {
+        $node = new Vertex($prefix);
+        if ($level > 0) {
+            $this->graph->addEdge($node, $this->recursivAppendTree($level - 1, $prefix . 'L'));
+            $this->graph->addEdge($node, $this->recursivAppendTree($level - 1, $prefix . 'R'));
+        }
+        return $node;
     }
 
     public function testBinary()
