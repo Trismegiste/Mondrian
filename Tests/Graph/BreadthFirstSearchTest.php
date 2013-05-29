@@ -27,13 +27,12 @@ class BreadthFirstSearchTest extends SearchPathTest
     public function testBinaryWithShortcut()
     {
         $level = 6;
-        $root = new Vertex('>');
-        $this->recursivCreateTree($level, $root);
+        $root = $this->recursivAppendTree($level);
         $vSet = $this->graph->getVertexSet();
         $vCard = (2 << $level) - 1;
-        $lastLeaf = $vSet[$vCard - 1];
+        $lastLeaf = $this->findVertexByName('>RRRRRR');
         // adding a shortcut
-        $this->graph->addEdge($vSet[3], $lastLeaf);
+        $this->graph->addEdge($this->findVertexByName('>LL'), $lastLeaf);
         $this->assertCount($vCard, $vSet);
 
         $path = $this->graph->searchPath($root, $lastLeaf);

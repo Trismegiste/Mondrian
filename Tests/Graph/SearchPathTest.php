@@ -84,18 +84,6 @@ abstract class SearchPathTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, count($path));
     }
 
-    protected function recursivCreateTree($level, Vertex $parent)
-    {
-        if ($level > 0) {
-            $left = new Vertex($parent->getName() . 'L');
-            $right = new Vertex($parent->getName() . 'R');
-            $this->graph->addEdge($parent, $left);
-            $this->graph->addEdge($parent, $right);
-            $this->recursivCreateTree($level - 1, $left);
-            $this->recursivCreateTree($level - 1, $right);
-        }
-    }
-
     protected function recursivAppendTree($level, $prefix = '>')
     {
         $node = new Vertex($prefix);
@@ -109,26 +97,30 @@ abstract class SearchPathTest extends \PHPUnit_Framework_TestCase
     public function testBinary()
     {
         $level = 6;
-        $root = new Vertex('>');
-        $this->recursivCreateTree($level, $root);
-        $vSet = $this->graph->getVertexSet();
+        $root = $this->recursivAppendTree($level);
         $vCard = (2 << $level) - 1;
-        $this->assertCount($vCard, $vSet);
+        $this->assertCount($vCard, $this->graph->getVertexSet());
 
-        $path = $this->graph->searchPath($root, $vSet[$vCard - 3]);
+        $path = $this->graph->searchPath($root, $this->findVertexByName('>LRLRLR'));
         $this->assertCount($level, $path);
     }
 
     public function testNoPath()
     {
-        $level = 6;
-        $root = new Vertex('>');
-        $this->recursivCreateTree($level, $root);
-        $vSet = $this->graph->getVertexSet();
-        $vCard = (2 << $level) - 1;
+        $this->recursivAppendTree(6);
 
-        $path = $this->graph->searchPath($vSet[1], $vSet[$vCard - 1]);
+        $path = $this->graph->searchPath($this->findVertexByName('>L'), $this->findVertexByName('>RRRRRR'));
         $this->assertCount(0, $path);
+    }
+
+    protected function findVertexByName($name)
+    {
+        $vSet = $this->graph->getVertexSet();
+        foreach ($vSet as $v) {
+            if ($v->getName() == $name) {
+                return $v;
+            }
+        }
     }
 
 }
