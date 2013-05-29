@@ -25,7 +25,7 @@
     },
     "repositories": [ {
         "type": "vcs",
-        "url": "https://github.com/Trismegiste/graphviz"
+        "url": "git://github.com/Trismegiste/graphviz.git"
     } ],
     "target-dir": "Trismegiste/Mondrian",
     "license": "CC-BY-SA-3.0",
