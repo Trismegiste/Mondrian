@@ -68,22 +68,21 @@ abstract class SearchPathTest extends \PHPUnit_Framework_TestCase
 
     public function testRandom()
     {
-        $vCard = 20;
-        $eCard = $vCard * 4;
-        for ($k = 0; $k < $vCard; $k++) {
+        $vCard = 20; // plus one (see the line below)
+        for ($k = 0; $k <= $vCard; $k++) {
             $this->graph->addVertex(new Vertex($k));
         }
         $vSet = $this->graph->getVertexSet();
-        for ($k = 0; $k < $eCard; $k++) {
-            $src = rand(0, $vCard - 1);
-            $dst = rand(0, $vCard - 1);
+        // what a funny use of a for loop : a "non-deterministic for" (^o^)
+        for ($src = $dst = 0; $src != $vCard; $dst = rand(0, $vCard)) {
             if ($src != $dst) {
                 $this->graph->addEdge($vSet[$src], $vSet[$dst]);
+                $src = $dst;
             }
         }
 
-        $path = $this->graph->searchPath($vSet[0], $vSet[$vCard - 1]);
-        $this->assertGreaterThan(0, count($path), "You have no luck");
+        $path = $this->graph->searchPath($vSet[0], $vSet[$vCard]);
+        $this->assertGreaterThan(0, count($path));
     }
 
     protected function recursivCreateTree($level, Vertex $parent)
