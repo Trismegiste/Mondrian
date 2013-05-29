@@ -17,7 +17,7 @@ class ImplVertex extends StaticAnalysis
     {
         preg_match('#([^\\\\]+)::([^:]+)$#', $this->name, $capt);
         $default = array('shape' => 'rectangle', 'style' => 'filled',
-            'label' => $capt[1] . "\n" . $capt[2]);
+            'label' => $capt[1] . self::LABEL_DELIMITER . $capt[2]);
 
         return $default;
     }
