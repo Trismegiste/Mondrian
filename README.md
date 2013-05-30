@@ -20,12 +20,14 @@ with minimum pain.
 ![digraph1](./Resources/doc/img/sample1.jpg)
 
 ### Which components are bottleneck ?
-![digraph1](./Resources/doc/img/sample2.jpg)
+![digraph2](./Resources/doc/img/sample2.jpg)
 
 ### Reduced graph to LSP violations on trismegiste/prolog
-![digraph1](./Resources/doc/img/sample3.jpg)
+![digraph3](./Resources/doc/img/sample3.jpg)
 
 ## How
+
+Read the concept [here][12]
 
 Read the online documentation [here][4]
 
@@ -59,3 +61,4 @@ Packages used in this project :
 [9]: https://github.com/symfony/Finder
 [10]: https://github.com/symfony/Config
 [11]: https://github.com/kherge/Box
+{12]: ./Resources/doc/README.md
