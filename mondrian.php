@@ -10,14 +10,16 @@ namespace Trismegiste\Mondrian;
 
 require_once 'vendor/autoload.php';
 
+use Trismegiste\Mondrian\Plugin\Application;
 use Trismegiste\Mondrian\Command;
-use Symfony\Component\Console\Application;
 
 $info = json_decode(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'composer.json'));
-// application
+
+/*
+ * Init application
+ */
 $application = new Application('Mondrian', $info->version);
 $application->addCommands(array(
-    new Command\About(),
     new Command\TypeHintConfig(),
     new Command\DigraphCommand(),
     new Command\UsedCentralityCommand(),
@@ -30,4 +32,9 @@ $application->addCommands(array(
     new Command\BadInterfaceCommand(),
     new Command\FactoryGenerator()
 ));
+
+/*
+ * init plugins
+ */
+$application->addPlugin($info->extra->plugins);
 $application->run();

@@ -29,5 +29,11 @@
     } ],
     "target-dir": "Trismegiste/Mondrian",
     "license": "CC-BY-SA-3.0",
-    "version": "1.2.1"
+    "version": "1.2.1",
+    "extra": {
+        "plugins": [
+            "Trismegiste\\Mondrian\\Plugin\\About"
+        ]
+    }
+
 }
