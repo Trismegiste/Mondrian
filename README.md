@@ -33,6 +33,13 @@ Read the online documentation [here][4]
 
 And the API [here][5]
 
+## Extensible
+
+You can easily add plugins to this tool to make your own algorithm, coloring scheme
+or new generator. I try to make the API mostly decoupled, re-usable and with great
+SRP and OCP concerns. Look into the "About" plugin to understand a basic stub of
+plugin.
+
 ## Third party
 
 Packages used in this project :

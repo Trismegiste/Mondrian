@@ -7,9 +7,9 @@
 All these rules were issued by a painstaking brainstorm based on Demeter's Law, S.O.L.I.D principles
 and some other concepts of design patterns.
 
-This tool and its language is designed to show violations of OOP principles with the Graph Theory and algorithms,
+This tool and its language are designed to show violations of OOP principles with the Graph Theory and algorithms,
 that's why there are some weird translations. Remember, this tool is not a way to generate retro-engineered
-documentation but an itinerary map through the pitfall-strewn path of refactoring process.
+documentation but it is rather an itinerary map through the pitfall-strewn path of refactoring process.
 
 It generates working documents, and they are meant to be thrown after the refactoring :
 please, save Amazon rainforest : don't print them ! Instead, use a second viewscreen (full of heavy metals).
