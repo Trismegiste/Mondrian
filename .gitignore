@@ -2,3 +2,5 @@
 /Resources/doc/coverage
 /Resources/doc/tech
 /vendor
+/composer.phar
+/composer.lock
