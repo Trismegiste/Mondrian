@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 /*
@@ -6,9 +7,7 @@
  * Uses the Symfony Console Component (which is great !)
  */
 
-namespace Trismegiste\Mondrian;
-
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use Trismegiste\Mondrian\Plugin\Application;
 use Trismegiste\Mondrian\Command;
