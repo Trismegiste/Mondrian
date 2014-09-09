@@ -45,12 +45,23 @@ class VertexCollector extends PassCollector
      */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
-        // only if this method is first declared in this class
-        $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
-        // we add the vertex. If not, it will be a higher class/interface
-        // in the inheritance hierarchy which add it.
-        if ($this->currentClass == $declaringClass) {
-            $this->pushMethod($node);
+        // we do not add sigature method from a trait
+        if (!$this->isTrait($this->currentClass)) {
+            // only if this method is first declared in this class
+            // we add the vertex. If not, it will be a higher class/interface
+            // in the inheritance hierarchy which add it.
+            $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
+            if ($this->currentClass == $declaringClass) {
+                $this->pushMethod($node);
+            }
+        } else {
+            // but instead we copy paste this signature in every class which use this current trait
+            // Anyway we check if there is no other parent which declaring first this method
+            $traitUser = $this->getClassesUsingTraitForDeclaringMethod($this->currentClass, $this->currentMethod);
+            foreach ($traitUser as $classname) {
+                // we copy-paste the signature declaration in the class which using the current trait
+                $this->pushMethod($node, $classname . '::' . $this->currentMethod);
+            }
         }
         // if not abstract we add the vertex for the implementation
         if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
@@ -64,9 +75,11 @@ class VertexCollector extends PassCollector
      *
      * @param \PHPParser_Node_Stmt_ClassMethod $node
      */
-    protected function pushMethod(\PHPParser_Node_Stmt_ClassMethod $node)
+    protected function pushMethod(\PHPParser_Node_Stmt_ClassMethod $node, $index = null)
     {
-        $index = $this->getCurrentMethodIndex();
+        if (is_null($index)) {
+            $index = $this->getCurrentMethodIndex();
+        }
         if (!$this->existsVertex('method', $index)) {
             $v = new Vertex\MethodVertex($index);
             $this->graph->addVertex($v);

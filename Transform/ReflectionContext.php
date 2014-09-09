@@ -97,15 +97,19 @@ class ReflectionContext
 
     protected function resolveTraitUse()
     {
+        // @todo recursion for use trait in trait
         foreach ($this->inheritanceMap as $className => $info) {
-            foreach ($info['use'] as $traitName) {
-                $imported = $this->inheritanceMap[$traitName]['method'];
-                foreach ($imported as $methodName => $declaringTrait) {
-                    // @todo alias ! Because of Alias, a trait does not own its
-                    // declaration. An existing trait in a class does not give
-                    // you any information about its contract since the class
-                    // could rename each trait's method
-                    $this->addMethodToClass($className, $methodName);
+            if ($info['type'] === self::SYMBOL_CLASS) {  // @todo for trait, we need a recursion
+                foreach ($info['use'] as $traitName) {
+                    $imported = $this->inheritanceMap[$traitName]['method'];
+                    // in fact this all method is a recursion with a getImportedMethod()
+                    foreach ($imported as $methodName => $declaringTrait) {
+                        // @todo alias ! Because of Alias, a trait does not own its
+                        // declaration. An existing trait in a class does not give
+                        // you any information about its contract since the class
+                        // could rename each trait's method
+                        $this->addMethodToClass($className, $methodName);
+                    }
                 }
             }
         }
@@ -214,6 +218,33 @@ class ReflectionContext
     }
 
     /**
+     * Returns a list of all classes using a trait for declaring a given method
+     *  
+     * @param string $fqcn FQCN of trait
+     * @param string $methodName the imported method
+     * 
+     * @return array
+     */
+    public function getClassesUsingTraitForDeclaringMethod($fqcn, $methodName)
+    {
+        $user = [];
+        foreach ($this->inheritanceMap as $classname => $info) {
+            if ($info['type'] === self::SYMBOL_CLASS) {
+                if (in_array($fqcn, $info['use'])) {
+                    // class $classname is using the trait $fqcn, now
+                    // is the method first declared in this class ?
+                    if ($info['method'][$methodName] === $classname) {
+                        // ok we can add $classname to the returned list
+                        $user[] = $classname;
+                    }
+                }
+            }
+        }
+
+        return $user;
+    }
+
+    /**
      * Is FQCN an interface ?
      *
      * @param string $cls FQCN
@@ -223,6 +254,18 @@ class ReflectionContext
     public function isInterface($cls)
     {
         return $this->inheritanceMap[$cls]['type'] === self::SYMBOL_INTERFACE;
+    }
+
+    /**
+     * Is FQCN an interface ?
+     *
+     * @param string $cls FQCN
+     *
+     * @return bool
+     */
+    public function isTrait($cls)
+    {
+        return $this->inheritanceMap[$cls]['type'] === self::SYMBOL_TRAIT;
     }
 
 }
