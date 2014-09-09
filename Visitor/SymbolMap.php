@@ -80,7 +80,8 @@ class SymbolMap extends PublicCollector
 
     protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
     {
-        
+        $this->context->initSymbol($this->currentClass, ReflectionContext::SYMBOL_TRAIT);
+        // @todo do not forget use trait   
     }
 
 }

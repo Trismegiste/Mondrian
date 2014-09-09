@@ -18,24 +18,25 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
     protected $symbol = array();
     protected $visitor;
     protected $context;
+    protected $parser;
+    protected $traverser;
 
     public function setUp()
     {
         $this->context = new ReflectionContext();
         $this->visitor = new SymbolMap($this->context);
+        $this->parser = new \PHPParser_Parser(new \PHPParser_Lexer());
+        $this->traverser = new \PHPParser_NodeTraverser();
+        $this->traverser->addVisitor($this->visitor);
     }
 
     public function testExternalInterfaceInheritance()
     {
-        $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
-        $traverser = new \PHPParser_NodeTraverser();
-        $traverser->addVisitor($this->visitor);
-
         $iter = array(__DIR__ . '/../Fixtures/Project/InheritExtra.php');
         foreach ($iter as $fch) {
             $code = file_get_contents($fch);
-            $stmts = $parser->parse($code);
-            $traverser->traverse($stmts);
+            $stmts = $this->parser->parse($code);
+            $this->traverser->traverse($stmts);
         }
         $this->visitor->afterTraverse(array());
 
@@ -57,15 +58,11 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
 
     public function testSimpleCase()
     {
-        $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
-        $traverser = new \PHPParser_NodeTraverser();
-        $traverser->addVisitor($this->visitor);
-
         $iter = array(__DIR__ . '/../Fixtures/Project/Concrete.php');
         foreach ($iter as $fch) {
             $code = file_get_contents($fch);
-            $stmts = $parser->parse($code);
-            $traverser->traverse($stmts);
+            $stmts = $this->parser->parse($code);
+            $this->traverser->traverse($stmts);
         }
         $this->visitor->afterTraverse(array());
 
@@ -81,16 +78,12 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
 
     public function testAliasing()
     {
-        $parser = new \PHPParser_Parser(new \PHPParser_Lexer());
-        $traverser = new \PHPParser_NodeTraverser();
-        $traverser->addVisitor($this->visitor);
-
         $iter = array(__DIR__ . '/../Fixtures/Project/Alias1.php',
             __DIR__ . '/../Fixtures/Project/Alias2.php');
         foreach ($iter as $fch) {
             $code = file_get_contents($fch);
-            $stmts = $parser->parse($code);
-            $traverser->traverse($stmts);
+            $stmts = $this->parser->parse($code);
+            $this->traverser->traverse($stmts);
         }
         $this->visitor->afterTraverse(array());
 
@@ -111,6 +104,26 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
                 'type' => 'i',
                 'parent' => array(),
                 'method' => array(),
+                'use' => []
+            )
+                ), 'inheritanceMap', $this->context);
+    }
+
+    public function testSimpleTrait()
+    {
+        $iter = array(__DIR__ . '/../Fixtures/Project/SimpleTrait.php');
+        foreach ($iter as $fch) {
+            $code = file_get_contents($fch);
+            $stmts = $this->parser->parse($code);
+            $this->traverser->traverse($stmts);
+        }
+        $this->visitor->afterTraverse(array());
+
+        $this->assertAttributeEquals(array(
+            'Project\\SimpleTrait' => array(
+                'type' => 't',
+                'parent' => [],
+                'method' => ['someService' => 'Project\\SimpleTrait'],
                 'use' => []
             )
                 ), 'inheritanceMap', $this->context);
