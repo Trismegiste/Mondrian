@@ -37,9 +37,11 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
         $nsNode = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Tubular'));
         $classNode = new \PHPParser_Node_Stmt_Class('Bells');
         $interfNode = new \PHPParser_Node_Stmt_Interface('Bells');
+        $interfNode = new \PHPParser_Node_Stmt_Trait('Bells');
         return array(
             array('class', 'Tubular\Bells', $vertexNS . 'ClassVertex', array($nsNode, $classNode)),
-            array('interface', 'Tubular\Bells', $vertexNS . 'InterfaceVertex', array($nsNode, $interfNode))
+            array('interface', 'Tubular\Bells', $vertexNS . 'InterfaceVertex', array($nsNode, $interfNode)),
+            array('trait', 'Tubular\Bells', $vertexNS . 'TraitVertex', array($nsNode, $interfNode))
         );
     }
 

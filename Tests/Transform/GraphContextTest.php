@@ -24,7 +24,7 @@ class GraphContextTest extends \PHPUnit_Framework_TestCase
 
     public function getVertexMock()
     {
-        foreach (array('class', 'interface', 'impl', 'method', 'param') as $pool) {
+        foreach (array('class', 'interface', 'impl', 'method', 'param', 'trait') as $pool) {
             $v[] = array($pool, $this->getMockBuilder('Trismegiste\Mondrian\Graph\Vertex')
                         ->disableOriginalConstructor()
                         ->getMock());
