@@ -129,4 +129,36 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
                 ), 'inheritanceMap', $this->context);
     }
 
+    protected function scanFile($iter)
+    {
+        foreach ($iter as $fch) {
+            $code = file_get_contents(__DIR__ . '/../Fixtures/Project/' . $fch);
+            $stmts = $this->parser->parse($code);
+            $this->traverser->traverse($stmts);
+        }
+        $this->visitor->afterTraverse(array());
+    }
+
+    public function testImportingMethodFromTrait()
+    {
+        $this->scanFile([
+            'ServiceWrong.php',
+            'ServiceTrait.php'
+        ]);
+
+        $this->assertAttributeEquals(array(
+            'Project\\ServiceWrong' => array(
+                'type' => 'c',
+                'parent' => [],
+                'method' => array('someService' => 'Project\\ServiceWrong'),
+                'use' => ['Project\\ServiceTrait']
+            ),
+            'Project\\ServiceTrait' => array(
+                'type' => 't',
+                'parent' => [],
+                'method' => array('someService' => 'Project\\ServiceTrait'),
+                'use' => []
+            )), 'inheritanceMap', $this->context);
+    }
+
 }
