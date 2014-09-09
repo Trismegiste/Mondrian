@@ -31,6 +31,21 @@ class SymbolMap extends PublicCollector
     /**
      * {@inheritDoc}
      */
+    public function enterNode(\PHPParser_Node $node)
+    {
+        parent::enterNode($node);
+
+        switch ($node->getType()) {
+
+            case 'Stmt_TraitUse' :
+                $this->importSignatureTrait($node);
+                break;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     protected function enterClassNode(\PHPParser_Node_Stmt_Class $node)
     {
         $this->context->initSymbol($this->currentClass, ReflectionContext::SYMBOL_CLASS);
@@ -81,7 +96,16 @@ class SymbolMap extends PublicCollector
     protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
     {
         $this->context->initSymbol($this->currentClass, ReflectionContext::SYMBOL_TRAIT);
-        // @todo do not forget use trait   
+    }
+
+    protected function importSignatureTrait(\PHPParser_Node_Stmt_TraitUse $node)
+    {
+        // @todo do not forget aliases
+        foreach ($node->traits as $import) {
+            $name = (string) $this->resolveClassName($import);
+            $this->context->initSymbol($name, ReflectionContext::SYMBOL_TRAIT);
+            $this->context->pushUseTrait($this->currentClass, $name);
+        }
     }
 
 }

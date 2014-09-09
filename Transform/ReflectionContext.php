@@ -43,12 +43,21 @@ class ReflectionContext
     }
 
     /**
-     * Construct the inheritanceMap by resolving which class, interface or trait
+     * Resolve all methods inheritance, use by traits and declared
+     */
+    public function resolveSymbol()
+    {
+        $this->resolveTraitUse();
+        $this->resolveMethodDeclaration();
+    }
+
+    /**
+     * Construct the inheritanceMap of method by resolving which class or interface
      * first declares a method
      *
      * (not vey efficient algo, I admit), it sux, it's redundent, I don't like it
      */
-    public function resolveSymbol()
+    protected function resolveMethodDeclaration()
     {
         foreach ($this->inheritanceMap as $className => $info) {
             $method = $info['method'];
@@ -84,6 +93,22 @@ class ReflectionContext
         }
 
         return $higher;
+    }
+
+    protected function resolveTraitUse()
+    {
+        foreach ($this->inheritanceMap as $className => $info) {
+            foreach ($info['use'] as $traitName) {
+                $imported = $this->inheritanceMap[$traitName]['method'];
+                foreach ($imported as $methodName => $declaringTrait) {
+                    // @todo alias ! Because of Alias, a trait does not own its
+                    // declaration. An existing trait in a class does not give
+                    // you any information about its contract since the class
+                    // could rename each trait's method
+                    $this->addMethodToClass($className, $methodName);
+                }
+            }
+        }
     }
 
     /**
@@ -126,7 +151,7 @@ class ReflectionContext
             // this is a security since I'm changing the API
             throw new \InvalidArgumentException($symbolType . ' is unknown');
         }
-        
+
         if (!array_key_exists($name, $this->inheritanceMap)) {
             $this->inheritanceMap[$name]['type'] = $symbolType;
             $this->inheritanceMap[$name]['parent'] = array();
