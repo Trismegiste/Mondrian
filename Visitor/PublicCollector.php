@@ -31,6 +31,13 @@ abstract class PublicCollector extends FqcnHelper
     abstract protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node);
 
     /**
+     * Visits an trait node
+     *
+     * @param \PHPParser_Node_Stmt_Trait $node
+     */
+    abstract protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node);
+
+    /**
      * Visits a public method node
      *
      * @param \PHPParser_Node_Stmt_ClassMethod $node
@@ -56,6 +63,11 @@ abstract class PublicCollector extends FqcnHelper
                 $this->enterInterfaceNode($node);
                 break;
 
+            case 'Stmt_Trait' :
+                $this->currentClass = $this->getNamespacedName($node);
+                $this->enterTraitNode($node);
+                break;
+            
             case 'Stmt_ClassMethod' :
                 if ($node->isPublic()) {
                     $this->currentMethod = $node->name;
@@ -73,7 +85,8 @@ abstract class PublicCollector extends FqcnHelper
         switch ($node->getType()) {
 
             case 'Stmt_Class':
-            case 'Stmt_Interface';
+            case 'Stmt_Interface':
+            case 'Stmt_Trait':    
                 $this->currentClass = false;
                 break;
 
