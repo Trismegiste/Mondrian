@@ -159,18 +159,31 @@ class EdgeCollector extends PassCollector
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $this->currentMethodNode = $node;
-        // search for the declaring class of this method
-        $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
-        $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
-        // if current class == declaring class, we add the edge
-        if ($declaringClass == $this->currentClass) {
-            $this->enterDeclaredMethodNode($node, $signature);
-        }
-        // if not abstract, the implementation depends on the class.
-        // For odd reason, a method in an interface is not abstract
-        // that's why, there is a double check
-        if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
-            $this->enterImplementationNode($node, $signature, $declaringClass);
+        if (!$this->isTrait($this->currentClass)) {
+            // search for the declaring class of this method
+            $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
+            $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
+            // if current class == declaring class, we add the edge
+            if ($declaringClass == $this->currentClass) {
+                $this->enterDeclaredMethodNode($node, $signature);
+            }
+            // if not abstract, the implementation depends on the class.
+            // For odd reason, a method in an interface is not abstract
+            // that's why, there is a double check
+            if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
+                $this->enterImplementationNode($node, $signature, $declaringClass);
+            }
+        } else {
+            // @todo we search for each class using this current trait and declaring this method
+            // to create a new edge
+            $traitUser = $this->getClassesUsingTraitForDeclaringMethod($this->currentClass, $this->currentMethod);
+            foreach ($traitUser as $classname) {
+                // we link the class and the signature
+                $source = $this->findVertex('class', $classname);
+                $target = $this->findVertex('method', $classname . '::' . $this->currentMethod);
+                $this->graph->addEdge($source, $target);
+                // @todo missing parameters
+            }
         }
     }
 
