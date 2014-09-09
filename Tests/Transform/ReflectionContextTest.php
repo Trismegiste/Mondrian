@@ -101,4 +101,22 @@ class ReflectionContextTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->context->findMethodInInheritanceTree('Class', 'unknown'));
     }
 
+    public function testUseTrait()
+    {
+        $this->context->initSymbol('Class', ReflectionContext::SYMBOL_CLASS);
+        $this->context->initSymbol('Trait', ReflectionContext::SYMBOL_TRAIT);
+        $this->context->addMethodToClass('Trait', 'sample');
+        $this->context->pushUseTrait('Class', 'Trait');
+        $this->context->resolveSymbol();
+        $this->assertEquals('Class', $this->context->findMethodInInheritanceTree('Class', 'sample'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadType()
+    {
+        $this->context->initSymbol('Class', 'yop yop');
+    }
+
 }
