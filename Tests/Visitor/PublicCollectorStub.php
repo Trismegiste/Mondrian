@@ -39,4 +39,9 @@ class PublicCollectorStub extends PublicCollector
         $this->testCase = $track;
     }
 
+    protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
+    {
+        $this->testCase->assertEquals('All\Our\Yesterdays', $this->currentClass);
+    }
+
 }

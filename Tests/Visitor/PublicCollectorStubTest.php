@@ -6,8 +6,6 @@
 
 namespace Trismegiste\Mondrian\Tests\Visitor;
 
-use Trismegiste\Mondrian\Visitor\PublicCollector;
-
 /**
  * PublicCollectorStubTest tests for PublicCollectorStub visitor
  */
@@ -52,6 +50,16 @@ class PublicCollectorStubTest extends \PHPUnit_Framework_TestCase
             new \PHPParser_Node_Stmt_Class('MenOfTain')
         );
         $node[1]->stmts = array(new \PHPParser_Node_Stmt_ClassMethod('eidolon'));
+
+        $this->traverser->traverse($node);
+    }
+
+    public function testNamespacedTrait()
+    {
+        $node = array(
+            new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('All\Our')),
+            new \PHPParser_Node_Stmt_Trait('Yesterdays')
+        );
 
         $this->traverser->traverse($node);
     }
