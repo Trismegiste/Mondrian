@@ -5,8 +5,7 @@
     "keywords": ["refactoring", "abstract", "graph", "analysis", "static", "code", "metrics"],
     "authors": [
     {
-        "name": "Trismegiste",
-        "email": "florent.g@allopneus.com"
+        "name": "Trismegiste"
     }
     ],
     "require": {
@@ -29,7 +28,6 @@
     } ],
     "target-dir": "Trismegiste/Mondrian",
     "license": "CC-BY-SA-3.0",
-    "version": "1.2.3",
     "extra": {
         "plugins": [
             "Trismegiste\\Mondrian\\Plugin\\About"
