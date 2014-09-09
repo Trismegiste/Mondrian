@@ -17,7 +17,7 @@ $info = json_decode(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'composer.
 /*
  * Init application
  */
-$application = new Application('Mondrian', $info->version);
+$application = new Application('Mondrian', '1.2');
 $application->addCommands(array(
     new Command\TypeHintConfig(),
     new Command\DigraphCommand(),
