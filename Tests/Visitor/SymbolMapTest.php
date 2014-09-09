@@ -41,14 +41,16 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
 
         $this->assertAttributeEquals(array(
             'Project\\InheritExtra' => array(
-                'interface' => false,
+                'type' => 'c',
                 'parent' => array(0 => 'IteratorAggregate'),
-                'method' => array('getIterator' => 'IteratorAggregate')
+                'method' => array('getIterator' => 'IteratorAggregate'),
+                'use' => []
             ),
             'IteratorAggregate' => array(
-                'interface' => true,
+                'type' => 'i',
                 'parent' => array(),
-                'method' => array()
+                'method' => array(),
+                'use' => []
             ),
                 ), 'inheritanceMap', $this->context);
     }
@@ -69,9 +71,10 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
 
         $this->assertAttributeEquals(array(
             'Project\\Concrete' => array(
-                'interface' => false,
+                'type' => 'c',
                 'parent' => array(),
-                'method' => array('simple' => 'Project\\Concrete')
+                'method' => array('simple' => 'Project\\Concrete'),
+                'use' => []
             ),
                 ), 'inheritanceMap', $this->context);
     }
@@ -93,19 +96,22 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
 
         $this->assertAttributeEquals(array(
             'Project\\Aliasing' => array(
-                'interface' => false,
+                'type' => 'c',
                 'parent' => array('Project\Maid', 'Project\Peril'),
-                'method' => array('spokes' => 'Project\\Aliasing')
+                'method' => array('spokes' => 'Project\\Aliasing'),
+                'use' => []
             ),
             'Project\Maid' => array(
-                'interface' => false,
+                'type' => 'c',
                 'parent' => array(),
-                'method' => array()
+                'method' => array(),
+                'use' => []
             ),
             'Project\Peril' => array(
-                'interface' => true,
+                'type' => 'i',
                 'parent' => array(),
-                'method' => array()
+                'method' => array(),
+                'use' => []
             )
                 ), 'inheritanceMap', $this->context);
     }
