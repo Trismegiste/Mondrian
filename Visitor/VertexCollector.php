@@ -113,7 +113,12 @@ class VertexCollector extends PassCollector
 
     protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
     {
-        
+        $index = $this->currentClass;
+        if (!$this->existsVertex('trait', $index)) {
+            $v = new Vertex\TraitVertex($index);
+            $this->graph->addVertex($v);
+            $this->indicesVertex('trait', $index, $v);
+        }
     }
 
 }
