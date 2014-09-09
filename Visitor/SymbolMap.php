@@ -78,4 +78,9 @@ class SymbolMap extends PublicCollector
         $this->context->resolveSymbol();
     }
 
+    protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
+    {
+        
+    }
+
 }

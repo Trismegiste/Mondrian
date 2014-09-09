@@ -11,13 +11,25 @@ use Trismegiste\Mondrian\Graph\Graph;
 /**
  * ReflectionContext is a context for Reflection on types
  *
- * Responsible for maintaining a list of methods, classes and interfaces used
+ * Responsible for maintaining a list of methods, traits, classes and interfaces used
  * for building inheritance links in a digraph
  */
 class ReflectionContext
 {
 
+    const SYMBOL_TRAIT = 't';
+    const SYMBOL_INTERFACE = 'i';
+    const SYMBOL_CLASS = 'c';
+
+    /**
+     *  @var $inheritanceMap array the symbol map 
+     */
     protected $inheritanceMap;
+
+    /**
+     * @var array List of three types : trait, class, interface
+     */
+    private $symbolTypes = [];
 
     /**
      * Build the context
@@ -27,10 +39,11 @@ class ReflectionContext
     public function __construct()
     {
         $this->inheritanceMap = array();
+        $this->symbolTypes = [self::SYMBOL_CLASS, self::SYMBOL_INTERFACE, self::SYMBOL_TRAIT];
     }
 
     /**
-     * Construct the inheritanceMap by resolving which class or interface
+     * Construct the inheritanceMap by resolving which class, interface or trait
      * first declares a method
      *
      * (not vey efficient algo, I admit), it sux, it's redundent, I don't like it
@@ -105,14 +118,20 @@ class ReflectionContext
      * Initialize a new symbol
      *
      * @param string $name class or interface name
-     * @param bool $isInterface is interface ?
+     * @param string $symbolType one of SYMBOL_ const
      */
-    public function initSymbol($name, $isInterface)
+    public function initSymbol($name, $symbolType)
     {
+        if (!in_array($symbolType, $this->symbolTypes)) {
+            // this is a security since I'm changing the API
+            throw new \InvalidArgumentException($symbolType . ' is unknown');
+        }
+        
         if (!array_key_exists($name, $this->inheritanceMap)) {
-            $this->inheritanceMap[$name]['interface'] = $isInterface;
+            $this->inheritanceMap[$name]['type'] = $symbolType;
             $this->inheritanceMap[$name]['parent'] = array();
             $this->inheritanceMap[$name]['method'] = array();
+            $this->inheritanceMap[$name]['use'] = [];
         }
     }
 
@@ -125,6 +144,11 @@ class ReflectionContext
     public function pushParentClass($cls, $parent)
     {
         $this->inheritanceMap[$cls]['parent'][] = $parent;
+    }
+
+    public function pushUseTrait($cls, $useTrait)
+    {
+        $this->inheritanceMap[$cls]['use'][] = $useTrait;
     }
 
     /**
@@ -140,7 +164,7 @@ class ReflectionContext
     }
 
     /**
-     * Search if a type (class or interface) exists in the inheritanceMap
+     * Search if a type (trait, class or interface) exists in the inheritanceMap
      *
      * @param string $cls
      *
@@ -173,7 +197,7 @@ class ReflectionContext
      */
     public function isInterface($cls)
     {
-        return $this->inheritanceMap[$cls]['interface'];
+        return $this->inheritanceMap[$cls]['type'] === self::SYMBOL_INTERFACE;
     }
 
 }
