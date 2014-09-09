@@ -161,4 +161,33 @@ class SymbolMapTest extends \PHPUnit_Framework_TestCase
             )), 'inheritanceMap', $this->context);
     }
 
+    public function testImportingMethodFromTraitWithInterfaceCollision()
+    {
+        $this->scanFile([
+            'ServiceRight.php',
+            'ServiceTrait.php',
+            'ServiceInterface.php'
+        ]);
+
+        $this->assertAttributeEquals(array(
+            'Project\\ServiceRight' => array(
+                'type' => 'c',
+                'parent' => ['Project\\ServiceInterface'],
+                'method' => array('someService' => 'Project\\ServiceInterface'),
+                'use' => ['Project\\ServiceTrait']
+            ),
+            'Project\\ServiceInterface' => array(
+                'type' => 'i',
+                'parent' => [],
+                'method' => array('someService' => 'Project\\ServiceInterface'),
+                'use' => []
+            ),
+            'Project\\ServiceTrait' => array(
+                'type' => 't',
+                'parent' => [],
+                'method' => array('someService' => 'Project\\ServiceTrait'),
+                'use' => []
+            )), 'inheritanceMap', $this->context);
+    }
+
 }
