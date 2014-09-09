@@ -111,4 +111,9 @@ class VertexCollector extends PassCollector
         }
     }
 
+    protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
+    {
+        
+    }
+
 }
