@@ -56,7 +56,8 @@ class EdgeCollector extends PassCollector
         switch ($node->getType()) {
 
             case 'Stmt_Class':
-            case 'Stmt_Interface';
+            case 'Stmt_Interface':
+            case 'Stmt_Trait':
                 $this->currentClassVertex = null;
                 break;
 
@@ -336,7 +337,8 @@ class EdgeCollector extends PassCollector
 
     protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
     {
-        
+        $src = $this->findVertex('trait', $this->currentClass);
+        $this->currentClassVertex = $src;
     }
 
 }

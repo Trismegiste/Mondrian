@@ -37,9 +37,11 @@ class DigraphCommand extends AbstractParse
 
         $output->writeln('Classes: ' . $metrics['Class']);
         $output->writeln('Interfaces: ' . $metrics['Interface']);
+        $output->writeln('Traits: ' . $metrics['Trait']);
         $output->writeln('Methods: ' . $metrics['Method']);
         $output->writeln('  - declared in classes:    ' . $metrics['MethodDeclaration']['Class']);
         $output->writeln('  - declared in interfaces: ' . $metrics['MethodDeclaration']['Interface']);
+        $output->writeln('  - declared in traits: ' . $metrics['MethodDeclaration']['Trait']);
         $output->writeln('Implemented: ' . $metrics['Impl']);
 
         return $graph;
