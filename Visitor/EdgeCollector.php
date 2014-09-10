@@ -42,6 +42,7 @@ class EdgeCollector extends PassCollector
                 case 'Expr_StaticCall':
                     $this->enterStaticCall($node);
                     break;
+                // @todo use trait
             }
         }
     }
