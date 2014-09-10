@@ -166,7 +166,7 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
                     ->will($this->returnValue(['TraitUser1', 'TraitUser2']));
 
             $this->graph
-                    ->expects($this->exactly(6))
+                    ->expects($this->exactly(5))
                     ->method('addVertex');
 
             // the trait vertex
@@ -175,31 +175,27 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
                     ->method('addVertex')
                     ->with($this->isInstanceOf($graphVertex));
 
-            // first copy-pasted method
+            // implementation
             $this->graph
                     ->expects($this->at(1))
                     ->method('addVertex')
-                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
+                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ImplVertex'));
             $this->graph
                     ->expects($this->at(2))
                     ->method('addVertex')
                     ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ParamVertex'));
 
-            // second copy-pasted method
+            // first copy-pasted method
             $this->graph
                     ->expects($this->at(3))
                     ->method('addVertex')
                     ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
+
+            // second copy-pasted method
             $this->graph
                     ->expects($this->at(4))
                     ->method('addVertex')
-                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ParamVertex'));
-
-            // implementation
-            $this->graph
-                    ->expects($this->at(5))
-                    ->method('addVertex')
-                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ImplVertex'));
+                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
 
             foreach ($nodeList as $node) {
                 $this->visitor->enterNode($node);
