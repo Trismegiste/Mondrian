@@ -15,6 +15,31 @@ coupled. And for this, there is one only rule : **ABSTRACTION**
 This app provides some helpers to add abstraction into concrete classes
 with minimum pain.
 
+## Ecosystem
+Running unit tests with [PHPUnit](https://phpunit.de/getting-started.html)
+```
+$ phpunit.phar
+```
+
+Building the documentation with [phpDocumentor](http://phpdoc.org/docs/latest/getting-started/installing.html#phar)
+```
+$ phpDocumentor.phar
+```
+
+Building mondrian.phar from the sources with [box2](https://github.com/box-project/box2#as-a-phar-recommended)
+```
+$ box.phar
+```
+
+## Getting started
+Try to run a simple command with a few files (or a small part of a project)
+```
+$ mondrian.phar digraph /home/dev/project
+```
+This command produces a DOT file for Graphviz. Other format are available :
+* json : format for d3.js for example
+* svg : open standard for vector graphics
+
 ## Examples
 ### Default digraph on trismegiste/dokudoki
 ![digraph1](./Resources/doc/img/sample1.jpg)
