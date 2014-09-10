@@ -14,8 +14,7 @@ use Trismegiste\Mondrian\Builder\Statement\Builder;
 use Trismegiste\Mondrian\Transform\Logger\NullLogger;
 
 /**
- * GrapherTest tests for Grapher
- *
+ * ParseAndGraphTest tests for Grapher
  */
 class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
 {
@@ -68,7 +67,8 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
             array('Concrete.php', 3, 3),
             array('OutsideEdge.php', 4, 5),
             array('OutsideSignature.php', 2, 2),
-            array('StaticCalling.php', 6, 7)
+            array('StaticCalling.php', 6, 7),
+            ['SimpleTrait.php', 2, 2]
         );
     }
 
@@ -302,6 +302,66 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($impl);
         $succ = $result->getSuccessor($impl);
         $this->assertCount(2, $succ); // the class and one call (not two)
+    }
+
+    public function testTraitWithoutInterface()
+    {
+        $fqcnClass = 'Project\ServiceWrong';
+        $fqcnTrait = 'Project\ServiceTrait';
+        $result = $this->callParse('ServiceTrait.php', 'ServiceWrong.php');
+        $this->assertCount(4, $result->getVertexSet());
+        $this->assertEdges(array(
+            array(
+                array('Class', $fqcnClass),
+                array('Trait', $fqcnTrait)
+            ),
+            array(
+                array('Class', $fqcnClass),
+                array('Method', "$fqcnClass::someService")
+            ),
+            array(
+                array('Impl', "$fqcnTrait::someService"),
+                array('Trait', $fqcnTrait)
+            ),
+            array(
+                array('Trait', $fqcnTrait),
+                array('Impl', "$fqcnTrait::someService")
+            )
+                )
+                , $result);
+    }
+
+    public function testTraitWithInterface()
+    {
+        $fqcnClass = 'Project\ServiceRight';
+        $fqcnTrait = 'Project\ServiceTrait';
+        $fqcnInterface = 'Project\ServiceInterface';
+
+        $result = $this->callParse('ServiceTrait.php', 'ServiceRight.php', 'ServiceInterface.php');
+        $this->assertCount(5, $result->getVertexSet());
+        $this->assertEdges(array(
+            array(
+                array('Class', $fqcnClass),
+                array('Trait', $fqcnTrait)
+            ),
+            array(
+                array('Class', $fqcnClass),
+                array('Interface', $fqcnInterface)
+            ),
+            array(
+                array('Interface', $fqcnInterface),
+                array('Method', "$fqcnInterface::someService")
+            ),
+            array(
+                array('Impl', "$fqcnTrait::someService"),
+                array('Trait', $fqcnTrait)
+            ),
+            array(
+                array('Trait', $fqcnTrait),
+                array('Impl', "$fqcnTrait::someService")
+            )
+                )
+                , $result);
     }
 
 }
