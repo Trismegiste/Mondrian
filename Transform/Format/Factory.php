@@ -16,7 +16,8 @@ class Factory
 
     protected $typeList = array(
         'dot' => 'Graphviz',
-        'json' => 'Json'
+        'json' => 'Json',
+        'svg' => 'Svg'
     );
 
     public function create(Graph $g, $format)
