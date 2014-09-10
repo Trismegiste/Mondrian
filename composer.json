@@ -9,7 +9,7 @@
     }
     ],
     "require": {
-        "php": ">=5.3",
+        "php": ">=5.4",
         "nikic/php-parser": "dev-master",
         "symfony/console": "2.2.*",
         "alom/graphviz": "dev-master",
@@ -32,6 +32,6 @@
         "plugins": [
             "Trismegiste\\Mondrian\\Plugin\\About"
         ]
-    }
-
+    },
+    "minimum-stability": "dev"
 }
