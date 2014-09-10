@@ -42,8 +42,12 @@ class EdgeCollector extends PassCollector
                 case 'Expr_StaticCall':
                     $this->enterStaticCall($node);
                     break;
-                // @todo use trait
             }
+        }
+
+        // edge for use trait
+        if ($node->getType() === 'Stmt_TraitUse') {
+            $this->enterTraitUse($node);
         }
     }
 
@@ -403,6 +407,23 @@ class EdgeCollector extends PassCollector
     {
         $src = $this->findVertex('trait', $this->currentClass);
         $this->currentClassVertex = $src;
+    }
+
+    protected function enterTraitUse(\PHPParser_Node_Stmt_TraitUse $node)
+    {
+        if (!$this->currentClassVertex) {
+            throw new \LogicException('using a trait when not in a class');
+        }
+
+        foreach ($node->traits as $import) {
+            $name = (string) $this->resolveClassName($import);
+            $target = $this->findVertex('trait', $name);
+            // it's possible to not find a trait if it is from an external library for example
+            // or could be dead code too
+            if (!is_null($target)) {
+                $this->graph->addEdge($this->currentClassVertex, $target);
+            }
+        }
     }
 
 }

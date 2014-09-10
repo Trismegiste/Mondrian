@@ -120,7 +120,7 @@ class VertexCollector extends PassCollector
             $v = new Vertex\MethodVertex($index);
             $this->graph->addVertex($v);
             $this->indicesVertex('method', $index, $v);
-            // @todo bug: il ne faut pas dupliquer les param pour les traits, ils sont liés à l'unique implementation
+            // now param
             foreach ($node->params as $order => $aParam) {
                 $this->pushParameter($index, $order);
             }
