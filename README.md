@@ -10,7 +10,7 @@ It is a set of CLI tools to help you to analyse and refactor highly coupled clas
 As you know Law of Demeter and S.O.L.I.D guidances, you need your classes loosely
 coupled. And for this, there is one only rule : **ABSTRACTION**
 
-![From Hell To Kiss](./Resources/doc/img/abstracting.png)
+![From Hell To Kiss](./doc/img/abstracting.png)
 
 This app provides some helpers to add abstraction into concrete classes
 with minimum pain.
@@ -42,13 +42,13 @@ This command produces a DOT file for Graphviz. Other format are available :
 
 ## Examples
 ### Default digraph on trismegiste/dokudoki
-![digraph1](./Resources/doc/img/sample1.jpg)
+![digraph1](./doc/img/sample1.jpg)
 
 ### Which components are bottleneck ?
-![digraph2](./Resources/doc/img/sample2.jpg)
+![digraph2](./doc/img/sample2.jpg)
 
 ### Reduced graph to LSP violations on trismegiste/prolog
-![digraph3](./Resources/doc/img/sample3.jpg)
+![digraph3](./doc/img/sample3.jpg)
 
 ## How
 
@@ -56,7 +56,7 @@ Read the concept [here][12]
 
 Read the online documentation [here][4]
 
-And the API [here][5]
+And the API [here][5] (not up to date)
 
 ## Extensible
 
