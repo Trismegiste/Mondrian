@@ -27,8 +27,8 @@ class CodeMetricsTest extends \PHPUnit_Framework_TestCase
     public function testEmptyGraph()
     {
         $this->assertEquals(array('Class' => 0, 'Interface' => 0,
-            'Impl' => 0, 'Method' => 0, 'Param' => 0,
-            'MethodDeclaration' => array('Class' => 0, 'Interface' => 0)
+            'Impl' => 0, 'Method' => 0, 'Param' => 0, 'Trait' => 0,
+            'MethodDeclaration' => array('Class' => 0, 'Interface' => 0, 'Trait' => 0)
                 ), $this->graph->getCardinal());
     }
 
@@ -52,8 +52,8 @@ class CodeMetricsTest extends \PHPUnit_Framework_TestCase
         $this->graph->addEdge($impl, $param);
 
         $this->assertEquals(array('Class' => 1, 'Interface' => 1,
-            'Impl' => 1, 'Method' => 1, 'Param' => 1,
-            'MethodDeclaration' => array('Class' => 0, 'Interface' => 1)
+            'Impl' => 1, 'Method' => 1, 'Param' => 1, 'Trait' => 0,
+            'MethodDeclaration' => array('Class' => 0, 'Interface' => 1, 'Trait' => 0)
                 ), $this->graph->getCardinal());
     }
 

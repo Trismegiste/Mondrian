@@ -50,7 +50,7 @@ class GraphBuilder extends AbstractTraverser
     }
 
     /**
-     * Build a list of viitor for each pass
+     * Build a list of visitor for each pass
      * 
      * @return FqcnCollector[] list of passes
      */

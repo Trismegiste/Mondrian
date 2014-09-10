@@ -28,21 +28,21 @@ class ReflectionContextTest extends \PHPUnit_Framework_TestCase
 
     public function testInitClass()
     {
-        $this->context->initSymbol('Some', false);
+        $this->context->initSymbol('Some', ReflectionContext::SYMBOL_CLASS);
         $this->assertTrue($this->context->hasDeclaringClass('Some'));
         $this->assertFalse($this->context->isInterface('Some'));
     }
 
     public function testInitInterface()
     {
-        $this->context->initSymbol('Some', true);
+        $this->context->initSymbol('Some', ReflectionContext::SYMBOL_INTERFACE);
         $this->assertTrue($this->context->hasDeclaringClass('Some'));
         $this->assertTrue($this->context->isInterface('Some'));
     }
 
     public function testDeclarationSimple()
     {
-        $this->context->initSymbol('Type', false);
+        $this->context->initSymbol('Type', ReflectionContext::SYMBOL_CLASS);
         $this->context->addMethodToClass('Type', 'sample');
         $this->assertEquals('Type', $this->context->getDeclaringClass('Type', 'sample'));
         $this->context->resolveSymbol();
@@ -51,9 +51,9 @@ class ReflectionContextTest extends \PHPUnit_Framework_TestCase
 
     public function testDeclarationParent()
     {
-        $this->context->initSymbol('Class', false);
+        $this->context->initSymbol('Class', ReflectionContext::SYMBOL_CLASS);
         $this->context->addMethodToClass('Class', 'sample');
-        $this->context->initSymbol('Interface', true);
+        $this->context->initSymbol('Interface', ReflectionContext::SYMBOL_INTERFACE);
         $this->context->addMethodToClass('Interface', 'sample');
         $this->context->resolveSymbol();
         $this->assertEquals('Interface', $this->context->getDeclaringClass('Interface', 'sample'));
@@ -67,7 +67,7 @@ class ReflectionContextTest extends \PHPUnit_Framework_TestCase
 
     public function testNeutralItemInheritance()
     {
-        $this->context->initSymbol('Class', false);
+        $this->context->initSymbol('Class', ReflectionContext::SYMBOL_CLASS);
         $this->context->addMethodToClass('Class', 'sample');
         $this->context->resolveSymbol();
         $this->assertEquals('Class', $this->context->findMethodInInheritanceTree('Class', 'sample'));
@@ -75,8 +75,8 @@ class ReflectionContextTest extends \PHPUnit_Framework_TestCase
 
     public function testSuperInheritance()
     {
-        $this->context->initSymbol('Class', false);
-        $this->context->initSymbol('Mother', false);
+        $this->context->initSymbol('Class', ReflectionContext::SYMBOL_CLASS);
+        $this->context->initSymbol('Mother', ReflectionContext::SYMBOL_CLASS);
         $this->context->addMethodToClass('Mother', 'sample');
         $this->context->pushParentClass('Class', 'Mother');
         $this->context->resolveSymbol();
@@ -85,10 +85,10 @@ class ReflectionContextTest extends \PHPUnit_Framework_TestCase
 
     public function testOuterInheritance()
     {
-        $this->context->initSymbol('Class', false);
+        $this->context->initSymbol('Class', ReflectionContext::SYMBOL_CLASS);
         $this->context->addMethodToClass('Class', 'getIterator');
         $this->context->pushParentClass('Class', 'IteratorAggregate');
-        $this->context->initSymbol('IteratorAggregate', true);
+        $this->context->initSymbol('IteratorAggregate', ReflectionContext::SYMBOL_INTERFACE);
         $this->context->resolveSymbol();
         $this->assertEquals('IteratorAggregate', $this->context->getDeclaringClass('Class', 'getIterator'));
         $this->assertEquals('IteratorAggregate', $this->context->findMethodInInheritanceTree('Class', 'getIterator'));
@@ -96,9 +96,27 @@ class ReflectionContextTest extends \PHPUnit_Framework_TestCase
 
     public function testNotFoundMethod()
     {
-        $this->context->initSymbol('Class', false);
+        $this->context->initSymbol('Class', ReflectionContext::SYMBOL_CLASS);
         $this->context->resolveSymbol();
         $this->assertNull($this->context->findMethodInInheritanceTree('Class', 'unknown'));
+    }
+
+    public function testUseTrait()
+    {
+        $this->context->initSymbol('Class', ReflectionContext::SYMBOL_CLASS);
+        $this->context->initSymbol('Trait', ReflectionContext::SYMBOL_TRAIT);
+        $this->context->addMethodToClass('Trait', 'sample');
+        $this->context->pushUseTrait('Class', 'Trait');
+        $this->context->resolveSymbol();
+        $this->assertEquals('Class', $this->context->findMethodInInheritanceTree('Class', 'sample'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadType()
+    {
+        $this->context->initSymbol('Class', 'yop yop');
     }
 
 }

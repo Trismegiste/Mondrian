@@ -45,16 +45,63 @@ class VertexCollector extends PassCollector
      */
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
-        // only if this method is first declared in this class
+        if ($this->isTrait($this->currentClass)) {
+            $this->enterTraitMethod($node);
+        } elseif ($this->isInterface($this->currentClass)) {
+            $this->enterInterfaceMethod($node);
+        } else {
+            $this->enterClassMethod($node);
+        }
+    }
+
+    private function enterTraitMethod(\PHPParser_Node_Stmt_ClassMethod $node)
+    {
+        // create implemenation node
+        // if not abstract we add the vertex for the implementation
+        if (!$node->isAbstract()) {
+            $this->pushImplementation($node);
+        }
+
+        // push param for implementation
+        $index = $this->currentClass . '::' . $this->currentMethod;
+        foreach ($node->params as $order => $aParam) {
+            $this->pushParameter($index, $order);
+        }
+
+        // copy paste this signature in every class which use this current trait
+        // Anyway we check if there is no other parent which declaring first this method
+        $traitUser = $this->getClassesUsingTraitForDeclaringMethod($this->currentClass, $this->currentMethod);
+        foreach ($traitUser as $classname) {
+            // we copy-paste the signature declaration in the class which using the current trait
+            $index = $classname . '::' . $this->currentMethod;
+            if (!$this->existsVertex('method', $index)) {
+                $v = new Vertex\MethodVertex($index);
+                $this->graph->addVertex($v);
+                $this->indicesVertex('method', $index, $v);
+            }
+        }
+    }
+
+    private function enterClassMethod(\PHPParser_Node_Stmt_ClassMethod $node)
+    {
+        // if this class is declaring the method, we create a vertex for this signature
         $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
-        // we add the vertex. If not, it will be a higher class/interface
-        // in the inheritance hierarchy which add it.
         if ($this->currentClass == $declaringClass) {
             $this->pushMethod($node);
         }
+
         // if not abstract we add the vertex for the implementation
-        if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
+        if (!$node->isAbstract()) {
             $this->pushImplementation($node);
+        }
+    }
+
+    private function enterInterfaceMethod(\PHPParser_Node_Stmt_ClassMethod $node)
+    {
+        // if this interface is declaring the method, we create a vertex for this signature
+        $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
+        if ($this->currentClass == $declaringClass) {
+            $this->pushMethod($node);
         }
     }
 
@@ -64,13 +111,16 @@ class VertexCollector extends PassCollector
      *
      * @param \PHPParser_Node_Stmt_ClassMethod $node
      */
-    protected function pushMethod(\PHPParser_Node_Stmt_ClassMethod $node)
+    protected function pushMethod(\PHPParser_Node_Stmt_ClassMethod $node, $index = null)
     {
-        $index = $this->getCurrentMethodIndex();
+        if (is_null($index)) {
+            $index = $this->getCurrentMethodIndex();
+        }
         if (!$this->existsVertex('method', $index)) {
             $v = new Vertex\MethodVertex($index);
             $this->graph->addVertex($v);
             $this->indicesVertex('method', $index, $v);
+            // now param
             foreach ($node->params as $order => $aParam) {
                 $this->pushParameter($index, $order);
             }
@@ -108,6 +158,16 @@ class VertexCollector extends PassCollector
             $v = new Vertex\ParamVertex($index);
             $this->graph->addVertex($v);
             $this->indicesVertex('param', $index, $v);
+        }
+    }
+
+    protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
+    {
+        $index = $this->currentClass;
+        if (!$this->existsVertex('trait', $index)) {
+            $v = new Vertex\TraitVertex($index);
+            $this->graph->addVertex($v);
+            $this->indicesVertex('trait', $index, $v);
         }
     }
 

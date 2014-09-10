@@ -75,4 +75,17 @@ class PublicCollectorTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(false, 'currentClass', $this->visitor);
     }
 
+    public function testTraitNodeWithoutNS()
+    {
+        $node = new \PHPParser_Node_Stmt_Trait('Popipo');
+        $this->visitor->expects($this->once())
+                ->method('enterTraitNode')
+                ->with($node);
+
+        $this->visitor->enterNode($node);
+        $this->assertAttributeEquals('Popipo', 'currentClass', $this->visitor);
+        $this->visitor->leaveNode($node);
+        $this->assertAttributeEquals(false, 'currentClass', $this->visitor);
+    }
+
 }

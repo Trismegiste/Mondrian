@@ -37,7 +37,7 @@ class GraphContext
 
         $this->vertex = array('class' => array(), 'interface' => array(),
             'method' => array(), 'impl' => array(),
-            'param' => array()
+            'param' => array(), 'trait' => []
         );
 
         $this->buildLogger = $log;
@@ -89,7 +89,7 @@ class GraphContext
     /**
      * Maintains a hashmap : ( type , index ) => Vertex obj
      *
-     * @param string $type [interface|class|method|param|impl]
+     * @param string $type [interface|class|method|param|impl|trait]
      * @param string $index the unique index in this type
      * @param Vertex $v the vertex to index
      */

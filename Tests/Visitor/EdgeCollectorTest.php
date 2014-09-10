@@ -18,6 +18,7 @@ use Trismegiste\Mondrian\Visitor\EdgeCollector;
  *  * M : Method signature
  *  * P : Param
  *  * S : Method Implementation
+ *  * T : Trait
  *
  */
 class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
@@ -55,7 +56,10 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
             'S' => $this->getMockBuilder("$vertexNS\ImplVertex")
                     ->disableOriginalConstructor()
                     ->getMock(),
-            'P' => $this->getMockBuilder("$vertexNS\ImplVertex")
+            'P' => $this->getMockBuilder("$vertexNS\ParamVertex")
+                    ->disableOriginalConstructor()
+                    ->getMock(),
+            'T' => $this->getMockBuilder("$vertexNS\TraitVertex")
                     ->disableOriginalConstructor()
                     ->getMock()
         );
@@ -73,6 +77,11 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                             array('impl', "Atavachron\Funnels::sand", $this->vertex['S']),
                             array('param', 'Atavachron\Berwell::clown/0', $this->vertex['P']),
                             array('param', 'Atavachron\Funnels::sand/0', $this->vertex['P']),
+                            ['trait', 'Atavachron\Dominant', $this->vertex['T']],
+                            ['impl', 'Atavachron\Dominant::plague', $this->vertex['S']],
+                            ['param', 'Atavachron\Dominant::plague/0', $this->vertex['P']],
+                            ['method', 'Atavachron\Funnels::plague', $this->vertex['M']],
+                            ['method', 'Atavachron\Looking::plague', $this->vertex['M']]
         )));
 
         $this->reflection
@@ -365,7 +374,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
 
         $this->visitNodeList();
     }
-    
+
     /**
      * Test for :
      *  * S -> M
@@ -443,6 +452,34 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->at(1))
                 ->method('addEdge')
                 ->with($this->vertex['C'], $this->vertex['S']);
+
+        $this->visitNodeList();
+    }
+
+    /**
+     * Test for :
+     *  * T -> S
+     *  * S -> T
+     */
+    public function testSimpleTrait()
+    {
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Trait('Dominant');
+        $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('plague');
+
+        // edges :
+        $this->graph
+                ->expects($this->exactly(2))
+                ->method('addEdge');
+
+        $this->graph
+                ->expects($this->at(1))
+                ->method('addEdge')
+                ->with($this->vertex['T'], $this->vertex['S']);
+
+        $this->graph
+                ->expects($this->at(0))
+                ->method('addEdge')
+                ->with($this->vertex['S'], $this->vertex['T']);
 
         $this->visitNodeList();
     }

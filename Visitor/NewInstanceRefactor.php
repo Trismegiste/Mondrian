@@ -154,5 +154,10 @@ class NewInstanceRefactor extends PublicCollector
         }
     }
 
+    protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
+    {
+        // @todo creating a new protected factory for a trait makes sense
+    }
+
 }
 

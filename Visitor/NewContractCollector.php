@@ -53,4 +53,12 @@ class NewContractCollector extends PublicCollector
 
     }
 
+    /**
+     * do nothing
+     */
+    protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
+    {
+        
+    }
+
 }

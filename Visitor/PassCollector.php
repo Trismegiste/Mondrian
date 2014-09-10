@@ -49,11 +49,24 @@ abstract class PassCollector extends PublicCollector
      * Is FQCN an interface ?
      *
      * @param string $cls FQCN
+     * 
      * @return bool
      */
     protected function isInterface($cls)
     {
         return $this->reflection->isInterface($cls);
+    }
+
+    /**
+     * Is FQCN a trait ?
+     *
+     * @param string $cls FQCN
+     * 
+     * @return bool
+     */
+    protected function isTrait($cls)
+    {
+        return $this->reflection->isTrait($cls);
     }
 
     /**
@@ -96,6 +109,18 @@ abstract class PassCollector extends PublicCollector
         }
 
         return null;
+    }
+
+    /**
+     * Returns a list of all classes using a trait for declaring a given method
+     *  
+     * @param string $cls FQCN of trait
+     * 
+     * @return array
+     */
+    protected function getClassesUsingTraitForDeclaringMethod($cls, $method)
+    {
+        return $this->reflection->getClassesUsingTraitForDeclaringMethod($cls, $method);
     }
 
     /**

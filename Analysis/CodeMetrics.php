@@ -66,16 +66,17 @@ class CodeMetrics extends Algorithm
         $card = array(
             'Class' => 0,
             'Interface' => 0,
+            'Trait' => 0,
             'Impl' => 0,
             'Method' => 0,
             'Param' => 0,
-            'MethodDeclaration' => array('Class' => 0, 'Interface' => 0)
+            'MethodDeclaration' => array('Class' => 0, 'Interface' => 0, 'Trait' => 0)
         );
         $vertex = $this->graph->getVertexSet();
         foreach ($vertex as $v) {
             $type = $this->extractShortName($v);
             $card[$type]++;
-            if (($type == 'Class') || ($type == 'Interface')) {
+            if (in_array($type, ['Class', 'Interface', 'Trait'])) {
                 foreach ($this->graph->getSuccessor($v) as $succ) {
                     $succType = $this->extractShortName($succ);
                     if ($succType == 'Method') {

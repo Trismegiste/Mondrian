@@ -37,9 +37,11 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
         $nsNode = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Tubular'));
         $classNode = new \PHPParser_Node_Stmt_Class('Bells');
         $interfNode = new \PHPParser_Node_Stmt_Interface('Bells');
+        $traitNode = new \PHPParser_Node_Stmt_Trait('Bells');
         return array(
             array('class', 'Tubular\Bells', $vertexNS . 'ClassVertex', array($nsNode, $classNode)),
-            array('interface', 'Tubular\Bells', $vertexNS . 'InterfaceVertex', array($nsNode, $interfNode))
+            array('interface', 'Tubular\Bells', $vertexNS . 'InterfaceVertex', array($nsNode, $interfNode)),
+            array('trait', 'Tubular\Bells', $vertexNS . 'TraitVertex', array($nsNode, $traitNode))
         );
     }
 
@@ -138,6 +140,66 @@ class VertexCollectorTest extends \PHPUnit_Framework_TestCase
 
         foreach ($nodeList as $node) {
             $this->visitor->enterNode($node);
+        }
+    }
+
+    /**
+     * @dataProvider getTypeNodeSetting
+     */
+    public function testCopyPasteImportedMethodFromTrait($type, $fqcn, $graphVertex, array $nodeList)
+    {
+        if ($type === 'trait') {
+            $method = new \PHPParser_Node_Stmt_ClassMethod('crisis');
+            $method->params[] = new \PHPParser_Node_Param('incantations');
+            $nodeList[] = $method;
+
+            $this->reflection
+                    ->expects($this->once())
+                    ->method('isTrait')
+                    ->with($fqcn)
+                    ->will($this->returnValue(true));
+
+            $this->reflection
+                    ->expects($this->once())
+                    ->method('getClassesUsingTraitForDeclaringMethod')
+                    ->with($fqcn, 'crisis')
+                    ->will($this->returnValue(['TraitUser1', 'TraitUser2']));
+
+            $this->graph
+                    ->expects($this->exactly(5))
+                    ->method('addVertex');
+
+            // the trait vertex
+            $this->graph
+                    ->expects($this->at(0))
+                    ->method('addVertex')
+                    ->with($this->isInstanceOf($graphVertex));
+
+            // implementation
+            $this->graph
+                    ->expects($this->at(1))
+                    ->method('addVertex')
+                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ImplVertex'));
+            $this->graph
+                    ->expects($this->at(2))
+                    ->method('addVertex')
+                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ParamVertex'));
+
+            // first copy-pasted method
+            $this->graph
+                    ->expects($this->at(3))
+                    ->method('addVertex')
+                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
+
+            // second copy-pasted method
+            $this->graph
+                    ->expects($this->at(4))
+                    ->method('addVertex')
+                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
+
+            foreach ($nodeList as $node) {
+                $this->visitor->enterNode($node);
+            }
         }
     }
 

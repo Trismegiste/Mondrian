@@ -44,6 +44,11 @@ class EdgeCollector extends PassCollector
                     break;
             }
         }
+
+        // edge for use trait
+        if ($node->getType() === 'Stmt_TraitUse') {
+            $this->enterTraitUse($node);
+        }
     }
 
     /**
@@ -56,7 +61,8 @@ class EdgeCollector extends PassCollector
         switch ($node->getType()) {
 
             case 'Stmt_Class':
-            case 'Stmt_Interface';
+            case 'Stmt_Interface':
+            case 'Stmt_Trait':
                 $this->currentClassVertex = null;
                 break;
 
@@ -158,6 +164,29 @@ class EdgeCollector extends PassCollector
     protected function enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node)
     {
         $this->currentMethodNode = $node;
+
+        if ($this->isTrait($this->currentClass)) {
+            $this->enterTraitMethod($node);
+        } elseif ($this->isInterface($this->currentClass)) {
+            $this->enterInterfaceMethod($node);
+        } else {
+            $this->enterClassMethod($node);
+        }
+    }
+
+    private function enterInterfaceMethod(\PHPParser_Node_Stmt_ClassMethod $node)
+    {
+        // search for the declaring class of this method
+        $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
+        $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
+        // if current class == declaring class, we add the edge
+        if ($declaringClass == $this->currentClass) {
+            $this->enterDeclaredMethodNode($node, $signature);
+        }
+    }
+
+    private function enterClassMethod(\PHPParser_Node_Stmt_ClassMethod $node)
+    {
         // search for the declaring class of this method
         $declaringClass = $this->getDeclaringClass($this->currentClass, $this->currentMethod);
         $signature = $this->findVertex('method', $declaringClass . '::' . $node->name);
@@ -168,8 +197,48 @@ class EdgeCollector extends PassCollector
         // if not abstract, the implementation depends on the class.
         // For odd reason, a method in an interface is not abstract
         // that's why, there is a double check
-        if (!$this->isInterface($this->currentClass) && !$node->isAbstract()) {
+        if (!$node->isAbstract()) {
             $this->enterImplementationNode($node, $signature, $declaringClass);
+        }
+    }
+
+    private function enterTraitMethod(\PHPParser_Node_Stmt_ClassMethod $node)
+    {
+        // edge between impl and trait :
+        $implVetex = $this->findVertex('impl', $this->getCurrentMethodIndex());
+        $traitVertex = $this->currentClassVertex;
+        $this->graph->addEdge($implVetex, $traitVertex);
+        $this->graph->addEdge($traitVertex, $implVetex);
+
+        // edges between impl towards param (with typed param)
+        foreach ($node->params as $idx => $param) {
+            // adding edge from implementation to param :
+            $paramVertex = $this->findParamVertexIdx($this->currentClass, $this->currentMethod, $idx);
+            $this->graph->addEdge($implVetex, $paramVertex);
+            // now the type of the param :
+            if ($param->type instanceof \PHPParser_Node_Name) {
+                $paramType = (string) $this->resolveClassName($param->type);
+                // there is a type, we add a link to the type, if it is found
+                $typeVertex = $this->findTypeVertex($paramType);
+                if (!is_null($typeVertex)) {
+                    // we add the edge
+                    $this->graph->addEdge($paramVertex, $typeVertex);
+                }
+            }
+        }
+
+        // edge between class vertex which using the trait and copy-pasted methods :
+        $traitUser = $this->getClassesUsingTraitForDeclaringMethod($this->currentClass, $this->currentMethod);
+        foreach ($traitUser as $classname) {
+            // we link the class and the signature
+            $source = $this->findVertex('class', $classname);
+            $target = $this->findVertex('method', $classname . '::' . $this->currentMethod);
+            $this->graph->addEdge($source, $target);
+            // and copypasted signature to unique parameter
+            foreach ($node->params as $idx => $param) {
+                $paramVertex = $this->findParamVertexIdx($this->currentClass, $this->currentMethod, $idx);
+                $this->graph->addEdge($target, $paramVertex);
+            }
         }
     }
 
@@ -330,6 +399,29 @@ class EdgeCollector extends PassCollector
             if (!is_null($classVertex)) {
                 $impl = $this->findVertex('impl', $this->getCurrentMethodIndex());
                 $this->graph->addEdge($impl, $classVertex);
+            }
+        }
+    }
+
+    protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
+    {
+        $src = $this->findVertex('trait', $this->currentClass);
+        $this->currentClassVertex = $src;
+    }
+
+    protected function enterTraitUse(\PHPParser_Node_Stmt_TraitUse $node)
+    {
+        if (!$this->currentClassVertex) {
+            throw new \LogicException('using a trait when not in a class');
+        }
+
+        foreach ($node->traits as $import) {
+            $name = (string) $this->resolveClassName($import);
+            $target = $this->findVertex('trait', $name);
+            // it's possible to not find a trait if it is from an external library for example
+            // or could be dead code too
+            if (!is_null($target)) {
+                $this->graph->addEdge($this->currentClassVertex, $target);
             }
         }
     }
