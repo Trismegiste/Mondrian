@@ -28,7 +28,7 @@ $ phpDocumentor.phar
 
 Building mondrian.phar from the sources with [box2](https://github.com/box-project/box2#as-a-phar-recommended)
 ```
-$ box.phar
+$ box.phar b
 ```
 
 ## Getting started

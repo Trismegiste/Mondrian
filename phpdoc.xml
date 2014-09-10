@@ -2,14 +2,12 @@
 <phpdoc>
     <title><![CDATA[Mondrian]]></title>
     <parser>
-        <target>Resources/doc/tech</target>
+        <target>doc/tech</target>
     </parser>
     <transformer>
-        <target>Resources/doc/tech</target>
+        <target>doc/tech</target>
     </transformer>
     <files>
-        <directory>.</directory>
-        <ignore>Tests/</ignore>
-        <ignore>vendor/</ignore>
+        <directory>src</directory>
     </files>
 </phpdoc>

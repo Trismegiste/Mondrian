@@ -1,6 +1,6 @@
 /nbproject
-/Resources/doc/coverage
-/Resources/doc/tech
+/doc/coverage
+/doc/tech
 /vendor
 /composer.phar
 /composer.lock
