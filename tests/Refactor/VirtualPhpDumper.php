@@ -8,6 +8,7 @@ namespace Trismegiste\Mondrian\Tests\Refactor;
 
 use Trismegiste\Mondrian\Parser\PhpDumper;
 use Trismegiste\Mondrian\Parser\PhpFile;
+use Trismegiste\Mondrian\Tests\Fixtures\MockSplFileInfo;
 
 /**
  * VirtualPhpDumper is a stub for virtual php dumper
@@ -46,16 +47,18 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
 
     protected function getMockFile($absolute, $content)
     {
-        $file = $this->testCase
-                ->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
-                ->disableOriginalConstructor()
-                ->getMock();
-        $file->expects($this->testCase->any())
-                ->method('getRealPath')
-                ->will($this->testCase->returnValue($absolute));
-        $file->expects($this->testCase->any())
-                ->method('getContents')
-                ->will($this->testCase->returnValue($content));
+        $file = new MockSplFileInfo($absolute, $content);
+
+//        $this->testCase
+//                ->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
+//                ->disableOriginalConstructor()
+//                ->getMock();
+//        $file->expects($this->testCase->any())
+//                ->method('getRealPath')
+//                ->will($this->testCase->returnValue($absolute));
+//        $file->expects($this->testCase->any())
+//                ->method('getContents')
+//                ->will($this->testCase->returnValue($content));
 
         return $file;
     }
