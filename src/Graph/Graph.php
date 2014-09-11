@@ -16,7 +16,7 @@ interface Graph
      *
      * @param Vertex $v
      */
-    function addVertex(Vertex $v);
+    public function addVertex(Vertex $v);
 
     /**
      * Add a (un)directed edge if it does not already exist
@@ -24,7 +24,7 @@ interface Graph
      * @param Vertex $source
      * @param Vertex $target
      */
-    function addEdge(Vertex $source, Vertex $target);
+    public function addEdge(Vertex $source, Vertex $target);
 
     /**
      * Searches an existing (directed or not) edge between two vertices
@@ -33,21 +33,21 @@ interface Graph
      * @param Vertex $target
      * @return Edge
      */
-    function searchEdge(Vertex $source, Vertex $target);
+    public function searchEdge(Vertex $source, Vertex $target);
 
     /**
      * Get the vertices in the graph
      *
      * @return array
      */
-    function getVertexSet();
+    public function getVertexSet();
 
     /**
      * Get the edges set
      *
      * @return array
      */
-    function getEdgeSet();
+    public function getEdgeSet();
 
     /**
      * Get successors of a vertex
@@ -55,7 +55,7 @@ interface Graph
      * @return null|array null if the vertex is not in this graph
      *                         or an array of vertices
      */
-    function getSuccessor(Vertex $v);
+    public function getSuccessor(Vertex $v);
 
     /**
      * Get an iterator on edges for one vertex
@@ -63,7 +63,10 @@ interface Graph
      * @param Vertex $v
      * @return Iterator
      */
-    function getEdgeIterator(Vertex $v);
+    public function getEdgeIterator(Vertex $v);
 
-    function getPartition();
+    /**
+     * Returns a list of subgraph
+     */
+    public function getPartition();
 }

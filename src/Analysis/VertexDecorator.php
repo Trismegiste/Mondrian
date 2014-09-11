@@ -15,5 +15,5 @@ interface VertexDecorator
     /**
      * Add metadata to vertices
      */
-    function decorate();
+    public function decorate();
 }

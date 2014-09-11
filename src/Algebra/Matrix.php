@@ -17,7 +17,7 @@ interface Matrix
      *
      * @return int
      */
-    function getSize();
+    public function getSize();
 
     /**
      * Get  coefficient in this matrix
@@ -28,7 +28,7 @@ interface Matrix
      *
      * @return numeric
      */
-    function get($line, $column);
+    public function get($line, $column);
 
     /**
      * Set a coefficient in this matrix
@@ -37,5 +37,5 @@ interface Matrix
      * @param int $column
      * @param numeric $value
      */
-    function set($line, $column, $value);
+    public function set($line, $column, $value);
 }

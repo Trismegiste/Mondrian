@@ -8,7 +8,7 @@ namespace Trismegiste\Mondrian\Transform\Format;
 
 /**
  * SvgExporter is an exporter to svg format
- * 
+ *
  * Use "dot" from GraphViz as a renderer from dot format to svg format
  */
 class Svg extends Graphviz

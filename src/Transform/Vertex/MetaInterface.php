@@ -13,9 +13,9 @@ namespace Trismegiste\Mondrian\Transform\Vertex;
 interface MetaInterface
 {
 
-    function setMeta($key, $val);
+    public function setMeta($key, $val);
 
-    function getMeta($key);
+    public function getMeta($key);
 
-    function hasMeta($key);
+    public function hasMeta($key);
 }

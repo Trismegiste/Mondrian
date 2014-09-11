@@ -18,5 +18,5 @@ interface Search
     /**
      * Add or not a shortcut from $src to $dst by following $path
      */
-    function collapseEdge(Vertex $src, Vertex $dst, array $path);
+    public function collapseEdge(Vertex $src, Vertex $dst, array $path);
 }

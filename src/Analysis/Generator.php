@@ -19,5 +19,5 @@ interface Generator
      *
      * @return Graph
      */
-    function createReducedGraph();
+    public function createReducedGraph();
 }

@@ -12,5 +12,5 @@ namespace Trismegiste\Mondrian\Transform\Format;
 interface ExporterInterface
 {
 
-    function export();
+    public function export();
 }

@@ -17,5 +17,5 @@ interface Vizable
      *
      * @return array
      */
-    function getAttribute();
+    public function getAttribute();
 }
