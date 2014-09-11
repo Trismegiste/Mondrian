@@ -359,10 +359,30 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
                 , $result);
     }
 
+    /**
+     * Test edge between 2 traits
+     */
     public function testTraitUsingTrait()
     {
-        // check the link between 2 traits
-        $this->markTestIncomplete();
+        $fqcnUser = 'Project\ServiceUsingTrait';
+        $fqcnTrait = 'Project\ServiceTrait';
+        $result = $this->callParse('ServiceTrait.php', 'ServiceUsingTrait.php');
+        $this->assertCount(3, $result->getVertexSet());
+        $this->assertEdges(array(
+            array(
+                array('Trait', $fqcnUser),
+                array('Trait', $fqcnTrait)
+            ),
+            array(
+                array('Impl', "$fqcnTrait::someService"),
+                array('Trait', $fqcnTrait)
+            ),
+            array(
+                array('Trait', $fqcnTrait),
+                array('Impl', "$fqcnTrait::someService")
+            )
+                )
+                , $result);
     }
 
 }
