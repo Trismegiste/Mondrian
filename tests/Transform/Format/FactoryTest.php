@@ -29,4 +29,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->fac->create($this->getMock('Trismegiste\Mondrian\Graph\Graph'), 'docx');
     }
 
+    public function testValid()
+    {
+        $formatter = $this->fac->create($this->getMock('Trismegiste\Mondrian\Graph\Graph'), 'dot');
+        $this->assertInstanceOf('Trismegiste\Mondrian\Transform\Format\GraphExporter', $formatter);
+    }
+
 }
