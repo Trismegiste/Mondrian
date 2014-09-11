@@ -359,4 +359,10 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
                 , $result);
     }
 
+    public function testTraitUsingTrait()
+    {
+        // check the link between 2 traits
+        $this->markTestIncomplete();
+    }
+
 }

@@ -78,6 +78,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                             array('param', 'Atavachron\Berwell::clown/0', $this->vertex['P']),
                             array('param', 'Atavachron\Funnels::sand/0', $this->vertex['P']),
                             ['trait', 'Atavachron\Dominant', $this->vertex['T']],
+                            ['trait', 'Atavachron\Synthaxe', $this->vertex['T']],
                             ['impl', 'Atavachron\Dominant::plague', $this->vertex['S']],
                             ['param', 'Atavachron\Dominant::plague/0', $this->vertex['P']],
                             ['method', 'Atavachron\Funnels::plague', $this->vertex['M']],
@@ -480,6 +481,25 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->at(0))
                 ->method('addEdge')
                 ->with($this->vertex['S'], $this->vertex['T']);
+
+        $this->visitNodeList();
+    }
+
+    /**
+     * Test for :
+     *  * T -> T
+     */
+    public function testTraitUsingTrait()
+    {
+        $this->nodeList[1] = new \PHPParser_Node_Stmt_Trait('Synthaxe');
+        $this->nodeList[2] = new \PHPParser_Node_Stmt_Trait('Dominant');
+        $this->nodeList[3] = new \PHPParser_Node_Stmt_TraitUse([new \PHPParser_Node_Name('Synthaxe')]);
+
+        // edges :
+        $this->graph
+                ->expects($this->once())
+                ->method('addEdge')
+                ->with($this->vertex['T'], $this->vertex['T']);
 
         $this->visitNodeList();
     }
