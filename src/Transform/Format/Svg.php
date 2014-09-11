@@ -14,8 +14,18 @@ namespace Trismegiste\Mondrian\Transform\Format;
 class Svg extends Graphviz
 {
 
+    private function checkGraphviz()
+    {
+        $output = shell_exec('dot -V 2>&1'); // for all platforms
+        if (!preg_match('#graphviz version#', $output)) {
+            throw new \RuntimeException('Graphviz is not installed on this computer');
+        }
+    }
+
     public function export()
     {
+        $this->checkGraphviz();
+
         $descriptorspec = array(
             0 => array("pipe", "r"), // stdin is a pipe
             1 => array("pipe", "w"), // stdout is a pipe
