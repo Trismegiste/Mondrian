@@ -47,20 +47,7 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
 
     protected function getMockFile($absolute, $content)
     {
-        $file = new MockSplFileInfo($absolute, $content);
-
-//        $this->testCase
-//                ->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
-//                ->disableOriginalConstructor()
-//                ->getMock();
-//        $file->expects($this->testCase->any())
-//                ->method('getRealPath')
-//                ->will($this->testCase->returnValue($absolute));
-//        $file->expects($this->testCase->any())
-//                ->method('getContents')
-//                ->will($this->testCase->returnValue($content));
-
-        return $file;
+        return new MockSplFileInfo($absolute, $content);
     }
 
     /**

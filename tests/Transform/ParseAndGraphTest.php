@@ -12,6 +12,7 @@ use Trismegiste\Mondrian\Builder\Linking;
 use Trismegiste\Mondrian\Transform\GraphBuilder;
 use Trismegiste\Mondrian\Builder\Statement\Builder;
 use Trismegiste\Mondrian\Transform\Logger\NullLogger;
+use Trismegiste\Mondrian\Tests\Fixtures\MockSplFileInfo;
 
 /**
  * ParseAndGraphTest tests for Grapher
@@ -35,13 +36,7 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
     {
         $iter = array();
         foreach (func_get_args() as $name) {
-            $mockedFile = $this->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
-                    ->disableOriginalConstructor()
-                    ->setMethods(array('getContents'))
-                    ->getMock();
-            $mockedFile->expects($this->once())
-                    ->method('getContents')
-                    ->will($this->returnValue(file_get_contents(__DIR__ . '/../Fixtures/Project/' . $name)));
+            $mockedFile = new MockSplFileInfo($name, file_get_contents(__DIR__ . '/../Fixtures/Project/' . $name));
             $iter[] = $mockedFile;
         }
 

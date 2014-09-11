@@ -28,12 +28,7 @@ class PackageParserTest extends \PHPUnit_Framework_TestCase
 
     public function getListing()
     {
-        return array(array(array(
-                            $this->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
-                            ->disableOriginalConstructor()
-                            ->setMethods(array('getRealPath', 'getContents'))
-                            ->getMock()
-        )));
+        return [[[new \Trismegiste\Mondrian\Tests\Fixtures\MockSplFileInfo('abc', 'dummy')]]];
     }
 
     /**
@@ -41,18 +36,10 @@ class PackageParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testScanning($listing)
     {
-        $listing[0]
-                ->expects($this->once())
-                ->method('getRealPath')
-                ->will($this->returnValue('abc'));
-        $listing[0]
-                ->expects($this->once())
-                ->method('getContents')
-                ->will($this->returnValue('dummy'));
-
         $this->parser
                 ->expects($this->once())
                 ->method('parse')
+                ->with($this->equalTo('dummy'))
                 ->will($this->returnValue(array()));
 
         $ret = $this->package->parse(new \ArrayIterator($listing));

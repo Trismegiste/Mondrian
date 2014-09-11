@@ -18,17 +18,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     protected function getMockFile($absolute, $content)
     {
-        $file = $this->getMockBuilder('Symfony\Component\Finder\SplFileInfo')
-                ->disableOriginalConstructor()
-                ->getMock();
-        $file->expects($this->any())
-                ->method('getRealPath')
-                ->will($this->returnValue($absolute));
-        $file->expects($this->any())
-                ->method('getContents')
-                ->will($this->returnValue($content));
-
-        return $file;
+        return new \Trismegiste\Mondrian\Tests\Fixtures\MockSplFileInfo(($absolute), $content);
     }
 
     protected function setUp()
