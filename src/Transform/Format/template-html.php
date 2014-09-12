@@ -31,8 +31,9 @@
             <g id="trait-symbol"><polygon points="0,-9 -9,-2 -6,10 6,10 9,-2" class="nostroke"/></g>
         </defs>
     </svg>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
     <script>
+        
+        <?php echo file_get_contents(__DIR__ . '/d3.min.js'); ?>
 
         var graph = <?php echo parent::export() ?>;
 

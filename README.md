@@ -23,8 +23,17 @@ Try to run a simple command with a few files (or a small part of a project)
 $ mondrian.phar digraph /home/dev/project
 ```
 This command produces a DOT file for [GraphViz](http://www.graphviz.org). Other formats are available :
-* json : format for d3.js for example
+* html : interactive graph with the d3.js awesome library
 * svg : open standard for vector graphics (requires [GraphViz](http://www.graphviz.org/Download..php))
+* json : format for d3.js for example
+
+### Example with html format
+```
+$ php mondrian.php d --ignore=tests --ignore=vendor --format=html ./MyPhpProject/
+```
+![html-report](./doc/img/sample-d3js.png)
+
+Note: The genrated html file does not require any dependencies nor a connection.
 
 ## Ecosystem
 Running unit tests with [PHPUnit](https://phpunit.de/getting-started.html)
