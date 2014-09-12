@@ -35,7 +35,7 @@
     }
 
 </style>
-<body>
+<body>   
     <script src="d3.v3.min.js"></script>
     <script>
 
@@ -68,32 +68,50 @@
                 .attr("orient", "auto")
                 .append("path")
                     .attr("d", "M0,-5L10,0L0,5");
-
+            
+        svg.append('defs')
+            .append('g')
+                .attr('id', 'interface-symbol')
+                .append('polygon')
+                    .attr("points", "-8,-8  8,-8  0,8")
+                    .attr('style', 'fill:green;');
+            
+        svg.append('defs')
+            .append('g')
+                .attr('id', 'method-symbol')
+                .append('polygon')
+                    .attr("points", "-8,8  8,8  0,-8")
+                    .attr('style', 'fill:yellow;');
+            
+        svg.append('defs')
+            .append('g')
+                .attr('id', 'class-symbol')
+                .append('circle')
+                    .attr("r", 6)
+                    .attr('style', 'fill:red;');            
+            
         var path = svg.append("g").selectAll("path")
                 .data(force.links())
                 .enter().append("path")
                 .attr("class", "link")
                 .attr("marker-end", "url(#edge)");
 
-        var circle = svg.append("g").selectAll(".type-class")
+        var circle = svg.append("g").selectAll("use")
                 .data(force.nodes().filter(function(d) { return d.type==='class' }))
-                .enter().append("circle")
-                .attr('class', 'type-class')
-                .attr("r", 6)
+                .enter().append("use")
+                    .attr("xlink:href", "#class-symbol")
                 .call(force.drag);
 
-        var interfaceType = svg.append("g").selectAll(".type-interface")
+        var interfaceType = svg.append("g").selectAll("use")
                 .data(force.nodes().filter(function(d) { return d.type==='interface' }))
-                .enter().append("polygon")
-                .attr('class', 'type-interface')
-                .attr("points", "-8,-8  8,-8  0,8")
+                .enter().append("use")
+                    .attr("xlink:href", "#interface-symbol")
                 .call(force.drag);
 
-        var methodType = svg.append("g").selectAll(".type-method")
+        var methodType = svg.append("g").selectAll("use")
                 .data(force.nodes().filter(function(d) { return d.type==='method' }))
-                .enter().append("polygon")
-                .attr('class', 'type-method')
-                .attr("points", "-8,8  8,8  0,-8")
+                .enter().append("use")
+                    .attr("xlink:href", "#method-symbol")
                 .call(force.drag);
 
         var paramType = svg.append("g").selectAll(".type-param")
