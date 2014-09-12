@@ -37,38 +37,6 @@
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script>
 
-        // http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
-        var links = [
-            {source: "Microsoft", target: "Amazon", type: "licensing"},
-            {source: "Microsoft", target: "HTC", type: "licensing"},
-            {source: "Samsung", target: "Apple", type: "suit"},
-            {source: "Motorola", target: "Apple", type: "suit"},
-            {source: "Nokia", target: "Apple", type: "resolved"},
-            {source: "HTC", target: "Apple", type: "suit"},
-            {source: "Kodak", target: "Apple", type: "suit"},
-            {source: "Microsoft", target: "Barnes & Noble", type: "suit"},
-            {source: "Microsoft", target: "Foxconn", type: "suit"},
-            {source: "Oracle", target: "Google", type: "suit"},
-            {source: "Apple", target: "HTC", type: "suit"},
-            {source: "Microsoft", target: "Inventec", type: "suit"},
-            {source: "Samsung", target: "Kodak", type: "resolved"},
-            {source: "LG", target: "Kodak", type: "resolved"},
-            {source: "RIM", target: "Kodak", type: "suit"},
-            {source: "Sony", target: "LG", type: "suit"},
-            {source: "Kodak", target: "LG", type: "resolved"},
-            {source: "Apple", target: "Nokia", type: "resolved"},
-            {source: "Qualcomm", target: "Nokia", type: "resolved"},
-            {source: "Apple", target: "Motorola", type: "suit"},
-            {source: "Microsoft", target: "Motorola", type: "suit"},
-            {source: "Motorola", target: "Microsoft", type: "suit"},
-            {source: "Huawei", target: "ZTE", type: "suit"},
-            {source: "Ericsson", target: "ZTE", type: "suit"},
-            {source: "Kodak", target: "Samsung", type: "resolved"},
-            {source: "Apple", target: "Samsung", type: "suit"},
-            {source: "Kodak", target: "RIM", type: "suit"},
-            {source: "Nokia", target: "Qualcomm", type: "suit"}
-        ];
-
         var graph = {"nodes": [
                 {"name": "T\\S\\AbusiveReport"},
                 {"name": "T\\S\\Author"},
@@ -129,12 +97,9 @@
                 .attr("height", height);
 
         // Per-type markers, as they don't inherit styles.
-        svg.append("defs").selectAll("marker")
-                .data(["suit", "licensing", "resolved"])
-                .enter().append("marker")
-                .attr("id", function(d) {
-            return d;
-        })
+        svg.append("defs")
+            .append("marker")
+                .attr("id", "edge")
                 .attr("viewBox", "0 -5 10 10")
                 .attr("refX", 15)
                 .attr("refY", -1.5)
@@ -142,17 +107,13 @@
                 .attr("markerHeight", 6)
                 .attr("orient", "auto")
                 .append("path")
-                .attr("d", "M0,-5L10,0L0,5");
+                    .attr("d", "M0,-5L10,0L0,5");
 
         var path = svg.append("g").selectAll("path")
                 .data(force.links())
                 .enter().append("path")
-                .attr("class", function(d) {
-            return "link " + d.type;
-        })
-                .attr("marker-end", function(d) {
-            return "url(#" + d.type + ")";
-        });
+                .attr("class", "link")
+                .attr("marker-end", "url(#edge)");
 
         var circle = svg.append("g").selectAll("circle")
                 .data(force.nodes())
