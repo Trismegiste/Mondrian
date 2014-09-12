@@ -95,53 +95,10 @@
                 .attr("class", "link")
                 .attr("marker-end", "url(#edge)");
 
-        var circle = svg.append("g").selectAll("use")
-                .data(force.nodes().filter(function(d) {
-            return d.type === 'class'
-        }))
+        var shape = svg.append("g").selectAll("use")
+                .data(force.nodes())
                 .enter().append("use")
-                .attr("xlink:href", "#class-symbol")
-                .call(force.drag);
-
-        var interfaceType = svg.append("g").selectAll("use")
-                .data(force.nodes().filter(function(d) {
-            return d.type === 'interface'
-        }))
-                .enter().append("use")
-                .attr("xlink:href", "#interface-symbol")
-                .call(force.drag);
-
-        var methodType = svg.append("g").selectAll("use")
-                .data(force.nodes().filter(function(d) {
-            return d.type === 'method'
-        }))
-                .enter().append("use")
-                .attr("xlink:href", "#method-symbol")
-                .call(force.drag);
-
-        var paramType = svg.append("g").selectAll("use")
-                .data(force.nodes().filter(function(d) {
-            return d.type === 'param'
-        }))
-                .enter().append("use")
-                .attr("xlink:href", "#param-symbol")
-                .call(force.drag);
-
-        var traitType = svg.append("g").selectAll("use")
-                .data(force.nodes().filter(function(d) {
-            return d.type === 'trait'
-        }))
-                .enter().append("use")
-                .attr("xlink:href", "#trait-symbol")
-                .call(force.drag);
-
-
-        var implType = svg.append("g").selectAll("use")
-                .data(force.nodes().filter(function(d) {
-            return d.type === 'impl'
-        }))
-                .enter().append("use")
-                .attr("xlink:href", "#impl-symbol")
+                .attr("xlink:href", function(d) { return "#" + d.type + "-symbol" })
                 .call(force.drag);
 
         var text = svg.append("g").selectAll("text")
@@ -156,13 +113,8 @@
         // Use elliptical arc path segments to doubly-encode directionality.
         function tick() {
             path.attr("d", linkArc);
-            circle.attr("transform", transform);
+            shape.attr("transform", transform);
             text.attr("transform", transform);
-            interfaceType.attr("transform", transform);
-            methodType.attr("transform", transform);
-            paramType.attr("transform", transform);
-            traitType.attr("transform", transform);
-            implType.attr("transform", transform);
         }
 
         function linkArc(d) {
