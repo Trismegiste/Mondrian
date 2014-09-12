@@ -33,7 +33,7 @@ $ php mondrian.php d --ignore=tests --ignore=vendor --format=html ./MyPhpProject
 ```
 ![html-report](./doc/img/sample-d3js.png)
 
-Note: The genrated html file does not require any dependencies nor a connection.
+Note: The generated html file does not require any dependencies nor a connection.
 
 ## Ecosystem
 Running unit tests with [PHPUnit](https://phpunit.de/getting-started.html)
@@ -80,11 +80,12 @@ plugin.
 
 Packages used in this project :
 
- * [nikic/php-parser][6]
- * [symfony/console][7]
- * [alom/graphviz][8]
- * [symfony/finder][9]
- * [symfony/config][10]
+ * [nikic/php-parser][6] for parsing PHP
+ * [symfony/console][7] for creating CLI app with swag
+ * [alom/graphviz][8] for rendering DOT files
+ * [symfony/finder][9] for searching files through filesystem
+ * [symfony/config][10] for managing yaml configuration without headache
+ * [D3.js](http://d3js.org/) for graph rendering in html
  * Phar builded with [Box][11]
 
 ## Special thanks

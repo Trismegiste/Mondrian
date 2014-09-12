@@ -5,7 +5,7 @@
             "in": ["./src", "./vendor"]
         }
     ],
-    "files": ["composer.json", "mondrian.php"],
+    "files": ["composer.json", "mondrian.php", "src/Transform/Format/d3.min.js"],
     "main": "bin/box/stub_for_box.php",
     "output": "bin/box/mondrian.phar",
     "stub": true,
