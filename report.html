@@ -70,7 +70,14 @@
                 .data(force.nodes())
                 .enter().append("use")
                 .attr("xlink:href", function(d) { return "#" + d.type + "-symbol" })
-                .attr('style', function(d) { return 'color:' + d.color })
+                .attr('style', function(d) {
+                    var color = d.color;
+                    if (/[\.\d]+,[\.\d]+,[\.\d]+/.test(d.color)) {
+                        color = d.color.split(",");  
+                        color = 'hsl(' + (360 * color[0]) + ', 100%, 50%)';
+                    }
+                    return 'color:' + color
+                })
                 .call(force.drag);
 
         var text = svg.append("g").selectAll("text")
