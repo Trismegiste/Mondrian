@@ -6,7 +6,7 @@
 
 namespace Trismegiste\Mondrian\Transform\Format;
 
-use Trismegiste\Mondrian\Graph\Vertex;
+use Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis;
 
 /**
  * Json is a decorator for JSON output
@@ -19,42 +19,43 @@ class Json extends GraphExporter
     {
         $ns = explode('\\', $cls);
         $short = array_pop($ns);
-        $result = array();
+        $prefix = '';
         foreach ($ns as $item) {
-            $result[] = $item[0];
+            $prefix .= $item[0];
         }
-        array_push($result, $short);
 
-        return implode('\\', $result);
+        return $prefix . '\\' . $short;
     }
 
-    private function exportVertex(Vertex $v)
+    private function exportVertex(StaticAnalysis $v)
     {
-        preg_match('#\\\\([^\\\\]+)$#', get_class($v), $capt);
-        switch ($capt[1]) {
-            case 'InterfaceVertex' :
-            case 'ClassVertex' :
+        preg_match('#\\\\([^\\\\]+)Vertex$#', get_class($v), $capt);
+        $symbolType = strtolower($capt[1]);
+        switch ($symbolType) {
+            case 'interface' :
+            case 'class' :
+            case 'trait' :
                 $name = $this->shortenClassname($v->getName());
                 break;
 
-            case 'ImplVertex' :
-            case 'MethodVertex' :
+            case 'impl' :
+            case 'method' :
                 list($cls, $meth) = explode('::', $v->getName());
                 $name = $this->shortenClassname($cls) . '::' . $meth;
-                if ($capt[1][0] == 'I')
-                    $name = "[$name]";
                 break;
 
-            case 'ParamVertex':
+            case 'param':
                 preg_match('#::([^/]+)/(\d+)$#', $v->getName(), $capt);
-                $name = $capt[1] . '/' . $capt[2];
+                $name = $capt[2];
                 break;
 
             default:
                 $name = $v->getName();
         }
 
-        return array('name' => $name);
+        $attr = $v->getAttribute();
+
+        return array('name' => $name, 'type' => $symbolType, 'color' => $attr['color']);
     }
 
     public function export()
@@ -70,8 +71,7 @@ class Json extends GraphExporter
             $w = $edge->getTarget();
             $dump['links'][] = array(
                 'source' => $reversed[get_class($v)][$v->getName()],
-                'target' => $reversed[get_class($w)][$w->getName()],
-                'value' => 1
+                'target' => $reversed[get_class($w)][$w->getName()]
             );
         }
 
