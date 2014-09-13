@@ -105,4 +105,4 @@ Packages used in this project :
 [9]: https://github.com/symfony/Finder
 [10]: https://github.com/symfony/Config
 [11]: https://github.com/kherge/Box
-[12]: ./Resources/doc/README.md
+[12]: ./doc/README.md
