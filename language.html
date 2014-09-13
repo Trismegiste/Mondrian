@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Mondrian by Trismegiste</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#">Mondrian</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li><a href="index.html#what">What</a></li>
+<li><a href="theory.html">Theory</a></li>
+<li><a href="language.html">Language</a></li>
+<li><a href="install.html">Install</a></li>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Commands <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        <li><a href="cmd.html">Summary</a></li>
+        <li><a href="cmd.html#digraph">Digraph</a></li>
+        <li><a href="cmd.html#central">Centrality</a></li>
+        <li><a href="cmd.html#hidden">Hidden coupling</a></li>
+        <li><a href="cmd.html#spaghet">Spaghetti coupling</a></li>
+        <li><a href="cmd.html#cyclic">Cyclic coupling</a></li>
+        <li><a href="cmd.html#liskov">Liskov decoupling</a></li>
+        <li><a href="cmd.html#refactor">Refactoring</a></li>
+        <li><a href="cmd.html#badcontract">Bad interfaces</a></li>
+    </ul>
+</li>
+<li><a href="workflow.html">Workflow</a></li>
+<li><a href="doc/index.html">Documentation</a></li>
+<li><a href="cover/index.html">Code Coverage</a></li>
+<li><a href="faq.html">FAQ</a></li>
+<li><a href="about.html">About</a></li>
+                        </ul>
+                                            </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            
+            <div class="row">
+    <div class="span12">
+        <h2>How to translate a source code into digraph ?</h2>
+        <h3>The language consists of 6 types of vertex</h3> 
+        <ul>
+            <li>Trait : a trait definition</li>
+            <li>Class : a class definition</li>
+            <li>Interface : an interface definition</li>
+            <li>Method : the declaration of a method a.k.a the signature</li>
+            <li>Implementation : the "content" of the method</li>
+            <li>Parameter : a parameter of a method</li>
+        </ul> 
+        <h3>The grammar for edges between vertices</h3>
+        <img src="https://github.com/Trismegiste/Mondrian/raw/master/doc/language.gif"/>
+    </div>
+</div>
+
+            <hr>
+
+            <footer>
+                                <p>&copy; Trismegiste 2013</p>
+                            </footer>
+
+                    </div> <!-- /container -->
+
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+
+        <script src="js/vendor/bootstrap.min.js"></script>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>

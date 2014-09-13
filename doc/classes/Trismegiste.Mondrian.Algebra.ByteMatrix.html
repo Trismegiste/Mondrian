@@ -1,206 +1,983 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta charset="utf-8">
-<title>Mondrian » \Trismegiste\Mondrian\Algebra\ByteMatrix</title>
-<meta name="author" content="Mike van Riel">
-<meta name="description" content="">
-<link href="../css/template.css" rel="stylesheet" media="all">
-<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Mondrian</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
-<div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Mondrian</a><div class="nav-collapse"><ul class="nav">
-<li class="dropdown">
-<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a>Namespaces</a></li>
-<li><a href="../namespaces/Trismegiste.html"><i class="icon-th"></i> Trismegiste</a></li>
-</ul>
-</li>
-<li class="dropdown" id="charts-menu">
-<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
-</li>
-<li class="dropdown" id="reports-menu">
-<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">367</span></a></li>
-<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul><li>todo 
-                <span class="label label-info">1</span>
-</li></ul></a></li>
-<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">0</span></a></li>
-</ul>
-</li>
-</ul></div>
-</div></div>
-<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Mondrian</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Trismegiste.html">\Trismegiste</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">510</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">159</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
 </div>
-<div id="___" class="container">
-<noscript><div class="alert alert-warning">
-                            Javascript is disabled; several features are only available
-                            if Javascript is enabled.
-                        </div></noscript>
-<div class="row">
-<div class="span4">
-<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
-<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-</div>
-<ul class="side-nav nav nav-list">
-<li class="nav-header">
-<i class="icon-custom icon-method"></i> Methods
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-461458250"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-461458250" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2020735269"></a>
+                                <a href="../namespaces/Trismegiste.html" style="margin-left: 30px; padding-left: 0">Trismegiste</a>
+            </div>
+            <div id="namespace-2020735269" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-817473351"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.html" style="margin-left: 30px; padding-left: 0">Mondrian</a>
+            </div>
+            <div id="namespace-817473351" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-687645126"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Algebra.html" style="margin-left: 30px; padding-left: 0">Algebra</a>
+            </div>
+            <div id="namespace-687645126" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct :: build a square matrix"><span class="description">build a square matrix</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_get" title="get :: Get  coefficient in this matrix
-Use the algebra order line x column"><span class="description">Get  coefficient in this matrix
-Use the algebra order line x column</span><pre>get()</pre></a></li>
-<li class="method public "><a href="#method_getSize" title="getSize :: get the size of this matrix"><span class="description">get the size of this matrix</span><pre>getSize()</pre></a></li>
-<li class="method public "><a href="#method_set" title="set :: Set a coefficient in this matrix"><span class="description">Set a coefficient in this matrix</span><pre>set()</pre></a></li>
-</ul>
-</li>
-<li class="nav-header">
-<i class="icon-custom icon-property"></i> Properties
-                    <ul></ul>
-</li>
-<li class="nav-header protected">» Protected
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Algebra.Matrix.html">Matrix</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html">ByteMatrix</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-625512810"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Analysis.html" style="margin-left: 30px; padding-left: 0">Analysis</a>
+            </div>
+            <div id="namespace-625512810" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-852654351"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Analysis.Strategy.html" style="margin-left: 30px; padding-left: 0">Strategy</a>
+            </div>
+            <div id="namespace-852654351" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="property protected "><a href="#property_content" title="$content :: "><span class="description"></span><pre>$content</pre></a></li>
-<li class="property protected "><a href="#property_dimension" title="$dimension :: "><span class="description"></span><pre>$dimension</pre></a></li>
-</ul>
-</li>
-<li class="nav-header">
-<i class="icon-custom icon-constant"></i> Constants
-                    <ul><li class="constant  "><a href="#constant_CHAR_PER_COEFF" title="CHAR_PER_COEFF :: "><span class="description">CHAR_PER_COEFF</span><pre>CHAR_PER_COEFF</pre></a></li></ul>
-</li>
-</ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.Search.html">Search</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByCalling.html">ByCalling</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByConnection.html">ByConnection</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByImplemented.html">ByImplemented</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Analysis.Generator.html">Generator</a></li>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Analysis.VertexDecorator.html">VertexDecorator</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Centrality.html">Centrality</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.CodeMetrics.html">CodeMetrics</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.CouplingMaker.html">CouplingMaker</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Cycle.html">Cycle</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.DependCentrality.html">DependCentrality</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.HiddenCoupling.html">HiddenCoupling</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.LiskovSearch.html">LiskovSearch</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.SpaghettiCoupling.html">SpaghettiCoupling</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.UsedCentrality.html">UsedCentrality</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-998928632"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Builder.html" style="margin-left: 30px; padding-left: 0">Builder</a>
+            </div>
+            <div id="namespace-998928632" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1763755779"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Builder.Compiler.html" style="margin-left: 30px; padding-left: 0">Compiler</a>
+            </div>
+            <div id="namespace-1763755779" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Builder.Compiler.BuilderInterface.html">BuilderInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Compiler.AbstractTraverser.html">AbstractTraverser</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Compiler.Director.html">Director</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-838713601"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Builder.Statement.html" style="margin-left: 30px; padding-left: 0">Statement</a>
+            </div>
+            <div id="namespace-838713601" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Builder.Statement.BuilderInterface.html">BuilderInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Statement.Builder.html">Builder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Statement.Director.html">Director</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Linking.html">Linking</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-589022705"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Command.html" style="margin-left: 30px; padding-left: 0">Command</a>
+            </div>
+            <div id="namespace-589022705" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.AbstractCentrality.html">AbstractCentrality</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.AbstractParse.html">AbstractParse</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.BadInterfaceCommand.html">BadInterfaceCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.ContractorCommand.html">ContractorCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.CyclicCommand.html">CyclicCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.DependCentralityCommand.html">DependCentralityCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.DigraphCommand.html">DigraphCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.FactoryGenerator.html">FactoryGenerator</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.HiddenCouplingCommand.html">HiddenCouplingCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.LiskovCommand.html">LiskovCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.RefactorCommand.html">RefactorCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.SpaghettiCommand.html">SpaghettiCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.TypeHintConfig.html">TypeHintConfig</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.UsedCentralityCommand.html">UsedCentralityCommand</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-498338652"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Config.html" style="margin-left: 30px; padding-left: 0">Config</a>
+            </div>
+            <div id="namespace-498338652" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Config.Helper.html">Helper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Config.Loader.html">Loader</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Config.Validator.html">Validator</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1501047773"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Graph.html" style="margin-left: 30px; padding-left: 0">Graph</a>
+            </div>
+            <div id="namespace-1501047773" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Graph.Graph.html">Graph</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Algorithm.html">Algorithm</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.BreadthFirstSearch.html">BreadthFirstSearch</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.DepthFirstSearch.html">DepthFirstSearch</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Digraph.html">Digraph</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.FloydWarshall.html">FloydWarshall</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.PowerIteration.html">PowerIteration</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.PrettyPrint.html">PrettyPrint</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.ReversedDigraph.html">ReversedDigraph</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Tarjan.html">Tarjan</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html">Vertex</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-467023754"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Parser.html" style="margin-left: 30px; padding-left: 0">Parser</a>
+            </div>
+            <div id="namespace-467023754" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.BuilderFactory.html">BuilderFactory</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.NullDumper.html">NullDumper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PackageParser.html">PackageParser</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpDumper.html">PhpDumper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpFile.html">PhpFile</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpFileBuilder.html">PhpFileBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpPersistence.html">PhpPersistence</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1300024300"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Plugin.html" style="margin-left: 30px; padding-left: 0">Plugin</a>
+            </div>
+            <div id="namespace-1300024300" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Plugin.About.html">About</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Plugin.Application.html">Application</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-116245437"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Refactor.html" style="margin-left: 30px; padding-left: 0">Refactor</a>
+            </div>
+            <div id="namespace-116245437" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.ContractorBuilder.html">ContractorBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenBuilder.html">FactoryGenBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.Refactored.html">Refactored</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.RefactoringBuilder.html">RefactoringBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1095098534"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.html" style="margin-left: 30px; padding-left: 0">Transform</a>
+            </div>
+            <div id="namespace-1095098534" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2030799500"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.Format.html" style="margin-left: 30px; padding-left: 0">Format</a>
+            </div>
+            <div id="namespace-2030799500" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Format.ExporterInterface.html">ExporterInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Factory.html">Factory</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.GraphExporter.html">GraphExporter</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Graphviz.html">Graphviz</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Html.html">Html</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Json.html">Json</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Svg.html">Svg</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-644204662"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.Logger.html" style="margin-left: 30px; padding-left: 0">Logger</a>
+            </div>
+            <div id="namespace-644204662" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Logger.LoggerInterface.html">LoggerInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Logger.GraphLogger.html">GraphLogger</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Logger.NullLogger.html">NullLogger</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2053445421"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.Vertex.html" style="margin-left: 30px; padding-left: 0">Vertex</a>
+            </div>
+            <div id="namespace-2053445421" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MetaInterface.html">MetaInterface</a></li>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.Vizable.html">Vizable</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ClassVertex.html">ClassVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ImplVertex.html">ImplVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.InterfaceVertex.html">InterfaceVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MethodVertex.html">MethodVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ParamVertex.html">ParamVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.StaticAnalysis.html">StaticAnalysis</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.TraitVertex.html">TraitVertex</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.GraphBuilder.html">GraphBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.GraphContext.html">GraphContext</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.ReflectionContext.html">ReflectionContext</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1711609319"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Visitor.html" style="margin-left: 30px; padding-left: 0">Visitor</a>
+            </div>
+            <div id="namespace-1711609319" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.EdgeCollector.html">EdgeCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html">FqcnHelper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.InterfaceExtractor.html">InterfaceExtractor</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.NewContractCollector.html">NewContractCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.NewInstanceRefactor.html">NewInstanceRefactor</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.ParamRefactor.html">ParamRefactor</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.PassCollector.html">PassCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html">PublicCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html">SymbolMap</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.VertexCollector.html">VertexCollector</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Trismegiste.Mondrian.Algebra.html">\Trismegiste\Mondrian\Algebra</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Trismegiste\Mondrian\Algebra</small>ByteMatrix</h1>
+                    <p><em>ByteMatrix is a compressed matrix of unsigned shortint</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html#method_getSize" class="">getSize()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html#method_get" class="">get()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html#method_set" class="">set()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html#constant_CHAR_PER_COEFF" class="">CHAR_PER_COEFF</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html#property_dimension" class="">$dimension</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html#property_content" class="">$content</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Algebra.ByteMatrix.html"><div class="path-wrapper">Algebra\ByteMatrix.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Trismegiste\Mondrian\Algebra\ByteMatrix</div>
+                            </dd>
+
+                                                                            <dt>Implements</dt>
+                                                        <dd><a href="../classes/Trismegiste.Mondrian.Algebra.Matrix.html"><div class="namespace-wrapper">\Trismegiste\Mondrian\Algebra\Matrix</div></a></dd>
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>florent</p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_CHAR_PER_COEFF" name="constant_CHAR_PER_COEFF" class="anchor"></a>
+            <article id="constant_CHAR_PER_COEFF" class="constant">
+                <h3 class="">CHAR_PER_COEFF</h3>
+                <pre class="signature">CHAR_PER_COEFF</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_dimension" name="property_dimension" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$dimension</h3>
+                <pre class="signature">$dimension : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_content" name="property_content" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$content</h3>
+                <pre class="signature">$content : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(integer  <span class="argument">$dimension</span>) </pre>
+                <p><em>build a square matrix</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$dimension </td>
+                                <td><p>size of matrix</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSize" name="method_getSize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSize() : integer</pre>
+                <p><em>get the size of this matrix</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get" name="method_get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get(  <span class="argument">$line</span>,   <span class="argument">$column</span>) : \Trismegiste\Mondrian\Algebra\numeric</pre>
+                <p><em>Get  coefficient in this matrix
+Use the algebra order line x column</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$line </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$column </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Trismegiste\Mondrian\Algebra\numeric
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set" name="method_set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set(  <span class="argument">$line</span>,   <span class="argument">$column</span>,   <span class="argument">$value</span>) </pre>
+                <p><em>Set a coefficient in this matrix</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$line </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$column </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ByteMatrix.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Algebra\ByteMatrix.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Trismegiste.html">\Trismegiste</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on September 13th, 2014 at 18:07.
+                </section>
+            </section>
+        </section>
+    </footer>
 </div>
-<div class="span8">
-<a id="\Trismegiste\Mondrian\Algebra\ByteMatrix"></a><ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Algebra.html">Algebra</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html">ByteMatrix</a>
-</li>
-</ul>
-<div class="element class">
-<p class="short_description">ByteMatrix is a compressed matrix of unsigned shortint</p>
-<div class="details">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>author</th>
-<td><a href="">florent</a></td>
-</tr></table>
-<h3>
-<i class="icon-custom icon-method"></i> Methods</h3>
-<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-<h2>build a square matrix</h2>
-<pre>__construct(int $dimension) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$dimension</h4>
-<code>int</code><p>size of matrix</p></div>
-</div></div>
-</div>
-<a id="method_get"></a><div class="element clickable method public method_get" data-toggle="collapse" data-target=".method_get .collapse">
-<h2>Get  coefficient in this matrix
-Use the algebra order line x column</h2>
-<pre>get(int $line, int $column) : \Trismegiste\Mondrian\Algebra\numeric</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$line</h4>
-<code>int</code>
-</div>
-<div class="subelement argument">
-<h4>$column</h4>
-<code>int</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>\Trismegiste\Mondrian\Algebra\numeric</code></div>
-</div></div>
-</div>
-<a id="method_getSize"></a><div class="element clickable method public method_getSize" data-toggle="collapse" data-target=".method_getSize .collapse">
-<h2>get the size of this matrix</h2>
-<pre>getSize() : int</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>int</code></div>
-</div></div>
-</div>
-<a id="method_set"></a><div class="element clickable method public method_set" data-toggle="collapse" data-target=".method_set .collapse">
-<h2>Set a coefficient in this matrix</h2>
-<pre>set(int $line, int $column, \Trismegiste\Mondrian\Algebra\numeric $value) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$line</h4>
-<code>int</code>
-</div>
-<div class="subelement argument">
-<h4>$column</h4>
-<code>int</code>
-</div>
-<div class="subelement argument">
-<h4>$value</h4>
-<code>\Trismegiste\Mondrian\Algebra\numeric</code>
-</div>
-</div></div>
-</div>
-<h3>
-<i class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_content"> </a><div class="element clickable property protected property_content" data-toggle="collapse" data-target=".property_content .collapse">
-<h2></h2>
-<pre>$content </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<a id="property_dimension"> </a><div class="element clickable property protected property_dimension" data-toggle="collapse" data-target=".property_dimension .collapse">
-<h2></h2>
-<pre>$dimension </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-<h3>
-<i class="icon-custom icon-constant"></i> Constants</h3>
-<a id="constant_CHAR_PER_COEFF"> </a><div class="element clickable constant  constant_CHAR_PER_COEFF" data-toggle="collapse" data-target=".constant_CHAR_PER_COEFF .collapse">
-<h2>CHAR_PER_COEFF</h2>
-<pre>CHAR_PER_COEFF </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row"><footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-05-27T09:05:27+02:00.<br></footer></div>
-</div>
+
 </body>
 </html>

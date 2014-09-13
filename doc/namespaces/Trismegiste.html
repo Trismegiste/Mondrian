@@ -1,1103 +1,618 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta charset="utf-8">
-<title>Mondrian » Trismegiste</title>
-<meta name="author" content="Mike van Riel">
-<meta name="description" content="">
-<link href="../css/template.css" rel="stylesheet" media="all">
-<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Mondrian</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
-<div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Mondrian</a><div class="nav-collapse"><ul class="nav">
-<li class="dropdown">
-<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a>Namespaces</a></li>
-<li><a href="../namespaces/Trismegiste.html"><i class="icon-th"></i> Trismegiste</a></li>
-</ul>
-</li>
-<li class="dropdown" id="charts-menu">
-<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
-</li>
-<li class="dropdown" id="reports-menu">
-<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">367</span></a></li>
-<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul><li>todo 
-                <span class="label label-info">1</span>
-</li></ul></a></li>
-<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">0</span></a></li>
-</ul>
-</li>
-</ul></div>
-</div></div>
-<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
-</div>
-<div id="___" class="container">
-<noscript><div class="alert alert-warning">
-                            Javascript is disabled; several features are only available
-                            if Javascript is enabled.
-                        </div></noscript>
-<div class="row">
-<div class="span4">
-<div class="btn-group view pull-right" data-toggle="buttons-radio">
-<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-</div>
-<ul class="side-nav nav nav-list">
-<li class="nav-header">
-<i class="icon-map-marker"></i> Namespaces</li>
-<li>
-<span class="empty-namespace"><i class="icon-stop"></i>Trismegiste</span><ul class="nav nav-list nav-namespaces"><li>
-<span class="empty-namespace"><i class="icon-stop"></i>Mondrian</span><ul class="nav nav-list nav-namespaces">
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Algebra.html" title="Algebra"><i class="icon-th"></i>Algebra</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Analysis.html" title="Analysis"><i class="icon-th"></i>Analysis</a><ul class="nav nav-list nav-namespaces"><li>
-<a href="../namespaces/Trismegiste.Mondrian.Analysis.Strategy.html" title="Strategy"><i class="icon-th"></i>Strategy</a><ul class="nav nav-list nav-namespaces"></ul>
-</li></ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Builder.html" title="Builder"><i class="icon-th"></i>Builder</a><ul class="nav nav-list nav-namespaces">
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Builder.Compiler.html" title="Compiler"><i class="icon-th"></i>Compiler</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Builder.Statement.html" title="Statement"><i class="icon-th"></i>Statement</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-</ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Command.html" title="Command"><i class="icon-th"></i>Command</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Config.html" title="Config"><i class="icon-th"></i>Config</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Graph.html" title="Graph"><i class="icon-th"></i>Graph</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Parser.html" title="Parser"><i class="icon-th"></i>Parser</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Refactor.html" title="Refactor"><i class="icon-th"></i>Refactor</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Transform.html" title="Transform"><i class="icon-th"></i>Transform</a><ul class="nav nav-list nav-namespaces">
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Transform.Format.html" title="Format"><i class="icon-th"></i>Format</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Transform.Logger.html" title="Logger"><i class="icon-th"></i>Logger</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Transform.Vertex.html" title="Vertex"><i class="icon-th"></i>Vertex</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-</ul>
-</li>
-<li>
-<a href="../namespaces/Trismegiste.Mondrian.Visitor.html" title="Visitor"><i class="icon-th"></i>Visitor</a><ul class="nav nav-list nav-namespaces"></ul>
-</li>
-</ul>
-</li></ul>
-</li>
-</ul>
-</div>
-<div class="span8 namespace-contents">
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li class="active"><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-</ul>
-<div class="namespace-indent">
-<div class="alert alert-info">This namespace does not contain any documentable elements</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<div class="alert alert-info">This namespace does not contain any documentable elements</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Algebra.html">Algebra</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="Matrix" class="element ajax clickable interface">
-<h1>Matrix<a href="../classes/Trismegiste.Mondrian.Algebra.Matrix.html">¶</a>
-</h1>
-<p class="short_description">A 2D matrix</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Algebra.Matrix.html" class="more">« More »</a>
-</div>
-<div id="ByteMatrix" class="element ajax clickable class">
-<h1>ByteMatrix<a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html">¶</a>
-</h1>
-<p class="short_description">ByteMatrix is a compressed matrix of unsigned shortint</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html" class="more">« More »</a>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Analysis.html">Analysis</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="Generator" class="element ajax clickable interface">
-<h1>Generator<a href="../classes/Trismegiste.Mondrian.Analysis.Generator.html">¶</a>
-</h1>
-<p class="short_description">Contract for a factory of a new reduced Graph (from a bigger graph)</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.Generator.html" class="more">« More »</a>
-</div>
-<div id="VertexDecorator" class="element ajax clickable interface">
-<h1>VertexDecorator<a href="../classes/Trismegiste.Mondrian.Analysis.VertexDecorator.html">¶</a>
-</h1>
-<p class="short_description">Contract for adding information on vertices in a Graph</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.VertexDecorator.html" class="more">« More »</a>
-</div>
-<div id="Centrality" class="element ajax clickable class">
-<h1>Centrality<a href="../classes/Trismegiste.Mondrian.Analysis.Centrality.html">¶</a>
-</h1>
-<p class="short_description">Centrality analyses a graph and add centrality rank to vertices
-Design Pattern : Decorator of Graph</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.Centrality.html" class="more">« More »</a>
-</div>
-<div id="CodeMetrics" class="element ajax clickable class">
-<h1>CodeMetrics<a href="../classes/Trismegiste.Mondrian.Analysis.CodeMetrics.html">¶</a>
-</h1>
-<p class="short_description">CodeMetrics analyses a graph and counts number of vertices per type
-Design Pattern : Decorator</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.CodeMetrics.html" class="more">« More »</a>
-</div>
-<div id="CouplingMaker" class="element ajax clickable class">
-<h1>CouplingMaker<a href="../classes/Trismegiste.Mondrian.Analysis.CouplingMaker.html">¶</a>
-</h1>
-<p class="short_description">CouplingMaker searches for interface with class in its methods parameters.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.CouplingMaker.html" class="more">« More »</a>
-</div>
-<div id="Cycle" class="element ajax clickable class">
-<h1>Cycle<a href="../classes/Trismegiste.Mondrian.Analysis.Cycle.html">¶</a>
-</h1>
-<p class="short_description">Cycle analyses cycles by searching for strongly connected components</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.Cycle.html" class="more">« More »</a>
-</div>
-<div id="DependCentrality" class="element ajax clickable class">
-<h1>DependCentrality<a href="../classes/Trismegiste.Mondrian.Analysis.DependCentrality.html">¶</a>
-</h1>
-<p class="short_description">This tool helps you to find an effect on some components:</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.DependCentrality.html" class="more">« More »</a>
-</div>
-<div id="HiddenCoupling" class="element ajax clickable class">
-<h1>HiddenCoupling<a href="../classes/Trismegiste.Mondrian.Analysis.HiddenCoupling.html">¶</a>
-</h1>
-<p class="short_description">HiddenCoupling is an analyser which checks and finds hidden coupling
-between types</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.HiddenCoupling.html" class="more">« More »</a>
-</div>
-<div id="LiskovSearch" class="element ajax clickable class">
-<h1>LiskovSearch<a href="../classes/Trismegiste.Mondrian.Analysis.LiskovSearch.html">¶</a>
-</h1>
-<p class="short_description">LiskovSearch is an analyser</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.LiskovSearch.html" class="more">« More »</a>
-</div>
-<div id="SpaghettiCoupling" class="element ajax clickable class">
-<h1>SpaghettiCoupling<a href="../classes/Trismegiste.Mondrian.Analysis.SpaghettiCoupling.html">¶</a>
-</h1>
-<p class="short_description">SpaghettiCoupling is an analyser which finds coupling between classes,</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.SpaghettiCoupling.html" class="more">« More »</a>
-</div>
-<div id="UsedCentrality" class="element ajax clickable class">
-<h1>UsedCentrality<a href="../classes/Trismegiste.Mondrian.Analysis.UsedCentrality.html">¶</a>
-</h1>
-<p class="short_description">This tool helps you to find an effect on some components:</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.UsedCentrality.html" class="more">« More »</a>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Analysis.html">Analysis</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Analysis.Strategy.html">Strategy</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="Search" class="element ajax clickable interface">
-<h1>Search<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.Search.html">¶</a>
-</h1>
-<p class="short_description">Search is a contract for searching coupled component</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.Search.html" class="more">« More »</a>
-</div>
-<div id="ByCalling" class="element ajax clickable class">
-<h1>ByCalling<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByCalling.html">¶</a>
-</h1>
-<p class="short_description">ByCalling  selects path between classes if there is a call.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByCalling.html" class="more">« More »</a>
-</div>
-<div id="ByConnection" class="element ajax clickable class">
-<h1>ByConnection<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByConnection.html">¶</a>
-</h1>
-<p class="short_description">ByConnection selects shortcut on a path at the first class
-because connect property is transitive.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByConnection.html" class="more">« More »</a>
-</div>
-<div id="ByImplemented" class="element ajax clickable class">
-<h1>ByImplemented<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByImplemented.html">¶</a>
-</h1>
-<p class="short_description">ByImplemented selects path between classes if
-there is a use in a implementation.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByImplemented.html" class="more">« More »</a>
-</div>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Builder.html">Builder</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="Linking" class="element ajax clickable class">
-<h1>Linking<a href="../classes/Trismegiste.Mondrian.Builder.Linking.html">¶</a>
-</h1>
-<p class="short_description">Linking is making the link between the parser and the compiler</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Builder.Linking.html" class="more">« More »</a>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Builder.html">Builder</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Builder.Compiler.html">Compiler</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="BuilderInterface" class="element ajax clickable interface">
-<h1>BuilderInterface<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.BuilderInterface.html">¶</a>
-</h1>
-<p class="short_description">BuilderInterface is a contract to build a compiler</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.BuilderInterface.html" class="more">« More »</a>
-</div>
-<div id="AbstractTraverser" class="element ajax clickable class">
-<h1>AbstractTraverser<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.AbstractTraverser.html">¶</a>
-</h1>
-<p class="short_description">AbstractTraverser partly builds the compiler with a traverser</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.AbstractTraverser.html" class="more">« More »</a>
-</div>
-<div id="Director" class="element ajax clickable class">
-<h1>Director<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.Director.html">¶</a>
-</h1>
-<p class="short_description">Design pattern : Builder</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Builder.Compiler.Director.html" class="more">« More »</a>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Builder.html">Builder</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Builder.Statement.html">Statement</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="BuilderInterface" class="element ajax clickable interface">
-<h1>BuilderInterface<a href="../classes/Trismegiste.Mondrian.Builder.Statement.BuilderInterface.html">¶</a>
-</h1>
-<p class="short_description">Contract for a builder of statements list</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Builder.Statement.BuilderInterface.html" class="more">« More »</a>
-</div>
-<div id="Builder" class="element ajax clickable class">
-<h1>Builder<a href="../classes/Trismegiste.Mondrian.Builder.Statement.Builder.html">¶</a>
-</h1>
-<p class="short_description">Statement is a builder of statement of set of php files</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Builder.Statement.Builder.html" class="more">« More »</a>
-</div>
-<div id="Director" class="element ajax clickable class">
-<h1>Director<a href="../classes/Trismegiste.Mondrian.Builder.Statement.Director.html">¶</a>
-</h1>
-<p class="short_description">Director is a director for parsing a set of failes</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Builder.Statement.Director.html" class="more">« More »</a>
-</div>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Command.html">Command</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="AbstractCentrality" class="element ajax clickable class">
-<h1>AbstractCentrality<a href="../classes/Trismegiste.Mondrian.Command.AbstractCentrality.html">¶</a>
-</h1>
-<p class="short_description">AbstractCentrality transforms a bunch of php files into a digraph
-and exports it into a report file with centrality informations</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.AbstractCentrality.html" class="more">« More »</a>
-</div>
-<div id="AbstractParse" class="element ajax clickable class">
-<h1>AbstractParse<a href="../classes/Trismegiste.Mondrian.Command.AbstractParse.html">¶</a>
-</h1>
-<p class="short_description">AbstractParse transforms a bunch of php files into a digraph
-and exports it into a report file</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.AbstractParse.html" class="more">« More »</a>
-</div>
-<div id="BadInterfaceCommand" class="element ajax clickable class">
-<h1>BadInterfaceCommand<a href="../classes/Trismegiste.Mondrian.Command.BadInterfaceCommand.html">¶</a>
-</h1>
-<p class="short_description">BadInterfaceCommand transforms reduced the digraph
-to the bad interface with concrete parameters in their
-methods</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.BadInterfaceCommand.html" class="more">« More »</a>
-</div>
-<div id="ContractorCommand" class="element ajax clickable class">
-<h1>ContractorCommand<a href="../classes/Trismegiste.Mondrian.Command.ContractorCommand.html">¶</a>
-</h1>
-<p class="short_description">ContractorCommand recursively scans a directory and
-refactors concrete class with annotations.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.ContractorCommand.html" class="more">« More »</a>
-</div>
-<div id="CyclicCommand" class="element ajax clickable class">
-<h1>CyclicCommand<a href="../classes/Trismegiste.Mondrian.Command.CyclicCommand.html">¶</a>
-</h1>
-<p class="short_description">CyclicCommand reduces a graph to its strongly connected components</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.CyclicCommand.html" class="more">« More »</a>
-</div>
-<div id="DependCentralityCommand" class="element ajax clickable class">
-<h1>DependCentralityCommand<a href="../classes/Trismegiste.Mondrian.Command.DependCentralityCommand.html">¶</a>
-</h1>
-<p class="short_description">DependCentralityCommand transforms a bunch of php files into a digraph
-and exports it into a report file with centrality informations of
-the dependencies of each node.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.DependCentralityCommand.html" class="more">« More »</a>
-</div>
-<div id="DigraphCommand" class="element ajax clickable class">
-<h1>DigraphCommand<a href="../classes/Trismegiste.Mondrian.Command.DigraphCommand.html">¶</a>
-</h1>
-<p class="short_description">DigraphCommand transforms a bunch of php files into a digraph
-and exports it into a report file.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.DigraphCommand.html" class="more">« More »</a>
-</div>
-<div id="FactoryGenerator" class="element ajax clickable class">
-<h1>FactoryGenerator<a href="../classes/Trismegiste.Mondrian.Command.FactoryGenerator.html">¶</a>
-</h1>
-<p class="short_description">FactoryGenerator is a refactoring tools which scans all new statements
-and create a protected method for each.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.FactoryGenerator.html" class="more">« More »</a>
-</div>
-<div id="HiddenCouplingCommand" class="element ajax clickable class">
-<h1>HiddenCouplingCommand<a href="../classes/Trismegiste.Mondrian.Command.HiddenCouplingCommand.html">¶</a>
-</h1>
-<p class="short_description">HiddenCouplingCommand transforms a bunch of php files into a digraph
-with hidden coupling</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.HiddenCouplingCommand.html" class="more">« More »</a>
-</div>
-<div id="LiskovCommand" class="element ajax clickable class">
-<h1>LiskovCommand<a href="../classes/Trismegiste.Mondrian.Command.LiskovCommand.html">¶</a>
-</h1>
-<p class="short_description">LiskovCommand transforms a bunch of php files into a reduced digraph
-to the LSP violation to refactor (mandatory before ISP)</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.LiskovCommand.html" class="more">« More »</a>
-</div>
-<div id="RefactorCommand" class="element ajax clickable class">
-<h1>RefactorCommand<a href="../classes/Trismegiste.Mondrian.Command.RefactorCommand.html">¶</a>
-</h1>
-<p class="short_description">RefactorCommand recursively scans a directory and
-refactors classes.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.RefactorCommand.html" class="more">« More »</a>
-</div>
-<div id="SpaghettiCommand" class="element ajax clickable class">
-<h1>SpaghettiCommand<a href="../classes/Trismegiste.Mondrian.Command.SpaghettiCommand.html">¶</a>
-</h1>
-<p class="short_description">SpaghettiCommand reduces a graph to its coupled implementation vertices</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.SpaghettiCommand.html" class="more">« More »</a>
-</div>
-<div id="TypeHintConfig" class="element ajax clickable class">
-<h1>TypeHintConfig<a href="../classes/Trismegiste.Mondrian.Command.TypeHintConfig.html">¶</a>
-</h1>
-<p class="short_description">TypeHintConfig generates a default type-hint config files</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.TypeHintConfig.html" class="more">« More »</a>
-</div>
-<div id="UsedCentralityCommand" class="element ajax clickable class">
-<h1>UsedCentralityCommand<a href="../classes/Trismegiste.Mondrian.Command.UsedCentralityCommand.html">¶</a>
-</h1>
-<p class="short_description">UsedCentralityCommand transforms a bunch of php files into a digraph
-and exports it into a report file with centrality informations of
-the using of each node.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Command.UsedCentralityCommand.html" class="more">« More »</a>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Config.html">Config</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="Helper" class="element ajax clickable class">
-<h1>Helper<a href="../classes/Trismegiste.Mondrian.Config.Helper.html">¶</a>
-</h1>
-<p class="short_description">Helper is a Facade for the config heavy machinery</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Config.Helper.html" class="more">« More »</a>
-</div>
-<div id="Loader" class="element ajax clickable class">
-<h1>Loader<a href="../classes/Trismegiste.Mondrian.Config.Loader.html">¶</a>
-</h1>
-<p class="short_description">Loader is a loader for the Mondrian config tool</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Config.Loader.html" class="more">« More »</a>
-</div>
-<div id="Validator" class="element ajax clickable class">
-<h1>Validator<a href="../classes/Trismegiste.Mondrian.Config.Validator.html">¶</a>
-</h1>
-<p class="short_description">Validator of the configuration of the package</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Config.Validator.html" class="more">« More »</a>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Graph.html">Graph</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="Graph" class="element ajax clickable interface">
-<h1>Graph<a href="../classes/Trismegiste.Mondrian.Graph.Graph.html">¶</a>
-</h1>
-<p class="short_description">Design pattern: Decorator
-Component : Component</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.Graph.html" class="more">« More »</a>
-</div>
-<div id="Algorithm" class="element ajax clickable class">
-<h1>Algorithm<a href="../classes/Trismegiste.Mondrian.Graph.Algorithm.html">¶</a>
-</h1>
-<p class="short_description">Design pattern: Decorator
-Component : Decorator</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.Algorithm.html" class="more">« More »</a>
-</div>
-<div id="BreadthFirstSearch" class="element ajax clickable class">
-<h1>BreadthFirstSearch<a href="../classes/Trismegiste.Mondrian.Graph.BreadthFirstSearch.html">¶</a>
-</h1>
-<p class="short_description">BreadthFirstSearch is a decorator for digraph to find a directed path between
-two vertices.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.BreadthFirstSearch.html" class="more">« More »</a>
-</div>
-<div id="DepthFirstSearch" class="element ajax clickable class">
-<h1>DepthFirstSearch<a href="../classes/Trismegiste.Mondrian.Graph.DepthFirstSearch.html">¶</a>
-</h1>
-<p class="short_description">DepthFirstSearch is a decorator for digraph to find a directed path between
-two vertices.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.DepthFirstSearch.html" class="more">« More »</a>
-</div>
-<div id="Digraph" class="element ajax clickable class">
-<h1>Digraph<a href="../classes/Trismegiste.Mondrian.Graph.Digraph.html">¶</a>
-</h1>
-<p class="short_description">Design pattern: Decorator
-Component : Concrete Component</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.Digraph.html" class="more">« More »</a>
-</div>
-<div id="Edge" class="element ajax clickable class">
-<h1>Edge<a href="../classes/Trismegiste.Mondrian.Graph.Edge.html">¶</a>
-</h1>
-<p class="short_description">Edge is a directed edge</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.Edge.html" class="more">« More »</a>
-</div>
-<div id="FloydWarshall" class="element ajax clickable class">
-<h1>FloydWarshall<a href="../classes/Trismegiste.Mondrian.Graph.FloydWarshall.html">¶</a>
-</h1>
-<p class="short_description">FloydWarshall is a .</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.FloydWarshall.html" class="more">« More »</a>
-</div>
-<div id="PowerIteration" class="element ajax clickable class">
-<h1>PowerIteration<a href="../classes/Trismegiste.Mondrian.Graph.PowerIteration.html">¶</a>
-</h1>
-<p class="short_description">PowerIteration is a the a decorator for Power Iteration algorithm</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.PowerIteration.html" class="more">« More »</a>
-</div>
-<div id="PrettyPrint" class="element ajax clickable class">
-<h1>PrettyPrint<a href="../classes/Trismegiste.Mondrian.Graph.PrettyPrint.html">¶</a>
-</h1>
-<p class="short_description">PrettyPrint is Decorator for pretty printing a graph</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.PrettyPrint.html" class="more">« More »</a>
-</div>
-<div id="ReversedDigraph" class="element ajax clickable class">
-<h1>ReversedDigraph<a href="../classes/Trismegiste.Mondrian.Graph.ReversedDigraph.html">¶</a>
-</h1>
-<p class="short_description">ReversedDigraph is a decorator which provides a reversed
-graph of this directed graph</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.ReversedDigraph.html" class="more">« More »</a>
-</div>
-<div id="Tarjan" class="element ajax clickable class">
-<h1>Tarjan<a href="../classes/Trismegiste.Mondrian.Graph.Tarjan.html">¶</a>
-</h1>
-<p class="short_description">Design pattern: Decorator
-Component : Concrete Decorator</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.Tarjan.html" class="more">« More »</a>
-</div>
-<div id="Vertex" class="element ajax clickable class">
-<h1>Vertex<a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html">¶</a>
-</h1>
-<p class="short_description">Vertex is a vertex of a graph</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html" class="more">« More »</a>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Parser.html">Parser</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="BuilderFactory" class="element ajax clickable class">
-<h1>BuilderFactory<a href="../classes/Trismegiste.Mondrian.Parser.BuilderFactory.html">¶</a>
-</h1>
-<p class="short_description">BuilderFactory is an abstract factory</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Parser.BuilderFactory.html" class="more">« More »</a>
-</div>
-<div id="NullDumper" class="element ajax clickable class">
-<h1>NullDumper<a href="../classes/Trismegiste.Mondrian.Parser.NullDumper.html">¶</a>
-</h1>
-<p class="short_description">NullDumper is a dumper for dry run</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Parser.NullDumper.html" class="more">« More »</a>
-</div>
-<div id="PackageParser" class="element ajax clickable class">
-<h1>PackageParser<a href="../classes/Trismegiste.Mondrian.Parser.PackageParser.html">¶</a>
-</h1>
-<p class="short_description">PackageParser is a parser for multiple files</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Parser.PackageParser.html" class="more">« More »</a>
-</div>
-<div id="PhpDumper" class="element ajax clickable class">
-<h1>PhpDumper<a href="../classes/Trismegiste.Mondrian.Parser.PhpDumper.html">¶</a>
-</h1>
-<p class="short_description">PhpDumper dumps a PhpFile into a file</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Parser.PhpDumper.html" class="more">« More »</a>
-</div>
-<div id="PhpFile" class="element ajax clickable class">
-<h1>PhpFile<a href="../classes/Trismegiste.Mondrian.Parser.PhpFile.html">¶</a>
-</h1>
-<p class="short_description">PhpFile is a node in a package repreenting a file</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Parser.PhpFile.html" class="more">« More »</a>
-</div>
-<div id="PhpFileBuilder" class="element ajax clickable class">
-<h1>PhpFileBuilder<a href="../classes/Trismegiste.Mondrian.Parser.PhpFileBuilder.html">¶</a>
-</h1>
-<p class="short_description">PhpFileBuilder is a builder for a PhpFile node :
-Enforces the PSR-0 : one class per file</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Parser.PhpFileBuilder.html" class="more">« More »</a>
-</div>
-<div id="PhpPersistence" class="element ajax clickable class">
-<h1>PhpPersistence<a href="../classes/Trismegiste.Mondrian.Parser.PhpPersistence.html">¶</a>
-</h1>
-<p class="short_description">PhpPersistence is an abstract template for persisting a PhpFile</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Parser.PhpPersistence.html" class="more">« More »</a>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Refactor.html">Refactor</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="ContractorBuilder" class="element ajax clickable class">
-<h1>ContractorBuilder<a href="../classes/Trismegiste.Mondrian.Refactor.ContractorBuilder.html">¶</a>
-</h1>
-<p class="short_description">ContractorBuilder builds the compiler for the contractor refactoring service</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Refactor.ContractorBuilder.html" class="more">« More »</a>
-</div>
-<div id="FactoryGenBuilder" class="element ajax clickable class">
-<h1>FactoryGenBuilder<a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenBuilder.html">¶</a>
-</h1>
-<p class="short_description">FactoryGenBuilder builds the compiler for the factory generator
-refactoring service</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenBuilder.html" class="more">« More »</a>
-</div>
-<div id="Refactored" class="element ajax clickable class">
-<h1>Refactored<a href="../classes/Trismegiste.Mondrian.Refactor.Refactored.html">¶</a>
-</h1>
-<p class="short_description">Refactored is a container for refactoring changes</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Refactor.Refactored.html" class="more">« More »</a>
-</div>
-<div id="RefactoringBuilder" class="element ajax clickable class">
-<h1>RefactoringBuilder<a href="../classes/Trismegiste.Mondrian.Refactor.RefactoringBuilder.html">¶</a>
-</h1>
-<p class="short_description">RefactoringBuilder builds an abstract builder for refactoring service</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Refactor.RefactoringBuilder.html" class="more">« More »</a>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Transform.html">Transform</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="GraphBuilder" class="element ajax clickable class">
-<h1>GraphBuilder<a href="../classes/Trismegiste.Mondrian.Transform.GraphBuilder.html">¶</a>
-</h1>
-<p class="short_description">Design Pattern: Builder</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.GraphBuilder.html" class="more">« More »</a>
-</div>
-<div id="GraphContext" class="element ajax clickable class">
-<h1>GraphContext<a href="../classes/Trismegiste.Mondrian.Transform.GraphContext.html">¶</a>
-</h1>
-<p class="short_description">GraphContext is a context for building a graph.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.GraphContext.html" class="more">« More »</a>
-</div>
-<div id="ReflectionContext" class="element ajax clickable class">
-<h1>ReflectionContext<a href="../classes/Trismegiste.Mondrian.Transform.ReflectionContext.html">¶</a>
-</h1>
-<p class="short_description">ReflectionContext is a context for Reflection on types</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.ReflectionContext.html" class="more">« More »</a>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Transform.html">Transform</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Transform.Format.html">Format</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="ExporterInterface" class="element ajax clickable interface">
-<h1>ExporterInterface<a href="../classes/Trismegiste.Mondrian.Transform.Format.ExporterInterface.html">¶</a>
-</h1>
-<p class="short_description">ExporterInterface is a contract for an exporter</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Format.ExporterInterface.html" class="more">« More »</a>
-</div>
-<div id="Factory" class="element ajax clickable class">
-<h1>Factory<a href="../classes/Trismegiste.Mondrian.Transform.Format.Factory.html">¶</a>
-</h1>
-<p class="short_description">Factory is a simple factory for export format for Graph</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Format.Factory.html" class="more">« More »</a>
-</div>
-<div id="GraphExporter" class="element ajax clickable class">
-<h1>GraphExporter<a href="../classes/Trismegiste.Mondrian.Transform.Format.GraphExporter.html">¶</a>
-</h1>
-<p class="short_description">GraphExporter is abstract exporter of a graph
-Design Pattern : Decorator</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Format.GraphExporter.html" class="more">« More »</a>
-</div>
-<div id="Graphviz" class="element ajax clickable class">
-<h1>Graphviz<a href="../classes/Trismegiste.Mondrian.Transform.Format.Graphviz.html">¶</a>
-</h1>
-<p class="short_description">Graphviz is a decorator for GraphViz output</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Format.Graphviz.html" class="more">« More »</a>
-</div>
-<div id="Json" class="element ajax clickable class">
-<h1>Json<a href="../classes/Trismegiste.Mondrian.Transform.Format.Json.html">¶</a>
-</h1>
-<p class="short_description">Json is a decorator for JSON output</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Format.Json.html" class="more">« More »</a>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Transform.html">Transform</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Transform.Logger.html">Logger</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="LoggerInterface" class="element ajax clickable interface">
-<h1>LoggerInterface<a href="../classes/Trismegiste.Mondrian.Transform.Logger.LoggerInterface.html">¶</a>
-</h1>
-<p class="short_description">LoggerInterface is a contract for a logger</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Logger.LoggerInterface.html" class="more">« More »</a>
-</div>
-<div id="GraphLogger" class="element ajax clickable class">
-<h1>GraphLogger<a href="../classes/Trismegiste.Mondrian.Transform.Logger.GraphLogger.html">¶</a>
-</h1>
-<p class="short_description">GraphLogger logs the transform of source code to a graph</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Logger.GraphLogger.html" class="more">« More »</a>
-</div>
-<div id="NullLogger" class="element ajax clickable class">
-<h1>NullLogger<a href="../classes/Trismegiste.Mondrian.Transform.Logger.NullLogger.html">¶</a>
-</h1>
-<p class="short_description">NullLogger logs nothing</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Logger.NullLogger.html" class="more">« More »</a>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Transform.html">Transform</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Transform.Vertex.html">Vertex</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="MetaInterface" class="element ajax clickable interface">
-<h1>MetaInterface<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MetaInterface.html">¶</a>
-</h1>
-<p class="short_description">MetaInterface is a contract for a container of metadatas</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MetaInterface.html" class="more">« More »</a>
-</div>
-<div id="Vizable" class="element ajax clickable interface">
-<h1>Vizable<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.Vizable.html">¶</a>
-</h1>
-<p class="short_description">Contract for getting information to view this vertex as a node in GraphViz</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.Vizable.html" class="more">« More »</a>
-</div>
-<div id="ClassVertex" class="element ajax clickable class">
-<h1>ClassVertex<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ClassVertex.html">¶</a>
-</h1>
-<p class="short_description">ClassVertex is a vertex for a class</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ClassVertex.html" class="more">« More »</a>
-</div>
-<div id="ImplVertex" class="element ajax clickable class">
-<h1>ImplVertex<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ImplVertex.html">¶</a>
-</h1>
-<p class="short_description">ImplVertex is a vertex for an implementation
-(content of a method)</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ImplVertex.html" class="more">« More »</a>
-</div>
-<div id="InterfaceVertex" class="element ajax clickable class">
-<h1>InterfaceVertex<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.InterfaceVertex.html">¶</a>
-</h1>
-<p class="short_description">InterfaceVertex is a vertex for an interface</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.InterfaceVertex.html" class="more">« More »</a>
-</div>
-<div id="MethodVertex" class="element ajax clickable class">
-<h1>MethodVertex<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MethodVertex.html">¶</a>
-</h1>
-<p class="short_description">MethodVertex is a vertex for a method</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MethodVertex.html" class="more">« More »</a>
-</div>
-<div id="ParamVertex" class="element ajax clickable class">
-<h1>ParamVertex<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ParamVertex.html">¶</a>
-</h1>
-<p class="short_description">ParamVertex is a vertex for an parameter of a method</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ParamVertex.html" class="more">« More »</a>
-</div>
-<div id="StaticAnalysis" class="element ajax clickable class">
-<h1>StaticAnalysis<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.StaticAnalysis.html">¶</a>
-</h1>
-<p class="short_description">StaticAnalysis is a vertex for analysis of code</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Transform.Vertex.StaticAnalysis.html" class="more">« More »</a>
-</div>
-</div>
-</div>
-<ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-th"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Visitor.html">Visitor</a>
-</li>
-</ul>
-<div class="namespace-indent">
-<h3>
-<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
-<div id="EdgeCollector" class="element ajax clickable class">
-<h1>EdgeCollector<a href="../classes/Trismegiste.Mondrian.Visitor.EdgeCollector.html">¶</a>
-</h1>
-<p class="short_description">EdgeCollector is a visitor to transform code into graph edges</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Visitor.EdgeCollector.html" class="more">« More »</a>
-</div>
-<div id="FqcnHelper" class="element ajax clickable class">
-<h1>FqcnHelper<a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html">¶</a>
-</h1>
-<p class="short_description">FqcnHelper is an helper for resolving FQCN for Class/Interface/Param</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html" class="more">« More »</a>
-</div>
-<div id="InterfaceExtractor" class="element ajax clickable class">
-<h1>InterfaceExtractor<a href="../classes/Trismegiste.Mondrian.Visitor.InterfaceExtractor.html">¶</a>
-</h1>
-<p class="short_description">InterfaceExtractor builds new contracts</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Visitor.InterfaceExtractor.html" class="more">« More »</a>
-</div>
-<div id="NewContractCollector" class="element ajax clickable class">
-<h1>NewContractCollector<a href="../classes/Trismegiste.Mondrian.Visitor.NewContractCollector.html">¶</a>
-</h1>
-<p class="short_description">NewContractCollector gather classe which needs to be refactor with a contract.</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Visitor.NewContractCollector.html" class="more">« More »</a>
-</div>
-<div id="NewInstanceRefactor" class="element ajax clickable class">
-<h1>NewInstanceRefactor<a href="../classes/Trismegiste.Mondrian.Visitor.NewInstanceRefactor.html">¶</a>
-</h1>
-<p class="short_description">NewInstanceRefactor is a generator of method for each new instance</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Visitor.NewInstanceRefactor.html" class="more">« More »</a>
-</div>
-<div id="ParamRefactor" class="element ajax clickable class">
-<h1>ParamRefactor<a href="../classes/Trismegiste.Mondrian.Visitor.ParamRefactor.html">¶</a>
-</h1>
-<p class="short_description">ParamRefactor replaces the class of a param by its contract</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Visitor.ParamRefactor.html" class="more">« More »</a>
-</div>
-<div id="PassCollector" class="element ajax clickable class">
-<h1>PassCollector<a href="../classes/Trismegiste.Mondrian.Visitor.PassCollector.html">¶</a>
-</h1>
-<p class="short_description">PassCollector is an abstract compiler pass for visiting source code
-and build the graph with the help of a Context</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Visitor.PassCollector.html" class="more">« More »</a>
-</div>
-<div id="PublicCollector" class="element ajax clickable class">
-<h1>PublicCollector<a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html">¶</a>
-</h1>
-<p class="short_description">PublicCollector is an abstract node collector for public "things" of types</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html" class="more">« More »</a>
-</div>
-<div id="SymbolMap" class="element ajax clickable class">
-<h1>SymbolMap<a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html">¶</a>
-</h1>
-<p class="short_description">SymbolMap is a class to collect list of class/interface/method name</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html" class="more">« More »</a>
-</div>
-<div id="VertexCollector" class="element ajax clickable class">
-<h1>VertexCollector<a href="../classes/Trismegiste.Mondrian.Visitor.VertexCollector.html">¶</a>
-</h1>
-<p class="short_description">VertexCollector is a visitor to transform code into graph vertices</p>
-<div class="details collapse"></div>
-<a href="../classes/Trismegiste.Mondrian.Visitor.VertexCollector.html" class="more">« More »</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row"><footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-05-27T09:05:27+02:00.<br></footer></div>
-</div>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Mondrian</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Trismegiste.html">\Trismegiste</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">510</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">159</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1801739472"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1801739472" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1931653465"></a>
+                                <a href="../namespaces/Trismegiste.html" style="margin-left: 30px; padding-left: 0">Trismegiste</a>
+            </div>
+            <div id="namespace-1931653465" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1934313144"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.html" style="margin-left: 30px; padding-left: 0">Mondrian</a>
+            </div>
+            <div id="namespace-1934313144" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-22400418"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Algebra.html" style="margin-left: 30px; padding-left: 0">Algebra</a>
+            </div>
+            <div id="namespace-22400418" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Algebra.Matrix.html">Matrix</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html">ByteMatrix</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-871827379"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Analysis.html" style="margin-left: 30px; padding-left: 0">Analysis</a>
+            </div>
+            <div id="namespace-871827379" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1879773424"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Analysis.Strategy.html" style="margin-left: 30px; padding-left: 0">Strategy</a>
+            </div>
+            <div id="namespace-1879773424" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.Search.html">Search</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByCalling.html">ByCalling</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByConnection.html">ByConnection</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByImplemented.html">ByImplemented</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Analysis.Generator.html">Generator</a></li>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Analysis.VertexDecorator.html">VertexDecorator</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Centrality.html">Centrality</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.CodeMetrics.html">CodeMetrics</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.CouplingMaker.html">CouplingMaker</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Cycle.html">Cycle</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.DependCentrality.html">DependCentrality</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.HiddenCoupling.html">HiddenCoupling</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.LiskovSearch.html">LiskovSearch</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.SpaghettiCoupling.html">SpaghettiCoupling</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.UsedCentrality.html">UsedCentrality</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-122412954"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Builder.html" style="margin-left: 30px; padding-left: 0">Builder</a>
+            </div>
+            <div id="namespace-122412954" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-316175248"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Builder.Compiler.html" style="margin-left: 30px; padding-left: 0">Compiler</a>
+            </div>
+            <div id="namespace-316175248" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Builder.Compiler.BuilderInterface.html">BuilderInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Compiler.AbstractTraverser.html">AbstractTraverser</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Compiler.Director.html">Director</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-324552657"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Builder.Statement.html" style="margin-left: 30px; padding-left: 0">Statement</a>
+            </div>
+            <div id="namespace-324552657" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Builder.Statement.BuilderInterface.html">BuilderInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Statement.Builder.html">Builder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Statement.Director.html">Director</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Linking.html">Linking</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-921004863"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Command.html" style="margin-left: 30px; padding-left: 0">Command</a>
+            </div>
+            <div id="namespace-921004863" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.AbstractCentrality.html">AbstractCentrality</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.AbstractParse.html">AbstractParse</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.BadInterfaceCommand.html">BadInterfaceCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.ContractorCommand.html">ContractorCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.CyclicCommand.html">CyclicCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.DependCentralityCommand.html">DependCentralityCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.DigraphCommand.html">DigraphCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.FactoryGenerator.html">FactoryGenerator</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.HiddenCouplingCommand.html">HiddenCouplingCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.LiskovCommand.html">LiskovCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.RefactorCommand.html">RefactorCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.SpaghettiCommand.html">SpaghettiCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.TypeHintConfig.html">TypeHintConfig</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.UsedCentralityCommand.html">UsedCentralityCommand</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-162882417"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Config.html" style="margin-left: 30px; padding-left: 0">Config</a>
+            </div>
+            <div id="namespace-162882417" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Config.Helper.html">Helper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Config.Loader.html">Loader</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Config.Validator.html">Validator</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1329273119"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Graph.html" style="margin-left: 30px; padding-left: 0">Graph</a>
+            </div>
+            <div id="namespace-1329273119" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Graph.Graph.html">Graph</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Algorithm.html">Algorithm</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.BreadthFirstSearch.html">BreadthFirstSearch</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.DepthFirstSearch.html">DepthFirstSearch</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Digraph.html">Digraph</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.FloydWarshall.html">FloydWarshall</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.PowerIteration.html">PowerIteration</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.PrettyPrint.html">PrettyPrint</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.ReversedDigraph.html">ReversedDigraph</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Tarjan.html">Tarjan</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html">Vertex</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-142368107"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Parser.html" style="margin-left: 30px; padding-left: 0">Parser</a>
+            </div>
+            <div id="namespace-142368107" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.BuilderFactory.html">BuilderFactory</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.NullDumper.html">NullDumper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PackageParser.html">PackageParser</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpDumper.html">PhpDumper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpFile.html">PhpFile</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpFileBuilder.html">PhpFileBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpPersistence.html">PhpPersistence</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-230655260"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Plugin.html" style="margin-left: 30px; padding-left: 0">Plugin</a>
+            </div>
+            <div id="namespace-230655260" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Plugin.About.html">About</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Plugin.Application.html">Application</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-558482424"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Refactor.html" style="margin-left: 30px; padding-left: 0">Refactor</a>
+            </div>
+            <div id="namespace-558482424" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.ContractorBuilder.html">ContractorBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenBuilder.html">FactoryGenBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.Refactored.html">Refactored</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.RefactoringBuilder.html">RefactoringBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-189776988"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.html" style="margin-left: 30px; padding-left: 0">Transform</a>
+            </div>
+            <div id="namespace-189776988" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1046883272"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.Format.html" style="margin-left: 30px; padding-left: 0">Format</a>
+            </div>
+            <div id="namespace-1046883272" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Format.ExporterInterface.html">ExporterInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Factory.html">Factory</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.GraphExporter.html">GraphExporter</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Graphviz.html">Graphviz</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Html.html">Html</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Json.html">Json</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Svg.html">Svg</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1878437739"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.Logger.html" style="margin-left: 30px; padding-left: 0">Logger</a>
+            </div>
+            <div id="namespace-1878437739" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Logger.LoggerInterface.html">LoggerInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Logger.GraphLogger.html">GraphLogger</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Logger.NullLogger.html">NullLogger</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1024447897"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.Vertex.html" style="margin-left: 30px; padding-left: 0">Vertex</a>
+            </div>
+            <div id="namespace-1024447897" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MetaInterface.html">MetaInterface</a></li>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.Vizable.html">Vizable</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ClassVertex.html">ClassVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ImplVertex.html">ImplVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.InterfaceVertex.html">InterfaceVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MethodVertex.html">MethodVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ParamVertex.html">ParamVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.StaticAnalysis.html">StaticAnalysis</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.TraitVertex.html">TraitVertex</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.GraphBuilder.html">GraphBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.GraphContext.html">GraphContext</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.ReflectionContext.html">ReflectionContext</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1148323087"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Visitor.html" style="margin-left: 30px; padding-left: 0">Visitor</a>
+            </div>
+            <div id="namespace-1148323087" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.EdgeCollector.html">EdgeCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html">FqcnHelper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.InterfaceExtractor.html">InterfaceExtractor</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.NewContractCollector.html">NewContractCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.NewInstanceRefactor.html">NewInstanceRefactor</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.ParamRefactor.html">ParamRefactor</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.PassCollector.html">PassCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html">PublicCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html">SymbolMap</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.VertexCollector.html">VertexCollector</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content namespace">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a>
+                                            </nav>
+                    <h1><small>\</small>Trismegiste</h1>
+
+                                        <h2>Namespaces</h2>
+                    <table class="table table-hover">
+                                                    <tr>
+                                <td><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a></td>
+                            </tr>
+                                            </table>
+                    
+                    
+                    
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                                                                                                                                
+                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
+                                                                                        <div class="namespace-wrapper">\Trismegiste</div>
+                        </dd>
+                    </dl>
+                </aside>
+            </div>
+
+            
+            
+        </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Trismegiste.html">\Trismegiste</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on September 13th, 2014 at 18:07.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
 </body>
 </html>

@@ -1,413 +1,1408 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta charset="utf-8">
-<title>Mondrian » \Trismegiste\Mondrian\Visitor\SymbolMap</title>
-<meta name="author" content="Mike van Riel">
-<meta name="description" content="">
-<link href="../css/template.css" rel="stylesheet" media="all">
-<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Mondrian</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
-<div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Mondrian</a><div class="nav-collapse"><ul class="nav">
-<li class="dropdown">
-<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a>Namespaces</a></li>
-<li><a href="../namespaces/Trismegiste.html"><i class="icon-th"></i> Trismegiste</a></li>
-</ul>
-</li>
-<li class="dropdown" id="charts-menu">
-<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
-</li>
-<li class="dropdown" id="reports-menu">
-<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">367</span></a></li>
-<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul><li>todo 
-                <span class="label label-info">1</span>
-</li></ul></a></li>
-<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">0</span></a></li>
-</ul>
-</li>
-</ul></div>
-</div></div>
-<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Mondrian</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Trismegiste.html">\Trismegiste</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">510</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">159</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
 </div>
-<div id="___" class="container">
-<noscript><div class="alert alert-warning">
-                            Javascript is disabled; several features are only available
-                            if Javascript is enabled.
-                        </div></noscript>
-<div class="row">
-<div class="span4">
-<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
-<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-</div>
-<ul class="side-nav nav nav-list">
-<li class="nav-header">
-<i class="icon-custom icon-method"></i> Methods
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-145774993"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-145774993" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-827971616"></a>
+                                <a href="../namespaces/Trismegiste.html" style="margin-left: 30px; padding-left: 0">Trismegiste</a>
+            </div>
+            <div id="namespace-827971616" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1041422872"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.html" style="margin-left: 30px; padding-left: 0">Mondrian</a>
+            </div>
+            <div id="namespace-1041422872" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-63368710"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Algebra.html" style="margin-left: 30px; padding-left: 0">Algebra</a>
+            </div>
+            <div id="namespace-63368710" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct :: Build the collector"><span class="description">Build the collector</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_afterTraverse" title="afterTraverse :: Compiling the pass : resolving symbols in the context"><span class="description">Compiling the pass : resolving symbols in the context</span><pre>afterTraverse()</pre></a></li>
-<li class="method public inherited"><a href="#method_beforeTraverse" title="beforeTraverse :: "><span class="description">beforeTraverse()
-        </span><pre>beforeTraverse()</pre></a></li>
-<li class="method public inherited"><a href="#method_enterNode" title="enterNode :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>enterNode()</pre></a></li>
-<li class="method public inherited"><a href="#method_leaveNode" title="leaveNode :: {@inheritDoc}"><span class="description">{@inheritDoc}</span><pre>leaveNode()</pre></a></li>
-</ul>
-</li>
-<li class="nav-header protected">» Protected
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Algebra.Matrix.html">Matrix</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Algebra.ByteMatrix.html">ByteMatrix</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-999536249"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Analysis.html" style="margin-left: 30px; padding-left: 0">Analysis</a>
+            </div>
+            <div id="namespace-999536249" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-242118540"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Analysis.Strategy.html" style="margin-left: 30px; padding-left: 0">Strategy</a>
+            </div>
+            <div id="namespace-242118540" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="method protected "><a href="#method_enterClassNode" title="enterClassNode :: Visits a class node"><span class="description">Visits a class node</span><pre>enterClassNode()</pre></a></li>
-<li class="method protected "><a href="#method_enterInterfaceNode" title="enterInterfaceNode :: Visits an interface node"><span class="description">Visits an interface node</span><pre>enterInterfaceNode()</pre></a></li>
-<li class="method protected "><a href="#method_enterPublicMethodNode" title="enterPublicMethodNode :: Visits a public method node"><span class="description">Visits a public method node</span><pre>enterPublicMethodNode()</pre></a></li>
-<li class="method protected inherited"><a href="#method_extractAnnotation" title="extractAnnotation :: Extracts annotations in the comment of a statement and injects them in
-attribute of the node"><span class="description">Extracts annotations in the comment of a statement and injects them in
-attribute of the node</span><pre>extractAnnotation()</pre></a></li>
-<li class="method protected inherited"><a href="#method_getCurrentMethodIndex" title="getCurrentMethodIndex :: the vertex name for a MethodVertex"><span class="description">the vertex name for a MethodVertex</span><pre>getCurrentMethodIndex()</pre></a></li>
-<li class="method protected inherited"><a href="#method_getNamespacedName" title="getNamespacedName :: Helper : get the FQCN of the given $node-&gt;name"><span class="description">Helper : get the FQCN of the given $node-&gt;name</span><pre>getNamespacedName()</pre></a></li>
-<li class="method protected inherited"><a href="#method_resolveClassName" title="resolveClassName :: resolve the Name with current namespace and alias"><span class="description">resolve the Name with current namespace and alias</span><pre>resolveClassName()</pre></a></li>
-</ul>
-</li>
-<li class="nav-header">
-<i class="icon-custom icon-property"></i> Properties
-                    <ul></ul>
-</li>
-<li class="nav-header protected">» Protected
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.Search.html">Search</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByCalling.html">ByCalling</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByConnection.html">ByConnection</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Strategy.ByImplemented.html">ByImplemented</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
                     <ul>
-<li class="property protected inherited"><a href="#property_aliases" title="$aliases :: "><span class="description">Currently defined namespace and class aliases</span><pre>$aliases</pre></a></li>
-<li class="property protected inherited"><a href="#property_currentClass" title="$currentClass :: "><span class="description"></span><pre>$currentClass</pre></a></li>
-<li class="property protected inherited"><a href="#property_currentMethod" title="$currentMethod :: "><span class="description"></span><pre>$currentMethod</pre></a></li>
-<li class="property protected inherited"><a href="#property_currentPhpFile" title="$currentPhpFile :: current file"><span class="description"></span><pre>$currentPhpFile</pre></a></li>
-<li class="property protected inherited"><a href="#property_namespace" title="$namespace :: "><span class="description">Current namespace</span><pre>$namespace</pre></a></li>
-</ul>
-</li>
-<li class="nav-header private">» Private
-                    <ul><li class="property private "><a href="#property_context" title="$context :: "><span class="description"></span><pre>$context</pre></a></li></ul>
-</li>
-</ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Analysis.Generator.html">Generator</a></li>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Analysis.VertexDecorator.html">VertexDecorator</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Centrality.html">Centrality</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.CodeMetrics.html">CodeMetrics</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.CouplingMaker.html">CouplingMaker</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.Cycle.html">Cycle</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.DependCentrality.html">DependCentrality</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.HiddenCoupling.html">HiddenCoupling</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.LiskovSearch.html">LiskovSearch</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.SpaghettiCoupling.html">SpaghettiCoupling</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Analysis.UsedCentrality.html">UsedCentrality</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2100830558"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Builder.html" style="margin-left: 30px; padding-left: 0">Builder</a>
+            </div>
+            <div id="namespace-2100830558" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1876358935"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Builder.Compiler.html" style="margin-left: 30px; padding-left: 0">Compiler</a>
+            </div>
+            <div id="namespace-1876358935" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Builder.Compiler.BuilderInterface.html">BuilderInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Compiler.AbstractTraverser.html">AbstractTraverser</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Compiler.Director.html">Director</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1851502876"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Builder.Statement.html" style="margin-left: 30px; padding-left: 0">Statement</a>
+            </div>
+            <div id="namespace-1851502876" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Builder.Statement.BuilderInterface.html">BuilderInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Statement.Builder.html">Builder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Statement.Director.html">Director</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Builder.Linking.html">Linking</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-962390915"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Command.html" style="margin-left: 30px; padding-left: 0">Command</a>
+            </div>
+            <div id="namespace-962390915" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.AbstractCentrality.html">AbstractCentrality</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.AbstractParse.html">AbstractParse</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.BadInterfaceCommand.html">BadInterfaceCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.ContractorCommand.html">ContractorCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.CyclicCommand.html">CyclicCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.DependCentralityCommand.html">DependCentralityCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.DigraphCommand.html">DigraphCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.FactoryGenerator.html">FactoryGenerator</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.HiddenCouplingCommand.html">HiddenCouplingCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.LiskovCommand.html">LiskovCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.RefactorCommand.html">RefactorCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.SpaghettiCommand.html">SpaghettiCommand</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.TypeHintConfig.html">TypeHintConfig</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Command.UsedCentralityCommand.html">UsedCentralityCommand</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-327133734"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Config.html" style="margin-left: 30px; padding-left: 0">Config</a>
+            </div>
+            <div id="namespace-327133734" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Config.Helper.html">Helper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Config.Loader.html">Loader</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Config.Validator.html">Validator</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1893922868"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Graph.html" style="margin-left: 30px; padding-left: 0">Graph</a>
+            </div>
+            <div id="namespace-1893922868" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Graph.Graph.html">Graph</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Algorithm.html">Algorithm</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.BreadthFirstSearch.html">BreadthFirstSearch</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.DepthFirstSearch.html">DepthFirstSearch</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Digraph.html">Digraph</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.FloydWarshall.html">FloydWarshall</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.PowerIteration.html">PowerIteration</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.PrettyPrint.html">PrettyPrint</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.ReversedDigraph.html">ReversedDigraph</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Tarjan.html">Tarjan</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Graph.Vertex.html">Vertex</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1615044138"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Parser.html" style="margin-left: 30px; padding-left: 0">Parser</a>
+            </div>
+            <div id="namespace-1615044138" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.BuilderFactory.html">BuilderFactory</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.NullDumper.html">NullDumper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PackageParser.html">PackageParser</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpDumper.html">PhpDumper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpFile.html">PhpFile</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpFileBuilder.html">PhpFileBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Parser.PhpPersistence.html">PhpPersistence</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-581719219"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Plugin.html" style="margin-left: 30px; padding-left: 0">Plugin</a>
+            </div>
+            <div id="namespace-581719219" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Plugin.About.html">About</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Plugin.Application.html">Application</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-254583618"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Refactor.html" style="margin-left: 30px; padding-left: 0">Refactor</a>
+            </div>
+            <div id="namespace-254583618" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.ContractorBuilder.html">ContractorBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.FactoryGenBuilder.html">FactoryGenBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.Refactored.html">Refactored</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Refactor.RefactoringBuilder.html">RefactoringBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-447320138"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.html" style="margin-left: 30px; padding-left: 0">Transform</a>
+            </div>
+            <div id="namespace-447320138" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1406669911"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.Format.html" style="margin-left: 30px; padding-left: 0">Format</a>
+            </div>
+            <div id="namespace-1406669911" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Format.ExporterInterface.html">ExporterInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Factory.html">Factory</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.GraphExporter.html">GraphExporter</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Graphviz.html">Graphviz</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Html.html">Html</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Json.html">Json</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Format.Svg.html">Svg</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1646369487"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.Logger.html" style="margin-left: 30px; padding-left: 0">Logger</a>
+            </div>
+            <div id="namespace-1646369487" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Logger.LoggerInterface.html">LoggerInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Logger.GraphLogger.html">GraphLogger</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Logger.NullLogger.html">NullLogger</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1769097409"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Transform.Vertex.html" style="margin-left: 30px; padding-left: 0">Vertex</a>
+            </div>
+            <div id="namespace-1769097409" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MetaInterface.html">MetaInterface</a></li>
+                                                    <li class="interface"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.Vizable.html">Vizable</a></li>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ClassVertex.html">ClassVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ImplVertex.html">ImplVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.InterfaceVertex.html">InterfaceVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.MethodVertex.html">MethodVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.ParamVertex.html">ParamVertex</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.StaticAnalysis.html">StaticAnalysis</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.Vertex.TraitVertex.html">TraitVertex</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.GraphBuilder.html">GraphBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.GraphContext.html">GraphContext</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Transform.ReflectionContext.html">ReflectionContext</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1021747568"></a>
+                                <a href="../namespaces/Trismegiste.Mondrian.Visitor.html" style="margin-left: 30px; padding-left: 0">Visitor</a>
+            </div>
+            <div id="namespace-1021747568" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.EdgeCollector.html">EdgeCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html">FqcnHelper</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.InterfaceExtractor.html">InterfaceExtractor</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.NewContractCollector.html">NewContractCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.NewInstanceRefactor.html">NewInstanceRefactor</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.ParamRefactor.html">ParamRefactor</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.PassCollector.html">PassCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html">PublicCollector</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html">SymbolMap</a></li>
+                                                    <li class="class"><a href="../classes/Trismegiste.Mondrian.Visitor.VertexCollector.html">VertexCollector</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Trismegiste.Mondrian.Visitor.html">\Trismegiste\Mondrian\Visitor</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Trismegiste\Mondrian\Visitor</small>SymbolMap</h1>
+                    <p><em>SymbolMap is a class to collect list of class/interface/method name</em></p>
+                    <p>It fills the Context with symbols</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html#method_enterNode" class="">enterNode()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html#method_leaveNode" class="">leaveNode()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html#method_beforeTraverse" class="">beforeTraverse()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html#method_afterTraverse" class="">afterTraverse()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html#method_enterClassNode" class="">enterClassNode()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html#method_enterInterfaceNode" class="">enterInterfaceNode()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html#method_enterTraitNode" class="">enterTraitNode()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html#method_enterPublicMethodNode" class="">enterPublicMethodNode()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html#method_getCurrentMethodIndex" class="">getCurrentMethodIndex()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html#method_extractAnnotation" class="">extractAnnotation()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html#method_resolveClassName" class="">resolveClassName()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html#method_getNamespacedName" class="">getNamespacedName()</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html#method_importSignatureTrait" class="">importSignatureTrait()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html#property_currentClass" class="">$currentClass</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html#property_currentMethod" class="">$currentMethod</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html#property_namespace" class="">$namespace</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html#property_aliases" class="">$aliases</a><br />
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html#property_currentPhpFile" class="">$currentPhpFile</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html#property_context" class="">$context</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Visitor.SymbolMap.html"><div class="path-wrapper">Visitor\SymbolMap.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                        <div class="namespace-wrapper">\PHPParser_NodeVisitorAbstract</div>
+                                                                    
+                                        <div class="namespace-wrapper"><a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html">\Trismegiste\Mondrian\Visitor\FqcnHelper</a></div>
+                                                                    
+                                        <div class="namespace-wrapper"><a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html">\Trismegiste\Mondrian\Visitor\PublicCollector</a></div>
+                                                                                                    <div class="namespace-wrapper">\Trismegiste\Mondrian\Visitor\SymbolMap</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_currentClass" name="property_currentClass" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$currentClass</h3>
+                <pre class="signature">$currentClass : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\PublicCollector</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_currentMethod" name="property_currentMethod" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$currentMethod</h3>
+                <pre class="signature">$currentMethod : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\PublicCollector</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_namespace" name="property_namespace" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$namespace</h3>
+                <pre class="signature">$namespace : null|\Trismegiste\Mondrian\Visitor\PHPParser_Node_Name</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                null|\Trismegiste\Mondrian\Visitor\PHPParser_Node_Name
+                &mdash; Current namespace                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\FqcnHelper</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_aliases" name="property_aliases" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$aliases</h3>
+                <pre class="signature">$aliases : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; Currently defined namespace and class aliases                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\FqcnHelper</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_currentPhpFile" name="property_currentPhpFile" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$currentPhpFile</h3>
+                <pre class="signature">$currentPhpFile : </pre>
+                <p><em>current file</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\FqcnHelper</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_context" name="property_context" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$context</h3>
+                <pre class="signature">$context : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_enterNode" name="method_enterNode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">enterNode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">enterNode(\PHPParser_Node  <span class="argument">$node</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPParser_Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_leaveNode" name="method_leaveNode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">leaveNode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">leaveNode(\PHPParser_Node  <span class="argument">$node</span>) </pre>
+                <p><em>{@inheritDoc}</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPParser_Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\PublicCollector</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_beforeTraverse" name="method_beforeTraverse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">beforeTraverse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">beforeTraverse(array  <span class="argument">$nodes</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$nodes </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\FqcnHelper</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(\Trismegiste\Mondrian\Visitor\Context  <span class="argument">$ctx</span>) </pre>
+                <p><em>Build the collector</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Trismegiste\Mondrian\Visitor\Context</td>
+                                <td>$ctx </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_afterTraverse" name="method_afterTraverse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">afterTraverse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">afterTraverse(array  <span class="argument">$dummy</span>) </pre>
+                <p><em>Compiling the pass : resolving symbols in the context</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$dummy </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_enterClassNode" name="method_enterClassNode" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">enterClassNode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">enterClassNode(\PHPParser_Node_Stmt_Class  <span class="argument">$node</span>) </pre>
+                <p><em>Visits a class node</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPParser_Node_Stmt_Class</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_enterInterfaceNode" name="method_enterInterfaceNode" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">enterInterfaceNode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">enterInterfaceNode(\PHPParser_Node_Stmt_Interface  <span class="argument">$node</span>) </pre>
+                <p><em>Visits an interface node</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPParser_Node_Stmt_Interface</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_enterTraitNode" name="method_enterTraitNode" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">enterTraitNode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">enterTraitNode(\PHPParser_Node_Stmt_Trait  <span class="argument">$node</span>) </pre>
+                <p><em>Visits an trait node</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPParser_Node_Stmt_Trait</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_enterPublicMethodNode" name="method_enterPublicMethodNode" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">enterPublicMethodNode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod  <span class="argument">$node</span>) </pre>
+                <p><em>Visits a public method node</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPParser_Node_Stmt_ClassMethod</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCurrentMethodIndex" name="method_getCurrentMethodIndex" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getCurrentMethodIndex()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCurrentMethodIndex() : string</pre>
+                <p><em>the vertex name for a MethodVertex</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\PublicCollector</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_extractAnnotation" name="method_extractAnnotation" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">extractAnnotation()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">extractAnnotation(\PHPParser_Node_Stmt  <span class="argument">$node</span>) </pre>
+                <p><em>Extracts annotations in the comment of a statement and injects them in
+attribute of the node</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPParser_Node_Stmt</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.PublicCollector.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\PublicCollector</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_resolveClassName" name="method_resolveClassName" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">resolveClassName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">resolveClassName(\PHPParser_Node_Name  <span class="argument">$src</span>) : \PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified</pre>
+                <p><em>resolve the Name with current namespace and alias</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPParser_Node_Name</td>
+                                <td>$src </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\FqcnHelper</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getNamespacedName" name="method_getNamespacedName" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getNamespacedName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getNamespacedName(\PHPParser_Node  <span class="argument">$node</span>) : string</pre>
+                <p><em>Helper : get the FQCN of the given $node-&gt;name</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPParser_Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Trismegiste.Mondrian.Visitor.FqcnHelper.html"><div class="path-wrapper">\Trismegiste\Mondrian\Visitor\FqcnHelper</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_importSignatureTrait" name="method_importSignatureTrait" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">importSignatureTrait()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">importSignatureTrait(\PHPParser_Node_Stmt_TraitUse  <span class="argument">$node</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPParser_Node_Stmt_TraitUse</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">SymbolMap.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Visitor\SymbolMap.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Trismegiste.html">\Trismegiste</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on September 13th, 2014 at 18:07.
+                </section>
+            </section>
+        </section>
+    </footer>
 </div>
-<div class="span8">
-<a id="\Trismegiste\Mondrian\Visitor\SymbolMap"></a><ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Trismegiste.html">Trismegiste</a></li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.html">Mondrian</a>
-</li>
-<li>
-<span class="divider">\</span><a href="../namespaces/Trismegiste.Mondrian.Visitor.html">Visitor</a>
-</li>
-<li class="active">
-<span class="divider">\</span><a href="../classes/Trismegiste.Mondrian.Visitor.SymbolMap.html">SymbolMap</a>
-</li>
-</ul>
-<div class="element class">
-<p class="short_description">SymbolMap is a class to collect list of class/interface/method name</p>
-<div class="details">
-<div class="long_description"><p>It fills the Context with symbols</p></div>
-<h3>
-<i class="icon-custom icon-method"></i> Methods</h3>
-<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-<h2>Build the collector</h2>
-<pre>__construct(\Trismegiste\Mondrian\Transform\ReflectionContext $ctx) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$ctx</h4>
-<code>\Trismegiste\Mondrian\Visitor\Context</code>
-</div>
-</div></div>
-</div>
-<a id="method_afterTraverse"></a><div class="element clickable method public method_afterTraverse" data-toggle="collapse" data-target=".method_afterTraverse .collapse">
-<h2>Compiling the pass : resolving symbols in the context</h2>
-<pre>afterTraverse(array $dummy) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$dummy</h4></div>
-</div></div>
-</div>
-<a id="method_beforeTraverse"></a><div class="element clickable method public method_beforeTraverse" data-toggle="collapse" data-target=".method_beforeTraverse .collapse">
-<h2>beforeTraverse()
-        </h2>
-<pre>beforeTraverse(array $nodes) </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::beforeTraverse()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::beforeTraverse()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$nodes</h4></div>
-</div></div>
-</div>
-<a id="method_enterNode"></a><div class="element clickable method public method_enterNode" data-toggle="collapse" data-target=".method_enterNode .collapse">
-<h2>{@inheritDoc}</h2>
-<pre>enterNode(\PHPParser_Node $node) </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::enterNode()</td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$node</h4></div>
-</div></div>
-</div>
-<a id="method_leaveNode"></a><div class="element clickable method public method_leaveNode" data-toggle="collapse" data-target=".method_leaveNode .collapse">
-<h2>{@inheritDoc}</h2>
-<pre>leaveNode(\PHPParser_Node $node) </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::leaveNode()</td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$node</h4></div>
-</div></div>
-</div>
-<a id="method_enterClassNode"></a><div class="element clickable method protected method_enterClassNode" data-toggle="collapse" data-target=".method_enterClassNode .collapse">
-<h2>Visits a class node</h2>
-<pre>enterClassNode(\PHPParser_Node_Stmt_Class $node) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$node</h4>
-<code>\PHPParser_Node_Stmt_Class</code>
-</div>
-</div></div>
-</div>
-<a id="method_enterInterfaceNode"></a><div class="element clickable method protected method_enterInterfaceNode" data-toggle="collapse" data-target=".method_enterInterfaceNode .collapse">
-<h2>Visits an interface node</h2>
-<pre>enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$node</h4>
-<code>\PHPParser_Node_Stmt_Interface</code>
-</div>
-</div></div>
-</div>
-<a id="method_enterPublicMethodNode"></a><div class="element clickable method protected method_enterPublicMethodNode" data-toggle="collapse" data-target=".method_enterPublicMethodNode .collapse">
-<h2>Visits a public method node</h2>
-<pre>enterPublicMethodNode(\PHPParser_Node_Stmt_ClassMethod $node) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$node</h4>
-<code>\PHPParser_Node_Stmt_ClassMethod</code>
-</div>
-</div></div>
-</div>
-<a id="method_extractAnnotation"></a><div class="element clickable method protected method_extractAnnotation" data-toggle="collapse" data-target=".method_extractAnnotation .collapse">
-<h2>Extracts annotations in the comment of a statement and injects them in
-attribute of the node</h2>
-<pre>extractAnnotation(\PHPParser_Node_Stmt $node) </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::extractAnnotation()</td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$node</h4>
-<code>\PHPParser_Node_Stmt</code>
-</div>
-</div></div>
-</div>
-<a id="method_getCurrentMethodIndex"></a><div class="element clickable method protected method_getCurrentMethodIndex" data-toggle="collapse" data-target=".method_getCurrentMethodIndex .collapse">
-<h2>the vertex name for a MethodVertex</h2>
-<pre>getCurrentMethodIndex() : string</pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::getCurrentMethodIndex()</td>
-</tr></table>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_getNamespacedName"></a><div class="element clickable method protected method_getNamespacedName" data-toggle="collapse" data-target=".method_getNamespacedName .collapse">
-<h2>Helper : get the FQCN of the given $node-&gt;name</h2>
-<pre>getNamespacedName(\PHPParser_Node $node) : string</pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::getNamespacedName()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::getNamespacedName()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$node</h4>
-<code>\PHPParser_Node</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a id="method_resolveClassName"></a><div class="element clickable method protected method_resolveClassName" data-toggle="collapse" data-target=".method_resolveClassName .collapse">
-<h2>resolve the Name with current namespace and alias</h2>
-<pre>resolveClassName(\PHPParser_Node_Name $src) : \PHPParser_Node_Name | \PHPParser_Node_Name_FullyQualified</pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::resolveClassName()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::resolveClassName()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$src</h4>
-<code>\PHPParser_Node_Name</code>
-</div>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>\PHPParser_Node_Name</code><code>\PHPParser_Node_Name_FullyQualified</code>
-</div>
-</div></div>
-</div>
-<h3>
-<i class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_aliases"> </a><div class="element clickable property protected property_aliases" data-toggle="collapse" data-target=".property_aliases .collapse">
-<h2>Currently defined namespace and class aliases</h2>
-<pre>$aliases : array</pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::$$aliases</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$aliases</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="property_currentClass"> </a><div class="element clickable property protected property_currentClass" data-toggle="collapse" data-target=".property_currentClass .collapse">
-<h2></h2>
-<pre>$currentClass </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$currentClass</td>
-</tr></table>
-</div></div>
-</div>
-<a id="property_currentMethod"> </a><div class="element clickable property protected property_currentMethod" data-toggle="collapse" data-target=".property_currentMethod .collapse">
-<h2></h2>
-<pre>$currentMethod </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered"><tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$currentMethod</td>
-</tr></table>
-</div></div>
-</div>
-<a id="property_currentPhpFile"> </a><div class="element clickable property protected property_currentPhpFile" data-toggle="collapse" data-target=".property_currentPhpFile .collapse">
-<h2></h2>
-<pre>$currentPhpFile </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::$$currentPhpFile</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$currentPhpFile</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="property_namespace"> </a><div class="element clickable property protected property_namespace" data-toggle="collapse" data-target=".property_namespace .collapse">
-<h2>Current namespace</h2>
-<pre>$namespace : null | \Trismegiste\Mondrian\Visitor\PHPParser_Node_Name</pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\FqcnHelper::$$namespace</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\Trismegiste\Mondrian\Visitor\PublicCollector::$$namespace</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="property_context"> </a><div class="element clickable property private property_context" data-toggle="collapse" data-target=".property_context .collapse">
-<h2></h2>
-<pre>$context </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row"><footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-05-27T09:05:27+02:00.<br></footer></div>
-</div>
+
 </body>
 </html>

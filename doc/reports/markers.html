@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>     &raquo; Markers
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Mondrian</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Trismegiste.html">\Trismegiste</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">510</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">159</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+            <ul class="side-nav nav nav-list">
+                <li class="nav-header">Navigation</li>
+                                                                                                                                                                                        <li><a href="#Analysis\Centrality.php"><i class="icon-file"></i> Analysis\Centrality.php</a></li>
+                                                                                                                                                        <li><a href="#Analysis\CouplingMaker.php"><i class="icon-file"></i> Analysis\CouplingMaker.php</a></li>
+                                                                                                <li><a href="#Analysis\Cycle.php"><i class="icon-file"></i> Analysis\Cycle.php</a></li>
+                                                                                                                                                                                                                <li><a href="#Analysis\HiddenCoupling.php"><i class="icon-file"></i> Analysis\HiddenCoupling.php</a></li>
+                                                                                                <li><a href="#Analysis\LiskovSearch.php"><i class="icon-file"></i> Analysis\LiskovSearch.php</a></li>
+                                                                                                                                                        <li><a href="#Analysis\Strategy\ByCalling.php"><i class="icon-file"></i> Analysis\Strategy\ByCalling.php</a></li>
+                                                                                                <li><a href="#Analysis\Strategy\ByConnection.php"><i class="icon-file"></i> Analysis\Strategy\ByConnection.php</a></li>
+                                                                                                <li><a href="#Analysis\Strategy\ByImplemented.php"><i class="icon-file"></i> Analysis\Strategy\ByImplemented.php</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="#Command\TypeHintConfig.php"><i class="icon-file"></i> Command\TypeHintConfig.php</a></li>
+                                                                                                                                                        <li><a href="#Config\Helper.php"><i class="icon-file"></i> Config\Helper.php</a></li>
+                                                                                                                                                                                                                <li><a href="#Graph\Algorithm.php"><i class="icon-file"></i> Graph\Algorithm.php</a></li>
+                                                                                                                                                                                                                <li><a href="#Graph\Digraph.php"><i class="icon-file"></i> Graph\Digraph.php</a></li>
+                                                                                                                                                                                                                                                                        <li><a href="#Graph\PowerIteration.php"><i class="icon-file"></i> Graph\PowerIteration.php</a></li>
+                                                                                                                                                        <li><a href="#Graph\ReversedDigraph.php"><i class="icon-file"></i> Graph\ReversedDigraph.php</a></li>
+                                                                                                <li><a href="#Graph\Tarjan.php"><i class="icon-file"></i> Graph\Tarjan.php</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="#Plugin\About.php"><i class="icon-file"></i> Plugin\About.php</a></li>
+                                                                                                                                                        <li><a href="#Refactor\ContractorBuilder.php"><i class="icon-file"></i> Refactor\ContractorBuilder.php</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="#Transform\Format\Graphviz.php"><i class="icon-file"></i> Transform\Format\Graphviz.php</a></li>
+                                                                                                                                                                                                                <li><a href="#Transform\Format\Svg.php"><i class="icon-file"></i> Transform\Format\Svg.php</a></li>
+                                                                                                <li><a href="#Transform\Format\template-html.php"><i class="icon-file"></i> Transform\Format\template-html.php</a></li>
+                                                                                                                                                                                                                                                                                                                                                                                        <li><a href="#Transform\ReflectionContext.php"><i class="icon-file"></i> Transform\ReflectionContext.php</a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="#Transform\Vertex\MethodVertex.php"><i class="icon-file"></i> Transform\Vertex\MethodVertex.php</a></li>
+                                                                                                                                                                                                                <li><a href="#Transform\Vertex\TraitVertex.php"><i class="icon-file"></i> Transform\Vertex\TraitVertex.php</a></li>
+                                                                                                                                                        <li><a href="#Visitor\EdgeCollector.php"><i class="icon-file"></i> Visitor\EdgeCollector.php</a></li>
+                                                                                                <li><a href="#Visitor\FqcnHelper.php"><i class="icon-file"></i> Visitor\FqcnHelper.php</a></li>
+                                                                                                <li><a href="#Visitor\InterfaceExtractor.php"><i class="icon-file"></i> Visitor\InterfaceExtractor.php</a></li>
+                                                                                                                                                        <li><a href="#Visitor\NewInstanceRefactor.php"><i class="icon-file"></i> Visitor\NewInstanceRefactor.php</a></li>
+                                                                                                                                                                                                                <li><a href="#Visitor\PublicCollector.php"><i class="icon-file"></i> Visitor\PublicCollector.php</a></li>
+                                                                                                <li><a href="#Visitor\SymbolMap.php"><i class="icon-file"></i> Visitor\SymbolMap.php</a></li>
+                                                                                                <li><a href="#Visitor\VertexCollector.php"><i class="icon-file"></i> Visitor\VertexCollector.php</a></li>
+                                                                    </ul>
+        </div>
+
+        <div class="span10 offset2">
+
+            <ul class="breadcrumb">
+                <li><a href="../"><i class="icon-map-marker"></i></a><span class="divider">\</span></li>
+                <li>Markers</li>
+            </ul>
+
+            
+            <div id="marker-accordion">
+                                                                                                                                    <div class="package-contents">
+                            <a name="Analysis\Centrality.php" id="Analysis\Centrality.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Analysis\Centrality.php
+                                <small style="float: right;padding-right: 10px;">2</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>51</td>
+                                            <td>filtering only non-zero value</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>62</td>
+                                            <td>only the order is interesting, I&#039;m not Google</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                    <div class="package-contents">
+                            <a name="Analysis\CouplingMaker.php" id="Analysis\CouplingMaker.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Analysis\CouplingMaker.php
+                                <small style="float: right;padding-right: 10px;">6</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>31</td>
+                                            <td>we search for methods declared in interfaces</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>35</td>
+                                            <td>scan for all parameters</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>38</td>
+                                            <td>we find a param, we scan for type hint</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>41</td>
+                                            <td>we find a typed parameter with a class : evil</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>42</td>
+                                            <td>we add the shortcut path (skip the parameter, not relevant)</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>50</td>
+                                            <td>I love this ^o^</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Analysis\Cycle.php" id="Analysis\Cycle.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Analysis\Cycle.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>26</td>
+                                            <td>filter small cycle</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                        <div class="package-contents">
+                            <a name="Analysis\HiddenCoupling.php" id="Analysis\HiddenCoupling.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Analysis\HiddenCoupling.php
+                                <small style="float: right;padding-right: 10px;">3</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>56</td>
+                                            <td>en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>73</td>
+                                            <td>not found =&gt; hidden coupling :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>74</td>
+                                            <td>source is impl and target is method</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Analysis\LiskovSearch.php" id="Analysis\LiskovSearch.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Analysis\LiskovSearch.php
+                                <small style="float: right;padding-right: 10px;">7</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>29</td>
+                                            <td>for each class</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>32</td>
+                                            <td>we have a method first declared in a class</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>33</td>
+                                            <td>we search for calls to that method</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>40</td>
+                                            <td>we search for the owning class of that impl</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>44</td>
+                                            <td>we found the owning class vertex of $impl</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>45</td>
+                                            <td>add edges to reduced graph</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>55</td>
+                                            <td>arf</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                    <div class="package-contents">
+                            <a name="Analysis\Strategy\ByCalling.php" id="Analysis\Strategy\ByCalling.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Analysis\Strategy\ByCalling.php
+                                <small style="float: right;padding-right: 10px;">3</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>33</td>
+                                            <td>checking if the path go through a call before finding a class</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>38</td>
+                                            <td>since I build an arborescence on class</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>39</td>
+                                            <td>vertices, I stop on the first encountered class</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Analysis\Strategy\ByConnection.php" id="Analysis\Strategy\ByConnection.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Analysis\Strategy\ByConnection.php
+                                <small style="float: right;padding-right: 10px;">2</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>32</td>
+                                            <td>since I build an arborescence on class</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>33</td>
+                                            <td>vertices, I stop on the first encountered class</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Analysis\Strategy\ByImplemented.php" id="Analysis\Strategy\ByImplemented.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Analysis\Strategy\ByImplemented.php
+                                <small style="float: right;padding-right: 10px;">3</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>33</td>
+                                            <td>checking if the path go through on implementation</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>44</td>
+                                            <td>since I build an arborescence on class</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>45</td>
+                                            <td>vertices, I stop on the first encountered class</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="package-contents">
+                            <a name="Command\TypeHintConfig.php" id="Command\TypeHintConfig.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Command\TypeHintConfig.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>31</td>
+                                            <td>github.com/Trismegiste/Mondrian\n&quot;;</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                    <div class="package-contents">
+                            <a name="Config\Helper.php" id="Config\Helper.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Config\Helper.php
+                                <small style="float: right;padding-right: 10px;">5</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>32</td>
+                                            <td>load</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>34</td>
+                                            <td>all this stuff is not really necessary but this component is kewl</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>35</td>
+                                            <td>and I want to use it.</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>36</td>
+                                            <td>A better configuration handling =&gt; better programing</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>42</td>
+                                            <td>validates</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                        <div class="package-contents">
+                            <a name="Graph\Algorithm.php" id="Graph\Algorithm.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Graph\Algorithm.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>22</td>
+                                            <td>Make it abstract and use mockup to test it by Hell !</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                        <div class="package-contents">
+                            <a name="Graph\Digraph.php" id="Graph\Digraph.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Graph\Digraph.php
+                                <small style="float: right;padding-right: 10px;">5</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>43</td>
+                                            <td>if the vetex is already in the the adjacencies list, there is no</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>44</td>
+                                            <td>need to add it.</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>46</td>
+                                            <td>if it is not found, we add it (with empty edge list)</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>65</td>
+                                            <td>if there is not already a directed edge between those two vertices</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>66</td>
+                                            <td>we drop the stacking</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                                                            <div class="package-contents">
+                            <a name="Graph\PowerIteration.php" id="Graph\PowerIteration.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Graph\PowerIteration.php
+                                <small style="float: right;padding-right: 10px;">7</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>17</td>
+                                            <td>en.wikipedia.org/wiki/Power_iteration</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>28</td>
+                                            <td>en.wikipedia.org/wiki/Eigenvector_centrality#Eigenvector_centrality</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>52</td>
+                                            <td>result = M . approx</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>59</td>
+                                            <td>very suspicious</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>60</td>
+                                            <td>what if we invert $v and $succ, isn&#039;t the reversed digraph ?</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>63</td>
+                                            <td>calc the norm</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>71</td>
+                                            <td>normalize</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                    <div class="package-contents">
+                            <a name="Graph\ReversedDigraph.php" id="Graph\ReversedDigraph.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Graph\ReversedDigraph.php
+                                <small style="float: right;padding-right: 10px;">2</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>25</td>
+                                            <td>for isolated vertex :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>27</td>
+                                            <td>we reverse each edge :</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Graph\Tarjan.php" id="Graph\Tarjan.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Graph\Tarjan.php
+                                <small style="float: right;padding-right: 10px;">6</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>29</td>
+                                            <td>en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>32</td>
+                                            <td>code.google.com/p/jbpt/source/browse/trunk/jbpt-core/src/main/java/org/jbpt/algo/graph/StronglyConnectedComponents.java</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>58</td>
+                                            <td>Consider successors of v</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>61</td>
+                                            <td>Successor w has not yet been visited; recurse on it</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>65</td>
+                                            <td>Successor w is in stack S and hence in the current SCC</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>69</td>
+                                            <td>If v is a root node, pop the stack and generate an SCC</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                <div class="package-contents">
+                            <a name="Plugin\About.php" id="Plugin\About.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Plugin\About.php
+                                <small style="float: right;padding-right: 10px;">2</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>29</td>
+                                            <td>trismegiste.github.io/Mondrian/&#039;;</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>63</td>
+                                            <td>www.graphviz.org to know more</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                    <div class="package-contents">
+                            <a name="Refactor\ContractorBuilder.php" id="Refactor\ContractorBuilder.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Refactor\ContractorBuilder.php
+                                <small style="float: right;padding-right: 10px;">3</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>22</td>
+                                            <td>finds which class must be refactored (and add inheritance)</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>24</td>
+                                            <td>replaces the parameters types with the interface</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>26</td>
+                                            <td>creates the new interface file</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                                                                                                                                                                        <div class="package-contents">
+                            <a name="Transform\Format\Graphviz.php" id="Transform\Format\Graphviz.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Transform\Format\Graphviz.php
+                                <small style="float: right;padding-right: 10px;">3</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>29</td>
+                                            <td>add vertices</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>34</td>
+                                            <td>add edges</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>38</td>
+                                            <td>add cluster</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                        <div class="package-contents">
+                            <a name="Transform\Format\Svg.php" id="Transform\Format\Svg.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Transform\Format\Svg.php
+                                <small style="float: right;padding-right: 10px;">4</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>19</td>
+                                            <td>for all platforms</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>30</td>
+                                            <td>stdin is a pipe</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>31</td>
+                                            <td>stdout is a pipe</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>32</td>
+                                            <td>stderr is also a pipe</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Transform\Format\template-html.php" id="Transform\Format\template-html.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Transform\Format\template-html.php
+                                <small style="float: right;padding-right: 10px;">2</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>51</td>
+                                            <td>Per-type markers, as they don&#039;t inherit styles.</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>91</td>
+                                            <td>Use elliptical arc path segments to doubly-encode directionality.</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                                                                                                                                    <div class="package-contents">
+                            <a name="Transform\ReflectionContext.php" id="Transform\ReflectionContext.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Transform\ReflectionContext.php
+                                <small style="float: right;padding-right: 10px;">14</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>78</td>
+                                            <td>default declarer :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>86</td>
+                                            <td>higher parent ?</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>100</td>
+                                            <td>@todo recursion for use trait in trait</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>102</td>
+                                            <td>@todo for trait, we need a recursion</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>105</td>
+                                            <td>in fact this all method is a recursion with a getImportedMethod()</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>107</td>
+                                            <td>@todo alias ! Because of Alias, a trait does not own its</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>108</td>
+                                            <td>declaration. An existing trait in a class does not give</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>109</td>
+                                            <td>you any information about its contract since the class</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>110</td>
+                                            <td>could rename each trait&#039;s method</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>135</td>
+                                            <td>higher parent ?</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>155</td>
+                                            <td>this is a security since I&#039;m changing the API</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>234</td>
+                                            <td>class $classname is using the trait $fqcn, now</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>235</td>
+                                            <td>is the method first declared in this class ?</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>237</td>
+                                            <td>ok we can add $classname to the returned list</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                                                                                                <div class="package-contents">
+                            <a name="Transform\Vertex\MethodVertex.php" id="Transform\Vertex\MethodVertex.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Transform\Vertex\MethodVertex.php
+                                <small style="float: right;padding-right: 10px;">3</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>17</td>
+                                            <td>I didn&#039;t add the classname for 2 reasons : much clearer</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>18</td>
+                                            <td>and since there can be false positive on calls with same</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>19</td>
+                                            <td>name, adding the name can be more confusing</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                        <div class="package-contents">
+                            <a name="Transform\Vertex\TraitVertex.php" id="Transform\Vertex\TraitVertex.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Transform\Vertex\TraitVertex.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>19</td>
+                                            <td>because traits are in he same place as rainbow and unicorn : it&#039;s magic so: pentagon &amp; pink</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                    <div class="package-contents">
+                            <a name="Visitor\EdgeCollector.php" id="Visitor\EdgeCollector.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Visitor\EdgeCollector.php
+                                <small style="float: right;padding-right: 10px;">45</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>29</td>
+                                            <td>since we only track the public method, we check we are in :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>48</td>
+                                            <td>edge for use trait</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>114</td>
+                                            <td>managing params of the signature :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>116</td>
+                                            <td>adding edge from signature to param :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>119</td>
+                                            <td>now the type of the param :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>122</td>
+                                            <td>there is a type, we add a link to the type, if it is found</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>125</td>
+                                            <td>we add the edge</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>143</td>
+                                            <td>who is embedding the impl ?</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>149</td>
+                                            <td>in any case, we link the implementation to the params</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>151</td>
+                                            <td>adding edge from signature to param :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>153</td>
+                                            <td>it is possible to not find the param because the signature</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>154</td>
+                                            <td>is external to the source code :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>179</td>
+                                            <td>search for the declaring class of this method</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>182</td>
+                                            <td>if current class == declaring class, we add the edge</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>190</td>
+                                            <td>search for the declaring class of this method</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>193</td>
+                                            <td>if current class == declaring class, we add the edge</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>197</td>
+                                            <td>if not abstract, the implementation depends on the class.</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>198</td>
+                                            <td>For odd reason, a method in an interface is not abstract</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>199</td>
+                                            <td>that&#039;s why, there is a double check</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>207</td>
+                                            <td>edge between impl and trait :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>213</td>
+                                            <td>edges between impl towards param (with typed param)</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>215</td>
+                                            <td>adding edge from implementation to param :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>218</td>
+                                            <td>now the type of the param :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>221</td>
+                                            <td>there is a type, we add a link to the type, if it is found</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>224</td>
+                                            <td>we add the edge</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>230</td>
+                                            <td>edge between class vertex which using the trait and copy-pasted methods :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>233</td>
+                                            <td>we link the class and the signature</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>237</td>
+                                            <td>and copypasted signature to unique parameter</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>253</td>
+                                            <td>implements</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>269</td>
+                                            <td>extends</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>275</td>
+                                            <td>implements</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>318</td>
+                                            <td>skipping $this :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>320</td>
+                                            <td>nothing to call</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>323</td>
+                                            <td>checking if the called is a method param</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>333</td>
+                                            <td>is it a typed param ?</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>336</td>
+                                            <td>we check if it is an outer class or not : is it known ?</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>345</td>
+                                            <td>can&#039;t see shit captain</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>361</td>
+                                            <td>skipping some obvious calls :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>363</td>
+                                            <td>searching a candidate for $called::$method</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>364</td>
+                                            <td>I think there is a chain of responsibility beneath that :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>367</td>
+                                            <td>fallback : link to every methods with the same name :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>371</td>
+                                            <td>store the fallback for futher report</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>378</td>
+                                            <td>fallback or not, we exclude calls from annotations</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>421</td>
+                                            <td>it&#039;s possible to not find a trait if it is from an external library for example</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>422</td>
+                                            <td>or could be dead code too</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Visitor\FqcnHelper.php" id="Visitor\FqcnHelper.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Visitor\FqcnHelper.php
+                                <small style="float: right;padding-right: 10px;">6</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>36</td>
+                                            <td>if the visitor is used without PhpFile nodes</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>48</td>
+                                            <td>resetting the tracking of namespace and alias if we enter in a new file</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>80</td>
+                                            <td>don&#039;t resolve special class names</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>85</td>
+                                            <td>fully qualified names are already resolved</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>90</td>
+                                            <td>resolve aliases (for non-relative names)</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>93</td>
+                                            <td>if no alias exists prepend current namespace</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Visitor\InterfaceExtractor.php" id="Visitor\InterfaceExtractor.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Visitor\InterfaceExtractor.php
+                                <small style="float: right;padding-right: 10px;">3</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>19</td>
+                                            <td>a list of PhpFile</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>20</td>
+                                            <td>a temporary stack of methods for the currently new interface</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>101</td>
+                                            <td>I filter only good relevant methods (no __construct, __clone, __invoke ...)</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                    <div class="package-contents">
+                            <a name="Visitor\NewInstanceRefactor.php" id="Visitor\NewInstanceRefactor.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Visitor\NewInstanceRefactor.php
+                                <small style="float: right;padding-right: 10px;">4</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>56</td>
+                                            <td>generate</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>122</td>
+                                            <td>to prevent cloning in Traverser (workaround) :</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>139</td>
+                                            <td>only refactor a method if it contains more than 1 statements (would be pointless otherwise, IMO)</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>159</td>
+                                            <td>@todo creating a new protected factory for a trait makes sense</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                                                                                        <div class="package-contents">
+                            <a name="Visitor\PublicCollector.php" id="Visitor\PublicCollector.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Visitor\PublicCollector.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>131</td>
+                                            <td>if there are annotations, we add them to the node</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Visitor\SymbolMap.php" id="Visitor\SymbolMap.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Visitor\SymbolMap.php
+                                <small style="float: right;padding-right: 10px;">4</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>52</td>
+                                            <td>extends</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>58</td>
+                                            <td>implements</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>72</td>
+                                            <td>extends</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>103</td>
+                                            <td>@todo do not forget aliases</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Visitor\VertexCollector.php" id="Visitor\VertexCollector.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Visitor\VertexCollector.php
+                                <small style="float: right;padding-right: 10px;">10</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>59</td>
+                                            <td>create implemenation node</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>60</td>
+                                            <td>if not abstract we add the vertex for the implementation</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>65</td>
+                                            <td>push param for implementation</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>71</td>
+                                            <td>copy paste this signature in every class which use this current trait</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>72</td>
+                                            <td>Anyway we check if there is no other parent which declaring first this method</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>75</td>
+                                            <td>we copy-paste the signature declaration in the class which using the current trait</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>87</td>
+                                            <td>if this class is declaring the method, we create a vertex for this signature</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>93</td>
+                                            <td>if not abstract we add the vertex for the implementation</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>101</td>
+                                            <td>if this interface is declaring the method, we create a vertex for this signature</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>123</td>
+                                            <td>now param</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                </div>
+        </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Trismegiste.html">\Trismegiste</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on September 13th, 2014 at 18:08.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
