@@ -77,6 +77,14 @@ rankdir=TB;
 }
 
 { rank=same;
+    owning3;
+    TraitImpl [fixedsize="1", width="2", height="2", shape="pentagon", style="filled", color="hotpink"];
+    traitDoSomething [fixedsize="1", width="2", height="2", shape="rectangle", style="filled", label="doSomething"];
+    "The trait TraitImpl is owning doSomething() method" [shape=plaintext];
+    TraitImpl -> traitDoSomething [label="owns"];
+}
+
+{ rank=same;
     depend1;
     enterNode [fixedsize="1", width="2", height="2", shape="rectangle", style="filled", label="Visitor\nenterNode"];
     Visitor [fixedsize="1", width="2", height="2", shape="circle", style="filled", color="red"];
@@ -101,6 +109,14 @@ rankdir=TB;
 }
 
 { rank=same;
+    depend4;
+    getSize [fixedsize="1", width="2", height="2", shape="rectangle", style="filled", label="getSize"];
+    Image [fixedsize="1", width="2", height="2", shape="pentagon", style="filled", color="hotpink"];
+    "The implementation getSize() \ndepends on Image trait" [shape=plaintext];
+    getSize -> Image [label="depends"];
+}
+
+{ rank=same;
     calling;
     facade [fixedsize="1", width="2", height="2", shape="rectangle", style="filled", label="Facade\ndoRun"];
     delegate [fixedsize="1", width="2", height="2", shape="triangle", style="filled", color="yellow"];
@@ -109,7 +125,7 @@ rankdir=TB;
 }
 
 { rank=same;
-    owning3;
+    owning4;
     doMapping [fixedsize="1", width="2", height="2", shape="triangle", style="filled", color="yellow"];
     Param1 [fixedsize="1", width="2", height="2", shape="diamond", style="filled", color="cyan", label="0"];
     "The method doMapping() has a parameter #0" [shape=plaintext];
@@ -136,7 +152,7 @@ rankdir=TB;
 edge [style=invis];
 vocabulary ->
 inheritance -> implementing -> extending -> using1 -> declaring1  -> declaring2 ->
-owning1 -> owning2 -> depend1 -> depend2 -> depend3 -> calling ->
-owning3 -> typehint1 -> typehint2 ;
+owning1 -> owning2 -> owning3 -> depend1 -> depend2 -> depend3 -> depend4 -> calling ->
+owning4 -> typehint1 -> typehint2 ;
 
 };
