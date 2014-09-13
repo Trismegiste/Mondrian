@@ -9,6 +9,7 @@ rankdir=TB;
     "2" [fixedsize="1", width="2", height="2", shape="diamond", style="filled", color="cyan", label="Parameter\nindex"];
     "3" [fixedsize="1", width="2", height="2", shape="rectangle", style="filled", label="a method\nImplementation"];
     "5" [fixedsize="1", width="2", height="2", shape="invtriangle", style="filled", color="green", label="Short namespace\nInterface name"];
+    "6" [fixedsize="1", width="2", height="2", shape="pentagon", style="filled", color="hotpink", label="Short namespace\nTrait name"];
 }
 
 {  rank=same;
@@ -33,6 +34,14 @@ rankdir=TB;
     InterfaceA [fixedsize="1", width="2", height="2", shape="invtriangle", style="filled", color="green"];
     "The interface InterfaceB extends the interface InterfaceA" [shape=plaintext];
     InterfaceB -> InterfaceA [label="extends"];
+}
+
+{ rank=same;
+    using1;
+    ClassA [fixedsize="1", width="2", height="2", shape="circle", style="filled", color="red"];
+    TraitA [fixedsize="1", width="2", height="2", shape="pentagon", style="filled", color="hotpink"];
+    "The class ClassA uses the trait TraitA" [shape=plaintext];
+    ClassA -> TraitA [label="use"];
 }
 
 { rank=same;
@@ -126,7 +135,7 @@ rankdir=TB;
 
 edge [style=invis];
 vocabulary ->
-inheritance -> implementing -> extending -> declaring1  -> declaring2 ->
+inheritance -> implementing -> extending -> using1 -> declaring1  -> declaring2 ->
 owning1 -> owning2 -> depend1 -> depend2 -> depend3 -> calling ->
 owning3 -> typehint1 -> typehint2 ;
 
