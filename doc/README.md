@@ -37,6 +37,8 @@ to confuse with edges representing new instantiations.
 ### Abstract parameters
 Parameters have no name because subclasses can change them, that's why I only keep their indices.
 
-### Trait
-Well, I don't care about Trait but I think I'll do in the future. Since a trait don't change the type
-of a class, it is as if methods are copy-pasted.
+### About traits
+A trait is not a type, that's why there is no method signature (the yellow triangle).
+A class using a trait could redefine any signature, change the visibility.
+It feels like methods from trait are just copy-pasted in the class which uses the trait.
+
