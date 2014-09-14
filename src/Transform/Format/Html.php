@@ -6,8 +6,6 @@
 
 namespace Trismegiste\Mondrian\Transform\Format;
 
-use Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis;
-
 /**
  * Html is an exporter to Html + Json + d3.js format 
  * 
@@ -18,10 +16,11 @@ class Html extends Json
 
     public function export()
     {
-        ob_start();
-        require(__DIR__ . '/template-html.php');
+        $d3js = file_get_contents(__DIR__ . '/d3.min.js');
+        $template = file_get_contents(__DIR__ . '/template.html');
+        $graph = parent::export();
 
-        return ob_get_clean();
+        return str_replace(['__D3JS__', '__GRAPH__'], [$d3js, $graph], $template);
     }
 
 }

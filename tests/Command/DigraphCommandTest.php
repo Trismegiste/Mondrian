@@ -7,8 +7,6 @@
 namespace Trismegiste\Mondrian\Tests\Command;
 
 use Trismegiste\Mondrian\Command\DigraphCommand;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * DigraphCommandTest is a unit test for DigraphCommand

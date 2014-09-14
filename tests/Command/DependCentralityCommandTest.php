@@ -7,8 +7,6 @@
 namespace Trismegiste\Mondrian\Tests\Command;
 
 use Trismegiste\Mondrian\Command\DependCentralityCommand;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * DependCentralityCommandTest is a unit test for DependCentralityCommand

@@ -33,9 +33,9 @@
     </svg>
     <script>
         
-        <?php echo file_get_contents(__DIR__ . '/d3.min.js'); ?>
+        __D3JS__;
 
-        var graph = <?php echo parent::export() ?>;
+        var graph = __GRAPH__;
 
         var force = d3.layout.force()
                 .nodes(d3.values(graph.nodes))
