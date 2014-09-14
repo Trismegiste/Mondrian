@@ -10,6 +10,7 @@ use Trismegiste\Mondrian\Visitor\SymbolMap\Collector;
 use Trismegiste\Mondrian\Transform\ReflectionContext;
 use Trismegiste\Mondrian\Parser\PackageParser;
 use Symfony\Component\Finder\SplFileInfo;
+use Trismegiste\Mondrian\Tests\Fixtures\MockSplFileInfo;
 
 /**
  * CollectorTest is a test for the visitor SymbolMap\Collector
@@ -36,12 +37,24 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
         $this->traverser->addVisitor($this->visitor);
     }
 
-    public function testSimpleCase()
+    protected function scanFile($fixtures)
     {
-        $iter = array(new SplFileInfo(__DIR__ . '/../../Fixtures/Project/Concrete.php', '/../../Fixtures/Project/', 'Concrete.php'));
+        $iter = [];
+
+        foreach ($fixtures as $fch) {
+            $path = __DIR__ . '/../../Fixtures/Project/' . $fch;
+            $code = file_get_contents($path);
+            $iter[] = new MockSplFileInfo($path, $code);
+        }
+
         $stmts = $this->parser->parse(new \ArrayIterator($iter));
         $this->traverser->traverse($stmts);
         $this->visitor->afterTraverse(array());
+    }
+
+    public function testSimpleCase()
+    {
+        $this->scanFile(['Concrete.php']);
 
         $this->assertAttributeEquals(array(
             'Project\\Concrete' => array(
