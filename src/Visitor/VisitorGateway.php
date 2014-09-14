@@ -12,7 +12,7 @@ use PhpParser\Node;
 /**
  * VisitorGateway is a state pattern for multiple visitors
  */
-class VisitorGateway extends NodeVisitorAbstract
+class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
 {
 
     /**
