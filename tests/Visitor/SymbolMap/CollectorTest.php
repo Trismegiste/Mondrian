@@ -66,4 +66,115 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
                 ), 'inheritanceMap', $this->context);
     }
 
+    public function testExternalInterfaceInheritance()
+    {
+        $this->scanFile(['InheritExtra.php']);
+
+        $this->assertAttributeEquals(array(
+            'Project\\InheritExtra' => array(
+                'type' => 'c',
+                'parent' => array(0 => 'IteratorAggregate'),
+                'method' => array('getIterator' => 'IteratorAggregate'),
+                'use' => []
+            ),
+            'IteratorAggregate' => array(
+                'type' => 'i',
+                'parent' => array(),
+                'method' => array(),
+                'use' => []
+            ),
+                ), 'inheritanceMap', $this->context);
+    }
+
+    public function testAliasing()
+    {
+        $this->scanFile(['Alias1.php', 'Alias2.php']);
+
+        $this->assertAttributeEquals(array(
+            'Project\\Aliasing' => array(
+                'type' => 'c',
+                'parent' => array('Project\Maid', 'Project\Peril'),
+                'method' => array('spokes' => 'Project\\Aliasing'),
+                'use' => []
+            ),
+            'Project\Maid' => array(
+                'type' => 'c',
+                'parent' => array(),
+                'method' => array(),
+                'use' => []
+            ),
+            'Project\Peril' => array(
+                'type' => 'i',
+                'parent' => array(),
+                'method' => array(),
+                'use' => []
+            )
+                ), 'inheritanceMap', $this->context);
+    }
+
+    public function testSimpleTrait()
+    {
+        $this->scanFile(['SimpleTrait.php']);
+
+        $this->assertAttributeEquals(array(
+            'Project\\SimpleTrait' => array(
+                'type' => 't',
+                'parent' => [],
+                'method' => ['someService' => 'Project\\SimpleTrait'],
+                'use' => []
+            )
+                ), 'inheritanceMap', $this->context);
+    }
+
+    public function testImportingMethodFromTrait()
+    {
+        $this->scanFile([
+            'ServiceWrong.php',
+            'ServiceTrait.php'
+        ]);
+
+        $this->assertAttributeEquals(array(
+            'Project\\ServiceWrong' => array(
+                'type' => 'c',
+                'parent' => [],
+                'method' => array('someService' => 'Project\\ServiceWrong'),
+                'use' => ['Project\\ServiceTrait']
+            ),
+            'Project\\ServiceTrait' => array(
+                'type' => 't',
+                'parent' => [],
+                'method' => array('someService' => 'Project\\ServiceTrait'),
+                'use' => []
+            )), 'inheritanceMap', $this->context);
+    }
+
+    public function testImportingMethodFromTraitWithInterfaceCollision()
+    {
+        $this->scanFile([
+            'ServiceRight.php',
+            'ServiceTrait.php',
+            'ServiceInterface.php'
+        ]);
+
+        $this->assertAttributeEquals(array(
+            'Project\\ServiceRight' => array(
+                'type' => 'c',
+                'parent' => ['Project\\ServiceInterface'],
+                'method' => array('someService' => 'Project\\ServiceInterface'),
+                'use' => ['Project\\ServiceTrait']
+            ),
+            'Project\\ServiceInterface' => array(
+                'type' => 'i',
+                'parent' => [],
+                'method' => array('someService' => 'Project\\ServiceInterface'),
+                'use' => []
+            ),
+            'Project\\ServiceTrait' => array(
+                'type' => 't',
+                'parent' => [],
+                'method' => array('someService' => 'Project\\ServiceTrait'),
+                'use' => []
+            )), 'inheritanceMap', $this->context);
+    }
+
 }

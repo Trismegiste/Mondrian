@@ -10,9 +10,9 @@ use PhpParser\Node;
 use Trismegiste\Mondrian\Transform\ReflectionContext;
 
 /**
- * ClassLevel is ...
+ * TraitLevel is ...
  */
-class ClassLevel extends AbstractState
+class TraitLevel extends AbstractState
 {
 
     public function enter(Node $node)
@@ -25,7 +25,7 @@ class ClassLevel extends AbstractState
 
             case 'Stmt_ClassMethod':
                 if ($node->type === Node\Stmt\Class_::MODIFIER_PUBLIC) {
-                    $classNode = $this->context->getNodeFor('class');
+                    $classNode = $this->context->getNodeFor('trait');
                     $fileState = $this->context->getState('file');
                     $fqcn = $fileState->getNamespacedName($classNode);
                     $this->context->getReflectionContext()->addMethodToClass($fqcn, $node->name);
@@ -36,7 +36,7 @@ class ClassLevel extends AbstractState
 
     protected function importSignatureTrait(Node\Stmt\TraitUse $node)
     {
-        $classNode = $this->context->getNodeFor('class');
+        $classNode = $this->context->getNodeFor('trait');
         $fileState = $this->context->getState('file');
         $fqcn = $fileState->getNamespacedName($classNode);
         // @todo do not forget aliases
@@ -49,7 +49,7 @@ class ClassLevel extends AbstractState
 
     public function getName()
     {
-        return 'class';
+        return 'trait';
     }
 
 }
