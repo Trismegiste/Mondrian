@@ -6,6 +6,8 @@
 
 namespace Trismegiste\Mondrian\Visitor\State;
 
+use PhpParser\Node;
+
 /**
  * AbstractState is a abstract state
  */

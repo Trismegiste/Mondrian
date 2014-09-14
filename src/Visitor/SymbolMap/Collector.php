@@ -30,7 +30,7 @@ class Collector extends VisitorGateway
 
     public function afterTraverse(array $dummy)
     {
-        $this->context->resolveSymbol();
+        $this->reflectionCtx->resolveSymbol();
     }
 
 }
