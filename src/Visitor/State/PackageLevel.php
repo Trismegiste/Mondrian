@@ -28,9 +28,4 @@ class PackageLevel extends AbstractState
         return 'package';
     }
 
-    public function leave(Node $node)
-    {
-        
-    }
-
 }

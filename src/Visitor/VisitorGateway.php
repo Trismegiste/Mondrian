@@ -8,6 +8,10 @@ namespace Trismegiste\Mondrian\Visitor;
 
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Node;
+use Trismegiste\Mondrian\Transform\ReflectionContext;
+use Trismegiste\Mondrian\Transform\GraphContext;
+use Trismegiste\Mondrian\Graph\Vertex;
+use Trismegiste\Mondrian\Graph\Graph;
 
 /**
  * VisitorGateway is a multiple patterns for chaining visitors
@@ -26,14 +30,21 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
      * @var array $stateStack Stack of previous state
      */
     protected $stateStack;
+    protected $reflectionCtx;
+    protected $graphCtx;
+    protected $graph;
 
     /**
      * Ctor
      * 
-     * @param array $visitor a typelist PHPParser_Node => VisitorState
+     * @param array $visitor a list of State
      */
-    public function __construct(array $visitor)
+    public function __construct(array $visitor, ReflectionContext $ref, GraphContext $grf, Graph $g)
     {
+        $this->graphCtx = $grf;
+        $this->graph = $g;
+        $this->reflectionCtx = $ref;
+
         foreach ($visitor as $k => $v) {
             if (!($v instanceof State\State)) {
                 throw new \InvalidArgumentException("Invalid visitor for index $k");
@@ -77,10 +88,8 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
 
     public function pushState($stateKey, Node $node)
     {
-        if (!array_key_exists($stateKey, $this->stateList)) {
-            throw new \InvalidArgumentException("$stateKey is not a registered state");
-        }
-        $this->stateStack[$node] = $this->stateList[$stateKey];
+        $state = $this->getState($stateKey);
+        $this->stateStack[$node] = $state;
     }
 
     public function getNodeFor($stateKey)
@@ -91,6 +100,30 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
                 return $node;
             }
         }
+    }
+
+    public function getState($stateKey)
+    {
+        if (!array_key_exists($stateKey, $this->stateList)) {
+            throw new \InvalidArgumentException("$stateKey is not a registered state");
+        }
+
+        return $this->stateList[$stateKey];
+    }
+
+    public function getGraph()
+    {
+        return $this->graph;
+    }
+
+    public function getGraphContext()
+    {
+        return $this->graphCtx;
+    }
+
+    public function getReflectionContext()
+    {
+        return $this->reflectionCtx;
     }
 
 }

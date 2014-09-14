@@ -24,4 +24,12 @@ interface VisitorContext
     public function pushState($stateKey, Node $node);
 
     public function getNodeFor($stateKey);
+
+    public function getState($stateKey);
+
+    public function getReflectionContext();
+
+    public function getGraphContext();
+
+    public function getGraph();
 }

@@ -20,4 +20,9 @@ abstract class AbstractState implements State
         $this->context = $ctx;
     }
 
+    public function leave(Node $node)
+    {
+        
+    }
+
 }

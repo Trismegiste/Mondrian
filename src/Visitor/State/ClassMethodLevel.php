@@ -31,9 +31,4 @@ class ClassMethodLevel extends AbstractState
         return 'class-method';
     }
 
-    public function leave(Node $node)
-    {
-        
-    }
-
 }

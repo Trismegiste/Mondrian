@@ -17,6 +17,11 @@ class ClassLevel extends AbstractState
     public function enter(Node $node)
     {
         switch ($node->getType()) {
+
+            case 'Stmt_TraitUse' :
+                $this->importSignatureTrait($node);
+                break;
+
             case 'Stmt_ClassMethod':
                 if ($node->type === Node\Stmt\Class_::MODIFIER_PUBLIC) {
                     $this->context->pushState('class-method', $node);
@@ -28,11 +33,6 @@ class ClassLevel extends AbstractState
     public function getName()
     {
         return 'class';
-    }
-
-    public function leave(Node $node)
-    {
-        
     }
 
 }
