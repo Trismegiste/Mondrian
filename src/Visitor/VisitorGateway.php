@@ -10,7 +10,9 @@ use PhpParser\NodeVisitorAbstract;
 use PhpParser\Node;
 
 /**
- * VisitorGateway is a state pattern for multiple visitors
+ * VisitorGateway is a multiple patterns for chaining visitors
+ * 
+ * CoR / State / Visitor
  */
 class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
 {
@@ -60,7 +62,7 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
     /**
      * @inheritdoc
      */
-    public function leaveNode(\PhpParser\Node $node)
+    public function leaveNode(Node $node)
     {
         foreach ($this->stateStack as $keyNode) {
             $v = $this->stateStack->getInfo();
@@ -76,11 +78,19 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
     public function pushState($stateKey, Node $node)
     {
         if (!array_key_exists($stateKey, $this->stateList)) {
-            throw new \InvalidArgumentException("$stateKey is not registered state");
+            throw new \InvalidArgumentException("$stateKey is not a registered state");
         }
-        $v = $this->stateList[$stateKey];
+        $this->stateStack[$node] = $this->stateList[$stateKey];
+    }
 
-        $this->stateStack[$node] = $v;
+    public function getNodeFor($stateKey)
+    {
+        foreach ($this->stateStack as $node) {
+            $v = $this->stateStack->getInfo();
+            if ($stateKey === $v->getName()) {
+                return $node;
+            }
+        }
     }
 
 }
