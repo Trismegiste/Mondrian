@@ -54,6 +54,7 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
         }
 
         $this->stateStack = new \SplObjectStorage();
+        $this->stateStack->attach('start', $visitor[0]);
     }
 
     /**

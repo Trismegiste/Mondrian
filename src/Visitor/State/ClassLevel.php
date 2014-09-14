@@ -24,9 +24,25 @@ class ClassLevel extends AbstractState
 
             case 'Stmt_ClassMethod':
                 if ($node->type === Node\Stmt\Class_::MODIFIER_PUBLIC) {
-                    $this->context->pushState('class-method', $node);
+                    $classNode = $this->context->getNodeFor('class');
+                    $fileState = $this->context->getState('file');
+                    $fqcn = $fileState->getNamespacedName($classNode);
+                    $this->context->getReflectionContext()->addMethodToClass($fqcn, $node->name);
                 }
                 break;
+        }
+    }
+
+    protected function importSignatureTrait(Node\Stmt\TraitUse $node)
+    {
+        $classNode = $this->context->getNodeFor('class');
+        $fileState = $this->context->getState('file');
+        $fqcn = $fileState->getNamespacedName($classNode);
+        // @todo do not forget aliases
+        foreach ($node->traits as $import) {
+            $name = (string) $stateFile->resolveClassName($import);
+            $this->context->getReflectionContext()->initSymbol($name, ReflectionContext::SYMBOL_TRAIT);
+            $this->context->getReflectionContext()->pushUseTrait($fqcn, $name);
         }
     }
 
