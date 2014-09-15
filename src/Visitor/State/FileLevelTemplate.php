@@ -7,7 +7,6 @@
 namespace Trismegiste\Mondrian\Visitor\State;
 
 use PhpParser\Node;
-use Trismegiste\Mondrian\Transform\ReflectionContext;
 
 /**
  * FileLevelTemplate is Template Method DP for a FileLevel state
@@ -66,9 +65,9 @@ abstract class FileLevelTemplate extends AbstractState
 
     abstract protected function enterClassNode(Node\Stmt\Class_ $node);
 
-    abstract protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node);
+    abstract protected function enterInterfaceNode(Node\Stmt\Interface_ $node);
 
-    abstract protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node);
+    abstract protected function enterTraitNode(Node\Stmt\Trait_ $node);
 
     public function getName()
     {

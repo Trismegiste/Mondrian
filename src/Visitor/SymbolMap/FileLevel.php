@@ -7,7 +7,6 @@
 namespace Trismegiste\Mondrian\Visitor\SymbolMap;
 
 use PhpParser\Node;
-use Trismegiste\Mondrian\Transform\ReflectionContext;
 use Trismegiste\Mondrian\Visitor\State\FileLevelTemplate;
 
 /**
@@ -34,7 +33,7 @@ class FileLevel extends FileLevelTemplate
         }
     }
 
-    protected function enterInterfaceNode(\PHPParser_Node_Stmt_Interface $node)
+    protected function enterInterfaceNode(Node\Stmt\Interface_ $node)
     {
         $fqcn = $this->getNamespacedName($node);
         $this->getReflectionContext()->initInterface($fqcn);
@@ -46,7 +45,7 @@ class FileLevel extends FileLevelTemplate
         }
     }
 
-    protected function enterTraitNode(\PHPParser_Node_Stmt_Trait $node)
+    protected function enterTraitNode(Node\Stmt\Trait_ $node)
     {
         $fqcn = $this->getNamespacedName($node);
         $this->getReflectionContext()->initTrait($fqcn);

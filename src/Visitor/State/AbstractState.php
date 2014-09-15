@@ -27,9 +27,28 @@ abstract class AbstractState implements State
         
     }
 
+    /**
+     * @return \Trismegiste\Mondrian\Transform\ReflectionContext
+     */
     protected function getReflectionContext()
     {
         return $this->context->getReflectionContext();
+    }
+
+    /**
+     * @return \Trismegiste\Mondrian\Transform\GraphContext
+     */
+    protected function getGraphContext()
+    {
+        return $this->context->getGraphContext();
+    }
+
+    /**
+     * @return \Trismegiste\Mondrian\Graph\Graph
+     */
+    protected function getGraph()
+    {
+        return $this->context->getGraph();
     }
 
 }

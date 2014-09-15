@@ -108,7 +108,8 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
                 return $assoc['node'];
             }
         }
-        throw new \InvalidArgumentException("$stateKey is not a current stacked state");
+
+        throw new \InvalidArgumentException("$stateKey is not a currently stacked state");
     }
 
     public function getState($stateKey)
