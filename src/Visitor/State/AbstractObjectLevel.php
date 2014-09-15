@@ -7,9 +7,9 @@
 namespace Trismegiste\Mondrian\Visitor\State;
 
 /**
- * ObjectLevel is a helper for class/trait/interface level state
+ * AbstractObjectLevel is a helper for class/trait/interface level state
  */
-abstract class ObjectLevel extends AbstractState
+abstract class AbstractObjectLevel extends AbstractState
 {
 
     protected function getCurrentFqcn()

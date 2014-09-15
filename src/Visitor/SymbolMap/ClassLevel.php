@@ -4,7 +4,7 @@
  * Mondrian
  */
 
-namespace Trismegiste\Mondrian\Visitor\State;
+namespace Trismegiste\Mondrian\Visitor\SymbolMap;
 
 use PhpParser\Node;
 

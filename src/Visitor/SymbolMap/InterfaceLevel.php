@@ -4,14 +4,15 @@
  * Mondrian
  */
 
-namespace Trismegiste\Mondrian\Visitor\State;
+namespace Trismegiste\Mondrian\Visitor\SymbolMap;
 
 use PhpParser\Node;
+use Trismegiste\Mondrian\Visitor\State\AbstractObjectLevel;
 
 /**
  * InterfaceLevel is ...
  */
-class InterfaceLevel extends ObjectLevel
+class InterfaceLevel extends AbstractObjectLevel
 {
 
     public function enter(Node $node)
