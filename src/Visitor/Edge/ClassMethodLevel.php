@@ -155,4 +155,34 @@ class ClassMethodLevel extends MethodLevelHelper
         return null;
     }
 
+    /**
+     * Visits a "new" statement node
+     *
+     * Add an edge from current implementation to the class which a new instance
+     * is created
+     *
+     * @param \PHPParser_Node_Expr_New $node
+     */
+    protected function enterNewInstance(Node\Expr\New_ $node)
+    {
+        if ($node->class instanceof Node\Name) {
+            $classVertex = $this->findVertex('class', (string) $this->fileState->resolveClassName($node->class));
+            if (!is_null($classVertex)) {
+                $impl = $this->findVertex('impl', $this->currentFqcn . '::' . $this->currentMethodNode->name);
+                $this->getGraph()->addEdge($impl, $classVertex);
+            }
+        }
+    }
+
+    protected function enterStaticCall(Node\Expr\StaticCall $node)
+    {
+        if (($node->class instanceof Node\Name) && is_string($node->name)) {
+            $impl = $this->findVertex('impl', $this->currentFqcn . '::' . $this->currentMethodNode->name);
+            $target = $this->findVertex('method', (string) $this->fileState->resolveClassName($node->class) . '::' . $node->name);
+            if (!is_null($target)) {
+                $this->getGraph()->addEdge($impl, $target);
+            }
+        }
+    }
+
 }

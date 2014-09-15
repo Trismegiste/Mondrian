@@ -55,8 +55,8 @@ class MinimalGraphTest extends GraphBuilderTestCase
                                         ->setTypeHint('Cfg'))))
                 ->getNode();
 
-        $this->expectsAddEdge(7, 'param', 'Project\Service::run/0', 'class', 'Project\Cfg');
-        $this->expectsAddEdge(10, 'impl', 'Project\Service::run', 'param', 'Project\Service::run/0');
+        $this->expectsAddEdge(10, 'param', 'Project\Service::run/0', 'class', 'Project\Cfg');
+        $this->expectsAddEdge(8, 'impl', 'Project\Service::run', 'param', 'Project\Service::run/0');
         $this->compile($pack);
     }
 

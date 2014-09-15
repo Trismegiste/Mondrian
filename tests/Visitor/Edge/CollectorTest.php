@@ -311,7 +311,7 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
      * Test for :
      *  * S -> C
      */
-    public function no_testNewInstance()
+    public function testNewInstance()
     {
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
@@ -360,7 +360,7 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
     /**
      * Test static call S -> M
      */
-    public function no_testStaticCall()
+    public function testStaticCall()
     {
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');

@@ -56,8 +56,8 @@ class ConcreteTest extends GraphBuilderTestCase
 
         $this->graph->expects($this->exactly(6))->method('addEdge');
         $this->expectsAddEdge(5, 'class', 'Kitty\Soft', 'class', 'Kitty\Warm');
-        $this->expectsAddEdge(6, 'impl', 'Kitty\Soft::purr', 'class', 'Kitty\Soft');
-        $this->expectsAddEdge(7, 'class', 'Kitty\Soft', 'impl', 'Kitty\Soft::purr');
+        $this->expectsAddEdge(6, 'class', 'Kitty\Soft', 'impl', 'Kitty\Soft::purr');
+        $this->expectsAddEdge(7, 'impl', 'Kitty\Soft::purr', 'class', 'Kitty\Soft');
 
         $this->compile($package);
     }
