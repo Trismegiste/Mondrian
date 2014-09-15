@@ -21,7 +21,7 @@ class InterfaceLevel extends ObjectLevel
             case 'Stmt_ClassMethod':
                 if ($node->isPublic()) {
                     $fqcn = $this->getCurrentFqcn();
-                    $this->context->getReflectionContext()->addMethodToClass($fqcn, $node->name);
+                    $this->getReflectionContext()->addMethodToClass($fqcn, $node->name);
                 }
                 break;
         }

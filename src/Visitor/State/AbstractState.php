@@ -27,4 +27,9 @@ abstract class AbstractState implements State
         
     }
 
+    protected function getReflectionContext()
+    {
+        return $this->context->getReflectionContext();
+    }
+
 }
