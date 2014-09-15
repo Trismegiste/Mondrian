@@ -24,7 +24,8 @@ class Collector extends VisitorGateway
             new FileLevel(),
             new ClassLevel(),
             new InterfaceLevel(),
-            new TraitLevel()
+            new TraitLevel(),
+            new ClassMethodLevel()
         ];
 
         parent::__construct($visitor, $ref, $grf, $g);

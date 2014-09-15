@@ -330,7 +330,7 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
      * Test for :
      *  * S -> M
      */
-    public function no_testSimpleCallFallback()
+    public function testSimpleCallFallback()
     {
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');

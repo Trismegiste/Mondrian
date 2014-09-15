@@ -7,7 +7,6 @@
 namespace Trismegiste\Mondrian\Visitor\Edge;
 
 use PhpParser\Node\Stmt;
-use Trismegiste\Mondrian\Transform\Vertex\MethodVertex;
 
 /**
  * ClassLevel is ...
@@ -21,7 +20,7 @@ class ClassLevel extends TraitUserHelper
 
             case 'Stmt_ClassMethod':
                 if ($node->isPublic()) {
-//                    $this->context->pushState('class-method', $node);
+                    $this->context->pushState('class-method', $node);
                     $this->enterPublicMethod($node);
                 }
                 break;
