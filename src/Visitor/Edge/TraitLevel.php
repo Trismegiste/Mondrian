@@ -54,7 +54,7 @@ class TraitLevel extends TraitUserHelper
             $paramVertex = $this->findVertex('param', "$currentFqcn::$methodName/$idx");
             $this->getGraph()->addEdge($implVertex, $paramVertex);
             // now the type of the param :
-            $this->typeHintParam($param, $implVertex);
+            $this->typeHintParam($param, $paramVertex);
         }
 
         // edge between class vertex which using the trait and copy-pasted methods :
