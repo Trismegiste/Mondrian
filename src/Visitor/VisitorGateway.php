@@ -29,7 +29,7 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
     /**
      * @var array $stateStack Stack of previous state
      */
-    protected $stateStack;
+    protected $stateStack = [];
     protected $reflectionCtx;
     protected $graphCtx;
     protected $graph;
@@ -53,8 +53,11 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
             $this->stateList[$v->getName()] = $v;
         }
 
-        $this->stateStack = new \SplObjectStorage();
-        $this->stateStack->attach(new \stdClass(), $visitor[0]);
+        $this->stateStack[0] = [
+            'node' => null,
+            'state' => $visitor[0],
+            'key' => $visitor[0]->getName()
+        ];
     }
 
     /**
@@ -62,13 +65,8 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
      */
     public function enterNode(Node $node)
     {
-        foreach ($this->stateStack as $keyNode) {
-            $v = $this->stateStack->getInfo();
-            $ret = $v->enter($node);
-            if (!is_null($ret)) {
-                return $ret;
-            }
-        }
+        printf("Entering %s %s %s %d\n", $this->stateStack[0]['key'], $node->getType(), $node->name, count($this->stateStack));
+        return $this->stateStack[0]['state']->enter($node);
     }
 
     /**
@@ -76,29 +74,34 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
      */
     public function leaveNode(Node $node)
     {
-        foreach ($this->stateStack as $keyNode) {
-            $v = $this->stateStack->getInfo();
-            $ret = $v->leave($node);
-            if (!is_null($ret)) {
-                $this->stateStack->detach($node);
-                return $ret;
-            }
+        printf("Leaving %s %s %s %d\n", $this->stateStack[0]['key'], $node->getType(), $node->name, count($this->stateStack));
+        $ret = $this->stateStack[0]['state']->leave($node);
+
+        if ($this->stateStack[0]['nodeType'] === $node->getType()) {
+            array_shift($this->stateStack);
         }
-        $this->stateStack->detach($node);
+
+        return $ret;
     }
 
     public function pushState($stateKey, Node $node)
     {
+        printf("Stacking %s %s %s %d\n", $stateKey, $node->getType(), $node->name, count($this->stateStack));
         $state = $this->getState($stateKey);
-        $this->stateStack[$node] = $state;
+
+        array_unshift($this->stateStack, [
+            'node' => $node,
+            'state' => $state,
+            'key' => $state->getName(),
+            'nodeType' => $node->getType()
+        ]);
     }
 
     public function getNodeFor($stateKey)
     {
-        foreach ($this->stateStack as $node) {
-            $v = $this->stateStack->getInfo();
-            if ($stateKey === $v->getName()) {
-                return $node;
+        foreach ($this->stateStack as $assoc) {
+            if ($assoc['key'] === $stateKey) {
+                return $assoc['node'];
             }
         }
     }

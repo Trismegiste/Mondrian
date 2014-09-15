@@ -46,18 +46,18 @@ class FileLevel extends AbstractState
                 break;
 
             case 'Stmt_Class':
-                $this->enterClassNode($node);
                 $this->context->pushState('class', $node);
+                $this->enterClassNode($node);
                 break;
 
             case 'Stmt_Trait':
-                $this->enterTraitNode($node);
                 $this->context->pushState('trait', $node);
+                $this->enterTraitNode($node);
                 break;
 
             case 'Stmt_Interface':
-                $this->enterInterfaceNode($node);
                 $this->context->pushState('interface', $node);
+                $this->enterInterfaceNode($node);
                 break;
         }
     }

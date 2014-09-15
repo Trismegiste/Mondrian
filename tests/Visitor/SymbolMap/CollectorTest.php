@@ -9,7 +9,6 @@ namespace Trismegiste\Mondrian\Tests\Visitor;
 use Trismegiste\Mondrian\Visitor\SymbolMap\Collector;
 use Trismegiste\Mondrian\Transform\ReflectionContext;
 use Trismegiste\Mondrian\Parser\PackageParser;
-use Symfony\Component\Finder\SplFileInfo;
 use Trismegiste\Mondrian\Tests\Fixtures\MockSplFileInfo;
 
 /**
@@ -175,6 +174,65 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
                 'method' => array('someService' => 'Project\\ServiceTrait'),
                 'use' => []
             )), 'inheritanceMap', $this->context);
+    }
+
+    public function testInterfaceExtends()
+    {
+        $this->scanFile(['Interface.php']);
+
+        $this->assertAttributeEquals(array(
+            'Project\\IOne' => array(
+                'type' => 'i',
+                'parent' => [],
+                'method' => [],
+                'use' => []
+            ),
+            'Project\\ITwo' => array(
+                'type' => 'i',
+                'parent' => [],
+                'method' => [],
+                'use' => []
+            ),
+            'Project\\IThree' => array(
+                'type' => 'i',
+                'parent' => ['Project\ITwo'],
+                'method' => [],
+                'use' => []
+            ),
+            'Project\\Multiple' => array(
+                'type' => 'i',
+                'parent' => ['Project\IOne', 'Project\ITwo'],
+                'method' => [],
+                'use' => []
+            ),
+                ), 'inheritanceMap', $this->context);
+    }
+
+    public function testTraitUsingTrait()
+    {
+        $this->scanFile([
+            'ServiceUsingTrait.php',
+            'ServiceTrait.php'
+        ]);
+
+        $this->assertAttributeEquals(array(
+            'Project\\ServiceUsingTrait' => array(
+                'type' => 't',
+                'parent' => [],
+                //    'method' => array('someService' => 'Project\\ServiceTrait'),
+                'method' => [],
+                'use' => ['Project\\ServiceTrait']
+            ),
+            'Project\\ServiceTrait' => array(
+                'type' => 't',
+                'parent' => [],
+                'method' => array('someService' => 'Project\\ServiceTrait'),
+                'use' => []
+            )), 'inheritanceMap', $this->context);
+
+        $this->markTestIncomplete(); // @todo the commented line above must be incommented
+        // I will ot create vertex for imported implementation from trait but a class using ServiceUsingTrait
+        // must copy-paste all methods signature
     }
 
 }
