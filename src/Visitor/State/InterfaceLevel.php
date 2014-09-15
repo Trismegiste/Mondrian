@@ -11,7 +11,7 @@ use PhpParser\Node;
 /**
  * InterfaceLevel is ...
  */
-class InterfaceLevel extends AbstractState
+class InterfaceLevel extends ObjectLevel
 {
 
     public function enter(Node $node)
@@ -20,9 +20,7 @@ class InterfaceLevel extends AbstractState
 
             case 'Stmt_ClassMethod':
                 if ($node->isPublic()) {
-                    $classNode = $this->context->getNodeFor('interface');
-                    $fileState = $this->context->getState('file');
-                    $fqcn = $fileState->getNamespacedName($classNode);
+                    $fqcn = $this->getCurrentFqcn();
                     $this->context->getReflectionContext()->addMethodToClass($fqcn, $node->name);
                 }
                 break;

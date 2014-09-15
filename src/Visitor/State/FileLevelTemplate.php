@@ -32,6 +32,8 @@ abstract class FileLevelTemplate extends AbstractState
             case 'Stmt_Namespace' :
                 $this->namespace = $node->name;
                 $this->aliases = array();
+                // @todo : with multiple namespaces in one file : does this bug ?
+                // leave() shouldn't reset these values ?
                 break;
 
             case 'Stmt_UseUse' :

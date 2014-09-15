@@ -7,12 +7,11 @@
 namespace Trismegiste\Mondrian\Visitor\State;
 
 use PhpParser\Node;
-use Trismegiste\Mondrian\Transform\ReflectionContext;
 
 /**
  * ClassLevel is ...
  */
-class ClassLevel extends AbstractState
+class ClassLevel extends TraitUserLevel
 {
 
     public function enter(Node $node)
@@ -25,25 +24,10 @@ class ClassLevel extends AbstractState
 
             case 'Stmt_ClassMethod':
                 if ($node->isPublic()) {
-                    $classNode = $this->context->getNodeFor('class');
-                    $fileState = $this->context->getState('file');
-                    $fqcn = $fileState->getNamespacedName($classNode);
+                    $fqcn = $this->getCurrentFqcn();
                     $this->context->getReflectionContext()->addMethodToClass($fqcn, $node->name);
                 }
                 break;
-        }
-    }
-
-    protected function importSignatureTrait(Node\Stmt\TraitUse $node)
-    {
-        $classNode = $this->context->getNodeFor('class');
-        $fileState = $this->context->getState('file');
-        $fqcn = $fileState->getNamespacedName($classNode);
-        // @todo do not forget aliases
-        foreach ($node->traits as $import) {
-            $name = (string) $fileState->resolveClassName($import);
-            $this->context->getReflectionContext()->initSymbol($name, ReflectionContext::SYMBOL_TRAIT);
-            $this->context->getReflectionContext()->pushUseTrait($fqcn, $name);
         }
     }
 
