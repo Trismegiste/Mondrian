@@ -92,11 +92,9 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @dataProvider getTypeNodeSetting
-     */
-    public function testNewMethodVertex($type, $fqcn, $graphVertex, array $nodeList)
+    public function testNewMethodVertexForClass()
     {
+        list($type, $fqcn, $graphVertex, $nodeList) = $this->getTypeNodeSetting()[0];
         $method = new \PHPParser_Node_Stmt_ClassMethod('crisis');
         $method->params[] = new \PHPParser_Node_Param('incantations');
         $nodeList[] = $method;
@@ -108,90 +106,156 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnValue($fqcn));
 
         $this->graph
-                ->expects($this->exactly($type == 'class' ? 4 : 3))
+                ->expects($this->exactly(4))
                 ->method('addVertex');
-/*
-        $cpt = 0;
+
         $this->graph
-                ->expects($this->at($cpt++))
+                ->expects($this->at(0))
                 ->method('addVertex')
                 ->with($this->isInstanceOf($graphVertex));
 
-        if ($type != 'trait') {
-            $this->graph
-                    ->expects($this->at($cpt++))
-                    ->method('addVertex')
-                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
-        }
+        $this->graph
+                ->expects($this->at(1))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
 
         $this->graph
-                ->expects($this->at($cpt++))
+                ->expects($this->at(2))
                 ->method('addVertex')
                 ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ParamVertex'));
 
-        if ($type != 'interface') {
-            $this->graph
-                    ->expects($this->at($cpt++))
-                    ->method('addVertex')
-                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ImplVertex'));
-        }
-*/
+        $this->graph
+                ->expects($this->at(3))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ImplVertex'));
+
         foreach ($nodeList as $node) {
             $this->visitor->enterNode($node);
         }
     }
 
-    /**
-     * @dataProvider getTypeNodeSetting
-     */
-    public function testCopyPasteImportedMethodFromTrait($type, $fqcn, $graphVertex, array $nodeList)
+    public function testNewMethodVertexForInterface()
     {
-        if ($type === 'trait') {
-            $method = new \PHPParser_Node_Stmt_ClassMethod('crisis');
-            $method->params[] = new \PHPParser_Node_Param('incantations');
-            $nodeList[] = $method;
+        list($type, $fqcn, $graphVertex, $nodeList) = $this->getTypeNodeSetting()[1];
+        $method = new \PHPParser_Node_Stmt_ClassMethod('crisis');
+        $method->params[] = new \PHPParser_Node_Param('incantations');
+        $nodeList[] = $method;
 
-            $this->reflection
-                    ->expects($this->once())
-                    ->method('getClassesUsingTraitForDeclaringMethod')
-                    ->with($fqcn, 'crisis')
-                    ->will($this->returnValue(['TraitUser1', 'TraitUser2']));
+        $this->reflection
+                ->expects($this->once())
+                ->method('getDeclaringClass')
+                ->with($fqcn, 'crisis')
+                ->will($this->returnValue($fqcn));
 
-            $this->graph
-                    ->expects($this->exactly(5))
-                    ->method('addVertex');
+        $this->graph
+                ->expects($this->exactly(3))
+                ->method('addVertex');
 
-            // the trait vertex
-            $this->graph
-                    ->expects($this->at(0))
-                    ->method('addVertex')
-                    ->with($this->isInstanceOf($graphVertex));
+        $this->graph
+                ->expects($this->at(0))
+                ->method('addVertex')
+                ->with($this->isInstanceOf($graphVertex));
 
-            // implementation
-            $this->graph
-                    ->expects($this->at(1))
-                    ->method('addVertex')
-                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ImplVertex'));
-            $this->graph
-                    ->expects($this->at(2))
-                    ->method('addVertex')
-                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ParamVertex'));
+        $this->graph
+                ->expects($this->at(1))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
 
-            // first copy-pasted method
-            $this->graph
-                    ->expects($this->at(3))
-                    ->method('addVertex')
-                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
+        $this->graph
+                ->expects($this->at(2))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ParamVertex'));
 
-            // second copy-pasted method
-            $this->graph
-                    ->expects($this->at(4))
-                    ->method('addVertex')
-                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
+        foreach ($nodeList as $node) {
+            $this->visitor->enterNode($node);
+        }
+    }
 
-            foreach ($nodeList as $node) {
-                $this->visitor->enterNode($node);
-            }
+    public function testNewImplementationVertexForTrait()
+    {
+        list($type, $fqcn, $graphVertex, $nodeList) = $this->getTypeNodeSetting()[2];
+        $method = new \PHPParser_Node_Stmt_ClassMethod('crisis');
+        $method->params[] = new \PHPParser_Node_Param('incantations');
+        $nodeList[] = $method;
+
+        $this->reflection
+                ->expects($this->once())
+                ->method('getClassesUsingTraitForDeclaringMethod')
+                ->with($fqcn, 'crisis')
+                ->will($this->returnValue([]));
+
+        $this->graph
+                ->expects($this->exactly(3))
+                ->method('addVertex');
+
+        $this->graph
+                ->expects($this->at(0))
+                ->method('addVertex')
+                ->with($this->isInstanceOf($graphVertex));
+
+        $this->graph
+                ->expects($this->at(1))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ImplVertex'));
+
+        $this->graph
+                ->expects($this->at(2))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ParamVertex'));
+
+        foreach ($nodeList as $node) {
+            $this->visitor->enterNode($node);
+        }
+    }
+
+    public function testCopyPasteImportedMethodFromTrait()
+    {
+        list($type, $fqcn, $graphVertex, $nodeList) = $this->getTypeNodeSetting()[2];
+
+        $method = new \PHPParser_Node_Stmt_ClassMethod('crisis');
+        $method->params[] = new \PHPParser_Node_Param('incantations');
+        $nodeList[] = $method;
+
+        $this->reflection
+                ->expects($this->once())
+                ->method('getClassesUsingTraitForDeclaringMethod')
+                ->with($fqcn, 'crisis')
+                ->will($this->returnValue(['TraitUser1', 'TraitUser2']));
+
+        $this->graph
+                ->expects($this->exactly(5))
+                ->method('addVertex');
+
+        // the trait vertex
+        $this->graph
+                ->expects($this->at(0))
+                ->method('addVertex')
+                ->with($this->isInstanceOf($graphVertex));
+
+        // implementation
+        $this->graph
+                ->expects($this->at(1))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ImplVertex'));
+        $this->graph
+                ->expects($this->at(2))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ParamVertex'));
+
+        // first copy-pasted method
+        $this->graph
+                ->expects($this->at(3))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
+
+        // second copy-pasted method
+        $this->graph
+                ->expects($this->at(4))
+                ->method('addVertex')
+                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
+
+        foreach ($nodeList as $node) {
+            $this->visitor->enterNode($node);
         }
     }
 
