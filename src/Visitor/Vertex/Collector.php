@@ -23,7 +23,7 @@ class Collector extends VisitorGateway
             new \Trismegiste\Mondrian\Visitor\State\PackageLevel(),
             new FileLevel(),
             new ClassLevel(),
-//            new InterfaceLevel(),
+            new InterfaceLevel(),
 //            new TraitLevel()
         ];
 

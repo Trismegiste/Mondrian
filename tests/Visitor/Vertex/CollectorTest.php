@@ -41,7 +41,7 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
         $traitNode = new \PHPParser_Node_Stmt_Trait('Bells');
         return array(
             array('class', 'Tubular\Bells', $vertexNS . 'ClassVertex', array($fileNode, $nsNode, $classNode)),
-   //         array('interface', 'Tubular\Bells', $vertexNS . 'InterfaceVertex', array($fileNode, $nsNode, $interfNode)),
+            array('interface', 'Tubular\Bells', $vertexNS . 'InterfaceVertex', array($fileNode, $nsNode, $interfNode)),
      //       array('trait', 'Tubular\Bells', $vertexNS . 'TraitVertex', array($fileNode, $nsNode, $traitNode))
         );
     }
