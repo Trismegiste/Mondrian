@@ -17,17 +17,18 @@ class ClassLevel extends ObjectLevelHelper
     public function enter(Node $node)
     {
         if (($node->getType() == 'Stmt_ClassMethod') &&
-                ($node->isPublic())) {
+                $node->isPublic()) {
+            $methodName = $node->name;
             $fqcn = $this->getCurrentFqcn();
             // if this class is declaring the method, we create a vertex for this signature
-            $declaringClass = $this->getReflectionContext()->getDeclaringClass($fqcn, $node->name);
-            if ($this->currentClass == $declaringClass) {
-                $this->pushMethod($node);
+            $declaringClass = $this->getReflectionContext()->getDeclaringClass($fqcn, $methodName);
+            if ($fqcn == $declaringClass) {
+                $this->pushMethod($node, "$fqcn::$methodName");
             }
 
             // if not abstract we add the vertex for the implementation
             if (!$node->isAbstract()) {
-                $this->pushImplementation($node);
+                $this->pushImplementation($node, "$fqcn::$methodName");
             }
         }
     }

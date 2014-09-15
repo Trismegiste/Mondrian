@@ -62,7 +62,8 @@ class VertexCollector extends PassCollector
             $this->pushImplementation($node);
         }
 
-        // push param for implementation
+        // push param for implementation, these parameters will be connected 
+        // to copy-pasted signature (see below)
         $index = $this->currentClass . '::' . $this->currentMethod;
         foreach ($node->params as $order => $aParam) {
             $this->pushParameter($index, $order);
@@ -79,6 +80,7 @@ class VertexCollector extends PassCollector
                 $this->graph->addVertex($v);
                 $this->indicesVertex('method', $index, $v);
             }
+            // we do not copy-paste the parameters, there will be connected to original parameters from trait (see above)
         }
     }
 

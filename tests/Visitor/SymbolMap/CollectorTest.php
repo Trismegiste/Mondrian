@@ -4,7 +4,7 @@
  * Mondrian
  */
 
-namespace Trismegiste\Mondrian\Tests\Visitor;
+namespace Trismegiste\Mondrian\Tests\Visitor\SymbolMap;
 
 use Trismegiste\Mondrian\Visitor\SymbolMap\Collector;
 use Trismegiste\Mondrian\Transform\ReflectionContext;

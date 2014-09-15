@@ -23,8 +23,8 @@ class Collector extends VisitorGateway
             new \Trismegiste\Mondrian\Visitor\State\PackageLevel(),
             new FileLevel(),
             new ClassLevel(),
-            new InterfaceLevel(),
-            new TraitLevel()
+//            new InterfaceLevel(),
+//            new TraitLevel()
         ];
 
         parent::__construct($visitor, $ref, $grf, $g);
