@@ -4,10 +4,11 @@
  * Mondrian
  */
 
-namespace Trismegiste\Mondrian\Visitor\State;
+namespace Trismegiste\Mondrian\Visitor\SymbolMap;
 
 use PhpParser\Node;
 use Trismegiste\Mondrian\Transform\ReflectionContext;
+use Trismegiste\Mondrian\Visitor\State\FileLevelTemplate;
 
 /**
  * FileLevel is ...
