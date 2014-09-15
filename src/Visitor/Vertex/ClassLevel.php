@@ -6,7 +6,7 @@
 
 namespace Trismegiste\Mondrian\Visitor\Vertex;
 
-use PhpParser\Node;
+use PhpParser\Node\Stmt;
 
 /**
  * ClassLevel is ...
@@ -14,22 +14,18 @@ use PhpParser\Node;
 class ClassLevel extends ObjectLevelHelper
 {
 
-    public function enter(Node $node)
+    protected function enterPublicMethod($fqcn, Stmt\ClassMethod $node)
     {
-        if (($node->getType() == 'Stmt_ClassMethod') &&
-                $node->isPublic()) {
-            $methodName = $node->name;
-            $fqcn = $this->getCurrentFqcn();
-            // if this class is declaring the method, we create a vertex for this signature
-            $declaringClass = $this->getReflectionContext()->getDeclaringClass($fqcn, $methodName);
-            if ($fqcn == $declaringClass) {
-                $this->pushMethod($node, "$fqcn::$methodName");
-            }
+        $methodName = $node->name;
+        // if this class is declaring the method, we create a vertex for this signature
+        $declaringClass = $this->getReflectionContext()->getDeclaringClass($fqcn, $methodName);
+        if ($fqcn == $declaringClass) {
+            $this->pushMethod($node, "$fqcn::$methodName");
+        }
 
-            // if not abstract we add the vertex for the implementation
-            if (!$node->isAbstract()) {
-                $this->pushImplementation($node, "$fqcn::$methodName");
-            }
+        // if not abstract we add the vertex for the implementation
+        if (!$node->isAbstract()) {
+            $this->pushImplementation($node, "$fqcn::$methodName");
         }
     }
 

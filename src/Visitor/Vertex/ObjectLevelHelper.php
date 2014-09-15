@@ -7,6 +7,7 @@
 namespace Trismegiste\Mondrian\Visitor\Vertex;
 
 use Trismegiste\Mondrian\Visitor\State\AbstractObjectLevel;
+use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use Trismegiste\Mondrian\Transform\Vertex\MethodVertex;
 use Trismegiste\Mondrian\Transform\Vertex\ImplVertex;
@@ -41,9 +42,9 @@ abstract class ObjectLevelHelper extends AbstractObjectLevel
     /**
      * Adding a new vertex if the implementation is not already indexed
      *
-     * @param \PHPParser_Node_Stmt_ClassMethod $node
+     * @param Stmt\ClassMethod $node
      */
-    protected function pushImplementation(\PHPParser_Node_Stmt_ClassMethod $node, $index)
+    protected function pushImplementation(Stmt\ClassMethod $node, $index)
     {
         $dict = $this->getGraphContext();
         if (!$dict->existsVertex('impl', $index)) {
@@ -73,4 +74,14 @@ abstract class ObjectLevelHelper extends AbstractObjectLevel
         }
     }
 
+    final public function enter(Node $node)
+    {
+        if (($node->getType() == 'Stmt_ClassMethod') &&
+                $node->isPublic()) {
+            $fqcn = $this->getCurrentFqcn();
+            $this->enterPublicMethod($fqcn, $node);
+        }
+    }
+
+    abstract protected function enterPublicMethod($fqcn, Stmt\ClassMethod $node);
 }

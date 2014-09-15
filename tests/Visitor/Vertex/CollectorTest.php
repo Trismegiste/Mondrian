@@ -42,7 +42,7 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
         return array(
             array('class', 'Tubular\Bells', $vertexNS . 'ClassVertex', array($fileNode, $nsNode, $classNode)),
             array('interface', 'Tubular\Bells', $vertexNS . 'InterfaceVertex', array($fileNode, $nsNode, $interfNode)),
-     //       array('trait', 'Tubular\Bells', $vertexNS . 'TraitVertex', array($fileNode, $nsNode, $traitNode))
+            array('trait', 'Tubular\Bells', $vertexNS . 'TraitVertex', array($fileNode, $nsNode, $traitNode))
         );
     }
 
@@ -108,31 +108,34 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnValue($fqcn));
 
         $this->graph
-                ->expects($this->exactly($type == 'interface' ? 3 : 4))
+                ->expects($this->exactly($type == 'class' ? 4 : 3))
                 ->method('addVertex');
-
+/*
+        $cpt = 0;
         $this->graph
-                ->expects($this->at(0))
+                ->expects($this->at($cpt++))
                 ->method('addVertex')
                 ->with($this->isInstanceOf($graphVertex));
 
-        $this->graph
-                ->expects($this->at(1))
-                ->method('addVertex')
-                ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
+        if ($type != 'trait') {
+            $this->graph
+                    ->expects($this->at($cpt++))
+                    ->method('addVertex')
+                    ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\MethodVertex'));
+        }
 
         $this->graph
-                ->expects($this->at(2))
+                ->expects($this->at($cpt++))
                 ->method('addVertex')
                 ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ParamVertex'));
 
         if ($type != 'interface') {
             $this->graph
-                    ->expects($this->at(3))
+                    ->expects($this->at($cpt++))
                     ->method('addVertex')
                     ->with($this->isInstanceOf('Trismegiste\Mondrian\Transform\Vertex\ImplVertex'));
         }
-
+*/
         foreach ($nodeList as $node) {
             $this->visitor->enterNode($node);
         }
@@ -147,12 +150,6 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
             $method = new \PHPParser_Node_Stmt_ClassMethod('crisis');
             $method->params[] = new \PHPParser_Node_Param('incantations');
             $nodeList[] = $method;
-
-            $this->reflection
-                    ->expects($this->once())
-                    ->method('isTrait')
-                    ->with($fqcn)
-                    ->will($this->returnValue(true));
 
             $this->reflection
                     ->expects($this->once())
