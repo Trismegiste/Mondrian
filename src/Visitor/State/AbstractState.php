@@ -51,4 +51,9 @@ abstract class AbstractState implements State
         return $this->context->getGraph();
     }
 
+    protected function findVertex($type, $key)
+    {
+        return $this->context->getGraphContext()->findVertex($type, $key);
+    }
+
 }
