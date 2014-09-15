@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Transform\Vertex\MethodVertex;
 /**
  * ClassLevel is ...
  */
-class ClassLevel extends ObjectLevelHelper
+class ClassLevel extends TraitUserHelper
 {
 
     public function enter(\PhpParser\Node $node)
@@ -27,6 +27,9 @@ class ClassLevel extends ObjectLevelHelper
                 break;
 
             case 'Stmt_TraitUse':
+                $fqcn = $this->getCurrentFqcn();
+                $currentVertex = $this->findVertex('class', $fqcn);
+                $this->enterTraitUse($node, $currentVertex);
                 break;
         }
     }

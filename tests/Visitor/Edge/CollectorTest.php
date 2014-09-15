@@ -467,6 +467,10 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Trait('Dominant');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('plague');
 
+        $this->reflection->expects($this->once())
+                ->method('getClassesUsingTraitForDeclaringMethod')
+                ->will($this->returnValue([]));
+
         // edges :
         $this->graph
                 ->expects($this->exactly(2))
