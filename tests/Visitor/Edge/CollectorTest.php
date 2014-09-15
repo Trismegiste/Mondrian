@@ -168,12 +168,12 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
                 ->with($this->vertex['C'], $this->vertex['M']);
 
         $this->graph
-                ->expects($this->at(2))
+                ->expects($this->at(1))
                 ->method('addEdge')
                 ->with($this->vertex['M'], $this->vertex['S']);
 
         $this->graph
-                ->expects($this->at(1))
+                ->expects($this->at(2))
                 ->method('addEdge')
                 ->with($this->vertex['S'], $this->vertex['C']);
 
@@ -191,12 +191,12 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
 
         $this->graph
-                ->expects($this->at(1))
+                ->expects($this->at(0))
                 ->method('addEdge')
                 ->with($this->vertex['C'], $this->vertex['S']);
 
         $this->graph
-                ->expects($this->at(0))
+                ->expects($this->at(1))
                 ->method('addEdge')
                 ->with($this->vertex['S'], $this->vertex['C']);
 
