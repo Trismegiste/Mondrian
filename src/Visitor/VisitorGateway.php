@@ -10,7 +10,6 @@ use PhpParser\NodeVisitorAbstract;
 use PhpParser\Node;
 use Trismegiste\Mondrian\Transform\ReflectionContext;
 use Trismegiste\Mondrian\Transform\GraphContext;
-use Trismegiste\Mondrian\Graph\Vertex;
 use Trismegiste\Mondrian\Graph\Graph;
 
 /**
