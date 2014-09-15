@@ -41,6 +41,9 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
      */
     public function __construct(array $visitor, ReflectionContext $ref, GraphContext $grf, Graph $g)
     {
+        if (!count($visitor)) {
+            throw new \InvalidArgumentException("The visitors list cannot be empty");
+        }
         $this->graphCtx = $grf;
         $this->graph = $g;
         $this->reflectionCtx = $ref;
