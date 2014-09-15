@@ -14,7 +14,7 @@ use Trismegiste\Mondrian\Visitor;
 abstract class AbstractTraverser implements BuilderInterface
 {
 
-    public function buildTraverser(Visitor\FqcnHelper $collector)
+    public function buildTraverser(/*Visitor\FqcnHelper*/ $collector)
     {
         $traverser = new \PHPParser_NodeTraverser();
         $traverser->addVisitor($collector);

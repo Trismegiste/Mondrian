@@ -33,6 +33,7 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
     protected $reflectionCtx;
     protected $graphCtx;
     protected $graph;
+    private $debug = false;
 
     /**
      * Ctor
@@ -65,7 +66,8 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
      */
     public function enterNode(Node $node)
     {
-        printf("Entering %s %s %s %d\n", $this->stateStack[0]['key'], $node->getType(), $node->name, count($this->stateStack));
+        if ($this->debug)
+            printf("Entering %s %s %s %d\n", $this->stateStack[0]['key'], $node->getType(), $node->name, count($this->stateStack));
         return $this->stateStack[0]['state']->enter($node);
     }
 
@@ -74,7 +76,8 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
      */
     public function leaveNode(Node $node)
     {
-        printf("Leaving %s %s %s %d\n", $this->stateStack[0]['key'], $node->getType(), $node->name, count($this->stateStack));
+        if ($this->debug)
+            printf("Leaving %s %s %s %d\n", $this->stateStack[0]['key'], $node->getType(), $node->name, count($this->stateStack));
         $ret = $this->stateStack[0]['state']->leave($node);
 
         if ($this->stateStack[0]['nodeType'] === $node->getType()) {
@@ -86,7 +89,8 @@ class VisitorGateway extends NodeVisitorAbstract implements State\VisitorContext
 
     public function pushState($stateKey, Node $node)
     {
-        printf("Stacking %s %s %s %d\n", $stateKey, $node->getType(), $node->name, count($this->stateStack));
+        if ($this->debug)
+            printf("Stacking %s %s %s %d\n", $stateKey, $node->getType(), $node->name, count($this->stateStack));
         $state = $this->getState($stateKey);
 
         array_unshift($this->stateStack, [

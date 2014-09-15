@@ -14,5 +14,6 @@ interface BuilderInterface
 
     public function buildCollectors();
 
-    public function buildTraverser(FqcnHelper $collector);
+    // @todo add VisitorGateway type_hint
+    public function buildTraverser(/*FqcnHelper*/ $collector);
 }
