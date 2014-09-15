@@ -38,7 +38,6 @@ class ClassLevel extends ObjectLevelHelper
 
     protected function enterPublicMethod(Stmt\ClassMethod $node)
     {
-        $fileState = $this->context->getState('file');
         // NS
         $methodName = $node->name;
         $currentFqcn = $this->getCurrentFqcn();
@@ -75,37 +74,11 @@ class ClassLevel extends ObjectLevelHelper
                 }
                 if ($currentFqcn === $declaringFqcn) {
                     $this->getGraph()->addEdge($signatureVertex, $paramVertex); // M -> P
-                }
-                // now the type of the param :
-                if ($param->type instanceof \PhpParser\Node\Name) {
-                    $paramType = (string) $fileState->resolveClassName($param->type);
-                    // there is a type, we add a link to the type, if it is found
-                    $typeVertex = $this->findTypeVertex($paramType);
-                    if (!is_null($typeVertex)) {
-                        // we add the edge
-                        $this->getGraph()->addEdge($paramVertex, $typeVertex);
-                    }
+                    // now the type of the param :
+                    $this->typeHintParam($param, $paramVertex);
                 }
             }
         }
-    }
-
-    /**
-     * Find a class or interface
-     *
-     * @param string $type fqcn to be found
-     * @return Vertex
-     */
-    protected function findTypeVertex($type)
-    {
-        foreach (array('class', 'interface') as $pool) {
-            $typeVertex = $this->findVertex($pool, $type);
-            if (!is_null($typeVertex)) {
-                return $typeVertex;
-            }
-        }
-
-        return null;
     }
 
 }
