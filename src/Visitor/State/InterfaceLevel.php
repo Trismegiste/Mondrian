@@ -19,7 +19,7 @@ class InterfaceLevel extends AbstractState
         switch ($node->getType()) {
 
             case 'Stmt_ClassMethod':
-                if ($node->type === Node\Stmt\Class_::MODIFIER_PUBLIC) {
+                if ($node->isPublic()) {
                     $classNode = $this->context->getNodeFor('interface');
                     $fileState = $this->context->getState('file');
                     $fqcn = $fileState->getNamespacedName($classNode);
