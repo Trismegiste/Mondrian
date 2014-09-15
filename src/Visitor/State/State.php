@@ -39,5 +39,8 @@ interface State
      */
     public function setContext(VisitorContext $ctx);
 
+    /**
+     * Gets the name of this state
+     */
     public function getName();
 }

@@ -17,11 +17,17 @@ abstract class AbstractState implements State
     /** @var VisitorContext */
     protected $context;
 
+    /**
+     * @inheritdoc
+     */
     public function setContext(VisitorContext $ctx)
     {
         $this->context = $ctx;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function leave(Node $node)
     {
         
@@ -51,6 +57,14 @@ abstract class AbstractState implements State
         return $this->context->getGraph();
     }
 
+    /**
+     * Search for a vertex of a given type
+     * 
+     * @param string $type trait|class|interface|param|method|impl
+     * @param string $key the key for this vertex
+     * 
+     * @return \Trismegiste\Mondrian\Graph\Vertex
+     */
     protected function findVertex($type, $key)
     {
         return $this->context->getGraphContext()->findVertex($type, $key);

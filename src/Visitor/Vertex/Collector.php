@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Transform\GraphContext;
 use Trismegiste\Mondrian\Graph\Graph;
 
 /**
- * Collector is ...
+ * Collector is the main visitor for creating vertices for each relevant nodes
  */
 class Collector extends VisitorGateway
 {

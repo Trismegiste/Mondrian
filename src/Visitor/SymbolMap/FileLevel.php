@@ -10,7 +10,7 @@ use PhpParser\Node;
 use Trismegiste\Mondrian\Visitor\State\FileLevelTemplate;
 
 /**
- * FileLevel is ...
+ * FileLevel registers trait/interface/class in the reflection context
  */
 class FileLevel extends FileLevelTemplate
 {

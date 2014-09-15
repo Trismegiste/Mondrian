@@ -49,9 +49,7 @@ class ClassMethodLevel extends MethodLevelHelper
      * Links the current implementation vertex to all methods with the same
      * name. Filters on some obvious cases.
      *
-     * @param \PHPParser_Node_Expr_MethodCall $node
-     * @return void
-     *
+     * @param Node\Expr\MethodCall $node
      */
     protected function enterMethodCall(Node\Expr\MethodCall $node)
     {
@@ -66,8 +64,7 @@ class ClassMethodLevel extends MethodLevelHelper
      * Do not process : call_user_func(array($obj, 'getThing'), $arg);
      * Do not process : $reflectionMethod->invoke($obj, 'getThing', $arg);
      *
-     * @param \PHPParser_Node_Expr_MethodCall $node
-     * @return void
+     * @param Node\Expr\MethodCall $node
      */
     protected function enterNonDynamicMethodCall(Node\Expr\MethodCall $node)
     {

@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Transform\GraphContext;
 use Trismegiste\Mondrian\Graph\Graph;
 
 /**
- * Collector is ...
+ * Collector is the main visitor for creating edges between already-created vertices
  */
 class Collector extends VisitorGateway
 {

@@ -12,6 +12,11 @@ namespace Trismegiste\Mondrian\Visitor\State;
 abstract class AbstractObjectLevel extends AbstractState
 {
 
+    /**
+     * returns the current fqcn of this class|trait|interface
+     * 
+     * @return string
+     */
     protected function getCurrentFqcn()
     {
         $objectNode = $this->context->getNodeFor($this->getName());

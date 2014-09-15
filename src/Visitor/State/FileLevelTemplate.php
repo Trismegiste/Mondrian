@@ -63,10 +63,19 @@ abstract class FileLevelTemplate extends AbstractState
         }
     }
 
+    /**
+     * Enters in a class node
+     */
     abstract protected function enterClassNode(Node\Stmt\Class_ $node);
 
+    /**
+     * Enters in an interface node
+     */
     abstract protected function enterInterfaceNode(Node\Stmt\Interface_ $node);
 
+    /**
+     * Enters in a trait node
+     */
     abstract protected function enterTraitNode(Node\Stmt\Trait_ $node);
 
     public function getName()
@@ -77,8 +86,9 @@ abstract class FileLevelTemplate extends AbstractState
     /**
      * resolve the Name with current namespace and alias
      *
-     * @param \PHPParser_Node_Name $src
-     * @return \PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
+     * @param Node\Name $src
+     * 
+     * @return Node\Name|Node\Name\FullyQualified
      */
     public function resolveClassName(Node\Name $src)
     {
@@ -107,7 +117,8 @@ abstract class FileLevelTemplate extends AbstractState
     /**
      * Helper : get the FQCN of the given $node->name
      *
-     * @param PHPParser_Node $node
+     * @param Node $node
+     * 
      * @return string
      */
     public function getNamespacedName(Node $node)

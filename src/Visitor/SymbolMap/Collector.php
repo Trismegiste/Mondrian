@@ -12,7 +12,8 @@ use Trismegiste\Mondrian\Transform\GraphContext;
 use Trismegiste\Mondrian\Graph\Graph;
 
 /**
- * Collector is ...
+ * Collector is the main visitor for indexing all namespace, method signature and inheritance
+ * pushed to the reflexion context
  */
 class Collector extends VisitorGateway
 {

@@ -14,6 +14,9 @@ use PhpParser\Node;
 class PackageLevel extends AbstractState
 {
 
+    /**
+     * @inheritdoc
+     */
     public function enter(Node $node)
     {
         switch ($node->getType()) {
@@ -23,6 +26,9 @@ class PackageLevel extends AbstractState
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getName()
     {
         return 'package';

@@ -17,16 +17,18 @@ class TraitLevel extends TraitUserHelper
     public function enter(Node $node)
     {
         switch ($node->getType()) {
+
+            case 'Stmt_ClassMethod':
+                if ($node->isPublic()) {
+                    //  $this->context->pushState('trait-method', $node);
+                    $this->enterPublicMethod($node);
+                }
+                break;
+
             case 'Stmt_TraitUse':
                 $fqcn = $this->getCurrentFqcn();
                 $currentVertex = $this->findVertex('trait', $fqcn);
                 $this->enterTraitUse($node, $currentVertex);
-                break;
-
-            case 'Stmt_ClassMethod':
-                if ($node->isPublic()) {
-                    $this->enterPublicMethod($node);
-                }
                 break;
         }
     }

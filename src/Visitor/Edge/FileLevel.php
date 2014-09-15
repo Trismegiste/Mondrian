@@ -49,7 +49,7 @@ class FileLevel extends FileLevelTemplate
 
     protected function enterTraitNode(Stmt\Trait_ $node)
     {
-        
+        // no edge to create
     }
 
 }
