@@ -231,8 +231,9 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
             )), 'inheritanceMap', $this->context);
 
         $this->markTestIncomplete(); // @todo the commented line above must be incommented
-        // I will ot create vertex for imported implementation from trait but a class using ServiceUsingTrait
-        // must copy-paste all methods signature
+        // I will not create vertex for imported implementation from trait in a trait 
+        // but a class using ServiceUsingTrait must copy-paste all methods signatures
+        // coming from all aggregated traits
     }
 
 }

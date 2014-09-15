@@ -2,7 +2,7 @@
 
 namespace Trismegiste\Mondrian\Builder\Compiler;
 
-use Trismegiste\Mondrian\Visitor\FqcnHelper;
+use PhpParser\NodeVisitor;
 
 /**
  * BuilderInterface is a contract to build a compiler
@@ -14,6 +14,5 @@ interface BuilderInterface
 
     public function buildCollectors();
 
-    // @todo add VisitorGateway type_hint
-    public function buildTraverser(/*FqcnHelper*/ $collector);
+    public function buildTraverser(NodeVisitor $collector);
 }
