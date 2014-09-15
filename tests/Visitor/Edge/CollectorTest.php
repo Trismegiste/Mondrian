@@ -380,7 +380,7 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
      * Test for :
      *  * S -> M
      */
-    public function no_testTypedCall()
+    public function testTypedCall()
     {
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
@@ -415,7 +415,7 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
      * Test for :
      *  * S -> M
      */
-    public function no_testExcludingCall()
+    public function testExcludingCall()
     {
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Class('Funnels');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
@@ -447,12 +447,12 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
         $this->graph
                 ->expects($this->at(0))
                 ->method('addEdge')
-                ->with($this->vertex['S'], $this->vertex['C']);
+                ->with($this->vertex['C'], $this->vertex['S']);
 
         $this->graph
                 ->expects($this->at(1))
                 ->method('addEdge')
-                ->with($this->vertex['C'], $this->vertex['S']);
+                ->with($this->vertex['S'], $this->vertex['C']);
 
         $this->visitNodeList();
     }

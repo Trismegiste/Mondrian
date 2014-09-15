@@ -130,8 +130,7 @@ class ClassMethodLevel extends MethodLevelHelper
             if ($param->type instanceof \PHPParser_Node_Name) {
                 $paramType = (string) $this->fileState->resolveClassName($param->type);
                 // we check if it is an outer class or not : is it known ?
-                if (!is_null($cls = $this->getReflectionContext()
-                                ->findMethodInInheritanceTree($paramType, $method))) {
+                if (!is_null($cls = $this->findMethodInInheritanceTree($paramType, $method))) {
                     if (!is_null($signature = $this->findVertex('method', "$cls::$method"))) {
                         return array($signature);
                     }
@@ -140,6 +139,20 @@ class ClassMethodLevel extends MethodLevelHelper
         }
 
         return null;  // can't see shit captain
+    }
+
+    /**
+     * Check if the class exists before searching for the
+     * declaring class of the method, because class could be unknown, outside
+     * or code could be bugged
+     */
+    protected function findMethodInInheritanceTree($cls, $method)
+    {
+        if ($this->context->getReflectionContext()->hasDeclaringClass($cls)) {
+            return $this->context->getReflectionContext()->findMethodInInheritanceTree($cls, $method);
+        }
+
+        return null;
     }
 
 }
