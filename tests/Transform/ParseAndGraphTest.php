@@ -385,4 +385,41 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
                 , $result);
     }
 
+    public function testInternalForTrait()
+    {
+        $result = $this->callParse('TraitInternals.php');
+        $this->assertCount(5 + 2 * 3 + 1, $result->getVertexSet());
+
+        $fqcn = 'Project\TraitInternals';
+        $call = 'Project\TraitConfig';
+        $helper = 'Project\TraitHelper';
+        $instance = 'Project\TraitDocument';
+        $this->assertEdges([
+            // the trait
+            [['Trait', $fqcn], ['Impl', $fqcn . '::nonDynCall']],
+            [['Impl', $fqcn . '::nonDynCall'], ['Trait', $fqcn]],
+            [['Trait', $fqcn], ['Impl', $fqcn . '::staticCall']],
+            [['Impl', $fqcn . '::staticCall'], ['Trait', $fqcn]],
+            [['Trait', $fqcn], ['Impl', $fqcn . '::newInstance']],
+            [['Impl', $fqcn . '::newInstance'], ['Trait', $fqcn]],
+            // the param in the trait
+            [['Impl', $fqcn . '::nonDynCall'], ['Param', $fqcn . '::nonDynCall/0']],
+            [['Param', $fqcn . '::nonDynCall/0'], ['Class', $call]],
+            // the called class
+            [['Class', $call], ['Method', "$call::calling"]],
+            [['Method', "$call::calling"], ['Impl', "$call::calling"]],
+            [['Impl', "$call::calling"], ['Class', $call]],
+            // the helper class
+            [['Class', $helper], ['Method', "$helper::simple"]],
+            [['Method', "$helper::simple"], ['Impl', "$helper::simple"]],
+            [['Impl', "$helper::simple"], ['Class', $helper]],
+            // the edge between for the non-static method call
+            [['Impl', $fqcn . '::nonDynCall'], ['Method', "$call::calling"]],
+            // the edge for static call
+            [['Impl', $fqcn . '::staticCall'], ['Method', "$helper::simple"]],
+            // the edge for instantiation
+            [['Impl', $fqcn . '::newInstance'], ['Class', $instance]]
+                ], $result);
+    }
+
 }

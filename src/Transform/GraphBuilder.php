@@ -57,9 +57,9 @@ class GraphBuilder extends AbstractTraverser
     public function buildCollectors()
     {
         return array(
-            new Visitor\SymbolMap($this->reflection),
-            new Visitor\VertexCollector($this->reflection, $this->vertexContext, $this->graphResult),
-            new Visitor\EdgeCollector($this->reflection, $this->vertexContext, $this->graphResult)
+            new Visitor\SymbolMap\Collector($this->reflection, $this->vertexContext, $this->graphResult),
+            new Visitor\Vertex\Collector($this->reflection, $this->vertexContext, $this->graphResult),
+            new Visitor\Edge\Collector($this->reflection, $this->vertexContext, $this->graphResult)
         );
     }
 

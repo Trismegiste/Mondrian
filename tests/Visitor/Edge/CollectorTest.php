@@ -4,12 +4,12 @@
  * Mondrian
  */
 
-namespace Trismegiste\Mondrian\Tests\Visitor;
+namespace Trismegiste\Mondrian\Tests\Visitor\Edge;
 
-use Trismegiste\Mondrian\Visitor\EdgeCollector;
+use Trismegiste\Mondrian\Visitor\Edge\Collector;
 
 /**
- * EdgeCollectorTest is simple tests for EdgeCollector visitor. Tests the
+ * CollectorTest is simple tests for Edge\Collector visitor. Tests the
  * grammar implementation of digraph.
  *
  * Vocabulary :
@@ -21,7 +21,7 @@ use Trismegiste\Mondrian\Visitor\EdgeCollector;
  *  * T : Trait
  *
  */
-class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
+class CollectorTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $visitor;
@@ -40,7 +40,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->getMock();
         $this->graph = $this->getMockBuilder('Trismegiste\Mondrian\Graph\Graph')
                 ->getMock();
-        $this->visitor = new EdgeCollector($this->reflection, $this->dictionary, $this->graph);
+        $this->visitor = new Collector($this->reflection, $this->dictionary, $this->graph);
 
         $vertexNS = 'Trismegiste\Mondrian\Transform\Vertex';
         $this->vertex = array(
@@ -93,7 +93,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                             array('Atavachron\Berwell', true)
         )));
 
-
+        $this->nodeList[-1] = new \Trismegiste\Mondrian\Parser\PhpFile('dummy', []);
         $this->nodeList[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Atavachron'));
     }
 
@@ -168,12 +168,12 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->with($this->vertex['C'], $this->vertex['M']);
 
         $this->graph
-                ->expects($this->at(2))
+                ->expects($this->at(1))
                 ->method('addEdge')
                 ->with($this->vertex['M'], $this->vertex['S']);
 
         $this->graph
-                ->expects($this->at(1))
+                ->expects($this->at(2))
                 ->method('addEdge')
                 ->with($this->vertex['S'], $this->vertex['C']);
 
@@ -191,12 +191,12 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('sand');
 
         $this->graph
-                ->expects($this->at(1))
+                ->expects($this->at(0))
                 ->method('addEdge')
                 ->with($this->vertex['C'], $this->vertex['S']);
 
         $this->graph
-                ->expects($this->at(0))
+                ->expects($this->at(1))
                 ->method('addEdge')
                 ->with($this->vertex['S'], $this->vertex['C']);
 
@@ -285,7 +285,7 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->with($this->vertex['C'], $this->vertex['M']);
 
         $this->graph
-                ->expects($this->at(1))
+                ->expects($this->at(4))
                 ->method('addEdge')
                 ->with($this->vertex['M'], $this->vertex['P']);
 
@@ -295,12 +295,12 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
                 ->with($this->vertex['S'], $this->vertex['C']);
 
         $this->graph
-                ->expects($this->at(3))
+                ->expects($this->at(1))
                 ->method('addEdge')
                 ->with($this->vertex['M'], $this->vertex['S']);
 
         $this->graph
-                ->expects($this->at(4))
+                ->expects($this->at(3))
                 ->method('addEdge')
                 ->with($this->vertex['S'], $this->vertex['P']);
 
@@ -447,12 +447,12 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
         $this->graph
                 ->expects($this->at(0))
                 ->method('addEdge')
-                ->with($this->vertex['S'], $this->vertex['C']);
+                ->with($this->vertex['C'], $this->vertex['S']);
 
         $this->graph
                 ->expects($this->at(1))
                 ->method('addEdge')
-                ->with($this->vertex['C'], $this->vertex['S']);
+                ->with($this->vertex['S'], $this->vertex['C']);
 
         $this->visitNodeList();
     }
@@ -466,6 +466,10 @@ class EdgeCollectorTest extends \PHPUnit_Framework_TestCase
     {
         $this->nodeList[1] = new \PHPParser_Node_Stmt_Trait('Dominant');
         $this->nodeList[2] = new \PHPParser_Node_Stmt_ClassMethod('plague');
+
+        $this->reflection->expects($this->once())
+                ->method('getClassesUsingTraitForDeclaringMethod')
+                ->will($this->returnValue([]));
 
         // edges :
         $this->graph

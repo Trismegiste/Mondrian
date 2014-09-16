@@ -13,6 +13,8 @@ use Trismegiste\Mondrian\Graph\Graph;
  *
  * Responsible for maintaining a list of methods, traits, classes and interfaces used
  * for building inheritance links in a digraph
+ * 
+ * @todo this class lacks an interface
  */
 class ReflectionContext
 {
@@ -162,6 +164,21 @@ class ReflectionContext
             $this->inheritanceMap[$name]['method'] = array();
             $this->inheritanceMap[$name]['use'] = [];
         }
+    }
+
+    public function initClass($name)
+    {
+        $this->initSymbol($name, self::SYMBOL_CLASS);
+    }
+
+    public function initInterface($name)
+    {
+        $this->initSymbol($name, self::SYMBOL_INTERFACE);
+    }
+
+    public function initTrait($name)
+    {
+        $this->initSymbol($name, self::SYMBOL_TRAIT);
     }
 
     /**

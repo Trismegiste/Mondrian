@@ -6,7 +6,8 @@
 
 namespace Trismegiste\Mondrian\Builder\Compiler;
 
-use Trismegiste\Mondrian\Visitor;
+use PhpParser\NodeVisitor;
+use PhpParser\NodeTraverser;
 
 /**
  * AbstractTraverser partly builds the compiler with a traverser
@@ -14,9 +15,9 @@ use Trismegiste\Mondrian\Visitor;
 abstract class AbstractTraverser implements BuilderInterface
 {
 
-    public function buildTraverser(Visitor\FqcnHelper $collector)
+    public function buildTraverser(NodeVisitor $collector)
     {
-        $traverser = new \PHPParser_NodeTraverser();
+        $traverser = new NodeTraverser();
         $traverser->addVisitor($collector);
 
         return $traverser;
