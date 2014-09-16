@@ -11,7 +11,7 @@ use Trismegiste\Mondrian\Transform\Vertex\ImplVertex;
 use Trismegiste\Mondrian\Transform\Vertex\MethodVertex;
 use Trismegiste\Mondrian\Transform\Vertex\ClassVertex;
 use Trismegiste\Mondrian\Transform\Vertex\InterfaceVertex;
-use Trismegiste\Mondrian\Graph\Edge;
+use Trismegiste\Mondrian\Transform\Vertex\TraitVertex;
 
 /**
  * HiddenCoupling is an analyser which checks and finds hidden coupling
@@ -62,8 +62,8 @@ class HiddenCoupling extends BreadthFirstSearch implements Generator
         $reducedGraph = new \Trismegiste\Mondrian\Graph\Digraph();
         $dependency = $this->getEdgeSet();
         foreach ($dependency as $edge) {
-            if (($edge->getSource() instanceof ImplVertex)
-                    && ($edge->getTarget() instanceof MethodVertex)) {
+            if (($edge->getSource() instanceof ImplVertex) &&
+                    ($edge->getTarget() instanceof MethodVertex)) {
 
                 $this->resetVisited();
                 $edge->visited = true;
@@ -88,8 +88,8 @@ class HiddenCoupling extends BreadthFirstSearch implements Generator
     {
         list($className, $methodName) = explode('::', $impl->getName());
         foreach ($this->graph->getSuccessor($impl) as $succ) {
-            if (($succ instanceof ClassVertex)
-                    && ($succ->getName() == $className)) {
+            if ((($succ instanceof ClassVertex) || ($succ instanceof TraitVertex)) &&
+                    ($succ->getName() == $className)) {
 
                 return $succ;
             }
