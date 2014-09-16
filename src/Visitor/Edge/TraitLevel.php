@@ -20,7 +20,7 @@ class TraitLevel extends TraitUserHelper
 
             case 'Stmt_ClassMethod':
                 if ($node->isPublic()) {
-                    //  $this->context->pushState('trait-method', $node);
+                    $this->context->pushState('trait-method', $node);
                     $this->enterPublicMethod($node);
                 }
                 break;

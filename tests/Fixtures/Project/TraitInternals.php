@@ -5,19 +5,29 @@ namespace Project;
 trait TraitInternals
 {
 
-    public function nonDynCall(Concrete $obj)
+    public function nonDynCall(TraitConfig $obj)
     {
-        $obj->simple();
+        $obj->calling();
     }
 
     public function staticCall()
     {
-        Concrete::simple();
+        TraitHelper::simple();
     }
 
     public function newInstance()
     {
-        new OneClass();
+        new TraitDocument();
     }
 
 }
+
+class TraitConfig {
+    public function calling() {}
+}
+
+class TraitHelper {
+    static public function simple() {}
+}
+
+class TraitDocument {}
