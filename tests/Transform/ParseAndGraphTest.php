@@ -385,4 +385,44 @@ class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
                 , $result);
     }
 
+    public function testInternalForTrait_Isolated()
+    {
+        $result = $this->callParse('TraitInternals.php');
+        $this->assertCount(5, $result->getVertexSet());
+
+        $fqcn = 'Project\TraitInternals';
+        $this->assertEdges([
+            [['Trait', $fqcn], ['Impl', $fqcn . '::nonDynCall']],
+            [['Impl', $fqcn . '::nonDynCall'], ['Trait', $fqcn]],
+            [['Trait', $fqcn], ['Impl', $fqcn . '::staticCall']],
+            [['Impl', $fqcn . '::staticCall'], ['Trait', $fqcn]],
+            [['Trait', $fqcn], ['Impl', $fqcn . '::newInstance']],
+            [['Impl', $fqcn . '::newInstance'], ['Trait', $fqcn]],
+            [['Impl', $fqcn . '::nonDynCall'], ['Param', $fqcn . '::nonDynCall/0']]
+                ], $result);
+    }
+
+    public function testInternalForTrait_Calling()
+    {
+        $result = $this->callParse('TraitInternals.php', 'Concrete.php');
+        $this->assertCount(8, $result->getVertexSet());
+
+        $fqcn = 'Project\TraitInternals';
+        $ext = 'Project\Concrete';
+        $this->assertEdges([
+            [['Trait', $fqcn], ['Impl', $fqcn . '::nonDynCall']],
+            [['Impl', $fqcn . '::nonDynCall'], ['Trait', $fqcn]],
+            [['Trait', $fqcn], ['Impl', $fqcn . '::staticCall']],
+            [['Impl', $fqcn . '::staticCall'], ['Trait', $fqcn]],
+            [['Trait', $fqcn], ['Impl', $fqcn . '::newInstance']],
+            [['Impl', $fqcn . '::newInstance'], ['Trait', $fqcn]],
+            [['Impl', $fqcn . '::nonDynCall'], ['Param', $fqcn . '::nonDynCall/0']],
+            [['Param', $fqcn . '::nonDynCall/0'], ['Class', $ext]],
+            [['Class', $ext], ['Method', "$ext::simple"]],
+            [['Method', "$ext::simple"], ['Impl', "$ext::simple"]],
+            [['Impl', "$ext::simple"], ['Class', $ext]],
+            [['Impl', $fqcn . '::nonDynCall'], ['Method', "$ext::simple"]], // @todo fail
+                ], $result);
+    }
+
 }
