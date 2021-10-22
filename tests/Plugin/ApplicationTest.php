@@ -16,7 +16,7 @@ class ApplicationTest extends \PHPUnit\Framework\TestCase
 
     protected $sut;
 
-    protected function setUp():void
+    protected function setUp(): void
     {
         $this->sut = new Application();
     }
@@ -29,11 +29,9 @@ class ApplicationTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf($fqcn, $this->sut->get('fake'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidPlugin()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->sut->addPlugin(['stdClass']);
     }
 

@@ -18,7 +18,7 @@ class AboutTest extends \PHPUnit\Framework\TestCase
     protected $application;
     protected $cmdName;
 
-    protected function setUp():void
+    protected function setUp(): void
     {
         $this->application = new Plugin\Application();
         $command = new Plugin\About();
@@ -36,7 +36,7 @@ class AboutTest extends \PHPUnit\Framework\TestCase
 
         // return the output for further tests
         $out = $commandTester->getDisplay();
-        $this->assertRegExp('#trismegiste#', $out);
+        $this->assertMatchesRegularExpression('#trismegiste#', $out);
     }
 
 }

@@ -75,6 +75,8 @@ Read the website <info>$website</info> to know more.
 SIOUX;
 
         $output->writeln($message);
+        
+        return self::SUCCESS;
     }
 
 }
