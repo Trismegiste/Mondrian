@@ -17,13 +17,13 @@ use Trismegiste\Mondrian\Transform\Logger\NullLogger;
 /**
  * FullGraphTest is functional tests for Grapher
  */
-class FullGraphTest extends \PHPUnit_Framework_TestCase
+class FullGraphTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
     protected $compiler;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $conf = array('calling' => array());
 

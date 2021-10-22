@@ -11,7 +11,7 @@ use Trismegiste\Mondrian\Visitor\Vertex\Collector;
 /**
  * CollectorTest is simple tests for Vertex\Collector visitor
  */
-class CollectorTest extends \PHPUnit_Framework_TestCase
+class CollectorTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $visitor;
@@ -19,7 +19,7 @@ class CollectorTest extends \PHPUnit_Framework_TestCase
     protected $vertex;
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->reflection = $this->getMockBuilder('Trismegiste\Mondrian\Transform\ReflectionContext')
                 ->getMock();

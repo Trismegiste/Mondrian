@@ -6,8 +6,10 @@
 
 namespace Trismegiste\Mondrian\Tests\Graph;
 
-use Trismegiste\Mondrian\Graph\FloydWarshall;
+use PHPUnit\Framework\TestCase;
+use Trismegiste\Mondrian\Algebra\Matrix;
 use Trismegiste\Mondrian\Graph\Digraph;
+use Trismegiste\Mondrian\Graph\FloydWarshall;
 use Trismegiste\Mondrian\Graph\Vertex;
 
 /**
@@ -15,19 +17,19 @@ use Trismegiste\Mondrian\Graph\Vertex;
  *
  * @author florent
  */
-class FloydWarshallTest extends \PHPUnit_Framework_TestCase
+class FloydWarshallTest extends TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->graph = new FloydWarshall(new Digraph());
     }
 
     public function testEmptyGraph()
     {
-        $this->graph->getDistance();
+        $this->assertInstanceOf(Matrix::class, $this->graph->getDistance());
     }
 
     public function testChain()

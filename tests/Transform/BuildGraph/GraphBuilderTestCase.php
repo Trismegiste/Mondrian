@@ -13,7 +13,7 @@ use Trismegiste\Mondrian\Parser\BuilderFactory;
 /**
  * GraphBuilderTestCase is a generic test for the builder compiler
  */
-abstract class GraphBuilderTestCase extends \PHPUnit_Framework_TestCase
+abstract class GraphBuilderTestCase extends \PHPUnit\Framework\TestCase
 {
 
     protected $builder;
@@ -21,7 +21,7 @@ abstract class GraphBuilderTestCase extends \PHPUnit_Framework_TestCase
     protected $logger;
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $conf = array('calling' => array());
         $this->graph = $this->getMock('Trismegiste\Mondrian\Graph\Graph');

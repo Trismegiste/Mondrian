@@ -14,12 +14,12 @@ use Trismegiste\Mondrian\Transform\Vertex;
  * CouplingMakerTest tests CouplingMaker analysis
  *
  */
-class CouplingMakerTest extends \PHPUnit_Framework_TestCase
+class CouplingMakerTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->graph = new CouplingMaker(new Digraph());
     }

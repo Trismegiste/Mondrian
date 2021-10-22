@@ -11,13 +11,13 @@ use Trismegiste\Mondrian\Visitor\FqcnHelper;
 /**
  * FqcnHelperTest tests helper methods provided by FqcnHelper
  */
-class FqcnHelperTest extends \PHPUnit_Framework_TestCase
+class FqcnHelperTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $visitor;
     protected $traverser;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->visitor = new FqcnHelperStub();
         $this->traverser = new \PHPParser_NodeTraverser();

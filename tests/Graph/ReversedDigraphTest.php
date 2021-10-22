@@ -13,12 +13,12 @@ use Trismegiste\Mondrian\Graph\Vertex;
 /**
  * ReversedDigraphTest is a test class for ReversedDigraph
  */
-class ReversedDigraphTest extends \PHPUnit_Framework_TestCase
+class ReversedDigraphTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->graph = new ReversedDigraph(new Digraph());
     }

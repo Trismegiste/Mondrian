@@ -13,12 +13,12 @@ use Trismegiste\Mondrian\Graph\Digraph;
 /**
  * PowerIterationTest is a
  */
-class PowerIterationTest extends \PHPUnit_Framework_TestCase
+class PowerIterationTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->graph = new PowerIteration(new Digraph());
 
@@ -37,7 +37,7 @@ class PowerIterationTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    protected function tearDown()
+    protected function tearDown():void
     {
         unset($this->graph);
     }

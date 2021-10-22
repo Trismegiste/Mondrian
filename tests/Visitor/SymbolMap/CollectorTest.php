@@ -14,7 +14,7 @@ use Trismegiste\Mondrian\Tests\Fixtures\MockSplFileInfo;
 /**
  * CollectorTest is a test for the visitor SymbolMap\Collector
  */
-class CollectorTest extends \PHPUnit_Framework_TestCase
+class CollectorTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $symbol = array();

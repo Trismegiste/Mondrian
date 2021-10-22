@@ -12,12 +12,12 @@ use Trismegiste\Mondrian\Graph\Vertex;
 /**
  * GraphContextTest tests for vertex mapping Context
  */
-class GraphContextTest extends \PHPUnit_Framework_TestCase
+class GraphContextTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $context;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->context = new GraphContext(array('calling' => array()), $this->getLoggerMock());
     }

@@ -11,7 +11,7 @@ use Trismegiste\Mondrian\Visitor\VisitorGateway;
 /**
  * VisitorGatewayTest tests the VisitorGateway
  */
-class VisitorGatewayTest extends \PHPUnit_Framework_TestCase
+class VisitorGatewayTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $reflectionCtx;
@@ -42,7 +42,7 @@ class VisitorGatewayTest extends \PHPUnit_Framework_TestCase
         return $state;
     }
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->reflectionCtx = $this->getMock('Trismegiste\Mondrian\Transform\ReflectionContext');
         $this->graphCtx = $this->getMockBuilder('Trismegiste\Mondrian\Transform\GraphContext')

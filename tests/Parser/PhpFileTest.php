@@ -11,12 +11,12 @@ use Trismegiste\Mondrian\Parser\PhpFile;
 /**
  * PhpFileTest tests PhpFile
  */
-class PhpFileTest extends \PHPUnit_Framework_TestCase
+class PhpFileTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $obj;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->obj = new PhpFile('abc', array());
     }

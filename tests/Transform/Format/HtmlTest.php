@@ -11,7 +11,7 @@ use Trismegiste\Mondrian\Transform\Format\Html;
 /**
  * HtmlTest is a test for Html decorator for digraph
  */
-class HtmlTest extends \PHPUnit_Framework_TestCase
+class HtmlTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testEmpty()

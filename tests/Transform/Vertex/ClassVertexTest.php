@@ -13,7 +13,7 @@ use Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis;
 /**
  * ClassVertexTest is an class vertex
  */
-class ClassVertexTest extends \PHPUnit_Framework_TestCase
+class ClassVertexTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testCompactLabelWithoutNS()

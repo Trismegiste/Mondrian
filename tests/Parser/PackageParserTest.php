@@ -11,13 +11,13 @@ use Trismegiste\Mondrian\Parser\PackageParser;
 /**
  * PackageParserTest tests a parser of Package
  */
-class PackageParserTest extends \PHPUnit_Framework_TestCase
+class PackageParserTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $package;
     protected $parser;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->parser = $this->getMockBuilder('PHPParser_Parser')
                 ->disableOriginalConstructor()

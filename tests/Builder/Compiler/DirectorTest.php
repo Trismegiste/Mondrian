@@ -11,13 +11,13 @@ use Trismegiste\Mondrian\Builder\Compiler\Director;
 /**
  * DirectorTest tests the director that builds the Compiler with the help of the builder
  */
-class DirectorTest extends \PHPUnit_Framework_TestCase
+class DirectorTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $director;
     protected $builder;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->builder = $this->getMock('Trismegiste\Mondrian\Builder\Compiler\BuilderInterface');
         $this->director = new Director($this->builder);

@@ -13,12 +13,12 @@ use Trismegiste\Mondrian\Visitor\PublicCollector;
  *
  * @author flo
  */
-class PublicCollectorTest extends \PHPUnit_Framework_TestCase
+class PublicCollectorTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $visitor;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->visitor = $this->getMockForAbstractClass('Trismegiste\Mondrian\Visitor\PublicCollector');
     }

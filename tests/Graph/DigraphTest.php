@@ -20,11 +20,9 @@ class DigraphTest extends GraphTest
         return new Digraph();
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testNoLoop()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $v = new Vertex('f');
         $this->graph->addEdge($v, $v);
     }

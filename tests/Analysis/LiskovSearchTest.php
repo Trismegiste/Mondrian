@@ -14,12 +14,12 @@ use Trismegiste\Mondrian\Transform\Vertex;
  * LiskovSearchTest tests LiskovSearch analysis
  *
  */
-class LiskovSearchTest extends \PHPUnit_Framework_TestCase
+class LiskovSearchTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->graph = new LiskovSearch(new Digraph());
         $this->reduced = new Digraph();

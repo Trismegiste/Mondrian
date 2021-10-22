@@ -11,12 +11,12 @@ use Trismegiste\Mondrian\Transform\Logger\GraphLogger;
 /**
  * GraphLoggerTest tests the logger of graph building
  */
-class GraphLoggerTest extends \PHPUnit_Framework_TestCase
+class GraphLoggerTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $logger;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->logger = new GraphLogger();
     }

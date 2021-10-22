@@ -15,13 +15,13 @@ use Trismegiste\Mondrian\Analysis\Strategy\ByCalling;
  * SpaghettiCouplingTest tests SpaghettiCoupling analysis
  *
  */
-class SpaghettiCouplingTest extends \PHPUnit_Framework_TestCase
+class SpaghettiCouplingTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
     protected $reduced;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->graph = new SpaghettiCoupling(new Digraph());
         $this->reduced = new Digraph();

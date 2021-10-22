@@ -12,13 +12,13 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * TestTemplate is a test template for Command
  */
-abstract class TestTemplate extends \PHPUnit_Framework_TestCase
+abstract class TestTemplate extends \PHPUnit\Framework\TestCase
 {
 
     protected $application;
     protected $cmdName;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->application = new Application();
         $command = $this->createCommand();

@@ -11,7 +11,7 @@ use Trismegiste\Mondrian\Builder\Statement\Builder;
 /**
  * BuilderTest tests the build of the parser
  */
-class BuilderTest extends \PHPUnit_Framework_TestCase
+class BuilderTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $parser;
@@ -21,7 +21,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         return new \Trismegiste\Mondrian\Tests\Fixtures\MockSplFileInfo(($absolute), $content);
     }
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->parser = new Builder();
         $this->parser->buildLexer();

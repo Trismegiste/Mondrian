@@ -14,12 +14,12 @@ use Trismegiste\Mondrian\Transform\Vertex;
  * CodeMetricsTest tests CodeMetrics analysis
  *
  */
-class CodeMetricsTest extends \PHPUnit_Framework_TestCase
+class CodeMetricsTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->graph = new CodeMetrics(new Digraph());
     }

@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Graph\Digraph;
 /**
  * SvgTest is a test for SvgTest decorator
  */
-class SvgTest extends \PHPUnit_Framework_TestCase
+class SvgTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testExists()

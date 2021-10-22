@@ -11,12 +11,12 @@ use Trismegiste\Mondrian\Transform\ReflectionContext;
 /**
  * ReflectionContextTest tests for ReflectionContext
  */
-class ReflectionContextTest extends \PHPUnit_Framework_TestCase
+class ReflectionContextTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $context;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->context = new ReflectionContext();
     }

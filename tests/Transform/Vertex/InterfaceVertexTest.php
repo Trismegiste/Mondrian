@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis;
 /**
  * InterfaceVertexTest is an interface vertex
  */
-class InterfaceVertexTest extends \PHPUnit_Framework_TestCase
+class InterfaceVertexTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testCompactLabelWithoutNS()

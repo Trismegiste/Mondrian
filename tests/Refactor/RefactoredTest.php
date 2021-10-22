@@ -11,12 +11,12 @@ use Trismegiste\Mondrian\Refactor\Refactored;
 /**
  * RefactoredTest tests for refactoring context
  */
-class RefactoredTest extends \PHPUnit_Framework_TestCase
+class RefactoredTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $content;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->content = new Refactored();
         $this->content->pushNewContract('Glass', 'Prison');

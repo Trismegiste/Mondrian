@@ -11,12 +11,12 @@ use Trismegiste\Mondrian\Parser\BuilderFactory;
 /**
  * BuilderFactoryTest tests the enhanced builder factory with PhpFile node 
  */
-class BuilderFactoryTest extends \PHPUnit_Framework_TestCase
+class BuilderFactoryTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $factory;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->factory = new BuilderFactory();
     }

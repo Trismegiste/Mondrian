@@ -15,13 +15,13 @@ use Trismegiste\Mondrian\Graph\Vertex;
 /**
  * TestTemplate is a unit test template for strategy
  */
-abstract class TestTemplate extends \PHPUnit_Framework_TestCase
+abstract class TestTemplate extends \PHPUnit\Framework\TestCase
 {
 
     protected $strategy;
     protected $result;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->result = new Digraph();
         $this->strategy = $this->createStrategy($this->result);

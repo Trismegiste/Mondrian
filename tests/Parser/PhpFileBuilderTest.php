@@ -11,12 +11,12 @@ use Trismegiste\Mondrian\Parser\PhpFileBuilder;
 /**
  * PhpFileBuilderTest test the builder of PhpFile
  */
-class PhpFileBuilderTest extends \PHPUnit_Framework_TestCase
+class PhpFileBuilderTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $builder;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->builder = new PhpFileBuilder('abc.php');
     }

@@ -13,19 +13,19 @@ use Trismegiste\Mondrian\Graph\Edge;
 /**
  * SearchPathTest is a template method for testing path search algorithm
  */
-abstract class SearchPathTest extends \PHPUnit_Framework_TestCase
+abstract class SearchPathTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->graph = $this->createGraph(new Digraph());
     }
 
     abstract protected function createGraph(Digraph $g);
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->graph);
     }

@@ -11,13 +11,13 @@ use Trismegiste\Mondrian\Visitor\NewContractCollector;
 /**
  * NewContractCollectorTest is a test for NewContractCollector
  */
-class NewContractCollectorTest extends \PHPUnit_Framework_TestCase
+class NewContractCollectorTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $visitor;
     protected $context;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->context = $this->getMockBuilder('Trismegiste\Mondrian\Refactor\Refactored')
                 ->getMock();

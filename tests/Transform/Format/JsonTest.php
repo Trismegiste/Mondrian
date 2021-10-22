@@ -11,7 +11,7 @@ use Trismegiste\Mondrian\Transform\Format\Json;
 /**
  * JsonTest tests the Json
  */
-class JsonTest extends \PHPUnit_Framework_TestCase
+class JsonTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testSimple()

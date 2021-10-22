@@ -12,13 +12,13 @@ use Trismegiste\Mondrian\Parser\PhpFile;
 /**
  * ParamRefactorTest is a test for ParamRefactor
  */
-class ParamRefactorTest extends \PHPUnit_Framework_TestCase
+class ParamRefactorTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $visitor;
     protected $context;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->context = $this->getMockBuilder('Trismegiste\Mondrian\Refactor\Refactored')
                 ->getMock();

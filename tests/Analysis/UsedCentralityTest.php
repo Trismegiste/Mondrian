@@ -14,12 +14,12 @@ use Trismegiste\Mondrian\Transform\Vertex;
  * UsedCentralityTest tests Centrality analysis
  *
  */
-class UsedCentralityTest extends \PHPUnit_Framework_TestCase
+class UsedCentralityTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->graph = new UsedCentrality(new Digraph());
     }

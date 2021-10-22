@@ -11,12 +11,12 @@ use Trismegiste\Mondrian\Transform\Format\Factory;
 /**
  * FactoryTest is a test for factory exporter
  */
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $fac;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->fac = new Factory();
     }

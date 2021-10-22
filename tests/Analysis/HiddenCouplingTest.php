@@ -14,12 +14,12 @@ use Trismegiste\Mondrian\Transform\Vertex;
  * HiddenCouplingTest tests HiddenCoupling analysis
  *
  */
-class HiddenCouplingTest extends \PHPUnit_Framework_TestCase
+class HiddenCouplingTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->graph = new HiddenCoupling(new Digraph());
     }

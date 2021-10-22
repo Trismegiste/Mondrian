@@ -14,12 +14,12 @@ use Trismegiste\Mondrian\Transform\Vertex;
  * CycleTest tests Cycle analysis
  *
  */
-class CycleTest extends \PHPUnit_Framework_TestCase
+class CycleTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->graph = new Cycle(new Digraph());
     }

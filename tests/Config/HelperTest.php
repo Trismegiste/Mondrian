@@ -11,7 +11,7 @@ use Trismegiste\Mondrian\Config\Helper;
 /**
  * HelperTest tests the helper of config
  */
-class HelperTest extends \PHPUnit_Framework_TestCase
+class HelperTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testDefaultCfg()

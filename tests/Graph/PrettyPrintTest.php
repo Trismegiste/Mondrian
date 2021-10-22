@@ -13,17 +13,17 @@ use Trismegiste\Mondrian\Graph\Digraph;
 /**
  * PrettyPrintTest is a test for the PrettyPrint decorator
  */
-class PrettyPrintTest extends \PHPUnit_Framework_TestCase
+class PrettyPrintTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->graph = new PrettyPrint(new Digraph());
     }
 
-    protected function tearDown()
+    protected function tearDown():void
     {
         unset($this->graph);
     }

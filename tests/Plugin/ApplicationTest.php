@@ -11,12 +11,12 @@ use Trismegiste\Mondrian\Plugin\Application;
 /**
  * ApplicationTest is the Application class with plugin
  */
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class ApplicationTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $sut;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->sut = new Application();
     }

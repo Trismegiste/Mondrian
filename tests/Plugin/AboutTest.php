@@ -12,13 +12,13 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * AboutTest tests the About command
  */
-class AboutTest extends \PHPUnit_Framework_TestCase
+class AboutTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $application;
     protected $cmdName;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->application = new Plugin\Application();
         $command = new Plugin\About();

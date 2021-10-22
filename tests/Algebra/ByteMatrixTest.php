@@ -11,12 +11,12 @@ use Trismegiste\Mondrian\Algebra\ByteMatrix;
 /**
  * ByteMatrixTest is a test of ByteMatrix
  */
-class ByteMatrixTest extends \PHPUnit_Framework_TestCase
+class ByteMatrixTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $matrix;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->matrix = new ByteMatrix(3);
     }

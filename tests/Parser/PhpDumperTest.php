@@ -12,7 +12,7 @@ use Trismegiste\Mondrian\Parser\PhpFile;
 /**
  * PhpDumperTest tests the dumper
  */
-class PhpDumperTest extends \PHPUnit_Framework_TestCase
+class PhpDumperTest extends \PHPUnit\Framework\TestCase
 {
 
     public function getNode()

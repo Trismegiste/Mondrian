@@ -12,13 +12,13 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * RefactorTestCase is a test template for refactoring Command
  */
-abstract class RefactorTestCase extends \PHPUnit_Framework_TestCase
+abstract class RefactorTestCase extends \PHPUnit\Framework\TestCase
 {
 
     protected $application;
     protected $cmdName;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->application = new Application();
         $command = $this->createCommand();

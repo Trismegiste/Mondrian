@@ -34,7 +34,7 @@ class PublicCollectorStub extends PublicCollector
         $this->testCase->assertEquals('The\Sixteen\MenOfTain::eidolon', $this->getCurrentMethodIndex());
     }
 
-    public function __construct(\PHPUnit_Framework_TestCase $track)
+    public function __construct(\PHPUnit\Framework\TestCase $track)
     {
         $this->testCase = $track;
     }

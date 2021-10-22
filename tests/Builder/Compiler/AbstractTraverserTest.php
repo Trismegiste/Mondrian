@@ -12,12 +12,12 @@ use Trismegiste\Mondrian\Parser\PhpFile;
 /**
  * AbstractTraverserTest tests the building a traverser
  */
-class AbstractTraverserTest extends \PHPUnit_Framework_TestCase
+class AbstractTraverserTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $builder;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->builder = $this->getMockForAbstractClass('Trismegiste\Mondrian\Builder\Compiler\AbstractTraverser');
     }

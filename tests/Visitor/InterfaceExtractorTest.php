@@ -12,14 +12,14 @@ use Trismegiste\Mondrian\Parser\PhpFile;
 /**
  * InterfaceExtractorTest tests for InterfaceExtractor
  */
-class InterfaceExtractorTest extends \PHPUnit_Framework_TestCase
+class InterfaceExtractorTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $visitor;
     protected $context;
     protected $dumper;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->dumper = $this->getMockForAbstractClass('Trismegiste\Mondrian\Parser\PhpPersistence');
         $this->context = $this->getMockBuilder('Trismegiste\Mondrian\Refactor\Refactored')

@@ -17,7 +17,7 @@ use Trismegiste\Mondrian\Refactor\ContractorBuilder;
 class DoNothingTest extends RefactorTemplate
 {
 
-    protected function setUp()
+    protected function setUp():void
     {
         parent::setUp();
         $this->coder = new Linking(

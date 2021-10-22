@@ -24,7 +24,7 @@ class VirtualPhpDumper extends PhpDumper implements \IteratorAggregate
     /**
      * Init VFS
      */
-    public function __construct(\PHPUnit_Framework_TestCase $testCase, $baseDir)
+    public function __construct(\PHPUnit\Framework\TestCase $testCase, $baseDir)
     {
         $this->testCase = $testCase;
         $this->directory = $baseDir;

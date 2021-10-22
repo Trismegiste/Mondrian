@@ -17,7 +17,7 @@ use Trismegiste\Mondrian\Refactor\FactoryGenBuilder;
 class ParseAndFactoryTest extends RefactorTemplate
 {
 
-    protected function setUp()
+    protected function setUp():void
     {
         parent::setUp();
         $this->coder = new Linking(

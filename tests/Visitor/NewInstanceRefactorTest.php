@@ -11,13 +11,13 @@ use Trismegiste\Mondrian\Visitor\NewInstanceRefactor;
 /**
  * NewInstanceRefactorTest is a test for NewInstanceRefactor
  */
-class NewInstanceRefactorTest extends \PHPUnit_Framework_TestCase
+class NewInstanceRefactorTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $visitor;
     protected $dumper;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->dumper = $this->getMockForAbstractClass('Trismegiste\Mondrian\Parser\PhpPersistence');
         $this->visitor = new NewInstanceRefactor($this->dumper);

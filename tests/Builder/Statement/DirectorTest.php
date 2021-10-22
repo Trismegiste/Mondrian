@@ -13,13 +13,13 @@ use Trismegiste\Mondrian\Builder\Statement\Director;
  *
  * @author flo
  */
-class DirectorTest extends \PHPUnit_Framework_TestCase
+class DirectorTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $director;
     protected $builder;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->builder = $this->getMock('Trismegiste\Mondrian\Builder\Statement\BuilderInterface');
         $this->director = new Director($this->builder);

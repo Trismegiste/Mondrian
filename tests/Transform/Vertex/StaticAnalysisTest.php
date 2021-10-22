@@ -9,12 +9,12 @@ namespace Trismegiste\Mondrian\Tests\Transform\Vertex;
 /**
  * StaticAnalysisTest is a test for StaticAnalysis vertex superclass
  */
-class StaticAnalysisTest extends \PHPUnit_Framework_TestCase
+class StaticAnalysisTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $vertex;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->vertex = $this
                 ->getMockForAbstractClass('Trismegiste\Mondrian\Transform\Vertex\StaticAnalysis', array('a'));

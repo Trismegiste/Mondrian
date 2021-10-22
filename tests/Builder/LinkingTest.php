@@ -11,14 +11,14 @@ use Trismegiste\Mondrian\Builder\Linking;
 /**
  * LinkingTest tests the facade for compilers
  */
-class LinkingTest extends \PHPUnit_Framework_TestCase
+class LinkingTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $facade;
     protected $parser;
     protected $compiler;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->parser = $this->getMock('Trismegiste\Mondrian\Builder\Statement\BuilderInterface');
         $this->compiler = $this->getMock('Trismegiste\Mondrian\Builder\Compiler\BuilderInterface');

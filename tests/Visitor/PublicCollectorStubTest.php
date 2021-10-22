@@ -9,13 +9,13 @@ namespace Trismegiste\Mondrian\Tests\Visitor;
 /**
  * PublicCollectorStubTest tests for PublicCollectorStub visitor
  */
-class PublicCollectorStubTest extends \PHPUnit_Framework_TestCase
+class PublicCollectorStubTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $visitor;
     protected $traverser;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->visitor = new PublicCollectorStub($this);
         $this->traverser = new \PHPParser_NodeTraverser();

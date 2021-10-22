@@ -17,13 +17,13 @@ use Trismegiste\Mondrian\Tests\Fixtures\MockSplFileInfo;
 /**
  * ParseAndGraphTest tests for Grapher
  */
-class ParseAndGraphTest extends \PHPUnit_Framework_TestCase
+class ParseAndGraphTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $compiler;
     protected $graph;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $conf = array('calling' => array());
 

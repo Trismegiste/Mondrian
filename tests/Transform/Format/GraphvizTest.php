@@ -13,7 +13,7 @@ use Trismegiste\Mondrian\Transform\Vertex\ClassVertex;
 /**
  * GraphvizTest is a test for Graphviz decorator
  */
-class GraphvizTest extends \PHPUnit_Framework_TestCase
+class GraphvizTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testEmpty()

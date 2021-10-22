@@ -11,19 +11,19 @@ use Trismegiste\Mondrian\Graph\Vertex;
 /**
  * GraphTest is a template test for a graph subclass
  */
-abstract class GraphTest extends \PHPUnit_Framework_TestCase
+abstract class GraphTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $graph;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->graph = $this->createGraphInstance();
     }
 
     abstract protected function createGraphInstance();
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->graph);
     }
