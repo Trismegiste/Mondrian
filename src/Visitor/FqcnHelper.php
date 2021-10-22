@@ -6,14 +6,13 @@
 
 namespace Trismegiste\Mondrian\Visitor;
 
-use PHPParser_NodeVisitorAbstract;
-use PHPParser_Node;
-use PHPParser_Error;
+use PhpParser\NodeVisitorAbstract;
+use PhpParser\Node;
 
 /**
  * FqcnHelper is an helper for resolving FQCN for Class/Interface/Param
  */
-class FqcnHelper extends PHPParser_NodeVisitorAbstract
+class FqcnHelper extends NodeVisitorAbstract
 {
 
     /**
@@ -38,9 +37,8 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
         $this->aliases = array();
     }
 
-    public function enterNode(PHPParser_Node $node)
+    public function enterNode(Node $node)
     {
-
         switch ($node->getType()) {
 
             case 'PhpFile' :
@@ -56,14 +54,14 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
                 break;
 
             case 'Stmt_UseUse' :
-                if (isset($this->aliases[$node->alias])) {
-                    throw new PHPParser_Error(
-                    sprintf(
-                            'Cannot use "%s" as "%s" because the name is already in use', $node->name, $node->alias
-                    ), $node->getLine()
+                if (array_key_exists((string) $node->alias, $this->aliases)) {
+                    throw new \PhpParser\Error(
+                                    sprintf(
+                                            'Cannot use "%s" as "%s" because the name is already in use', $node->name, $node->alias
+                                    ), $node->getLine()
                     );
                 }
-                $this->aliases[$node->alias] = $node->name;
+                $this->aliases[(string) $node->alias] = $node->name;
                 break;
         }
     }
@@ -71,10 +69,10 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
     /**
      * resolve the Name with current namespace and alias
      *
-     * @param \PHPParser_Node_Name $src
-     * @return \PHPParser_Node_Name|\PHPParser_Node_Name_FullyQualified
+     * @param \PhpParser\Node\Name $src
+     * @return \PhpParser\Node\Name | \PhpParser\Node\Name\FullyQualified
      */
-    protected function resolveClassName(\PHPParser_Node_Name $src)
+    protected function resolveClassName(Node\Name $src)
     {
         $name = clone $src;
         // don't resolve special class names
@@ -95,7 +93,7 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
             $name->prepend($this->namespace);
         }
 
-        return new \PHPParser_Node_Name_FullyQualified($name->parts, $name->getAttributes());
+        return new \PHPParser\Node\Name\FullyQualified($name->parts, $name->getAttributes());
     }
 
     /**
@@ -104,7 +102,7 @@ class FqcnHelper extends PHPParser_NodeVisitorAbstract
      * @param PHPParser_Node $node
      * @return string
      */
-    protected function getNamespacedName(PHPParser_Node $node)
+    protected function getNamespacedName(Node $node)
     {
         if (null !== $this->namespace) {
             $namespacedName = clone $this->namespace;

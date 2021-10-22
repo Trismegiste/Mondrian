@@ -19,18 +19,18 @@ class AbstractTraverserTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp():void
     {
-        $this->builder = $this->getMockForAbstractClass('Trismegiste\Mondrian\Builder\Compiler\AbstractTraverser');
+        $this->builder = $this->getMockForAbstractClass(\Trismegiste\Mondrian\Builder\Compiler\AbstractTraverser::class);
     }
 
     public function testTraverser()
     {
-        $obj = $this->builder->buildTraverser($this->getMock('Trismegiste\Mondrian\Visitor\FqcnHelper'));
-        $this->assertInstanceOf('PHPParser_NodeTraverser', $obj);
+        $obj = $this->builder->buildTraverser($this->createMock(\Trismegiste\Mondrian\Visitor\FqcnHelper::class));
+        $this->assertInstanceOf(\PhpParser\NodeTraverser::class, $obj);
     }
 
     public function testWithDirector()
     {
-        $visitor = $this->getMock('Trismegiste\Mondrian\Visitor\FqcnHelper');
+        $visitor = $this->createMock(\Trismegiste\Mondrian\Visitor\FqcnHelper::class);
 
         $this->builder
                 ->expects($this->once())

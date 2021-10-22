@@ -17,30 +17,28 @@ class FqcnHelperTest extends \PHPUnit\Framework\TestCase
     protected $visitor;
     protected $traverser;
 
-    protected function setUp():void
+    protected function setUp(): void
     {
         $this->visitor = new FqcnHelperStub();
-        $this->traverser = new \PHPParser_NodeTraverser();
+        $this->traverser = new \PhpParser\NodeTraverser();
         $this->traverser->addVisitor($this->visitor);
     }
 
-    /**
-     * @expectedException PHPParser_Error
-     */
     public function testDoubleAlias()
     {
+        $this->expectException(\PhpParser\Error::class);
         $node = array(
-            new \PHPParser_Node_Stmt_UseUse(new \PHPParser_Node_Name('Simple\Aliasing'), 'ItFails'),
-            new \PHPParser_Node_Stmt_UseUse(new \PHPParser_Node_Name('Double\Aliasing'), 'ItFails'),
+            new \PhpParser\Node\Stmt\UseUse(new \PhpParser\Node\Name('Simple\Aliasing'), 'ItFails'),
+            new \PhpParser\Node\Stmt\UseUse(new \PhpParser\Node\Name('Double\Aliasing'), 'ItFails'),
         );
         $this->traverser->traverse($node);
     }
 
     public function testResolution()
     {
-        $node[0] = new \PHPParser_Node_Stmt_Namespace(new \PHPParser_Node_Name('Wrath\Of'));
-        $node[1] = new \PHPParser_Node_Stmt_Class('TheNorsemen');
-        $node[1]->extends = new \PHPParser_Node_Name('Khan');
+        $node[0] = new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name('Wrath\Of'));
+        $node[1] = new \PhpParser\Node\Stmt\Class_('TheNorsemen');
+        $node[1]->extends = new \PhpParser\Node\Name('Khan');
 
         $this->traverser->traverse($node);
         $this->assertEquals('Wrath\Of\Khan', $node[1]->getAttribute('unit-test'));
@@ -115,7 +113,7 @@ class FqcnHelperTest extends \PHPUnit\Framework\TestCase
 class FqcnHelperStub extends FqcnHelper
 {
 
-    public function enterNode(\PHPParser_Node $node)
+    public function enterNode(\PhpParser\Node $node)
     {
         parent::enterNode($node);
 
